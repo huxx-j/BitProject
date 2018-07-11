@@ -18,4 +18,9 @@ public class ApplicantDao {
 		
 		return sqlSession.selectList("applicant.getCurriList");
 	}
+	
+	/*public List<StudentVo> serch(CurriculumVo curriVo){
+		
+		return sqlSession.selectList("student.getValStudent",curriVo);
+	}*/
 }

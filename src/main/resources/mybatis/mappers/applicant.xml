@@ -21,7 +21,7 @@
 		<result column="DatailViewFlag" property="datailViewFlag" />
 	</resultMap>
 
-<select id="getCurriList" resultMap="rm">
+<select id="getCurriList" resultType="com.bitacademy.vo.CurriculumVo">
 
 <![CDATA[
 		select * from Curriculum;

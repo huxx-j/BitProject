@@ -73,16 +73,17 @@
 			 								<tr>
 												<td>
 			                    					<select class="form-control input-sm">
-			                    						<c:forEach items = "${curriList}" var = "curriList">
-			                    							<option>${curriList.WorkType}</option>
+			                    						<c:forEach items = "${requestScope.curriList}" var = "curriList">
+			                    							<option>${curriList.workType}</option>
 			                    						</c:forEach>
 			                  						</select>
 			                  					</td>
 			                  					<td>
 			                    					<select class="form-control input-sm">
-			                    						<option>국가기관</option>
-			                    						<option>대학캠퍼스</option>
-			                  						</select>
+				                  						<c:forEach items = "${requestScope.curriList}" var = "curriList">
+				                    						<option>${curriList.curriName}</option>
+				                  						</c:forEach>
+				                  					</select>
 			                  					</td>
 			                  					<td>
 			                    					<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>

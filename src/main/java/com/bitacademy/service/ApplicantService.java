@@ -19,4 +19,9 @@ public class ApplicantService {
 		
 		return applicantDao.getCurriList();
 	}
+	
+	/*public List<StudentVo> serch(CurriculumVo curriVo){
+		
+		return applicantDao.serch(curriVo);
+	}*/
 }
