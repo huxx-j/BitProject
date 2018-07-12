@@ -34,7 +34,6 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -45,7 +44,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -59,7 +58,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -70,7 +69,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -81,7 +80,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -92,7 +91,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -103,7 +102,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -117,7 +116,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -128,7 +127,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                     <tr>
@@ -139,7 +138,7 @@
                         <td class="a_c"><input style="width: 70%" type="text" readonly>
                             &ensp;
                             <input type="checkbox"></td>
-                        </td>
+
                         <td class="a_c"><input type="text"></td>
                     </tr>
                 </table>

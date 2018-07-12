@@ -51,35 +51,22 @@
                             <tr>
                                 <th style="width: 30%">업무구분</th>
                                 <th style="width: 30%">교육과정(반) 명</th>
-                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel">
-                                    &ensp;전체 &ensp;
-                                    <input type="radio" name="ra_sel" checked>
-                                    &ensp;수업중</th>
+                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel" value="all">&ensp;전체 &ensp;
+                                    <input type="radio" name="ra_sel" value="ongoing" checked>&ensp;수업중</th>
                             </tr>
                             <tr>
-                                <td><select style="width:70%">
-                                    <option>국가기간</option>
-                                    <option>단기핵심</option>
-                                    <option>전문가</option>
-                                    <option>기업교육</option>
+                                <td><select id="workTypeSelect" style="width:70%">
+                                    <c:forEach items="${workType}" var="wt">
+                                        <option id="${wt}" value="${wt}">${wt}</option>
+                                    </c:forEach>
                                 </select></td>
-                                <td colspan="2"><select style="width: 90%">
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
+                                <td colspan="2" id="curriTd"><select id="curriSelect" style="width: 90%">
                                 </select></td>
                             </tr>
-                            <!--
-                              <tr>
-                                <td colspan="2" align="center"><button type="button" class="btn btn-xs bg-gray" style="padding: 0 40px">조회</button></td>
-                              </tr>
-              -->
                         </table>
                     </div>
                     <div class="sub-toolbox text-center">
-                        <button type="button" class="btn btn-primary">조회</button>
+                        <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
                     </div>
                 </div>
                 <div class="box">
@@ -91,15 +78,15 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td colspan="3" style="width: 55%">KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</td>
+                                <td id="curriNameInfo" colspan="3" style="width: 55%">KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td style="width: 29%">KUKA18_RD01</td>
+                                <td id="gisuInfo" style="width: 29%">KUKA18_RD01</td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
-                                <td style="width: 42%">2019-01-19</td>
+                                <td id="periodFrInfo" style="width: 42%">2019-01-19</td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td colspan="3" style="width: 42%">2019-05-18</td>
+                                <td id="periodToInfo" colspan="3" style="width: 42%">2019-05-18</td>
                             </tr>
                         </table>
                     </div>
@@ -161,3 +148,95 @@
 </body>
 </html>
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selectValue = $("#workTypeSelect option:selected").val();
+
+        $.ajax({
+            url: "/api/cm/getcurri",
+            type: "post",
+            data: {"workType": selectValue},
+            dataType: "json",
+            success: function (list) {
+                $("#curriSelect").remove();
+                var str = "";
+                str += "<select id='curriSelect' style='width: 90%'></select>";
+
+                $("#curriTd").append(str);
+
+                for(var i =0; i<list.length; i++) {
+                    renderCurri(list[i])
+                }
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    });
+
+    $("#workTypeSelect").change(function () {
+        var selectValue = $("#workTypeSelect option:selected").val();
+
+        console.log(selectValue)
+
+        $.ajax({
+            url: "/api/cm/getcurri",
+            type: "post",
+            data: {"workType": selectValue},
+            dataType: "json",
+            success: function (list) {
+                $("#curriSelect").remove();
+                var str = "";
+                str += "<select id='curriSelect' style='width: 90%'></select>";
+
+                $("#curriTd").append(str);
+
+                for(var i =0; i<list.length; i++) {
+                    console.log(list[i])
+                    renderCurri(list[i])
+                }
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+
+    });
+
+    function renderCurri(curri) {
+        var str = "";
+        str += "<option value='"+curri.curriculum_no+"'>"+ curri.curriName +"</option>";
+
+        $("#curriSelect").append(str);
+    };
+
+    $("#curriSearchBtn").on("click", function () {
+       var currival = $("#curriSelect option:selected").val();
+       console.log(currival);
+        $.ajax({
+            url: "/api/cm/getcurriinfo",
+            type: "post",
+            data: {"currival": currival},
+            dataType: "json",
+            success: function (map) {
+                rederInfo(map);
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    });
+
+    function rederInfo(map) {
+        console.log(map.vo.curriName);
+        console.log(map.vo.periodFr);
+        console.log(map.vo.periodTo);
+        console.log(map.gisu);
+        $("#curriNameInfo").text(map.vo.curriName);
+        $("#gisuInfo").text(map.gisu);
+        $("#periodFrInfo").text(map.vo.periodFr);
+        $("#periodToInfo").text(map.vo.periodTo);
+    }
+
+</script>
