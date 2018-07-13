@@ -6,7 +6,7 @@
 
     <select id="getLectureReport" parameterType="LectureReportVo" resultType="LectureReportVo">
         <![CDATA[
-        SELECT Curriculum_no, Subject, Content, Instructor, ETC, Period from LectureReport where Curriculum_no=#{curriculum_no} and Date=#{date}
+        SELECT Curriculum_no, Subject, Content, Instructor, ETC, Period, Date from LectureReport where Curriculum_no=#{curriculum_no} and Date=#{date}
         ]]>
     </select>
 

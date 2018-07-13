@@ -18,6 +18,9 @@ public class ClassManagementController {
     public String main(Model model){
 
         model.addAttribute("workType",classManagementService.getWorkType());
+        model.addAttribute("date",classManagementService.getDate());
+        String date = classManagementService.getDate();
+        System.out.println(date);
 
         return "/class/classmanagement";
     }

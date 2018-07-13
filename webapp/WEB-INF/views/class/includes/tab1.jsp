@@ -3,7 +3,8 @@
     <div class="col-xs-12">
         <div class="box box-body">
             <div class="box-header with-border"> 강의일자
-                <input id="reportDate" type="date" placeholder="20yy-mm-dd" style="margin-left: 10px">
+                <input id="reportDate" type="date" value="${date}" style="margin-left: 10px">
+                <button id="reportCallBtn" type="button" class="btn btn-primary btn-call">불러오기</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

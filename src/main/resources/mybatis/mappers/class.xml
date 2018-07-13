@@ -16,5 +16,11 @@
         ]]>
     </select>
 
+    <select id="getDate" resultType="String">
+        <![CDATA[
+        select current_date from dual
+        ]]>
+    </select>
+
 
 </mapper>

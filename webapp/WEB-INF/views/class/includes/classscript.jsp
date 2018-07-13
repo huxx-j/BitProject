@@ -80,8 +80,10 @@
         $("#periodToInfo").text(map.vo.periodTo);
     }
 
+    $("#reportCallBtn").on("click", function () {
+        removeReport();
+        console.log($("#reportDate").val());
 
-    $("#reportDate").change(function () {
         lectureReportVo = {
             curriculum_no : $("#curriSelect option:selected").val(),
             date : $("#reportDate").val()
@@ -114,5 +116,14 @@
        $("#con"+i).val(LectureReportVo.content);
        $("#t"+i).val(LectureReportVo.instructor);
        $("#note"+i).val(LectureReportVo.note);
+   }
+
+   function removeReport() {
+       for (var i = 1; i <12; i++){
+           $("#sub"+i).val("");
+           $("#con"+i).val("");
+           $("#t"+i).val("");
+           $("#note"+i).val("");
+       }
    }
 </script>

@@ -46,4 +46,8 @@ public class ClassManagementService {
     public List<LectureReportVo> getLetureReport(LectureReportVo lectureReportVo) {
         return lectureReportDao.getLetureReport(lectureReportVo);
     }
+
+    public String getDate() {
+        return classManagementDao.getDate();
+    }
 }

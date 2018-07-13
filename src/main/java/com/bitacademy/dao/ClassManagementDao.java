@@ -19,4 +19,8 @@ public class ClassManagementDao {
     public List<String> getCurri(String workType) {
         return sqlSession.selectList("class.getCurri", workType);
     }
+
+    public String getDate() {
+        return sqlSession.selectOne("class.getDate");
+    }
 }

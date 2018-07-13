@@ -12,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <c:import url="/WEB-INF/views/includes/link.jsp" />
     <%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
 </head>
 <style type="text/css">
     .a_c {
