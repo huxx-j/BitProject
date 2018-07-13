@@ -2,12 +2,10 @@ package com.bitacademy.api.controller;
 
 import com.bitacademy.service.ClassManagementService;
 import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.LectureReportVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +29,14 @@ public class ClassManagerApiController {
         System.out.println(curriculum_no);
 
         return classManagementService.getCurriInfo(curriculum_no);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getLectureReport", method = RequestMethod.POST)
+    public List<LectureReportVo> getLectureReport(@RequestBody LectureReportVo lectureReportVo) {
+        System.out.println(lectureReportVo.toString());
+        List<LectureReportVo> list = classManagementService.getLetureReport(lectureReportVo);
+        System.out.println(list.toString());
+        return list;
     }
 }

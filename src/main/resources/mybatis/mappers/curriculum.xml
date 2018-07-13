@@ -10,13 +10,13 @@
         ]]>
     </select>
 
-    <select id="getCurri" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo">
+    <select id="getCurri" parameterType="String" resultType="CurriculumVo">
         <![CDATA[
         select Curriculum_no, CurriName from Curriculum where WorkType=#{workType}
         ]]>
     </select>
 
-    <select id="getCurriInfo" parameterType="Int" resultType="com.bitacademy.vo.CurriculumVo">
+    <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
         <![CDATA[
         select CurriName, PeriodFr, PeriodTo from Curriculum where Curriculum_no=#{curriculum_no};
         ]]>

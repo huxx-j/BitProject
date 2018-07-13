@@ -10,7 +10,7 @@
     <title>TCOMS ver2</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/link.jsp" />
     <%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
 
 </head>
@@ -23,8 +23,8 @@
 
 <div class="wrapper">
 
-    <c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-    <c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/header.jsp" />
+    <c:import url="/WEB-INF/views/includes/aside.jsp" />
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -78,15 +78,15 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td id="curriNameInfo" colspan="3" style="width: 55%">KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</td>
+                                <td id="curriNameInfo" colspan="3" style="width: 55%"></td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td id="gisuInfo" style="width: 29%">KUKA18_RD01</td>
+                                <td id="gisuInfo" style="width: 29%"></td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
-                                <td id="periodFrInfo" style="width: 42%">2019-01-19</td>
+                                <td id="periodFrInfo" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td id="periodToInfo" colspan="3" style="width: 42%">2019-05-18</td>
+                                <td id="periodToInfo" colspan="3" style="width: 42%"></td>
                             </tr>
                         </table>
                     </div>
@@ -106,19 +106,19 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-                                    <c:import url="includes/tab1.jsp"></c:import>
+                                    <c:import url="includes/tab1.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_2">
-                                    <c:import url="includes/tab2.jsp"></c:import>
+                                    <c:import url="includes/tab2.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_3">
-                                   <c:import url="includes/tab3.jsp"></c:import>
+                                   <c:import url="includes/tab3.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_4">
-                                    <c:import url="includes/tab4.jsp"></c:import>
+                                    <c:import url="includes/tab4.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_5">
-                                    <c:import url="includes/tab5.jsp"></c:import>
+                                    <c:import url="includes/tab5.jsp" />
                                 </div>
                             </div>
                             <!-- /.tab-content -->
@@ -135,7 +135,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/footer.jsp" />
 
     <div class="control-sidebar-bg"></div>
 
@@ -147,96 +147,6 @@
 
 </body>
 </html>
-<c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
+<c:import url="/WEB-INF/views/includes/script.jsp" />
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var selectValue = $("#workTypeSelect option:selected").val();
-
-        $.ajax({
-            url: "/api/cm/getcurri",
-            type: "post",
-            data: {"workType": selectValue},
-            dataType: "json",
-            success: function (list) {
-                $("#curriSelect").remove();
-                var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
-
-                $("#curriTd").append(str);
-
-                for(var i =0; i<list.length; i++) {
-                    renderCurri(list[i])
-                }
-            },
-            error: function (XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-    });
-
-    $("#workTypeSelect").change(function () {
-        var selectValue = $("#workTypeSelect option:selected").val();
-
-        console.log(selectValue)
-
-        $.ajax({
-            url: "/api/cm/getcurri",
-            type: "post",
-            data: {"workType": selectValue},
-            dataType: "json",
-            success: function (list) {
-                $("#curriSelect").remove();
-                var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
-
-                $("#curriTd").append(str);
-
-                for(var i =0; i<list.length; i++) {
-                    console.log(list[i])
-                    renderCurri(list[i])
-                }
-            },
-            error: function (XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-
-    });
-
-    function renderCurri(curri) {
-        var str = "";
-        str += "<option value='"+curri.curriculum_no+"'>"+ curri.curriName +"</option>";
-
-        $("#curriSelect").append(str);
-    };
-
-    $("#curriSearchBtn").on("click", function () {
-       var currival = $("#curriSelect option:selected").val();
-       console.log(currival);
-        $.ajax({
-            url: "/api/cm/getcurriinfo",
-            type: "post",
-            data: {"currival": currival},
-            dataType: "json",
-            success: function (map) {
-                rederInfo(map);
-            },
-            error: function (XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-    });
-
-    function rederInfo(map) {
-        console.log(map.vo.curriName);
-        console.log(map.vo.periodFr);
-        console.log(map.vo.periodTo);
-        console.log(map.gisu);
-        $("#curriNameInfo").text(map.vo.curriName);
-        $("#gisuInfo").text(map.gisu);
-        $("#periodFrInfo").text(map.vo.periodFr);
-        $("#periodToInfo").text(map.vo.periodTo);
-    }
-
-</script>
+<c:import url="includes/classscript.jsp" />
