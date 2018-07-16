@@ -1,0 +1,45 @@
+.btn-call {
+    padding: 0px;
+    margin-left: 10px;
+    margin-bottom: 4px;
+    width: 70px;
+}
+
+#currentCurriInfo {
+    width: 60%;
+    margin-left: 120px;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.box-success {
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+.small-box > .small-box-footer{
+    color: #0a0a0a; !important;
+}
+
+.btn-call-se {
+    padding: 0px;
+    margin-left: 10px;
+    /*margin-bottom: 4px;*/
+    width: 70px;
+}
+
+.modal-dialog-centered {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (0.5rem * 2));
+}
+
+.a_c {
+    text-align: center;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}

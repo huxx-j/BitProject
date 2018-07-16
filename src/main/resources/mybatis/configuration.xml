@@ -5,19 +5,26 @@
 
 <configuration>
     <typeAliases>
-        <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo" />
-        <typeAlias alias="ScholarshipVo" type="com.bitacademy.vo.ScholarshipVo" />
-        <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo" />
-        <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo" />
-        <typeAlias alias="LicenceVo" type="com.bitacademy.vo.LicenceVo" />
-        <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo" />
+        <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
+        <typeAlias alias="ScholarshipVo" type="com.bitacademy.vo.ScholarshipVo"/>
+        <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
+        <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo"/>
+        <typeAlias alias="LicenceVo" type="com.bitacademy.vo.LicenceVo"/>
+        <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo"/>
+        <typeAlias alias="CurriculumVo" type="com.bitacademy.vo.CurriculumVo"/>
+        <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mybatis/mappers/users.xml" />
-        <mapper resource="mybatis/mappers/userscholarship.xml" />
-        <mapper resource="mybatis/mappers/usertraining.xml" />
-        <mapper resource="mybatis/mappers/usercareer.xml" />
-        <mapper resource="mybatis/mappers/licence.xml" />
-        <mapper resource="mybatis/mappers/afterservice.xml" />
+        <mapper resource="mybatis/mappers/users.xml"/>
+        <mapper resource="mybatis/mappers/userscholarship.xml"/>
+        <mapper resource="mybatis/mappers/usertraining.xml"/>
+        <mapper resource="mybatis/mappers/usercareer.xml"/>
+        <mapper resource="mybatis/mappers/licence.xml"/>
+        <mapper resource="mybatis/mappers/afterservice.xml"/>
+        <mapper resource="mybatis/mappers/class.xml"/>
+        <mapper resource="mybatis/mappers/curriculum.xml"/>
+        <mapper resource="mybatis/mappers/gisu.xml"/>
+        <mapper resource="mybatis/mappers/lecturereport.xml"/>
+        <mapper resource="mybatis/mappers/project.xml"/>
     </mappers>
 </configuration>

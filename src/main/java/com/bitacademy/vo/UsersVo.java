@@ -9,6 +9,7 @@ public class UsersVo {
     private String password;
     private String birthDate;
     private String studResNum;
+    private String gender;
     private String address;
     private String familyAddress;
     private String postNum;
@@ -39,7 +40,7 @@ public class UsersVo {
     public UsersVo() {
     }
 
-    public UsersVo(int user_no, int authCode, String nameHan, String nameEng, String loginID, String password, String birthDate, String studResNum, String address, String familyAddress, String postNum, String handphone, String telephone, String email, String homePage, String bank, String depositor, String accountNum, String millArm, String millRank, String millEnrollDate, String millDischargeDate, String millIncompletReason, String language, String oS, String proLang, String magazine, String newspaper, String afterPlan, String motive, String learningContent, String consultContent, String thesis, int file_no) {
+    public UsersVo(int user_no, int authCode, String nameHan, String nameEng, String loginID, String password, String birthDate, String studResNum, String gender, String address, String familyAddress, String postNum, String handphone, String telephone, String email, String homePage, String bank, String depositor, String accountNum, String millArm, String millRank, String millEnrollDate, String millDischargeDate, String millIncompletReason, String language, String oS, String proLang, String magazine, String newspaper, String afterPlan, String motive, String learningContent, String consultContent, String thesis, int file_no) {
         this.user_no = user_no;
         this.authCode = authCode;
         this.nameHan = nameHan;
@@ -48,6 +49,7 @@ public class UsersVo {
         this.password = password;
         this.birthDate = birthDate;
         this.studResNum = studResNum;
+        this.gender = gender;
         this.address = address;
         this.familyAddress = familyAddress;
         this.postNum = postNum;
@@ -138,6 +140,14 @@ public class UsersVo {
 
     public void setStudResNum(String studResNum) {
         this.studResNum = studResNum;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getAddress() {
@@ -359,6 +369,7 @@ public class UsersVo {
                 ", password='" + password + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", studResNum='" + studResNum + '\'' +
+                ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", familyAddress='" + familyAddress + '\'' +
                 ", postNum='" + postNum + '\'' +

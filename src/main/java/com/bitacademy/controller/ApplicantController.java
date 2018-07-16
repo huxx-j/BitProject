@@ -20,11 +20,11 @@ public class ApplicantController {
 	@RequestMapping("/")
 	public String applicantMain(Model model) {
 		
-		System.out.println("지원자관리 들어가요");
-//		List<CurriculumVo> curriList = applicantService.getCurriList();
-		System.out.println("나왔");
-//		model.addAttribute("curriList",curriList);
-		
+//		System.out.println("지원자관리 들어가요");
+////		List<CurriculumVo> curriList = applicantService.getCurriList();
+//		System.out.println("나왔");
+////		model.addAttribute("curriList",curriList);
+//
 		return "screening/applicantmanagement";
 	}
 	

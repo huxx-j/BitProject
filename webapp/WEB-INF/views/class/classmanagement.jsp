@@ -10,8 +10,9 @@
     <title>TCOMS ver2</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/link.jsp" />
     <%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
 
 </head>
 <style type="text/css">
@@ -23,8 +24,8 @@
 
 <div class="wrapper">
 
-    <c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-    <c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/header.jsp" />
+    <c:import url="/WEB-INF/views/includes/aside.jsp" />
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -51,55 +52,43 @@
                             <tr>
                                 <th style="width: 30%">업무구분</th>
                                 <th style="width: 30%">교육과정(반) 명</th>
-                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel">
-                                    &ensp;전체 &ensp;
-                                    <input type="radio" name="ra_sel" checked>
-                                    &ensp;수업중</th>
+                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel" value="all">&ensp;전체 &ensp;
+                                    <input type="radio" name="ra_sel" value="ongoing" checked>&ensp;수업중</th>
                             </tr>
                             <tr>
-                                <td><select style="width:70%">
-                                    <option>국가기간</option>
-                                    <option>단기핵심</option>
-                                    <option>전문가</option>
-                                    <option>기업교육</option>
+                                <td><select id="workTypeSelect" style="width:70%">
+                                    <c:forEach items="${workType}" var="wt">
+                                        <option id="${wt}" value="${wt}">${wt}</option>
+                                    </c:forEach>
                                 </select></td>
-                                <td colspan="2"><select style="width: 90%">
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
-                                    <option>KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</option>
+                                <td colspan="2" id="curriTd"><select id="curriSelect" style="width: 90%">
                                 </select></td>
                             </tr>
-                            <!--
-                              <tr>
-                                <td colspan="2" align="center"><button type="button" class="btn btn-xs bg-gray" style="padding: 0 40px">조회</button></td>
-                              </tr>
-              -->
                         </table>
                     </div>
                     <div class="sub-toolbox text-center">
-                        <button type="button" class="btn btn-primary">조회</button>
+                        <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
                     </div>
                 </div>
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title"> 수업관리</h3>
+                        <input id="selectedCurri" type="hidden">
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td colspan="3" style="width: 55%">KUKA18_RD01 라즈베리파이를 활용한 IoT 서비스 고급인력 양성과정</td>
+                                <td id="curriNameInfo" colspan="3" style="width: 55%"></td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td style="width: 29%">KUKA18_RD01</td>
+                                <td id="gisuInfo" style="width: 29%"></td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
-                                <td style="width: 42%">2019-01-19</td>
+                                <td id="periodFrInfo" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td colspan="3" style="width: 42%">2019-05-18</td>
+                                <td id="periodToInfo" colspan="3" style="width: 42%"></td>
                             </tr>
                         </table>
                     </div>
@@ -119,19 +108,19 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-                                    <c:import url="includes/tab1.jsp"></c:import>
+                                    <c:import url="includes/tab1.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_2">
-                                    <c:import url="includes/tab2.jsp"></c:import>
+                                    <c:import url="includes/tab2.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_3">
-                                   <c:import url="includes/tab3.jsp"></c:import>
+                                   <c:import url="includes/tab3.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_4">
-                                    <c:import url="includes/tab4.jsp"></c:import>
+                                    <c:import url="includes/tab4.jsp" />
                                 </div>
                                 <div class="tab-pane" id="tab_5">
-                                    <c:import url="includes/tab5.jsp"></c:import>
+                                    <c:import url="includes/tab5.jsp" />
                                 </div>
                             </div>
                             <!-- /.tab-content -->
@@ -148,7 +137,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+    <c:import url="/WEB-INF/views/includes/footer.jsp" />
 
     <div class="control-sidebar-bg"></div>
 
@@ -160,4 +149,6 @@
 
 </body>
 </html>
-<c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
+<c:import url="/WEB-INF/views/includes/script.jsp" />
+
+<c:import url="includes/classscript.jsp" />
