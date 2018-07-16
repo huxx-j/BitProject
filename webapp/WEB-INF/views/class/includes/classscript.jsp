@@ -4,7 +4,7 @@
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
-            url: "/api/cm/getcurri",
+            url: "/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -30,7 +30,7 @@
         var selectValue = $("#workTypeSelect option:selected").val();
 
         $.ajax({
-            url: "/api/cm/getcurri",
+            url: "/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -69,13 +69,26 @@
 
         var currival = $("#curriSelect option:selected").val();
         $.ajax({
-            url: "/api/cm/getcurriinfo",
+            url: "/api/cm/getCurriInfo",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
             success: function (map) {
                 rederInfo(map);
                 $("#selectedCurri").val($("#curriSelect option:selected").val())
+
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+
+        $.ajax({
+            url: "/api/cm/getTeamList",
+            type: "post",
+            data: {"currival": currival},
+            dataType: "json",
+            success: function (map) {
 
             },
             error: function (XHR, status, error) {
@@ -94,7 +107,7 @@
     //수업일지 불러오는 스크립트
     $("#reportCallBtn").on("click", function () {
 
-        if ($("#selectedCurri").val() != $("#curriSelect option:selected").val()){
+        if ($("#selectedCurri").val() != $("#curriSelect option:selected").val()) {
             alert("조회 버튼을 눌러주세요")
         } else {
             removeReport();
@@ -151,35 +164,35 @@
 
     //수업일지 저장하는 스크립트
     $("#lectureReportSaveBtn").on("click", function () {
-        
+
         var countUpdate = 0;
         var countInsert = 0;
-        var count =0;
+        var count = 0;
         for (var i = 1; i < 12; i++) {
             report = {
                 subject: $("#sub" + i).val(),
                 content: $("#con" + i).val(),
                 instructor: $("#t" + i).val(),
                 eTC: $("#note" + i).val(),
-                period : $("#period" + i).text(),
-                date : $("#selectedDate").val(),
-                curriculum_no : $("#selectedCurri").val()
+                period: $("#period" + i).text(),
+                date: $("#selectedDate").val(),
+                curriculum_no: $("#selectedCurri").val()
             };
 
             $.ajax({
                 url: "/api/cm/saveLectureReport",
                 type: "post",
                 contentType: "application/json",
-                async : false,
+                async: false,
                 data: JSON.stringify(report),
                 dataType: "json",
                 success: function (result) {
                     console.log(result)
-                    if(result==2) {
+                    if (result == 2) {
                         countUpdate++;
-                    } else if (result==1) {
+                    } else if (result == 1) {
                         countInsert++;
-                    } else if (result==0) {
+                    } else if (result == 0) {
                         count++;
                     }
                 },
@@ -189,13 +202,13 @@
             });
 
         }
-        alert(countUpdate +"개 항목 업데이트 / "+ countInsert + "개 항목 저장 완료")
+        alert(countUpdate + "개 항목 업데이트 / " + countInsert + "개 항목 저장 완료")
     })
 
     //저장버튼 생성 스크립트
     function renderSaveBtn() {
-        str="";
-        str+="<button id='lectureReportSaveBtn' type='button' class='btn btn-primary'>저장</button>"
+        str = "";
+        str += "<button id='lectureReportSaveBtn' type='button' class='btn btn-primary'>저장</button>"
 
         $("#saveBtnToolbox").append(str);
     }
@@ -205,7 +218,7 @@
     }
 
     function renderCurrentCurriInfo() {
-        $("#currentCurriInfo").val($("#reportDate").val()+" / "+$("#curriNameInfo").text());
+        $("#currentCurriInfo").val($("#reportDate").val() + " / " + $("#curriNameInfo").text());
     }
 
     function removeCurrentCurriInfo() {
@@ -216,7 +229,7 @@
     //수업을 듣는 학생들명단 불러오는 스크립트
     $("#addTeam").on("click", function () {
 
-        if ($("#selectedCurri").val() != $("#curriSelect option:selected").val()){
+        if ($("#selectedCurri").val() != $("#curriSelect option:selected").val()) {
             alert("조회 버튼을 눌러주세요")
         } else {
             var curriNo = $("#selectedCurri").val();
@@ -227,11 +240,11 @@
             $.ajax({
                 url: "/api/cm/getMemberName",
                 type: "post",
-                data: {"curriNo" : curriNo},
+                data: {"curriNo": curriNo},
                 dataType: "json",
                 success: function (result) {
 
-                    for (var i=0; i<result.length; i++) {
+                    for (var i = 0; i < result.length; i++) {
                         renderMemberTable(result[i]);
                     }
                     $("#totalMembers").val(result.length);
@@ -242,24 +255,25 @@
             });
         }
     });
+
     function renderTable() {
-        str="";
-        str+="<table id='memberTable' class='table table-bordered'>";
-        str+="<tr><th class='a_c' style='width:100px;'>이름</th>";
-        str+="<th class='a_c' style='width:130px;'>생년월일</th>";
-        str+="<th class='a_c' style='width:90px;'>성별</th>";
-        str+="<th class='a_c' style='width:90px;'>선택</th></tr>";
-        str+="</table>";
+        str = "";
+        str += "<table id='memberTable' class='table table-bordered'>";
+        str += "<tr><th class='a_c' style='width:100px;'>이름</th>";
+        str += "<th class='a_c' style='width:130px;'>생년월일</th>";
+        str += "<th class='a_c' style='width:90px;'>성별</th>";
+        str += "<th class='a_c' style='width:90px;'>선택</th></tr>";
+        str += "</table>";
 
         $("#memberDiv").append(str);
     }
 
     function renderMemberTable(userVo) {
-        str="";
-        str+="<tr><td class='a_c'>"+userVo.nameHan+"</td>";
-        str+="<td class='a_c'>"+userVo.studResNum+"</td>";
-        str+="<td class='a_c'>"+userVo.gender+"</td>";
-        str+="<td class='a_c'><input name='memberChk' id='"+userVo.user_no+"' type='checkbox' value='"+userVo.nameHan+"'></td></tr>";
+        str = "";
+        str += "<tr><td class='a_c'>" + userVo.nameHan + "</td>";
+        str += "<td class='a_c'>" + userVo.studResNum + "</td>";
+        str += "<td class='a_c'>" + userVo.gender + "</td>";
+        str += "<td class='a_c'><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
 
         $("#memberTable").append(str);
     }
@@ -270,11 +284,11 @@
 
     //조원 선택 스크립트 (모달)
     function chk() {
-        str="";
-        id="";
+        str = "";
+        id = "";
         $("input[name=memberChk]:checked").each(function () {
-            str += $(this).val() + "　" ;
-            id += $(this).attr("id")+" ";
+            str += $(this).val() + "　";
+            id += $(this).attr("id") + " ";
         });
         $("#membersName").text(str);
         $("#membersId").val(id);
@@ -282,8 +296,8 @@
     }
 
     function renderAddTeam() {
-        str="";
-        str+="<div id='pjtDetail' class='pjt_detail'>" +
+        str = "";
+        str += "<div id='pjtDetail' class='pjt_detail'>" +
             "            <div class='box'>" +
             "                <div class='box-header with-border'>" +
             "                    <h3 class='box-title'> 프로젝트 팀 추가</h3>" +
@@ -342,5 +356,21 @@
         $("#pjtDetail").remove()
     }
 
+    function renderTeamList() {
+        str = "";
+        str += "<div>" +
+            "                <div class='box box-success cursor-pointer\">" +
+            "                    <div class='box-header with-border'>" +
+            "                        <h3 id='projectName' class='box-title'>1조 : 비트아카데미 홈페이지 Admin</h3>" +
+            "                    </div>" +
+            "                    <div id='teamMembers' class='box-body'> 장성우, 문승환, 이서현, 배진현, 문희준</div>" +
+            "                    <div class='small-box'>" +
+            "                        <a class='small-box-footer cursor-pointer'>" +
+            "                            More info <i class='fa fa-arrow-circle-right'></i>" +
+            "                        </a>" +
+            "                    </div>" +
+            "                </div>" +
+            "            </div>";
+    }
 
 </script>

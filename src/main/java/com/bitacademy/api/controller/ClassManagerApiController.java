@@ -3,6 +3,7 @@ package com.bitacademy.api.controller;
 import com.bitacademy.service.ClassManagementService;
 import com.bitacademy.vo.CurriculumVo;
 import com.bitacademy.vo.LectureReportVo;
+import com.bitacademy.vo.ProjectVo;
 import com.bitacademy.vo.UsersVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,16 +20,14 @@ public class ClassManagerApiController {
     ClassManagementService classManagementService;
 
     @ResponseBody
-    @RequestMapping(value = "/getcurri", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCurri", method = RequestMethod.POST)
     public List<CurriculumVo> getCurri(@RequestParam("workType") String workType) {
         return classManagementService.getCurri(workType);
     }
 
     @ResponseBody
-    @RequestMapping(value = "getcurriinfo", method = RequestMethod.POST)
+    @RequestMapping(value = "getCurriInfo", method = RequestMethod.POST)
     public Map<String, Object> getCurriInfo(@RequestParam("currival") int curriculum_no) {
-//        System.out.println(curriculum_no);
-
         return classManagementService.getCurriInfo(curriculum_no);
     }
 
@@ -51,9 +50,17 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/getMemberName", method = RequestMethod.POST)
     public List<UsersVo> getMemberName(@RequestParam("curriNo") int curriNo) {
-        System.out.println(curriNo);
+//        System.out.println(curriNo);
         return classManagementService.getMemberName(curriNo);
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/getTeamList", method = RequestMethod.POST)
+    public List<ProjectVo> getTeamList(@RequestParam("currival") int currival) {
+        System.out.println("123");
+        List<ProjectVo> list = classManagementService.getTeamList(currival);
+        System.out.println(list);
+        return null;
     }
 
 }
