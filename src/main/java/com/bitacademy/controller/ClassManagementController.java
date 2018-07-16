@@ -20,7 +20,7 @@ public class ClassManagementController {
         model.addAttribute("workType",classManagementService.getWorkType());
         model.addAttribute("date",classManagementService.getDate());
         String date = classManagementService.getDate();
-        System.out.println(date);
+//        System.out.println(date);
 
         return "/class/classmanagement";
     }

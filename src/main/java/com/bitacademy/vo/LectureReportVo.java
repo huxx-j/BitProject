@@ -1,6 +1,7 @@
 package com.bitacademy.vo;
 
 public class LectureReportVo {
+    private String lectureReport_no;
     private int curriculum_no;
     private String subject;
     private String content;
@@ -12,7 +13,8 @@ public class LectureReportVo {
     public LectureReportVo() {
     }
 
-    public LectureReportVo(int curriculum_no, String subject, String content, String instructor, String eTC, int period, String date) {
+    public LectureReportVo(String lectureReport_no, int curriculum_no, String subject, String content, String instructor, String eTC, int period, String date) {
+        this.lectureReport_no = lectureReport_no;
         this.curriculum_no = curriculum_no;
         this.subject = subject;
         this.content = content;
@@ -20,6 +22,14 @@ public class LectureReportVo {
         this.eTC = eTC;
         this.period = period;
         this.date = date;
+    }
+
+    public String getLectureReport_no() {
+        return lectureReport_no;
+    }
+
+    public void setLectureReport_no(String lectureReport_no) {
+        this.lectureReport_no = lectureReport_no;
     }
 
     public int getCurriculum_no() {
@@ -81,7 +91,8 @@ public class LectureReportVo {
     @Override
     public String toString() {
         return "LectureReportVo{" +
-                "curriculum_no=" + curriculum_no +
+                "lectureReport_no='" + lectureReport_no + '\'' +
+                ", curriculum_no=" + curriculum_no +
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
                 ", instructor='" + instructor + '\'' +
@@ -91,12 +102,3 @@ public class LectureReportVo {
                 '}';
     }
 }
-
-
-//    Curriculum_no
-//            Subject
-//    Content
-//            Instructor
-//    ETC
-//            Period
-//          Date

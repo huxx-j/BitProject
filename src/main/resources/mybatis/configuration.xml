@@ -25,5 +25,6 @@
         <mapper resource="mybatis/mappers/curriculum.xml"/>
         <mapper resource="mybatis/mappers/gisu.xml"/>
         <mapper resource="mybatis/mappers/lecturereport.xml"/>
+        <mapper resource="mybatis/mappers/project.xml"/>
     </mappers>
 </configuration>

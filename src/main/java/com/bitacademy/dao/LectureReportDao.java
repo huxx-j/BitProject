@@ -16,4 +16,8 @@ public class LectureReportDao {
         System.out.println(123);
         return sqlSession.selectList("lectureReport.getLectureReport", lectureReportVo);
     }
+
+    public int saveLetureReport(LectureReportVo lectureReportVo) {
+        return sqlSession.insert("lectureReport.saveLectureReport", lectureReportVo);
+    }
 }

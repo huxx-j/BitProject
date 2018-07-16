@@ -13,6 +13,7 @@
     <c:import url="/WEB-INF/views/includes/link.jsp" />
     <%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
+
 </head>
 <style type="text/css">
     .a_c {
@@ -72,6 +73,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title"> 수업관리</h3>
+                        <input id="selectedCurri" type="hidden">
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

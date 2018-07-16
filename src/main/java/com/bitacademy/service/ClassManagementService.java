@@ -1,11 +1,9 @@
 package com.bitacademy.service;
 
-import com.bitacademy.dao.ClassManagementDao;
-import com.bitacademy.dao.CurriculumDao;
-import com.bitacademy.dao.GisuDao;
-import com.bitacademy.dao.LectureReportDao;
+import com.bitacademy.dao.*;
 import com.bitacademy.vo.CurriculumVo;
 import com.bitacademy.vo.LectureReportVo;
+import com.bitacademy.vo.UsersVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,9 @@ public class ClassManagementService {
     @Autowired
     LectureReportDao lectureReportDao;
 
+    @Autowired
+    ProjectDao projectDao;
+
     public List<String> getWorkType() {
         return curriculumDao.getWorkType();
     }
@@ -49,5 +50,19 @@ public class ClassManagementService {
 
     public String getDate() {
         return classManagementDao.getDate();
+    }
+
+    public int saveLectureReport(LectureReportVo lectureReportVo) {
+        String lectureReport_no = lectureReportVo.getDate().replace("-","")+"-"+lectureReportVo.getCurriculum_no()+"-"+lectureReportVo.getPeriod();
+        lectureReportVo.setLectureReport_no(lectureReport_no);
+        if (!lectureReportVo.getSubject().equals("") || !lectureReportVo.getContent().equals("") || !lectureReportVo.getInstructor().equals("") || !lectureReportVo.geteTC().equals("")) {
+            return lectureReportDao.saveLetureReport(lectureReportVo);
+        } else {
+            return 0;
+        }
+    }
+
+    public List<UsersVo> getMemberName(int curriNo) {
+        return projectDao.getMemberName(curriNo);
     }
 }

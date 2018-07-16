@@ -23,4 +23,5 @@ public class ClassManagementDao {
     public String getDate() {
         return sqlSession.selectOne("class.getDate");
     }
+
 }
