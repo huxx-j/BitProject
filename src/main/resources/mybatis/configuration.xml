@@ -21,5 +21,6 @@
         <mapper resource="mybatis/mappers/licence.xml" />
         <mapper resource="mybatis/mappers/afterservice.xml" />
         <mapper resource="mybatis/mappers/applicant.xml" />
+        <mapper resource="mybatis/mappers/completion.xml" />
     </mappers>
 </configuration>

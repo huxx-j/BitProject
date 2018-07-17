@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitacademy.dao.ApplicantDao;
+import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.CurriculumVo;
 
 @Service
@@ -14,14 +15,21 @@ public class ApplicantService {
 	@Autowired
 	ApplicantDao applicantDao;
 	
-	public List<CurriculumVo> getCurriList(){
+	public List<CurriculumVo> getFristWorkType(){
 		
 		
-		return applicantDao.getCurriList();
+		return applicantDao.getFristWorkType();
+	}
+
+	public List<CurriculumVo> getCurriList(String workType){
+		
+		
+		return applicantDao.getCurriList(workType);
 	}
 	
-	/*public List<StudentVo> serch(CurriculumVo curriVo){
+	public List<ApplyUserVo> search(CurriculumVo curriVo){
 		
-		return applicantDao.serch(curriVo);
-	}*/
+		System.out.println("서비스");
+		return applicantDao.search(curriVo);
+	}
 }

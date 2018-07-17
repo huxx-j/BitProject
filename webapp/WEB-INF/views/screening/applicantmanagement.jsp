@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -12,6 +13,96 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
+
+<script type="text/javascript">
+	
+	$(document).ready(function () {
+	    var selectValue = $("#select_workType option:selected").val();
+	    console.log(selectValue)
+	    $.ajax({
+	        url: "/api/cm/getcurri",
+	        type: "post",
+	        data: {"workType": selectValue},
+	        dataType: "json",
+	        success: function (list) {
+	            $("#curriSelect").remove();
+	            var str = "";
+	            str += "<select id='curriSelect' style='width: 90%'class='form-control input-sm'></select>";
+	
+	            $("#curriTd").append(str);
+	
+	            for (var i = 0; i < list.length; i++) {
+	                renderCurri(list[i])
+	            }
+	        },
+	        error: function (XHR, status, error) {
+	            console.error(status + " : " + error);
+	        }
+	    })
+	  //업무 구분별 과목 불러오는 스크립트
+	  
+	$("#select_workType").change(function (){
+		 var selectValue = $("#select_workType option:selected").val();
+		 console.log(selectValue)
+		 $.ajax({
+			url:"/api/cm/getcurri",
+			type:"post",
+			data:{"workType":selectValue},
+			dataType:"json",
+			success:function(list){
+				$("#curriSelect").remove();
+				var str = "";
+				str += "<select name='strcurriName' id='curriSelect' style='width: 90%'class='form-control input-sm'></select>"
+				
+					$("#curriTd").append(str);
+				
+                for (var i = 0; i < list.length; i++) {
+                    console.log(list[i])
+                    renderCurri(list[i])
+                }
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+			}
+		 })
+	 });  
+	 
+	});
+	 
+	  //업무구분 선택한 뒤 과목 불러오는 스크립트
+	  
+	  function renderCurri(curriList) {
+        var str = "";
+        str += "<option value='" + curriList.curriculum_no + "'>" + curriList.curriName + "</option>";
+
+        $("#curriSelect").append(str);
+        
+        var selectValue = $("#select_workType option:selected").val();
+	    console.log(selectValue)
+	    $.ajax({
+	        url: "/api/cm/search",
+	        type: "post",
+	        data: {"workType": selectValue},
+	        dataType: "json",
+	        success: function (list) {
+	            $("#curriSelect").remove();
+	            var str = "";
+	            str += "<select id='curriSelect' style='width: 90%'class='form-control input-sm'></select>";
+	
+	            $("#curriTd").append(str);
+	
+	            for (var i = 0; i < list.length; i++) {
+	                renderCurri(list[i])
+	            }
+	        },
+	        error: function (XHR, status, error) {
+	            console.error(status + " : " + error);
+	        }
+	    })
+	  //지원자 리스트 불러오는 스크립트
+    };
+	  
+</script>
 
 </head>
 
@@ -49,53 +140,54 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="sub-box">
-								<div class="sub-title">
-			              			지원자검색
-			            		</div><!-- sub_title -->
-								
-								<div class="sub-body">
-									<table class="table table-condensed">
-			 							<colgroup>
-											<col width="250px" />
-											<col width="" />
-											<col width="300px" />
-										</colgroup>
-			 							
-			 							<thead>
-			 								<tr>
-			 									<th>업무구분</th>
-												<th>교육과정명</th>
-												<th>상태</th>
-			 								</tr>
-			 							</thead>	
-			 							
-			 							<tbody>
-			 								<tr>
-												<td>
-			                    					<select class="form-control input-sm">
-			                    						<c:forEach items = "${requestScope.curriList}" var = "curriList">
-			                    							<option>${curriList.workType}</option>
-			                    						</c:forEach>
-			                  						</select>
-			                  					</td>
-			                  					<td>
-			                    					<select class="form-control input-sm">
-				                  						<c:forEach items = "${requestScope.curriList}" var = "curriList">
-				                    						<option>${curriList.curriName}</option>
-				                  						</c:forEach>
-				                  					</select>
-			                  					</td>
-			                  					<td>
-			                    					<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>
-		                   							<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
-			                  					</td>
-											</tr>
-			  							</tbody>
-			  						</table>
-			  					</div><!-- /.sub-body -->
-		  						<div class="sub-toolbox text-center">
-	              					<button type="button" class="btn btn-primary">조회</button>
-	              				</div>
+								<form class="search-form" method="post" action="${pageContext.request.contextPath}/api/cm/search">
+									<div class="sub-title">
+				              			지원자검색
+				            		</div><!-- sub_title -->
+									
+									<div class="sub-body">
+										<table class="table table-condensed">
+				 							<colgroup>
+												<col width="250px" />
+												<col width="" />
+												<col width="300px" />
+											</colgroup>
+				 							
+				 							<thead>
+				 								<tr>
+				 									<th>업무구분</th>
+													<th>교육과정명</th>
+													<th>상태</th>
+				 								</tr>
+				 							</thead>	
+				 							
+				 							<tbody>
+				 								<tr>
+													<td>
+													
+				                    					<select name="workType" class="form-control input-sm" id="select_workType">
+				                    						<c:forEach items = "${requestScope.curriList}" var = "curriList">
+				                    							<option value="${curriList.workType}" id="${curriList.workType}">${curriList.workType}</option>
+				                    						</c:forEach>
+				                  						</select>
+				                  					</td>
+				                  					<td id="curriTd">
+				                    					<select name="strcurriName" class="form-control input-sm" id="curriSelect">
+				                    					
+					                  					</select>
+				                  					</td>
+				                  					<td>
+				                    					<label class="form-controll-static"><input class="" type="radio" name="state" value="전체">전체</label>
+			                   							<label class="form-controll-static"><input class="" type="radio" name="state" value="모집중">모집중</label>
+				                  					</td>
+												</tr>
+				  							</tbody>
+				  						</table>
+				  					</div><!-- /.sub-body -->
+			  						<div class="sub-toolbox text-center">
+		              					<input type="submit" value="조회">
+		              				</div>
+		              			</form>
 							</div><!-- sub-box -->
 						</div><!-- /.col-xs-12 -->
 					</div><!-- /.row -->
@@ -132,7 +224,7 @@
 								<div class="sub-title">
 			              			과거지원내역
 			            		</div><!-- sub_title -->
-			            		<div class="sub-body bordered scroll" style="height:150px; ">
+			            		<div class="sub-body" style="height:150px; ">
 			            			<table class="table table-hover table-condensed">
 			 							<colgroup>
 											<col width="" />
@@ -272,30 +364,31 @@
 </html>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+   
+$(document).ready(function() {
 
-        var cnames = ['번호', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부'];
+        var cnames = ['과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부'];
 
         $("#jqGrid").jqGrid({
             url: "jqgridStartMain.do",
             datatype: "local",
             colNames: cnames,
             colModel: [
-                {name: 'seq', index: 'seq', width: 50, align: "center"},
-                {name: 'gisu', index: 'gisu', width: 100, align: "center"},
-                {name: 'name', index: 'name', width: 100, align: "center"},
-                {name: 'birth', index: 'birth', width: 100, align: "center"},
+                {name: 'gisuName', index: 'gisuName', width: 100, align: "center"},
+                {name: 'nameHan', index: 'nameHan', width: 100, align: "center"},
+                {name: 'birthDate', index: 'birthDate', width: 100, align: "center"},
                 {name: 'gender', index: 'gender', width: 50, align: "center"},
-                {name: 'result', index: 'result', width: 80, align: "center"},
-                {name: 'phone', index: 'phone', width: 150, align: "center"},
-                {name: 'appdate', index: 'appdate', width: 100, align: "center"},
-                {name: 'exdate', index: 'exdate', width: 100, align: "center"},
+                {name: 'state', index: 'state', width: 80, align: "center"},
+                {name: 'handphone', index: 'handphone', width: 150, align: "center"},
+                {name: 'applyDay', index: 'applyDay', width: 100, align: "center"},
+                {name: 'testDay', index: 'testDay', width: 100, align: "center"},
                 {name: 'school', index: 'school', width: 150, align: "center"},
                 {name: 'major', index: 'major', width: 150, align: "center"},
-                {name: 'yn', index: 'yn', width: 80, align: "center"}
+                {name: 'deposit', index: 'deposit', width: 80, align: "center"}
             ],
             rowheight: 20,
-            height: 230,
+            height: 270,
+            width:1247,
             rowNum: 15,
             rowList: [10, 20, 30],
             pager: '#jqGridPager',
@@ -341,35 +434,17 @@
 
 
     $(function () {
-        var mydata = [
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
+        var mydata = "${applyUserlist}";
+        	
+        	
+        /* {gisuName:"${applyUserlist.gisuName}",nameHan:"${applyUserlist.nameHan}",birthDate:"${applyUserlist.birthDate}",gender:"여",state:"${applyUserlist.state}",handphone:"${applyUserlist.handphone}",applyDay:"${applyUserlist.applyDay}",testDay:"${applyUserlist.testDay}",school:"${applyUserlist.school}",major:"${applyUserlist.major}",deposit:"${applyUserlist.deposit}"} */
             
-        ];
-
-        for (var i=0; i<=mydata.length; i++) {
+        
+        
+        
+         for (var i=0; i<=mydata.length; i++) {
             $("#jqGrid").jqGrid('addRowData', i+1, mydata[i]);
-        }
+        } 
+
     });
 </script>

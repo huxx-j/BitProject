@@ -21,10 +21,41 @@
 		<result column="DatailViewFlag" property="datailViewFlag" />
 	</resultMap>
 
-<select id="getCurriList" resultType="com.bitacademy.vo.CurriculumVo">
+<select id="getCurriList" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo">
+
+<![CDATA[
+		select * from Curriculum 
+			   where WorkType = #{workType};
+	]]>
+
+</select>
+
+<select id="getFristWorkType" resultType="com.bitacademy.vo.CurriculumVo">
 
 <![CDATA[
 		select * from Curriculum;
+	]]>
+
+</select>
+
+<select id="getApplyStudent" parameterType="com.bitacademy.vo.CurriculumVo" resultType="com.bitacademy.vo.ApplyUserVo">
+
+<![CDATA[
+
+	   select Gisu.GisuName,Users.NameHan, Users.BirthDate,
+	   		  ApplyInfo.State,Users.Handphone,ApplyInfo.ApplyDay, ApplyInfo.TestDay,
+	   		  UserSchoolarship.School, UserSchoolarship.Major,
+	   		  ApplyInfo.Deposit
+       
+	   from ApplyInfo  
+	
+	   join Users on Users.User_no = ApplyInfo.User_no
+	   join UserSchoolarship on Users.User_no = UserSchoolarship.User_no
+	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
+	   join Gisu on Curriculum.Curriculum_no = Gisu.Curriculum_no
+	   
+	   where Curriculum.Curriculum_no = #{curriculum_no};
+
 	]]>
 
 </select>
