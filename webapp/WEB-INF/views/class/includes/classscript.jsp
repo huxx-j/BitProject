@@ -66,8 +66,11 @@
         removeReport();
         removeSaveBtn();
         removeCurrentCurriInfo();
+        removeTeamList();
+        removePjtDetail()
 
         var currival = $("#curriSelect option:selected").val();
+        //수업관리 정보 불러오는 ajax
         $.ajax({
             url: "/api/cm/getCurriInfo",
             type: "post",
@@ -83,19 +86,27 @@
             }
         });
 
+        //프로젝트 탭 팀 리스트 뿌리는 ajax스크립트
+        ajaxGetTeamList(currival);
+
+    });
+
+    function ajaxGetTeamList(currival) {
         $.ajax({
             url: "/api/cm/getTeamList",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
-            success: function (map) {
-
+            success: function (list) {
+                for (var i = 0; i < list.length; i++) {
+                    renderTeamList(list[i])
+                }
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
-    });
+    }
 
     function rederInfo(map) {
         $("#curriNameInfo").text(map.vo.curriName);
@@ -236,25 +247,28 @@
             removeMemberTable();
             renderTable();
             removePjtDetail();
-            renderAddTeam();
-            $.ajax({
-                url: "/api/cm/getMemberName",
-                type: "post",
-                data: {"curriNo": curriNo},
-                dataType: "json",
-                success: function (result) {
-
-                    for (var i = 0; i < result.length; i++) {
-                        renderMemberTable(result[i]);
-                    }
-                    $("#totalMembers").val(result.length);
-                },
-                error: function (XHR, status, error) {
-                    console.error(status + " : " + error);
-                }
-            });
+            renderAddTeam(curriNo);
+            callMemberTable(curriNo);
         }
     });
+
+    function callMemberTable(curriNo) {
+        $.ajax({
+            url: "/api/cm/getMemberName",
+            type: "post",
+            data: {"curriNo": curriNo},
+            dataType: "json",
+            success: function (result) {
+
+                for (var i = 0; i < result.length; i++) {
+                    renderMemberTable(result[i]);
+                }
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
 
     function renderTable() {
         str = "";
@@ -287,27 +301,30 @@
         str = "";
         id = "";
         $("input[name=memberChk]:checked").each(function () {
-            str += $(this).val() + "　";
-            id += $(this).attr("id") + " ";
+            str += $(this).val() + ", ";
+            id += $(this).attr("id") + ",";
         });
+        str = str.slice(0,-2);
+        id = id.slice(0,-1);
+        console.log(id)
         $("#membersName").text(str);
         $("#membersId").val(id);
         $("#selectTeamMember").modal('hide');
     }
 
-    function renderAddTeam() {
+    function renderAddTeam(curriNo) {
         str = "";
         str += "<div id='pjtDetail' class='pjt_detail'>" +
             "            <div class='box'>" +
             "                <div class='box-header with-border'>" +
-            "                    <h3 class='box-title'> 프로젝트 팀 추가</h3>" +
+            "                    <h1 class='box-title'> 프로젝트 팀 추가</h1>" +
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width: 15%;'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='projectName' type='text' style='width: 100%'></td>" +
+            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width: 8%'>조원</th>" +
@@ -317,6 +334,8 @@
             "                                        data-target='#selectTeamMember'>팀원선택" +
             "                                </button>" +
             "                                <input id='membersId' type='hidden'>" +
+            "                                <input id='detailPjtNo' type='hidden'>" +
+            "                                <input id='detailCurriNo' type='hidden' value='"+curriNo+"'>" +
             "                            </td>" +
             "                        </tr>" +
             "                        <tr>" +
@@ -344,7 +363,7 @@
             "                    </table>" +
             "                </div>" +
             "                <div class='sub-toolbox text-center'>" +
-            "                    <button type='button' class='btn btn-primary'>저장</button>" +
+            "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
             "                </div>" +
             "            </div>" +
             "        </div>";
@@ -356,21 +375,145 @@
         $("#pjtDetail").remove()
     }
 
-    function renderTeamList() {
+    function renderTeamList(projectVo) {
         str = "";
-        str += "<div>" +
-            "                <div class='box box-success cursor-pointer\">" +
+        str += "<div class='teamList' data='"+projectVo.project_no+"'>" +
+            "                <div class='box box-success cursor-pointer' name='pjtDetail'>" +
             "                    <div class='box-header with-border'>" +
-            "                        <h3 id='projectName' class='box-title'>1조 : 비트아카데미 홈페이지 Admin</h3>" +
+            "                        <h3 id='projectName' class='box-title'>"+ projectVo.projectName + "</h3>" +
             "                    </div>" +
-            "                    <div id='teamMembers' class='box-body'> 장성우, 문승환, 이서현, 배진현, 문희준</div>" +
+            "                    <div id='teamMembers' class='box-body'>" + projectVo.membersName + "</div>" +
             "                    <div class='small-box'>" +
-            "                        <a class='small-box-footer cursor-pointer'>" +
-            "                            More info <i class='fa fa-arrow-circle-right'></i>" +
+            "                        <a href='#' class='small-box-footer cursor-pointer' name='pjtDetail'>" +
+            "                            상세보기 <i class='fa fa-arrow-circle-right'></i>" +
             "                        </a>" +
+            "                    <input name='project_no' id='project_no' type='hidden' value='" + projectVo.project_no + "'>" +
+            "                    <input id='pjtcurriculum_no' type='hidden' value='" + projectVo.curriculum_no + "'>" +
             "                    </div>" +
             "                </div>" +
             "            </div>";
+
+
+        $("#teamListDiv").append(str);
     }
 
+    function removeTeamList() {
+        $(".teamList").remove();
+    }
+
+    $(document).on("click", ".teamList", function () {
+        removePjtDetail();
+        var project_no = $(this).attr("data");
+        var curriNo = $("#pjtcurriculum_no").val();
+        console.log(curriNo)
+
+        $.ajax({
+            url: "/api/cm/getProjectDetail",
+            type: "post",
+            // contentType: "application/json",
+            // async: false,
+            data: {"project_no" : project_no},
+            dataType: "json",
+            success: function (result) {
+                renderTeamDetail(result)
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+        removeMemberTable();
+        renderTable();
+        callMemberTable(curriNo);
+    });
+
+    function renderTeamDetail(projectVo) {
+
+        str = "";
+        str += "<div id='pjtDetail' class='pjt_detail'>" +
+            "            <div class='box'>" +
+            "                <div class='box-header with-border'>" +
+            "                    <h1 class='box-title'> 프로젝트 상세정보 </h1>" +
+            "                </div>" +
+            "                <!-- /.box-header -->" +
+            "                <div class='box-body'>" +
+            "                    <table class='table table-bordered'>" +
+            "                        <tr>" +
+            "                            <th class='a_c' style='width: 15%'>프로젝트명</th>" +
+            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%' value='"+ projectVo.projectName +"'></td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c' style='width: 8%'>조원</th>" +
+            "                            <td id='membersName' style='width: 42%'>"+projectVo.membersName+"</td>" +
+            "                            <td style='width: 10%'>" +
+            "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
+            "                                        data-target='#selectTeamMember'>팀원수정" +
+            "                                </button>" +
+            "                                <input id='membersId' type='hidden' value='"+projectVo.membersNo+"'>" +
+            "                                <input id='detailPjtNo' type='hidden' value='"+projectVo.project_no+"'>" +
+            "                                <input id='detailCurriNo' type='hidden' value='"+projectVo.curriculum_no+"'>" +
+            "                            </td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c'>파일</th>" +
+            "                            <td colspan='2'><input id='projectFile'  type='file'></td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c'>개요</th>" +
+            "                            <td colspan='2'><textarea id='outline' style='width: 100%; height: 70px; resize: none'>"+projectVo.outline+"</textarea></td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c'>설계의<br>" +
+            "                                주안점" +
+            "                            </th>" +
+            "                            <td colspan='2'><textarea id='focus' style='width: 100%; height: 70px; resize: none'>"+projectVo.focus+"</textarea></td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c'>응용분야</th>" +
+            "                            <td colspan='2'><textarea id='applyField' style='width: 100%; height: 70px; resize: none'>"+projectVo.applyField+"</textarea></td>" +
+            "                        </tr>" +
+            "                        <tr>" +
+            "                            <th class='a_c'>사용기술</th>" +
+            "                            <td colspan='2'><textarea id='useTechnique' style='width: 100%; height: 70px; resize: none'>"+projectVo.useTechnique+"</textarea></td>" +
+            "                        </tr>" +
+            "                    </table>" +
+            "                </div>" +
+            "                <div class='sub-toolbox text-center'>" +
+            "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>수정</button>" +
+            "                </div>" +
+            "            </div>" +
+            "        </div>";
+
+        $("#pjtDetailDiv").append(str);
+    }
+
+    $(document).on("click","#detailSaveBtn",function () {
+        var currival = $("#pjtcurriculum_no").val();
+        projectVo= {"project_no" : $("#detailPjtNo").val(),
+                    "curriculum_no" : $("#detailCurriNo").val(),
+                    "projectName" : $("#detailProjectName").val(),
+                    "membersNo" : $("#membersId").val(),
+                    "outline" : $("#outline").val(),
+                    "focus" : $("#focus").val(),
+                    "applyField" : $("#applyField").val(),
+                    "useTechnique" : $("#useTechnique").val()
+        };
+
+        $.ajax({
+            url: "/api/cm/saveProjectDetail",
+            type: "post",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(projectVo),
+            dataType: "json",
+            success: function (result) {
+
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+
+        removeTeamList();
+        ajaxGetTeamList(currival);
+    })
 </script>

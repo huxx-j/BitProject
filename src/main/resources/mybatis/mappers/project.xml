@@ -18,13 +18,64 @@
 
     <select id="getTeamList" parameterType="Int" resultType="ProjectVo">
         <![CDATA[
-        select Project_no, ProjectName from Project where Curriculum_no=#{curriculum_no}
+        select Project_no, ProjectName, Curriculum_no
+        from Project
+        where Curriculum_no=#{curriculum_no}
         ]]>
     </select>
 
     <select id="getTeamMemberList" parameterType="Int" resultType="String">
         <![CDATA[
-        select u.NameHan from ProjectMember pm, Users u where pm.User_no=u.User_no and Project_no=#{project_no}
+        select u.NameHan
+        from ProjectMember pm, Users u
+        where pm.User_no=u.User_no and Project_no=#{project_no}
         ]]>
     </select>
+
+    <select id="getProjectDetail" parameterType="Int" resultType="ProjectVo">
+        <![CDATA[
+        select Project_no, Curriculum_no, ProjectName, Outline, Focus ,
+        ApplyField, UseTechnique, File_no
+        from Project
+        where Project_no=#{project_no}
+        ]]>
+    </select>
+
+    <select id="getTeamMembersNo" parameterType="Int" resultType="String">
+        select u.User_no
+        from ProjectMember pm, Users u
+        where pm.User_no=u.User_no and Project_no=#{project_no}
+    </select>
+
+    <update id="updateProjectDetail" parameterType="ProjectVo">
+            <![CDATA[
+        update Project
+        set ProjectName=#{projectName}, Outline=#{outline}, Focus=#{focus},
+        ApplyField=#{applyField}, UseTechnique=#{useTechnique}
+        where Project_no=#{project_no} and Curriculum_no=#{curriculum_no}
+        ]]>
+    </update>
+
+
+    <insert id="saveProjectDetail" parameterType="ProjectVo">
+        <selectKey keyProperty="project_no" resultType="Int" order="AFTER">
+            select LAST_INSERT_ID() from dual
+        </selectKey>
+        <![CDATA[
+            insert into Project(Project_no, Curriculum_no, ProjectName, Outline, Focus, ApplyField, UseTechnique)
+            values(#{project_no},#{curriculum_no}, #{projectName}, #{outline}, #{focus}, #{applyField}, #{useTechnique})
+          ]]>
+    </insert>
+
+    <insert id="saveProjectMember" parameterType="ProjectMemberVo">
+        <![CDATA[
+        insert into ProjectMember values (#{project_no}, #{user_no})
+        ]]>
+    </insert>
+
+    <delete id="deleteProjectMember" parameterType="Int">
+        <![CDATA[
+        delete from ProjectMember where Project_no=#{project_no}
+        ]]>
+    </delete>
 </mapper>

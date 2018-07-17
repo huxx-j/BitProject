@@ -8,6 +8,7 @@ import com.bitacademy.vo.UsersVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 import java.util.Map;
@@ -57,10 +58,23 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/getTeamList", method = RequestMethod.POST)
     public List<ProjectVo> getTeamList(@RequestParam("currival") int currival) {
-        System.out.println("123");
-        List<ProjectVo> list = classManagementService.getTeamList(currival);
-        System.out.println(list);
-        return null;
+        return classManagementService.getTeamList(currival);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getProjectDetail", method = RequestMethod.POST)
+    public ProjectVo getProjectDetail(@RequestParam("project_no") int project_no) {
+        return classManagementService.getProjectDetail(project_no);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveProjectDetail", method = RequestMethod.POST)
+    public int saveProjectDetail(@RequestBody ProjectVo projectVo) {
+        System.out.println(projectVo.toString());
+        return classManagementService.saveProjectDetail(projectVo);
+//        System.out.println(projectVo.toString());
+
+    }
+
 
 }
