@@ -13,11 +13,12 @@ public class ProjectVo {
     private String useTechnique;
     private int file_no;
     private String membersName;
+    private String membersNo;
 
     public ProjectVo() {
     }
 
-    public ProjectVo(int project_no, int curriculum_no, String projectName, String useLang, String useDB, String outline, String focus, String applyField, String useTechnique, int file_no, String membersName) {
+    public ProjectVo(int project_no, int curriculum_no, String projectName, String useLang, String useDB, String outline, String focus, String applyField, String useTechnique, int file_no, String membersName, String membersNo) {
         this.project_no = project_no;
         this.curriculum_no = curriculum_no;
         this.projectName = projectName;
@@ -29,6 +30,7 @@ public class ProjectVo {
         this.useTechnique = useTechnique;
         this.file_no = file_no;
         this.membersName = membersName;
+        this.membersNo = membersNo;
     }
 
     public int getProject_no() {
@@ -119,6 +121,14 @@ public class ProjectVo {
         this.membersName = membersName;
     }
 
+    public String getMembersNo() {
+        return membersNo;
+    }
+
+    public void setMembersNo(String membersNo) {
+        this.membersNo = membersNo;
+    }
+
     @Override
     public String toString() {
         return "ProjectVo{" +
@@ -133,6 +143,7 @@ public class ProjectVo {
                 ", useTechnique='" + useTechnique + '\'' +
                 ", file_no=" + file_no +
                 ", membersName='" + membersName + '\'' +
+                ", membersNo='" + membersNo + '\'' +
                 '}';
     }
 }
