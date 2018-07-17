@@ -7,9 +7,14 @@
                 <button id="addTeam" class="btn btn-primary btn-call-se" style="float: right" type="button">팀 추가
                 </button>
             </div>
+            <%--팀 리스트 뿌려질 자리--%>
         </div>
     </div>
-    <div id="pjtDetailDiv" class="col-xs-8">
+    <div class="col-xs-8">
+        <div id="pjtDetailDiv" class="box">
+
+        </div>
+        <%--상세정보 뿌려질 자리--%>
     </div>
 </div>
 

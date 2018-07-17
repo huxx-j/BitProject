@@ -86,6 +86,8 @@
             }
         });
 
+        //이론평가탭 과목리스트 뿌리는 ajax스크립트
+        ajaxRenderSubjectList(currival);
         //프로젝트 탭 팀 리스트 뿌리는 ajax스크립트
         ajaxGetTeamList(currival);
 
@@ -304,8 +306,8 @@
             str += $(this).val() + ", ";
             id += $(this).attr("id") + ",";
         });
-        str = str.slice(0,-2);
-        id = id.slice(0,-1);
+        str = str.slice(0, -2);
+        id = id.slice(0, -1);
         console.log(id)
         $("#membersName").text(str);
         $("#membersId").val(id);
@@ -315,7 +317,6 @@
     function renderAddTeam(curriNo) {
         str = "";
         str += "<div id='pjtDetail' class='pjt_detail'>" +
-            "            <div class='box'>" +
             "                <div class='box-header with-border'>" +
             "                    <h1 class='box-title'> 프로젝트 팀 추가</h1>" +
             "                </div>" +
@@ -335,7 +336,7 @@
             "                                </button>" +
             "                                <input id='membersId' type='hidden'>" +
             "                                <input id='detailPjtNo' type='hidden'>" +
-            "                                <input id='detailCurriNo' type='hidden' value='"+curriNo+"'>" +
+            "                                <input id='detailCurriNo' type='hidden' value='" + curriNo + "'>" +
             "                            </td>" +
             "                        </tr>" +
             "                        <tr>" +
@@ -365,7 +366,6 @@
             "                <div class='sub-toolbox text-center'>" +
             "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
             "                </div>" +
-            "            </div>" +
             "        </div>";
 
         $("#pjtDetailDiv").append(str);
@@ -377,10 +377,10 @@
 
     function renderTeamList(projectVo) {
         str = "";
-        str += "<div class='teamList' data='"+projectVo.project_no+"'>" +
+        str += "<div class='teamList' data='" + projectVo.project_no + "'>" +
             "                <div class='box box-success cursor-pointer' name='pjtDetail'>" +
             "                    <div class='box-header with-border'>" +
-            "                        <h3 id='projectName' class='box-title'>"+ projectVo.projectName + "</h3>" +
+            "                        <h3 id='projectName' class='box-title'>" + projectVo.projectName + "</h3>" +
             "                    </div>" +
             "                    <div id='teamMembers' class='box-body'>" + projectVo.membersName + "</div>" +
             "                    <div class='small-box'>" +
@@ -412,7 +412,7 @@
             type: "post",
             // contentType: "application/json",
             // async: false,
-            data: {"project_no" : project_no},
+            data: {"project_no": project_no},
             dataType: "json",
             success: function (result) {
                 renderTeamDetail(result)
@@ -430,7 +430,6 @@
 
         str = "";
         str += "<div id='pjtDetail' class='pjt_detail'>" +
-            "            <div class='box'>" +
             "                <div class='box-header with-border'>" +
             "                    <h1 class='box-title'> 프로젝트 상세정보 </h1>" +
             "                </div>" +
@@ -439,18 +438,18 @@
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width: 15%'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%' value='"+ projectVo.projectName +"'></td>" +
+            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width: 8%'>조원</th>" +
-            "                            <td id='membersName' style='width: 42%'>"+projectVo.membersName+"</td>" +
+            "                            <td id='membersName' style='width: 42%'>" + projectVo.membersName + "</td>" +
             "                            <td style='width: 10%'>" +
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
-            "                                <input id='membersId' type='hidden' value='"+projectVo.membersNo+"'>" +
-            "                                <input id='detailPjtNo' type='hidden' value='"+projectVo.project_no+"'>" +
-            "                                <input id='detailCurriNo' type='hidden' value='"+projectVo.curriculum_no+"'>" +
+            "                                <input id='membersId' type='hidden' value='" + projectVo.membersNo + "'>" +
+            "                                <input id='detailPjtNo' type='hidden' value='" + projectVo.project_no + "'>" +
+            "                                <input id='detailCurriNo' type='hidden' value='" + projectVo.curriculum_no + "'>" +
             "                            </td>" +
             "                        </tr>" +
             "                        <tr>" +
@@ -459,43 +458,43 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' style='width: 100%; height: 70px; resize: none'>"+projectVo.outline+"</textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' style='width: 100%; height: 70px; resize: none'>"+projectVo.focus+"</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' style='width: 100%; height: 70px; resize: none'>"+projectVo.applyField+"</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' style='width: 100%; height: 70px; resize: none'>"+projectVo.useTechnique+"</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
             "                <div class='sub-toolbox text-center'>" +
             "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>수정</button>" +
             "                </div>" +
-            "            </div>" +
             "        </div>";
 
         $("#pjtDetailDiv").append(str);
     }
 
-    $(document).on("click","#detailSaveBtn",function () {
+    $(document).on("click", "#detailSaveBtn", function () {
         var currival = $("#pjtcurriculum_no").val();
-        projectVo= {"project_no" : $("#detailPjtNo").val(),
-                    "curriculum_no" : $("#detailCurriNo").val(),
-                    "projectName" : $("#detailProjectName").val(),
-                    "membersNo" : $("#membersId").val(),
-                    "outline" : $("#outline").val(),
-                    "focus" : $("#focus").val(),
-                    "applyField" : $("#applyField").val(),
-                    "useTechnique" : $("#useTechnique").val()
+        projectVo = {
+            "project_no": $("#detailPjtNo").val(),
+            "curriculum_no": $("#detailCurriNo").val(),
+            "projectName": $("#detailProjectName").val(),
+            "membersNo": $("#membersId").val(),
+            "outline": $("#outline").val(),
+            "focus": $("#focus").val(),
+            "applyField": $("#applyField").val(),
+            "useTechnique": $("#useTechnique").val()
         };
 
         $.ajax({
@@ -515,5 +514,43 @@
 
         removeTeamList();
         ajaxGetTeamList(currival);
-    })
+    });
+
+    function ajaxRenderSubjectList(currival) {
+        $.ajax({
+            url: "/api/cm/getSubjectList",
+            type: "post",
+            // contentType: "application/json",
+            // async: false,
+            data: {"currival": currival},
+            dataType: "json",
+            success: function (result) {
+                removeSubjectList()
+                for (var i = 0; i < result.length; i++) {
+                    renderSubjectList(result[i])
+                }
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
+
+    function renderSubjectList(scoreVo) {
+        str = "";
+        str += "<div name='subList' class='col-md-12 subList'>" +
+            "                        <div class='box box-subjectlist'>" +
+            "                            <div class='small-box'>" +
+            "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +
+            "                                <input id='sisNo' type='hidden' value='" + scoreVo.sunInStep_no + "'>" +
+            "                            </div>" +
+            "                        </div>" +
+            "                    </div>";
+
+        $(".sub_list").append(str);
+    }
+
+    function removeSubjectList() {
+        $("div[name=subList]").remove();
+    }
 </script>

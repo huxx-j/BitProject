@@ -14,20 +14,12 @@ import java.util.Map;
 @Service
 public class ClassManagementService {
 
-    @Autowired
-    ClassManagementDao classManagementDao;
-
-    @Autowired
-    CurriculumDao curriculumDao;
-
-    @Autowired
-    GisuDao gisuDao;
-
-    @Autowired
-    LectureReportDao lectureReportDao;
-
-    @Autowired
-    ProjectDao projectDao;
+    @Autowired ClassManagementDao classManagementDao;
+    @Autowired CurriculumDao curriculumDao;
+    @Autowired GisuDao gisuDao;
+    @Autowired LectureReportDao lectureReportDao;
+    @Autowired ProjectDao projectDao;
+    @Autowired ScoreDao scoreDao;
 
     public List<String> getWorkType() {
         return curriculumDao.getWorkType();
@@ -99,26 +91,14 @@ public class ClassManagementService {
         projectMemberVo.setProject_no(projectVo.getProject_no());
 
         if (projectVo.getProject_no()==0) {
-            int i = projectDao.saveProjectDetail(projectVo);
+            projectDao.saveProjectDetail(projectVo);
             projectMemberVo.setProject_no(projectVo.getProject_no());
-            if (i != 0) {
-                System.out.println("Insert 성공");
-            }
         } else {
-            int i = projectDao.updateProjectDetail(projectVo);
-            if (i != 0) {
-                System.out.println("Update 성공");
-            }
+            projectDao.updateProjectDetail(projectVo);
         }
-
-        int delCount = projectDao.deleteProjectMember(projectVo.getProject_no());
-        if (delCount != 0) {
-            System.out.println(delCount +"개 삭제");
-        } else {
-            System.out.println("신규프로젝트");
-        }
+        projectDao.deleteProjectMember(projectVo.getProject_no());
         int count=0;
-        System.out.println("프로젝트 No > "+projectMemberVo.getProject_no());
+
         for (String i : memberNo) {
             projectMemberVo.setUser_no(Integer.parseInt(i));
             int c = projectDao.saveProjectMember(projectMemberVo);
@@ -126,9 +106,10 @@ public class ClassManagementService {
                 count++;
             }
         }
-        System.out.println(count + "명 Insert");
         return count;
     }
 
-
+    public List<ScoreVo> getSubjectList(int curriNo) {
+        return scoreDao.getSubjectList(curriNo);
+    }
 }
