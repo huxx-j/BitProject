@@ -1,41 +1,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
-    <div class="col-xs-4">
+    <div id="teamListDiv" class="col-xs-4">
         <div class="box">
             <div class="box-header with-border">
                 <h1 class="box-title"> 팀 리스트</h1>
                 <button id="addTeam" class="btn btn-primary btn-call-se" style="float: right" type="button">팀 추가
                 </button>
             </div>
-            <div>
-                <div class="box box-success cursor-pointer">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>
-                    </div>
-                    <div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>
-                    <div class="small-box">
-                        <a class="small-box-footer cursor-pointer">
-                            More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>
-                    </div>
-                    <div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>
-                </div>
-            </div>
-            <div>
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>
-                    </div>
-                    <div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>
-                </div>
-            </div>
+            <%--<div>--%>
+                <%--<div class="box box-success cursor-pointer">--%>
+                    <%--<div class="box-header with-border">--%>
+                        <%--<h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>--%>
+                    <%--</div>--%>
+                    <%--<div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>--%>
+                    <%--<div class="small-box">--%>
+                        <%--<a class="small-box-footer cursor-pointer">--%>
+                            <%--More info <i class="fa fa-arrow-circle-right"></i>--%>
+                        <%--</a>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div>--%>
+                <%--<div class="box box-default">--%>
+                    <%--<div class="box-header with-border">--%>
+                        <%--<h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>--%>
+                    <%--</div>--%>
+                    <%--<div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div>--%>
+                <%--<div class="box box-default">--%>
+                    <%--<div class="box-header with-border">--%>
+                        <%--<h3 class="box-title">1조 : 비트아카데미 홈페이지 Admin</h3>--%>
+                    <%--</div>--%>
+                    <%--<div class="box-body"> 장성우, 문승환, 이서현, 배진현, 문희준</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </div>
     </div>
     <div id="pjtDetailDiv" class="col-xs-8">

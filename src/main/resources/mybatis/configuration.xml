@@ -13,6 +13,7 @@
         <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo"/>
         <typeAlias alias="CurriculumVo" type="com.bitacademy.vo.CurriculumVo"/>
         <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
+        <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/users.xml"/>

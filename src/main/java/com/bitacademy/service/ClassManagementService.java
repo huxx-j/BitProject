@@ -3,7 +3,9 @@ package com.bitacademy.service;
 import com.bitacademy.dao.*;
 import com.bitacademy.vo.CurriculumVo;
 import com.bitacademy.vo.LectureReportVo;
+import com.bitacademy.vo.ProjectVo;
 import com.bitacademy.vo.UsersVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +66,20 @@ public class ClassManagementService {
 
     public List<UsersVo> getMemberName(int curriNo) {
         return projectDao.getMemberName(curriNo);
+    }
+
+    public List<ProjectVo> getTeamList(int currival) {
+        List<ProjectVo> teamList;
+        List<String> memberList;
+
+        teamList = projectDao.getTeamList(currival);
+
+        for (ProjectVo projectVo : teamList) {
+            memberList = projectDao.getTeamMemberList(projectVo.getProject_no());
+            projectVo.setMembersName(StringUtils.join(memberList,", "));
+        }
+
+
+        return teamList;
     }
 }

@@ -16,5 +16,15 @@
         ]]>
     </select>
 
+    <select id="getTeamList" parameterType="Int" resultType="ProjectVo">
+        <![CDATA[
+        select Project_no, ProjectName from Project where Curriculum_no=#{curriculum_no}
+        ]]>
+    </select>
 
+    <select id="getTeamMemberList" parameterType="Int" resultType="String">
+        <![CDATA[
+        select u.NameHan from ProjectMember pm, Users u where pm.User_no=u.User_no and Project_no=#{project_no}
+        ]]>
+    </select>
 </mapper>
