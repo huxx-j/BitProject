@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="score">
+
+<select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
+    <![CDATA[
+      select SubInStep_no, SubjectName
+      from v_subject
+      where Step_no
+            in (select Step_no
+                from StepInPack
+                where Package_no=(select Package_no
+                                  from Curriculum
+                                  where Curriculum_no=#{curriculum_no}))
+    ]]>
+</select>
+
+</mapper>

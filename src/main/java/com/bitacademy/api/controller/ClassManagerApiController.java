@@ -1,14 +1,10 @@
 package com.bitacademy.api.controller;
 
 import com.bitacademy.service.ClassManagementService;
-import com.bitacademy.vo.CurriculumVo;
-import com.bitacademy.vo.LectureReportVo;
-import com.bitacademy.vo.ProjectVo;
-import com.bitacademy.vo.UsersVo;
+import com.bitacademy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 import java.util.Map;
@@ -70,10 +66,15 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/saveProjectDetail", method = RequestMethod.POST)
     public int saveProjectDetail(@RequestBody ProjectVo projectVo) {
-        System.out.println(projectVo.toString());
+//        System.out.println(projectVo.toString());
         return classManagementService.saveProjectDetail(projectVo);
 //        System.out.println(projectVo.toString());
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/getSubjectList", method = RequestMethod.POST)
+    public List<ScoreVo> getSubjectList(@RequestParam("currival") int curriNo) {
+        return classManagementService.getSubjectList(curriNo);
     }
 
 

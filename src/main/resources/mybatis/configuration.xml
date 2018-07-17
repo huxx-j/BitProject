@@ -15,6 +15,7 @@
         <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
         <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
         <typeAlias alias="ProjectMemberVo" type="com.bitacademy.vo.ProjectMemberVo"/>
+        <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/users.xml"/>
@@ -28,5 +29,6 @@
         <mapper resource="mybatis/mappers/gisu.xml"/>
         <mapper resource="mybatis/mappers/lecturereport.xml"/>
         <mapper resource="mybatis/mappers/project.xml"/>
+        <mapper resource="mybatis/mappers/score.xml"/>
     </mappers>
 </configuration>
