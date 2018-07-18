@@ -11,7 +11,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <c:import url="/WEB-INF/views/includes/link.jsp" />
-    <%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
+    <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
 
 </head>
@@ -149,6 +149,6 @@
 
 </body>
 </html>
-<c:import url="/WEB-INF/views/includes/script.jsp" />
+<%--<c:import url="/WEB-INF/views/includes/script.jsp" />--%>
 
 <c:import url="includes/classscript.jsp" />

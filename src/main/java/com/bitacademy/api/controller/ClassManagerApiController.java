@@ -89,4 +89,10 @@ public class ClassManagerApiController {
         return classManagementService.saveScore(scoreVo);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
+    public List<UserInfoVo> getUserInfo(@RequestParam("curriNo") int currino) {
+        return classManagementService.getUserInfo(currino);
+    }
+
 }
