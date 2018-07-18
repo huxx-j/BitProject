@@ -16,6 +16,7 @@
         <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
         <typeAlias alias="ProjectMemberVo" type="com.bitacademy.vo.ProjectMemberVo"/>
         <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
+        <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/users.xml"/>
@@ -30,5 +31,6 @@
         <mapper resource="mybatis/mappers/lecturereport.xml"/>
         <mapper resource="mybatis/mappers/project.xml"/>
         <mapper resource="mybatis/mappers/score.xml"/>
+        <mapper resource="mybatis/mappers/userinfo.xml"/>
     </mappers>
 </configuration>

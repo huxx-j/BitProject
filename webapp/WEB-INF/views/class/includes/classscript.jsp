@@ -90,6 +90,7 @@
         ajaxRenderSubjectList(currival);
         //프로젝트 탭 팀 리스트 뿌리는 ajax스크립트
         ajaxGetTeamList(currival);
+        jqGridUserInfo(currival);
 
     });
 
@@ -324,13 +325,13 @@
             "                <div class='box-body'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 15%;'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%'></td>" +
+            "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
+            "                            <td colspan='2'><input id='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 8%'>조원</th>" +
-            "                            <td id='membersName' style='width: 42%'></td>" +
-            "                            <td style='width: 10%'>" +
+            "                            <th class='a_c'>조원</th>" +
+            "                            <td id='membersName'></td>" +
+            "                            <td style='width: 100px'>" +
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원선택" +
             "                                </button>" +
@@ -382,7 +383,7 @@
             "                    <div class='box-header with-border'>" +
             "                        <h3 id='projectName' class='box-title'>" + projectVo.projectName + "</h3>" +
             "                    </div>" +
-            "                    <div id='teamMembers' class='box-body'>" + projectVo.membersName + "</div>" +
+            "                    <div id='teamMembers' class='box-body teamList-box'>" + projectVo.membersName + "</div>" +
             "                    <div class='small-box'>" +
             "                        <a href='#' class='small-box-footer cursor-pointer' name='pjtDetail'>" +
             "                            상세보기 <i class='fa fa-arrow-circle-right'></i>" +
@@ -405,7 +406,7 @@
         removePjtDetail();
         var project_no = $(this).attr("data");
         var curriNo = $("#pjtcurriculum_no").val();
-        console.log(curriNo)
+        console.log(curriNo);
 
         $.ajax({
             url: "/api/cm/getProjectDetail",
@@ -437,13 +438,13 @@
             "                <div class='box-body'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 15%'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
+            "                            <td colspan='2'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 8%'>조원</th>" +
-            "                            <td id='membersName' style='width: 42%'>" + projectVo.membersName + "</td>" +
-            "                            <td style='width: 10%'>" +
+            "                            <th class='a_c'>조원</th>" +
+            "                            <td id='membersName'>" + projectVo.membersName + "</td>" +
+            "                            <td style='width: 100px'>" +
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
@@ -516,6 +517,8 @@
         ajaxGetTeamList(currival);
     });
 
+
+    //이론평가 탭
     function ajaxRenderSubjectList(currival) {
         $.ajax({
             url: "/api/cm/getSubjectList",
@@ -538,11 +541,10 @@
 
     function renderSubjectList(scoreVo) {
         str = "";
-        str += "<div name='subList' class='col-md-12 subList'>" +
+        str += "<div name='subList' class='col-md-12 subList' data='" + scoreVo.subInStep_no + "' data-subname='"+scoreVo.subjectName+"'>" +
             "                        <div class='box box-subjectlist'>" +
             "                            <div class='small-box'>" +
             "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +
-            "                                <input id='sisNo' type='hidden' value='" + scoreVo.sunInStep_no + "'>" +
             "                            </div>" +
             "                        </div>" +
             "                    </div>";
@@ -552,5 +554,183 @@
 
     function removeSubjectList() {
         $("div[name=subList]").remove();
+    }
+
+    $(document).on("click", "div[name=subList]", function () {
+        removeScoreTable();
+        renderScoreTableTh();
+        var subName = $(this).attr("data-subname");
+        var sisNo = $(this).attr("data");
+        var curriNo = $("#selectedCurri").val();
+        $("#subName").text(subName);
+        $("#iCurriNo").val(curriNo);
+        $("#iSisNo").val(sisNo);
+
+        scoreVo = {
+            "subInStep_no": sisNo,
+            "curriculum_no": curriNo
+        };
+
+        $.ajax({
+            url: "/api/cm/getSutudentInScore",
+            type: "post",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(scoreVo),
+            dataType: "json",
+            success: function (result) {
+
+                for (var i = 0; i < result.length; i++) {
+                    renderScoreTableTd(result[i], i+1)
+                }
+                renderscoreSaveBtn();
+
+                $("#iSutdNo").val(result.length);
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    });
+
+    function renderScoreTableTh() {
+        str = "";
+        str += "<tr class='scoreTable'>" +
+            "       <th class='a_c' style='width: 5%'>No</th>" +
+            "       <th class='a_c' style='width: 15%'>이름</th>" +
+            "       <th class='a_c' style='width: 10%'>점수</th>" +
+            "       <th class='a_c' style='width: 70%'>첨부파일</th>" +
+            "   </tr>";
+
+        $("#score-table").append(str);
+    }
+
+    function renderscoreSaveBtn() {
+        strBtn="";
+        strBtn="<button name='scoreSaveBtn' type='button' class='btn btn-primary'>저장</button>";
+
+        $("#scoreSaveBtn").append(strBtn);
+    }
+
+    function renderScoreTableTd(ScoreVo, i) {
+        str = "";
+        str += "<tr class='scoreTable'>" +
+            "       <td class='a_c'>"+ i +"</td>" +
+            "       <td  class='a_c'>"+ ScoreVo.nameHan +"<input id='iUserNo"+i+"' type='hidden' value='"+ScoreVo.user_no+"'></td>" +
+            "       <td><input id='iScore"+i+"' style='width: 100%' type='text'></td>" +
+            "       <td><input id='iScoreFile"+i+"' type='file'></td>" +
+            "   </tr>";
+
+        $("#score-table").append(str);
+    }
+
+    function removeScoreTable() {
+        $(".scoreTable").remove();
+        $("button[name=scoreSaveBtn]").remove();
+    }
+
+    $(document).on("click","button[name=scoreSaveBtn]", function () {
+        var sisNo = $("#iSisNo").val();
+        var curriNo = $("#iCurriNo").val();
+        var studNo = $("#iSutdNo").val();
+
+        for (var i = 1; i <= studNo; i++) {
+            scoreVo = {"curriculum_no":curriNo,
+                       "subInStep_no":sisNo,
+                       "user_no":$("#iUserNo"+i).val(),
+                       "score":$("#iScore"+i).val()};
+            ajaxSaveScore(scoreVo)
+        }
+        alert("저장성공")
+    });
+
+    function ajaxSaveScore(scoreVo) {
+        $.ajax({
+            url: "/api/cm/saveScore",
+            type: "post",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(scoreVo),
+            dataType: "json",
+            success: function (result) {
+
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
+
+
+    //학생관리 탭
+
+    function jqGridUserInfo(currival) {
+        removeJqGridTable();
+        renderJqGridTable();
+        var cnames = ['번호', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부'];
+
+        $("#jqGrid").jqGrid({
+            url: "jqgridStartMain.do",
+            datatype: "local",
+            colNames: cnames,
+            colModel: [
+                {name: 'user_no', index: 'user_no', width: 10, hidden: true},
+                {name: 'gisuName', index: 'gisuName', width: 150, align: "center"},
+                {name: 'nameHan', index: 'nameHan', width: 100, align: "center"},
+                {name: 'studResNum', index: 'studResNum', width: 100, align: "center"},
+                {name: 'gender', index: 'gender', width: 60, align: "center"},
+                {name: 'testResult', index: 'testResult', width: 95, align: "center"},
+                {name: 'handphone', index: 'handphone', width: 150, align: "center"},
+                {name: 'applyDay', index: 'applyDay', width: 100, align: "center"},
+                {name: 'testDay', index: 'testDay', width: 100, align: "center"},
+                {name: 'school', index: 'school', width: 140, align: "center"},
+                {name: 'major', index: 'major', width: 140, align: "center"},
+                {name: 'deposit', index: 'deposit', width: 60, align: "center"}
+            ],
+
+            // rowheight: 50,
+            height: 300,
+            rownumbers: true,
+            ondblClickRow: function () {
+                var rowId = $("#jqGrid").getGridParam("selrow");
+                var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
+                console.log(userNo)
+                alert("나중에 " + userNo + "")
+
+            },
+            viewrecords: true
+            // caption: "유저 정보"
+        });
+
+        /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
+        $(function () {
+            // var curriNo = $("#selectedCurri").val();
+
+            $.ajax({
+                url: "/api/cm/getUserInfo",
+                type: "post",
+                // contentType: "application/json",
+                // async: false,
+                data: {"curriNo": currival},
+                dataType: "json",
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++)
+                        $("#jqGrid").jqGrid('addRowData', i + 1, result[i]);
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+        });
+    }
+
+    function renderJqGridTable() {
+        str="";
+        str="<table id='jqGrid'></table>";
+
+        $("div[name=jqgrid]").append(str);
+    }
+    function removeJqGridTable() {
+        $("#gbox_jqGrid").remove();
     }
 </script>

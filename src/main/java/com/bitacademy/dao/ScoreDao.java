@@ -15,4 +15,12 @@ public class ScoreDao {
     public List<ScoreVo> getSubjectList(int curriNo) {
         return sqlSession.selectList("score.getSubjectList", curriNo);
     }
+
+    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+        return sqlSession.selectList("score.getSutudentInScore", scoreVo);
+    }
+
+    public int saveScore(ScoreVo scoreVo) {
+        return sqlSession.insert("score.saveScore", scoreVo);
+    }
 }
