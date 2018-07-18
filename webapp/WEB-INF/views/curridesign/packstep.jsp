@@ -85,6 +85,7 @@
 											<li class=""><a href="#">회원관리</a></li>
 											<button style="float: right" id="btnAddpackage" class="btn btn-info btn-flat" type="button">패키지 추가</button>
 										</ul>
+
 									</div>
 									<div class="sub-body">
 										<!-- 2번메뉴내용 -->
@@ -99,13 +100,13 @@
 
 											<tbody>
 											<tr>
-												<th>패키지명</th>
-												<td colspan="3" >
-													자바 스프링 Node 960 시간
+												<th  style="width : 100px">패키지명</th>
+												<td style="width : 500px" colspan="3" >
+													${PackageName}
 												</td>
-												<th colspan="2">총 교육시간</th>
+												<th style="width : 100px" colspan="2">총 교육시간</th>
 												<td style="width : 100px">
-													960 시간
+													${TotalTime}
 												</td>
 											</tr>
 											</tbody>

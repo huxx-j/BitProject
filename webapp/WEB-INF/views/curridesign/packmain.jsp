@@ -66,7 +66,6 @@
 										<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 										<br><br><br><br><br><br><br><br><br>
 									</div><!-- /.sub-body -->
-
 								</div><!-- /.cate-outter -->
 
 								<div class="cate-toolbox">
@@ -84,7 +83,7 @@
 						<!-- 과목정보영역 -->
 						<div class="col-xs-9">
 
-							<!--탭 박스 외곽 -->
+ 							<!--탭 박스 외곽 -->
 							<div class="nav-tabs-custom">
 
 								<!-- 상단탭영역 -->
@@ -97,55 +96,56 @@
 								<div class="tab-content">
 									<!-- 1번탭내용 -->
 									<div class="tab-pane active" id="tab_1">
+										<form id="" name="joinForm" method="get" action="${pageContext.request.contextPath}/package/add">
 										<!-- 1번탭내용 -->
 										<table class="table table-condensed">
 											<colgroup>
 												<col width="120px" />
 												<col width="" />
 											</colgroup>
-
 											<tbody>
 											<tr>
 												<th>패키지사용여부</th>
-												<td>
+												<td colspan="3">
 													<div class="">
-														<label class="form-controll-static"><input class="" type="radio" name="state" value="">준비중</label>
-														<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="Availability" value="0">준비중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="Availability" value="1">모집중</label>
 													</div>
 												</td>
 											</tr>
 											<tr>
 												<th>패키지카테고리</th>
-												<td>
-													<select class="form-control input-sm">
-														<option>국가기관</option>
-														<option>대학캠퍼스</option>
-														<option>option 3</option>
-														<option>option 4</option>
-														<option>option 5</option>
+												<td colspan="3">
+													<select name ="strPackageCate_no" class="form-control input-sm">
+														<c:forEach items="${list}" var="vo">
+															<option value='${vo.packageCate_no}'>${vo.cateName}</option>
+														</c:forEach>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<th>패키지명</th>
-												<td><input class="form-control input-sm" type="text" placeholder=""></td>
+												<td><input name="PackageName" class="form-control input-sm" type="text" placeholder=""></td>
+												<th  style="width:120px";>총 시간</th>
+												<td width="100px"><input style="width:50px"; name="TotalTime" class="form-control input-sm" type="text" placeholder="">
+												</td>
 											</tr>
 											<tr>
 												<th>훈련목적및목표</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Goal" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											<tr>
 												<th>주요훈련내용</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Content" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											<tr>
 												<th>훈련대상요건</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Qualification" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											</tbody>
 										</table>
 										<div class="sub-toolbox text-center">
-											<button type="button" class="btn btn-primary">저장</button>
+											<input type="submit" value="저장"class="btn btn-primary">
 										</div>
 									</div>
 									<!-- /.1번탭내용 -->

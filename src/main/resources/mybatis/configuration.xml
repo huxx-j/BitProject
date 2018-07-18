@@ -6,8 +6,17 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="UserVo" type="com.bitacademy.vo.UserVo" />
+        <typeAlias alias="SubjectVo" type="com.bitacademy.vo.SubjectVo" />
+        <typeAlias alias="SubjectCateVo" type="com.bitacademy.vo.SubjectCateVo" />
+        <typeAlias alias="PackageCateVo" type="com.bitacademy.vo.PackageCateVo" />
+        <typeAlias alias="PackageVo" type="com.bitacademy.vo.PackageVo" />
+        <typeAlias alias="SubInStepVo" type="com.bitacademy.vo.SubInStepVo" />
+        <typeAlias alias="StepInPackVo" type="com.bitacademy.vo.StepInPackVo" />
+        <typeAlias alias="MaxdepthVo" type="com.bitacademy.vo.MaxdepthVo" />
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/user.xml" />
+        <mapper resource="mybatis/mappers/subject.xml" />
+        <mapper resource="mybatis/mappers/package.xml" />
     </mappers>
 </configuration>

@@ -3,9 +3,24 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subject">
-    <insert id="add" parameterType="SubjectVo" >
+    <insert id="insert" parameterType="SubjectVo" >
         <![CDATA[
-        insert into Subject values (#{Subject_no},#{SubjectCate_no},#{SubjectName},#{Outline});
+        insert into Subject (SubjectName,Outline) values (#{SubjectName},#{Outline})
         ]]>
     </insert>
+    <select id="listselect" resultType="SubjectCateVo">
+        <![CDATA[
+        select SubjectCate_no,CateName,GroupCode,ParentCode,Depth from SubjectCate
+        ]]>
+    </select>
+    <select id="subselect" resultType="SubjectVo">
+        <![CDATA[
+        select Subject_no,SubjectCate_no,SubjectName,Outline from Subject
+        ]]>
+    </select>
+    <select id="mdselect" resultType="MaxdepthVo">
+        <![CDATA[
+       select GroupCode,max(Depth) as depth from SubjectCate group by GroupCode
+        ]]>
+    </select>
 </mapper>

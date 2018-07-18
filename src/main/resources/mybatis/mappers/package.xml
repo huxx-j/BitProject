@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="package">
+
+    <select id="select" resultType="PackageCateVo">
+    <![CDATA[
+        select PackageCate_no,CateName,GroupCode,ParentCode,Depth from PackageCate;
+        ]]>
+    </select>
+    <insert id="insert" parameterType="PackageVo" >
+        <![CDATA[
+        insert into Package (PackageCate_no,Availability,PackageName,Goal,Content,Qualification,TotalTime) values (#{PackageCate_no},#{Availability},#{PackageName},#{Goal},#{Content},#{Qualification},#{TotalTime});
+        ]]>
+    </insert>
+</mapper>
