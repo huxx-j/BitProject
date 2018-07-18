@@ -2,7 +2,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var selectValue = $("#workTypeSelect option:selected").val();
+        
+    	var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
             url: "/api/cm/getcurri",
             type: "post",

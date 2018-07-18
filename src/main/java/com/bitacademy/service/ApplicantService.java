@@ -27,9 +27,9 @@ public class ApplicantService {
 		return applicantDao.getCurriList(workType);
 	}
 	
-	public List<ApplyUserVo> search(CurriculumVo curriVo){
+	public List<ApplyUserVo> search(int selectValue){
 		
 		System.out.println("서비스");
-		return applicantDao.search(curriVo);
+		return applicantDao.search(selectValue);
 	}
 }

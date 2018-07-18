@@ -26,9 +26,9 @@ public class ApplicantDao {
 		return sqlSession.selectList("applicant.getCurriList",workType);
 	}
 	
-	public List<ApplyUserVo> search(CurriculumVo curriVo){
+	public List<ApplyUserVo> search(int selectValue){
 		
-		List<ApplyUserVo> list = sqlSession.selectList("applicant.getApplyStudent",curriVo);
+		List<ApplyUserVo> list = sqlSession.selectList("applicant.getApplyStudent",selectValue);
 		System.out.println(list.toString());
 		
 		return list;

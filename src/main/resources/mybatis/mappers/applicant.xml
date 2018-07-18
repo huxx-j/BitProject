@@ -38,7 +38,7 @@
 
 </select>
 
-<select id="getApplyStudent" parameterType="com.bitacademy.vo.CurriculumVo" resultType="com.bitacademy.vo.ApplyUserVo">
+<select id="getApplyStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
 
 <![CDATA[
 

@@ -22,7 +22,6 @@ public class ApplicantController {
 		
 		System.out.println("지원자관리 들어가요");
 		List<CurriculumVo> curriList = applicantService.getFristWorkType();
-		System.out.println("나왔");
 		model.addAttribute("curriList",curriList);
 		
 		return "screening/applicantmanagement";
