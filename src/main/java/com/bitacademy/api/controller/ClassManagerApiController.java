@@ -77,5 +77,16 @@ public class ClassManagerApiController {
         return classManagementService.getSubjectList(curriNo);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "getSutudentInScore", method = RequestMethod.POST)
+    public List<ScoreVo> getSutudentInScore(@RequestBody ScoreVo scoreVo) {
+        return classManagementService.getSutudentInScore(scoreVo);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveScore", method = RequestMethod.POST)
+    public int saveScore(@RequestBody ScoreVo scoreVo) {
+        return classManagementService.saveScore(scoreVo);
+    }
 
 }

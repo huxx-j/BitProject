@@ -405,7 +405,7 @@
         removePjtDetail();
         var project_no = $(this).attr("data");
         var curriNo = $("#pjtcurriculum_no").val();
-        console.log(curriNo)
+        console.log(curriNo);
 
         $.ajax({
             url: "/api/cm/getProjectDetail",
@@ -516,6 +516,8 @@
         ajaxGetTeamList(currival);
     });
 
+
+    //이론평가 탭
     function ajaxRenderSubjectList(currival) {
         $.ajax({
             url: "/api/cm/getSubjectList",
@@ -538,11 +540,10 @@
 
     function renderSubjectList(scoreVo) {
         str = "";
-        str += "<div name='subList' class='col-md-12 subList'>" +
+        str += "<div name='subList' class='col-md-12 subList' data='" + scoreVo.subInStep_no + "' data-subname='"+scoreVo.subjectName+"'>" +
             "                        <div class='box box-subjectlist'>" +
             "                            <div class='small-box'>" +
             "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +
-            "                                <input id='sisNo' type='hidden' value='" + scoreVo.sunInStep_no + "'>" +
             "                            </div>" +
             "                        </div>" +
             "                    </div>";
@@ -553,4 +554,110 @@
     function removeSubjectList() {
         $("div[name=subList]").remove();
     }
+
+    $(document).on("click", "div[name=subList]", function () {
+        removeScoreTable();
+        renderScoreTableTh();
+        var subName = $(this).attr("data-subname");
+        var sisNo = $(this).attr("data");
+        var curriNo = $("#selectedCurri").val();
+        $("#subName").text(subName);
+        $("#iCurriNo").val(curriNo);
+        $("#iSisNo").val(sisNo);
+
+        scoreVo = {
+            "subInStep_no": sisNo,
+            "curriculum_no": curriNo
+        };
+
+        $.ajax({
+            url: "/api/cm/getSutudentInScore",
+            type: "post",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(scoreVo),
+            dataType: "json",
+            success: function (result) {
+
+                for (var i = 0; i < result.length; i++) {
+                    renderScoreTableTd(result[i], i+1)
+                }
+                renderscoreSaveBtn();
+
+                $("#iSutdNo").val(result.length);
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    });
+
+    function renderScoreTableTh() {
+        str = "";
+        str += "<tr class='scoreTable'>" +
+            "       <th class='a_c' style='width: 5%'>No</th>" +
+            "       <th class='a_c' style='width: 15%'>이름</th>" +
+            "       <th class='a_c' style='width: 10%'>점수</th>" +
+            "       <th class='a_c' style='width: 70%'>첨부파일</th>" +
+            "   </tr>";
+
+        $("#score-table").append(str);
+    }
+
+    function renderscoreSaveBtn() {
+        strBtn="";
+        strBtn="<button name='scoreSaveBtn' type='button' class='btn btn-primary'>저장</button>";
+
+        $("#scoreSaveBtn").append(strBtn);
+    }
+
+    function renderScoreTableTd(ScoreVo, i) {
+        str = "";
+        str += "<tr class='scoreTable'>" +
+            "       <td class='a_c'>"+ i +"</td>" +
+            "       <td  class='a_c'>"+ ScoreVo.nameHan +"<input id='iUserNo"+i+"' type='hidden' value='"+ScoreVo.user_no+"'></td>" +
+            "       <td><input id='iScore"+i+"' style='width: 100%' type='text'></td>" +
+            "       <td><input id='iScoreFile"+i+"' type='file'></td>" +
+            "   </tr>";
+
+        $("#score-table").append(str);
+    }
+
+    function removeScoreTable() {
+        $(".scoreTable").remove();
+        $("button[name=scoreSaveBtn]").remove();
+    }
+
+    $(document).on("click","button[name=scoreSaveBtn]", function () {
+        var sisNo = $("#iSisNo").val();
+        var curriNo = $("#iCurriNo").val();
+        var studNo = $("#iSutdNo").val();
+
+        for (var i = 1; i <= studNo; i++) {
+            scoreVo = {"curriculum_no":curriNo,
+                       "subInStep_no":sisNo,
+                       "user_no":$("#iUserNo"+i).val(),
+                       "score":$("#iScore"+i).val()};
+            ajaxSaveScore(scoreVo)
+        }
+        alert("저장성공")
+    });
+
+    function ajaxSaveScore(scoreVo) {
+        $.ajax({
+            url: "/api/cm/saveScore",
+            type: "post",
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(scoreVo),
+            dataType: "json",
+            success: function (result) {
+
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
+
 </script>

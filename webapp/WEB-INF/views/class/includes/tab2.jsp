@@ -22,57 +22,35 @@
                     <table class="table table-bordered">
                         <tr>
                             <th style="width: 8%; text-align: center">과정명</th>
-                            <td style="width: 55%"> </td>
+                            <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요</td>
                         </tr>
                         <tr>
-                            <th style="width: 8%; text-align: center">과제</th>
-                            <td style="width: 42%"><input type="file"></td>
+                            <th style="text-align: center">과제</th>
+                            <td><input type="file">
+                                <input id="iSisNo" type="hidden">
+                                <input id="iCurriNo" type="hidden">
+                                <input id="iSutdNo" type="hidden">
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered">
-                        <tr>
+                    <table id="score-table" class="table table-bordered">
+                        <tr class="scoreTable">
                             <th class="a_c" style="width: 5%">No</th>
                             <th class="a_c" style="width: 15%">이름</th>
                             <th class="a_c" style="width: 10%">점수</th>
                             <th class="a_c" style="width: 70%">첨부파일</th>
                         </tr>
-                        <tr>
-                            <td class="a_c">1</td>
-                            <td class="a_c">강규범</td>
-                            <td><input style="width: 100%" type="text"></td>
-                            <td><input type="file"></td>
+                        <tr class="scoreTable">
+                            <td colspan="4" class="a_c">과목리스트에서 과목명을 선택하세요</td>
                         </tr>
-                        <tr>
-                            <td class="a_c">2</td>
-                            <td class="a_c">강규범</td>
-                            <td><input style="width: 100%" type="text"></td>
-                            <td><input type="file"></td>
-                        </tr>
-                        <tr>
-                            <td class="a_c">3</td>
-                            <td class="a_c">강규범</td>
-                            <td><input style="width: 100%" type="text"></td>
-                            <td><input type="file"></td>
-                        </tr>
-                        <tr>
-                            <td class="a_c">4</td>
-                            <td class="a_c">강규범</td>
-                            <td><input style="width: 100%" type="text"></td>
-                            <td><input type="file"></td>
-                        </tr>
-                        <tr>
-                            <td class="a_c">5</td>
-                            <td class="a_c">강규범</td>
-                            <td><input style="width: 100%" type="text"></td>
-                            <td><input type="file"></td>
-                        </tr>
+                        <%--점수 테이블 뿌려질 자리--%>
                     </table>
                 </div>
-                <div class="sub-toolbox text-center">
-                    <button type="button" class="btn btn-primary">저장</button>
+                <div id="scoreSaveBtn" class="sub-toolbox text-center">
+                    <%--저장 버튼 뿌려질 자리--%>
                 </div>
             </div>
         </div>

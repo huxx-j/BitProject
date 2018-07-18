@@ -112,4 +112,12 @@ public class ClassManagementService {
     public List<ScoreVo> getSubjectList(int curriNo) {
         return scoreDao.getSubjectList(curriNo);
     }
+
+    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+        return scoreDao.getSutudentInScore(scoreVo);
+    }
+
+    public int saveScore(ScoreVo scoreVo) {
+        return scoreDao.saveScore(scoreVo);
+    }
 }

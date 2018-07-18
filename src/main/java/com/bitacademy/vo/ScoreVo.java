@@ -7,17 +7,19 @@ public class ScoreVo {
     private int score;
     private int file_no;
     private String subjectName;
+    private String nameHan;
 
     public ScoreVo() {
     }
 
-    public ScoreVo(int curriculum_no, int subInStep_no, int user_no, int score, int file_no, String subjectName) {
+    public ScoreVo(int curriculum_no, int subInStep_no, int user_no, int score, int file_no, String subjectName, String nameHan) {
         this.curriculum_no = curriculum_no;
         this.subInStep_no = subInStep_no;
         this.user_no = user_no;
         this.score = score;
         this.file_no = file_no;
         this.subjectName = subjectName;
+        this.nameHan = nameHan;
     }
 
     public int getCurriculum_no() {
@@ -68,6 +70,14 @@ public class ScoreVo {
         this.subjectName = subjectName;
     }
 
+    public String getNameHan() {
+        return nameHan;
+    }
+
+    public void setNameHan(String nameHan) {
+        this.nameHan = nameHan;
+    }
+
     @Override
     public String toString() {
         return "ScoreVo{" +
@@ -77,6 +87,7 @@ public class ScoreVo {
                 ", score=" + score +
                 ", file_no=" + file_no +
                 ", subjectName='" + subjectName + '\'' +
+                ", nameHan='" + nameHan + '\'' +
                 '}';
     }
 }

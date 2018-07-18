@@ -13,7 +13,6 @@ public class LectureReportDao {
     SqlSession sqlSession;
 
     public List<LectureReportVo> getLetureReport(LectureReportVo lectureReportVo) {
-        System.out.println(123);
         return sqlSession.selectList("lectureReport.getLectureReport", lectureReportVo);
     }
 

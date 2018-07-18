@@ -17,4 +17,21 @@
     ]]>
 </select>
 
+    <select id="getSutudentInScore" parameterType="ScoreVo" resultType="ScoreVo">
+        <![CDATA[
+        select u.User_no, u.NameHan
+        from Users u, ApplyInfo a
+        where a.User_no=u.User_no
+               and a.Curriculum_no=#{curriculum_no}
+               and a.State='비트생'
+        ]]>
+    </select>
+
+    <insert id="saveScore" parameterType="ScoreVo">
+        <![CDATA[
+        insert into Score(Curriculum_no, SubInStep_no, User_no, Score)
+        values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score})
+        ]]>
+    </insert>
+
 </mapper>
