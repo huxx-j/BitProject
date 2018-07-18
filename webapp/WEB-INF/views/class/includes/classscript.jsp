@@ -324,13 +324,13 @@
             "                <div class='box-body'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 15%;'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%'></td>" +
+            "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
+            "                            <td colspan='2'><input id='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 8%'>조원</th>" +
-            "                            <td id='membersName' style='width: 42%'></td>" +
-            "                            <td style='width: 10%'>" +
+            "                            <th class='a_c'>조원</th>" +
+            "                            <td id='membersName'></td>" +
+            "                            <td style='width: 100px'>" +
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원선택" +
             "                                </button>" +
@@ -382,7 +382,7 @@
             "                    <div class='box-header with-border'>" +
             "                        <h3 id='projectName' class='box-title'>" + projectVo.projectName + "</h3>" +
             "                    </div>" +
-            "                    <div id='teamMembers' class='box-body'>" + projectVo.membersName + "</div>" +
+            "                    <div id='teamMembers' class='box-body teamList-box'>" + projectVo.membersName + "</div>" +
             "                    <div class='small-box'>" +
             "                        <a href='#' class='small-box-footer cursor-pointer' name='pjtDetail'>" +
             "                            상세보기 <i class='fa fa-arrow-circle-right'></i>" +
@@ -437,13 +437,13 @@
             "                <div class='box-body'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 15%'>프로젝트명</th>" +
-            "                            <td colspan='2' style='width: 85%'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
+            "                            <td colspan='2'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c' style='width: 8%'>조원</th>" +
-            "                            <td id='membersName' style='width: 42%'>" + projectVo.membersName + "</td>" +
-            "                            <td style='width: 10%'>" +
+            "                            <th class='a_c'>조원</th>" +
+            "                            <td id='membersName'>" + projectVo.membersName + "</td>" +
+            "                            <td style='width: 100px'>" +
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
