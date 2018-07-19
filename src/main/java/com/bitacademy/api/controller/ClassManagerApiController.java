@@ -5,6 +5,7 @@ import com.bitacademy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,13 @@ public class ClassManagerApiController {
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
     public List<UserInfoVo> getUserInfo(@RequestParam("curriNo") int currino) {
         return classManagementService.getUserInfo(currino);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveProjectFile", method = {RequestMethod.GET,RequestMethod.POST})
+    public int saveProjectFile(@RequestParam("projectFile") MultipartFile multipartFile, @RequestParam("projectNo") int projectNo) {
+        System.out.println("1234");
+        return classManagementService.saveProjectFile(multipartFile, projectNo);
     }
 
 }

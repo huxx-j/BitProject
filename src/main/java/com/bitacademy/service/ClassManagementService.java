@@ -1,11 +1,13 @@
 package com.bitacademy.service;
 
 import com.bitacademy.dao.*;
+import com.bitacademy.util.FileUpload;
 import com.bitacademy.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -124,5 +126,11 @@ public class ClassManagementService {
 
     public List<UserInfoVo> getUserInfo(int currino) {
         return userInfoDao.getUserInfo(currino);
+    }
+
+    public int saveProjectFile(MultipartFile multipartFile, int projectNo) {
+        FileUpload fileUpload = new FileUpload();
+        FileVo fileVo = fileUpload.saveProjectFile(multipartFile, projectNo);
+        return projectDao.saveProjectFile(fileVo);
     }
 }

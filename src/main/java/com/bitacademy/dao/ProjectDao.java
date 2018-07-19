@@ -1,5 +1,6 @@
 package com.bitacademy.dao;
 
+import com.bitacademy.vo.FileVo;
 import com.bitacademy.vo.ProjectMemberVo;
 import com.bitacademy.vo.ProjectVo;
 import com.bitacademy.vo.UsersVo;
@@ -49,5 +50,10 @@ public class ProjectDao {
 
     public int deleteProjectMember(int project_no) {
         return sqlSession.delete("project.deleteProjectMember", project_no);
+    }
+
+    public int saveProjectFile(FileVo fileVo) {
+        sqlSession.insert("project.saveProjectFile", fileVo);
+        return fileVo.getFile_no();
     }
 }
