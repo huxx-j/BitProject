@@ -51,7 +51,7 @@
             <![CDATA[
         update Project
         set ProjectName=#{projectName}, Outline=#{outline}, Focus=#{focus},
-        ApplyField=#{applyField}, UseTechnique=#{useTechnique}
+        ApplyField=#{applyField}, UseTechnique=#{useTechnique}, File_no=#{file_no}
         where Project_no=#{project_no} and Curriculum_no=#{curriculum_no}
         ]]>
     </update>
@@ -62,8 +62,8 @@
             select LAST_INSERT_ID() from dual
         </selectKey>
         <![CDATA[
-            insert into Project(Project_no, Curriculum_no, ProjectName, Outline, Focus, ApplyField, UseTechnique)
-            values(#{project_no},#{curriculum_no}, #{projectName}, #{outline}, #{focus}, #{applyField}, #{useTechnique})
+            insert into Project(Project_no, Curriculum_no, ProjectName, Outline, Focus, ApplyField, UseTechnique, File_no)
+            values(#{project_no},#{curriculum_no}, #{projectName}, #{outline}, #{focus}, #{applyField}, #{useTechnique}, #{file_no})
           ]]>
     </insert>
 
@@ -78,4 +78,16 @@
         delete from ProjectMember where Project_no=#{project_no}
         ]]>
     </delete>
+
+    <insert id="saveProjectFile" parameterType="FileVo">
+        <selectKey keyProperty="file_no" resultType="Int" order="AFTER">
+            <![CDATA[
+            select LAST_INSERT_ID() from dual
+            ]]>
+        </selectKey>
+        <![CDATA[
+        insert into File(File_no, FileSize, FilePath, FileName)
+        values (#{file_no},#{fileSize},#{filePath},#{fileName})
+        ]]>
+    </insert>
 </mapper>

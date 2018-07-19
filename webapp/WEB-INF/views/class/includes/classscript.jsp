@@ -502,35 +502,63 @@
 
     $(document).on("click", "#detailSaveBtn", function () {
         var currival = $("#pjtcurriculum_no").val();
-        projectVo = {
-            "project_no": $("#detailPjtNo").val(),
-            "curriculum_no": $("#detailCurriNo").val(),
-            "projectName": $("#detailProjectName").val(),
-            "membersNo": $("#membersId").val(),
-            "outline": $("#outline").val(),
-            "focus": $("#focus").val(),
-            "applyField": $("#applyField").val(),
-            "useTechnique": $("#useTechnique").val()
-        };
+        var projectFile = new FormData($("#projectFile")[0]);
+        var projectNo = $("#detailPjtNo").val();
+        var file_no = null;
 
         $.ajax({
-            url: "/api/cm/saveProjectDetail",
+            url: "/api/cm/saveProjectFile",
             type: "post",
-            contentType: "application/json",
+            processData: false,
+            contentType: false,
+            cache: false,
+            enctype: "multipart/form-data",
             async: false,
-            data: JSON.stringify(projectVo),
+            data: {"projectFile": projectFile/*,
+                    "projectNo" : projectNo*/},
             dataType: "json",
             success: function (result) {
-
+                console.log("File_no : "+result);
+                file_no = result;
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
 
-        removeTeamList();
-        ajaxGetTeamList(currival);
+        if (file_no != null) {
+            projectVo = {
+                "project_no": $("#detailPjtNo").val(),
+                "curriculum_no": $("#detailCurriNo").val(),
+                "projectName": $("#detailProjectName").val(),
+                "membersNo": $("#membersId").val(),
+                "outline": $("#outline").val(),
+                "focus": $("#focus").val(),
+                "applyField": $("#applyField").val(),
+                "useTechnique": $("#useTechnique").val(),
+                "file_no": file_no
+            };
+
+            $.ajax({
+                url: "/api/cm/saveProjectDetail",
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                data: JSON.stringify(projectVo),
+                dataType: "json",
+                success: function (result) {
+
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+
+            removeTeamList();
+            ajaxGetTeamList(currival);
+        }
     });
+
 
 
     //이론평가 탭
@@ -731,7 +759,6 @@
                 var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
                 console.log(userNo)
                 alert("나중에 " + userNo + "")
-
             },
             viewrecords: true
             // caption: "유저 정보"
@@ -739,8 +766,6 @@
 
         /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
         $(function () {
-            // var curriNo = $("#selectedCurri").val();
-
             $.ajax({
                 url: "/api/cm/getUserInfo",
                 type: "post",
