@@ -22,14 +22,17 @@
                     <table class="table table-bordered">
                         <tr>
                             <th style="width: 8%; text-align: center">과정명</th>
-                            <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요</td>
-                        </tr>
-                        <tr>
-                            <th style="text-align: center">과제</th>
-                            <td><input type="file">
+                            <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요
                                 <input id="iSisNo" type="hidden">
                                 <input id="iCurriNo" type="hidden">
                                 <input id="iSutdNo" type="hidden">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="a_c">과제</th>
+                            <td style="padding: 4px 0 0 8px">
+                                <input type="file" name="testFile" id="testFile" class="inputfile inputfile-6" onchange="pushTestFileName()" />
+                                <label for="testFile"><span id="testFileName">파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>
                             </td>
                         </tr>
                     </table>
@@ -56,5 +59,3 @@
         </div>
     </div>
 </div>
-
-
