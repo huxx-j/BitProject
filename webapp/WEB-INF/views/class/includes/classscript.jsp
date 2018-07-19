@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<script>(function (e, t, n) {
+    var r = e.querySelectorAll("html")[0];r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")})(document, window, 0);</script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -91,7 +93,6 @@
         //프로젝트 탭 팀 리스트 뿌리는 ajax스크립트
         ajaxGetTeamList(currival);
         jqGridUserInfo(currival);
-
     });
 
     function ajaxGetTeamList(currival) {
@@ -342,7 +343,8 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2'><input id='projectFile'  type='file'></td>" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
@@ -406,7 +408,7 @@
         removePjtDetail();
         var project_no = $(this).attr("data");
         var curriNo = $("#pjtcurriculum_no").val();
-        console.log(curriNo);
+        // console.log(curriNo);
 
         $.ajax({
             url: "/api/cm/getProjectDetail",
@@ -455,7 +457,8 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2'><input id='projectFile'  type='file'></td>" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />\n" +
+            "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
@@ -484,6 +487,18 @@
 
         $("#pjtDetailDiv").append(str);
     }
+
+    //프로젝트 첨부파일 이름 span에 넣어주는 태그
+    function pushProjectFileName() {
+        if (typeof $("#projectFile")[0].files[0] == "undefined") {
+            document.getElementById("projectFileName").innerHTML = "파일을 선택하세요";
+        } else {
+            document.getElementById("projectFileName").innerHTML = $("#projectFile")[0].files[0].name;
+        }
+    }
+
+    // document.getElementById("projectFileName").innerHTML = $("#projectFile")[0].files[0].name;
+
 
     $(document).on("click", "#detailSaveBtn", function () {
         var currival = $("#pjtcurriculum_no").val();
@@ -541,7 +556,7 @@
 
     function renderSubjectList(scoreVo) {
         str = "";
-        str += "<div name='subList' class='col-md-12 subList' data='" + scoreVo.subInStep_no + "' data-subname='"+scoreVo.subjectName+"'>" +
+        str += "<div name='subList' class='col-md-12 subList' data='" + scoreVo.subInStep_no + "' data-subname='" + scoreVo.subjectName + "'>" +
             "                        <div class='box box-subjectlist'>" +
             "                            <div class='small-box'>" +
             "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +
@@ -581,7 +596,7 @@
             success: function (result) {
 
                 for (var i = 0; i < result.length; i++) {
-                    renderScoreTableTd(result[i], i+1)
+                    renderScoreTableTd(result[i], i + 1)
                 }
                 renderscoreSaveBtn();
 
@@ -606,8 +621,8 @@
     }
 
     function renderscoreSaveBtn() {
-        strBtn="";
-        strBtn="<button name='scoreSaveBtn' type='button' class='btn btn-primary'>저장</button>";
+        strBtn = "";
+        strBtn = "<button name='scoreSaveBtn' type='button' class='btn btn-primary'>저장</button>";
 
         $("#scoreSaveBtn").append(strBtn);
     }
@@ -615,30 +630,50 @@
     function renderScoreTableTd(ScoreVo, i) {
         str = "";
         str += "<tr class='scoreTable'>" +
-            "       <td class='a_c'>"+ i +"</td>" +
-            "       <td  class='a_c'>"+ ScoreVo.nameHan +"<input id='iUserNo"+i+"' type='hidden' value='"+ScoreVo.user_no+"'></td>" +
-            "       <td><input id='iScore"+i+"' style='width: 100%' type='text'></td>" +
-            "       <td><input id='iScoreFile"+i+"' type='file'></td>" +
+            "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
+            "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "<input id='iUserNo" + i + "' type='hidden' value='" + ScoreVo.user_no + "'></td>" +
+            "       <td><input id='iScore" + i + "' style='width: 100%' type='text'></td>" +
+            "       <td style='padding:7px 0 2px 8px ;'> <input type='file' name='studTestFile" + i + "' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")' />" +
+            "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "   </tr>";
 
         $("#score-table").append(str);
     }
 
+    //학생들 평가파일 이름 span에 넣어주는 태그
+    function pushStudTestFileName(i) {
+        if (typeof $("#studTestFile" + i)[0].files[0] == "undefined") {
+            document.getElementById("studTestFileName" + i).innerHTML = "파일을 선택하세요";
+        } else {
+            document.getElementById("studTestFileName" + i).innerHTML = $("#studTestFile" + i)[0].files[0].name;
+        }
+    }
+
+    //평가문제 파일 이름 span에 넣어주는 태그
+    function pushTestFileName() {
+        if (typeof $("#testFile")[0].files[0] == "undefined") {
+            document.getElementById("testFileName").innerHTML = "파일을 선택하세요";
+        } else {
+            document.getElementById("testFileName").innerHTML = $("#testFile")[0].files[0].name;
+        }
+    }
     function removeScoreTable() {
         $(".scoreTable").remove();
         $("button[name=scoreSaveBtn]").remove();
     }
 
-    $(document).on("click","button[name=scoreSaveBtn]", function () {
+    $(document).on("click", "button[name=scoreSaveBtn]", function () {
         var sisNo = $("#iSisNo").val();
         var curriNo = $("#iCurriNo").val();
         var studNo = $("#iSutdNo").val();
 
         for (var i = 1; i <= studNo; i++) {
-            scoreVo = {"curriculum_no":curriNo,
-                       "subInStep_no":sisNo,
-                       "user_no":$("#iUserNo"+i).val(),
-                       "score":$("#iScore"+i).val()};
+            scoreVo = {
+                "curriculum_no": curriNo,
+                "subInStep_no": sisNo,
+                "user_no": $("#iUserNo" + i).val(),
+                "score": $("#iScore" + i).val()
+            };
             ajaxSaveScore(scoreVo)
         }
         alert("저장성공")
@@ -725,11 +760,12 @@
     }
 
     function renderJqGridTable() {
-        str="";
-        str="<table id='jqGrid'></table>";
+        str = "";
+        str = "<table id='jqGrid'></table>";
 
         $("div[name=jqgrid]").append(str);
     }
+
     function removeJqGridTable() {
         $("#gbox_jqGrid").remove();
     }

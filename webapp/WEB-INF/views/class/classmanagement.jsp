@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,13 +13,12 @@
     <c:import url="/WEB-INF/views/includes/link.jsp" />
     <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
 </head>
-<style type="text/css">
-    .a_c {
-        text-align: center;
-    }
-</style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
