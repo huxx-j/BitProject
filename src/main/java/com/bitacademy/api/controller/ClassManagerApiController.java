@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -64,13 +65,13 @@ public class ClassManagerApiController {
         return classManagementService.getProjectDetail(project_no);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/saveProjectDetail", method = RequestMethod.POST)
-    public int saveProjectDetail(@RequestBody ProjectVo projectVo) {
-//        System.out.println(projectVo.toString());
-        return classManagementService.saveProjectDetail(projectVo);
-//        System.out.println(projectVo.toString());
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/saveProjectDetail", method = RequestMethod.POST)
+//    public int saveProjectDetail(@RequestBody ProjectVo projectVo) {
+////        System.out.println(projectVo.toString());
+//        return classManagementService.saveProjectDetail(projectVo);
+////        System.out.println(projectVo.toString());
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getSubjectList", method = RequestMethod.POST)
@@ -96,11 +97,11 @@ public class ClassManagerApiController {
         return classManagementService.getUserInfo(currino);
     }
 
-    @ResponseBody
+//    @ResponseBody
     @RequestMapping(value = "/saveProjectFile", method = {RequestMethod.GET,RequestMethod.POST})
-    public int saveProjectFile(@RequestParam("projectFile") MultipartFile multipartFile, @RequestParam("projectNo") int projectNo) {
-        System.out.println("1234");
-        return classManagementService.saveProjectFile(multipartFile, projectNo);
+    public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
+        System.out.println("컨트롤러");
+        return classManagementService.saveProjectFile(multipartFile);
     }
 
 }
