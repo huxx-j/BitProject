@@ -411,6 +411,10 @@
         var project_no = $(this).attr("data");
         var curriNo = $("#selectedCurri").val();
 
+        ajaxTeamDetail(project_no,curriNo);
+    });
+
+    function ajaxTeamDetail(project_no,curriNo) {
         $.ajax({
             url: "/api/cm/getProjectDetail",
             type: "post",
@@ -428,7 +432,8 @@
         removeMemberTable();
         renderTable();
         callMemberTable(curriNo);
-    });
+    }
+
 
     function renderTeamDetail(projectVo) {
 
@@ -509,6 +514,7 @@
     $(document).on("click", "#detailSaveBtn", function () {
         var currival = $("#pjtcurriculum_no").val();
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
+        var projectNo = 0;
 
         $.ajax({
             url: "/api/cm/saveProjectFile",
@@ -519,10 +525,9 @@
             enctype: "multipart/form-data",
             async: false,
             data: projectFileFormData,
-            // dataType: "json",
+            dataType: "json",
             success: function (result) {
-                alert(result)
-                console.log(result)
+                projectNo = result;
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
@@ -530,6 +535,8 @@
         });
             removeTeamList();
             ajaxGetTeamList(currival);
+            removePjtDetail();
+            ajaxTeamDetail(projectNo,currival);
 
         // $("#projectFileForm").submit();
     });

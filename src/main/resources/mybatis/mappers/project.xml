@@ -48,12 +48,22 @@
     </select>
 
     <update id="updateProjectDetail" parameterType="ProjectVo">
+        <if test="file_no==0">
             <![CDATA[
         update Project
         set ProjectName=#{projectName}, Outline=#{outline}, Focus=#{focus},
         ApplyField=#{applyField}, UseTechnique=#{useTechnique}
         where Project_no=#{project_no} and Curriculum_no=#{curriculum_no}
         ]]>
+        </if>
+        <if test="file_no!=0">
+            <![CDATA[
+        update Project
+        set ProjectName=#{projectName}, Outline=#{outline}, Focus=#{focus},
+        ApplyField=#{applyField}, UseTechnique=#{useTechnique}, File_no=#{file_no}
+        where Project_no=#{project_no} and Curriculum_no=#{curriculum_no}
+        ]]>
+        </if>
     </update>
 
 
