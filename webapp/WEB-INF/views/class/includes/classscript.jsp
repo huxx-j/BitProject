@@ -438,10 +438,11 @@
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
+            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectFile' enctype='multipart/form-data'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <td colspan='2'><input id='detailProjectName' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
@@ -450,39 +451,43 @@
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
-            "                                <input id='membersId' type='hidden' value='" + projectVo.membersNo + "'>" +
-            "                                <input id='detailPjtNo' type='hidden' value='" + projectVo.project_no + "'>" +
-            "                                <input id='detailCurriNo' type='hidden' value='" + projectVo.curriculum_no + "'>" +
+            "                                <input id='file_no' name='file_no' type='hidden' value='"+ projectVo.file_no +"'> " +
+            "                                <input id='membersId' name='membersId' type='hidden' value='" + projectVo.membersNo + "'>" +
+            "                                <input id='detailPjtNo' name='detailPjtNo'  type='hidden' value='" + projectVo.project_no + "'>" +
+            "                                <input id='detailCurriNo' name='detailCurriNo' type='hidden' value='" + projectVo.curriculum_no + "'>" +
             "                            </td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />\n" +
-            "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
+            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
+            "                               <span>등록된 파일명 : "+projectVo.projectFileName+"</span>" +
+            "                           </td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' name='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
             "                <div class='sub-toolbox text-center'>" +
-            "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>수정</button>" +
+            "                    <input id='detailSaveBtn' type='button' class='btn btn-primary' value='수정'>" +
             "                </div>" +
+            "        </form>"
             "        </div>";
 
         $("#pjtDetailDiv").append(str);
@@ -501,62 +506,62 @@
 
 
     $(document).on("click", "#detailSaveBtn", function () {
-        var currival = $("#pjtcurriculum_no").val();
-        var projectFile = new FormData($("#projectFile")[0]);
-        var projectNo = $("#detailPjtNo").val();
-        var file_no = null;
+        // var currival = $("#pjtcurriculum_no").val();
+        var projectFileFormData = new FormData($("#projectFileForm")[0]);
+        // var projectNo = $("#detailPjtNo").val();
+        // var file_no = null;
 
         $.ajax({
             url: "/api/cm/saveProjectFile",
             type: "post",
             processData: false,
             contentType: false,
-            cache: false,
+            // cache: false,
             enctype: "multipart/form-data",
             async: false,
-            data: {"projectFile": projectFile/*,
-                    "projectNo" : projectNo*/},
-            dataType: "json",
+            data: projectFileFormData,
+            // dataType: "json",
             success: function (result) {
-                console.log("File_no : "+result);
-                file_no = result;
+                alert(result)
+                console.log(result)
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
 
-        if (file_no != null) {
-            projectVo = {
-                "project_no": $("#detailPjtNo").val(),
-                "curriculum_no": $("#detailCurriNo").val(),
-                "projectName": $("#detailProjectName").val(),
-                "membersNo": $("#membersId").val(),
-                "outline": $("#outline").val(),
-                "focus": $("#focus").val(),
-                "applyField": $("#applyField").val(),
-                "useTechnique": $("#useTechnique").val(),
-                "file_no": file_no
-            };
-
-            $.ajax({
-                url: "/api/cm/saveProjectDetail",
-                type: "post",
-                contentType: "application/json",
-                async: false,
-                data: JSON.stringify(projectVo),
-                dataType: "json",
-                success: function (result) {
-
-                },
-                error: function (XHR, status, error) {
-                    console.error(status + " : " + error);
-                }
-            });
+        // if (file_no != null) {
+        //     projectVo = {
+        //         "project_no": $("#detailPjtNo").val(),
+        //         "curriculum_no": $("#detailCurriNo").val(),
+        //         "projectName": $("#detailProjectName").val(),
+        //         "membersNo": $("#membersId").val(),
+        //         "outline": $("#outline").val(),
+        //         "focus": $("#focus").val(),
+        //         "applyField": $("#applyField").val(),
+        //         "useTechnique": $("#useTechnique").val(),
+        //         "file_no": file_no
+        //     };
+        //
+        //     $.ajax({
+        //         url: "/api/cm/saveProjectDetail",
+        //         type: "post",
+        //         contentType: "application/json",
+        //         async: false,
+        //         data: JSON.stringify(projectVo),
+        //         dataType: "json",
+        //         success: function (result) {
+        //
+        //         },
+        //         error: function (XHR, status, error) {
+        //             console.error(status + " : " + error);
+        //         }
+        //     });
 
             removeTeamList();
             ajaxGetTeamList(currival);
-        }
+        // }
+        // $("#projectFileForm").submit();
     });
 
 

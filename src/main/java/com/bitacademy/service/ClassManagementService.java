@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -87,11 +88,74 @@ public class ClassManagementService {
         return projectVo;
     }
 
+//    @Transactional
+//    public int saveProjectDetail(ProjectVo projectVo) {
+//        ProjectMemberVo projectMemberVo = new ProjectMemberVo();
+//        String[] memberNo = projectVo.getMembersNo().split(",");
+//        projectMemberVo.setProject_no(projectVo.getProject_no());
+//
+//        if (projectVo.getProject_no()==0) {
+//            projectDao.saveProjectDetail(projectVo);
+//            projectMemberVo.setProject_no(projectVo.getProject_no());
+//        } else {
+//            projectDao.updateProjectDetail(projectVo);
+//        }
+//        projectDao.deleteProjectMember(projectVo.getProject_no());
+//        int count=0;
+//
+//        for (String i : memberNo) {
+//            projectMemberVo.setUser_no(Integer.parseInt(i));
+//            int c = projectDao.saveProjectMember(projectMemberVo);
+//            if (c!=0){
+//                count++;
+//            }
+//        }
+//        return count;
+//    }
+
+    public List<ScoreVo> getSubjectList(int curriNo) {
+        return scoreDao.getSubjectList(curriNo);
+    }
+
+    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+        return scoreDao.getSutudentInScore(scoreVo);
+    }
+
+    public int saveScore(ScoreVo scoreVo) {
+        return scoreDao.saveScore(scoreVo);
+    }
+
+    public List<UserInfoVo> getUserInfo(int currino) {
+        return userInfoDao.getUserInfo(currino);
+    }
+
     @Transactional
-    public int saveProjectDetail(ProjectVo projectVo) {
+    public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
+        FileUpload fileUpload = new FileUpload();
+        ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
-        String[] memberNo = projectVo.getMembersNo().split(",");
-        projectMemberVo.setProject_no(projectVo.getProject_no());
+        FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
+
+        int file_no = projectDao.saveProjectFile(fileVo);
+        int curriculum_no=Integer.parseInt(multipartFile.getParameter("detailCurriNo"));
+        int project_no=Integer.parseInt(multipartFile.getParameter("detailPjtNo"));
+        String projectName=multipartFile.getParameter("detailProjectName");
+        String outline=multipartFile.getParameter("outline");
+        String focus=multipartFile.getParameter("focus");
+        String applyField=multipartFile.getParameter("applyField");
+        String useTechnique=multipartFile.getParameter("useTechnique");
+
+        projectVo.setCurriculum_no(curriculum_no);
+        projectVo.setProject_no(project_no);
+        projectVo.setProjectName(projectName);
+        projectVo.setOutline(outline);
+        projectVo.setFocus(focus);
+        projectVo.setApplyField(applyField);
+        projectVo.setUseTechnique(useTechnique);
+        projectVo.setFile_no(file_no);
+
+        String[] memberNo = multipartFile.getParameter("membersId").split(",");
+        projectMemberVo.setProject_no(project_no);
 
         if (projectVo.getProject_no()==0) {
             projectDao.saveProjectDetail(projectVo);
@@ -111,26 +175,5 @@ public class ClassManagementService {
         }
         return count;
     }
-
-    public List<ScoreVo> getSubjectList(int curriNo) {
-        return scoreDao.getSubjectList(curriNo);
-    }
-
-    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
-        return scoreDao.getSutudentInScore(scoreVo);
-    }
-
-    public int saveScore(ScoreVo scoreVo) {
-        return scoreDao.saveScore(scoreVo);
-    }
-
-    public List<UserInfoVo> getUserInfo(int currino) {
-        return userInfoDao.getUserInfo(currino);
-    }
-
-    public int saveProjectFile(MultipartFile multipartFile, int projectNo) {
-        FileUpload fileUpload = new FileUpload();
-        FileVo fileVo = fileUpload.saveProjectFile(multipartFile, projectNo);
-        return projectDao.saveProjectFile(fileVo);
-    }
 }
+

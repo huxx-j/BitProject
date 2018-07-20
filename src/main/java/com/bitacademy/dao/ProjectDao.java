@@ -54,6 +54,7 @@ public class ProjectDao {
 
     public int saveProjectFile(FileVo fileVo) {
         sqlSession.insert("project.saveProjectFile", fileVo);
+        System.out.println(fileVo.getFile_no());
         return fileVo.getFile_no();
     }
 }
