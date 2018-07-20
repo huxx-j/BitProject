@@ -51,7 +51,7 @@
             <![CDATA[
         update Project
         set ProjectName=#{projectName}, Outline=#{outline}, Focus=#{focus},
-        ApplyField=#{applyField}, UseTechnique=#{useTechnique}, File_no=#{file_no}
+        ApplyField=#{applyField}, UseTechnique=#{useTechnique}
         where Project_no=#{project_no} and Curriculum_no=#{curriculum_no}
         ]]>
     </update>
@@ -61,10 +61,18 @@
         <selectKey keyProperty="project_no" resultType="Int" order="AFTER">
             select LAST_INSERT_ID() from dual
         </selectKey>
+        <if test="file_no==0">
         <![CDATA[
+            insert into Project(Project_no, Curriculum_no, ProjectName, Outline, Focus, ApplyField, UseTechnique)
+            values(#{project_no},#{curriculum_no}, #{projectName}, #{outline}, #{focus}, #{applyField}, #{useTechnique})
+          ]]>
+        </if>
+        <if test="file_no!=0">
+            <![CDATA[
             insert into Project(Project_no, Curriculum_no, ProjectName, Outline, Focus, ApplyField, UseTechnique, File_no)
             values(#{project_no},#{curriculum_no}, #{projectName}, #{outline}, #{focus}, #{applyField}, #{useTechnique}, #{file_no})
           ]]>
+        </if>
     </insert>
 
     <insert id="saveProjectMember" parameterType="ProjectMemberVo">
@@ -90,4 +98,16 @@
         values (#{file_no},#{fileSize},#{filePath},#{fileName})
         ]]>
     </insert>
+
+    <select id="getFileName" parameterType="Int" resultType="String">
+        <![CDATA[
+        select FileName from File where File_no=#{file_no}
+        ]]>
+    </select>
+
+    <update id="updateProjectFile" parameterType="FileVo">
+        <![CDATA[
+        update File set FileSize=#{fileSize}, FilePath=#{filePath}, FileName=#{fileName} where File_no=#{file_no}
+        ]]>
+    </update>
 </mapper>

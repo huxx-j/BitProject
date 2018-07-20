@@ -100,7 +100,7 @@ public class ClassManagerApiController {
 //    @ResponseBody
     @RequestMapping(value = "/saveProjectFile", method = {RequestMethod.GET,RequestMethod.POST})
     public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
-        System.out.println("1234");
+        System.out.println("컨트롤러");
         return classManagementService.saveProjectFile(multipartFile);
     }
 

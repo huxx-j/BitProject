@@ -57,4 +57,14 @@ public class ProjectDao {
         System.out.println(fileVo.getFile_no());
         return fileVo.getFile_no();
     }
+
+    public String getFileName(int file_no) {
+        System.out.println("다오");
+        return sqlSession.selectOne("project.getFileName", file_no);
+    }
+
+    public int updateProjectFile(FileVo fileVo) {
+        System.out.println("다오까지는 왔나?");
+        return sqlSession.update("project.updateProjectFile", fileVo);
+    }
 }
