@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script>(function (e, t, n) {
-    var r = e.querySelectorAll("html")[0];r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")})(document, window, 0);</script>
+    var r = e.querySelectorAll("html")[0];
+    r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")
+})(document, window, 0);</script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -324,7 +326,7 @@
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
-            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectFile' enctype='multipart/form-data'>" +
+            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
@@ -344,7 +346,7 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
@@ -371,7 +373,7 @@
             "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
             "                </div>" +
             "        </form>" +
-        "        </div>";
+            "        </div>";
 
         $("#pjtDetailDiv").append(str);
     }
@@ -411,10 +413,10 @@
         var project_no = $(this).attr("data");
         var curriNo = $("#selectedCurri").val();
 
-        ajaxTeamDetail(project_no,curriNo);
+        ajaxTeamDetail(project_no, curriNo);
     });
 
-    function ajaxTeamDetail(project_no,curriNo) {
+    function ajaxTeamDetail(project_no, curriNo) {
         $.ajax({
             url: "/api/cm/getProjectDetail",
             type: "post",
@@ -444,7 +446,7 @@
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
-            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectFile' enctype='multipart/form-data'>" +
+            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
@@ -457,7 +459,7 @@
             "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
-            "                                <input id='file_no' name='file_no' type='hidden' value='"+ projectVo.file_no +"'> " +
+            "                                <input id='file_no' name='file_no' type='hidden' value='" + projectVo.file_no + "'> " +
             "                                <input id='membersId' name='membersId' type='hidden' value='" + projectVo.membersNo + "'>" +
             "                                <input id='detailPjtNo' name='detailPjtNo'  type='hidden' value='" + projectVo.project_no + "'>" +
             "                                <input id='detailCurriNo' name='detailCurriNo' type='hidden' value='" + projectVo.curriculum_no + "'>" +
@@ -467,7 +469,7 @@
             "                            <th class='a_c'>파일</th>" +
             "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
-            "                               <span>"+projectVo.fileName+"</span>" +
+            "                               <span>" + projectVo.fileName + "</span>" +
             "                           </td>" +
             "                        </tr>" +
             "                        <tr>" +
@@ -515,32 +517,36 @@
         var currival = $("#pjtcurriculum_no").val();
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
         var projectNo = 0;
+        var membersId = $("#membersId").val();
+        if (membersId == "") {
+            alert("팀원을 선택해주세요")
+        } else {
 
-        $.ajax({
-            url: "/api/cm/saveProjectFile",
-            type: "post",
-            processData: false,
-            contentType: false,
-            // cache: false,
-            enctype: "multipart/form-data",
-            async: false,
-            data: projectFileFormData,
-            dataType: "json",
-            success: function (result) {
-                projectNo = result;
-            },
-            error: function (XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
+            $.ajax({
+                url: "/api/cm/saveProjectDetail",
+                type: "post",
+                processData: false,
+                contentType: false,
+                // cache: false,
+                enctype: "multipart/form-data",
+                async: false,
+                data: projectFileFormData,
+                dataType: "json",
+                success: function (result) {
+                    projectNo = result;
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
             removeTeamList();
             ajaxGetTeamList(currival);
             removePjtDetail();
-            ajaxTeamDetail(projectNo,currival);
+            ajaxTeamDetail(projectNo, currival);
 
-        // $("#projectFileForm").submit();
+            // $("#projectFileForm").submit();
+        }
     });
-
 
 
     //이론평가 탭
@@ -590,6 +596,8 @@
         $("#subName").text(subName);
         $("#iCurriNo").val(curriNo);
         $("#iSisNo").val(sisNo);
+        removeTestUploadTd();
+        renderTestUploadTd(sisNo);
 
         scoreVo = {
             "subInStep_no": sisNo,
@@ -607,6 +615,7 @@
 
                 for (var i = 0; i < result.length; i++) {
                     renderScoreTableTd(result[i], i + 1)
+                    console.log("sdf" + result[i].score)
                 }
                 renderscoreSaveBtn();
 
@@ -617,6 +626,24 @@
             }
         });
     });
+
+    function renderTestUploadTd(sisNo) {
+        str = "";
+        str += "<td class='testFileUploadTd' style='padding: 4px 0 0 8px'>" +
+            "   <form id='testForm' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
+            "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
+            "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
+            "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
+            "   </form>";
+            "</td>";
+
+        $(".testFileUploadTr").append(str);
+    }
+
+    function removeTestUploadTd() {
+        $(".testFileUploadTd").remove();
+
+    }
 
     function renderScoreTableTh() {
         str = "";
@@ -641,13 +668,25 @@
         str = "";
         str += "<tr class='scoreTable'>" +
             "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
-            "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "<input id='iUserNo" + i + "' type='hidden' value='" + ScoreVo.user_no + "'></td>" +
-            "       <td><input id='iScore" + i + "' style='width: 100%' type='text'></td>" +
-            "       <td style='padding:7px 0 2px 8px ;'> <input type='file' name='studTestFile" + i + "' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")' />" +
-            "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
+            "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
+            "       <td><input id='iScore" + i + "' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
+            "       <td style='padding:7px 0 2px 8px ;'>" +
+            "       <form id='scoreForm" + i + "' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
+            "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
+            "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
+            "       <input id='hScore" + i + "' name='hScore' type='hidden' value='" + ScoreVo.score + "'>" +
+            "       <input id='iUserNo" + i + "' name='iUserNo' type='hidden' value='" + ScoreVo.user_no + "'>" +
+            "       <input id='iSisNo" + i + "' name='iSisNo' type='hidden' value='" + $("#iSisNo").val() + "'>" +
+            "       <input id='iCurriNo" + i + "' name='iCurriNo' type='hidden' value='" + $("#iCurriNo").val() + "'>" +
+            "       <input id='iScoreNo" + i + "' name='iScoreNo' type='hidden' value='" + ScoreVo.score_no + "' prefix='0'></form></td>" +
+            "   </form>" +
             "   </tr>";
 
         $("#score-table").append(str);
+    }
+
+    function chgScore(i) {
+        $("#hScore" + i).val($("#iScore" + i).val());
     }
 
     //학생들 평가파일 이름 span에 넣어주는 태그
@@ -667,35 +706,53 @@
             document.getElementById("testFileName").innerHTML = $("#testFile")[0].files[0].name;
         }
     }
+
     function removeScoreTable() {
         $(".scoreTable").remove();
         $("button[name=scoreSaveBtn]").remove();
     }
 
     $(document).on("click", "button[name=scoreSaveBtn]", function () {
-        var sisNo = $("#iSisNo").val();
-        var curriNo = $("#iCurriNo").val();
         var studNo = $("#iSutdNo").val();
+        var formData = new FormData($("#testForm")[0]);
+        var url = "/api/cm/saveTest";
+        ajaxSaveScore(url,formData);
 
         for (var i = 1; i <= studNo; i++) {
-            scoreVo = {
-                "curriculum_no": curriNo,
-                "subInStep_no": sisNo,
-                "user_no": $("#iUserNo" + i).val(),
-                "score": $("#iScore" + i).val()
-            };
-            ajaxSaveScore(scoreVo)
+            formData = new FormData($("#scoreForm" + i)[0]);
+            url = "/api/cm/saveScore";
+            /*$.ajax({
+                url: "/api/cm/saveScore",
+                type: "post",
+                processData: false,
+                contentType: false,
+                // cache: false,
+                enctype: "multipart/form-data",
+                async: false,
+                data: formData,
+                dataType: "json",
+                success: function (result) {
+
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });*/
+            ajaxSaveScore(url,formData);
         }
         alert("저장성공")
     });
 
-    function ajaxSaveScore(scoreVo) {
+    function ajaxSaveScore(url,formData) {
         $.ajax({
-            url: "/api/cm/saveScore",
+            url: url,
             type: "post",
-            contentType: "application/json",
+            processData: false,
+            contentType: false,
+            // cache: false,
+            enctype: "multipart/form-data",
             async: false,
-            data: JSON.stringify(scoreVo),
+            data: formData,
             dataType: "json",
             success: function (result) {
 
@@ -705,6 +762,7 @@
             }
         });
     }
+
 
 
     //학생관리 탭

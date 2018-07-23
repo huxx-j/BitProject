@@ -1,6 +1,7 @@
 package com.bitacademy.vo;
 
 public class ScoreVo {
+    private int score_no;
     private int curriculum_no;
     private int subInStep_no;
     private int user_no;
@@ -20,6 +21,14 @@ public class ScoreVo {
         this.file_no = file_no;
         this.subjectName = subjectName;
         this.nameHan = nameHan;
+    }
+
+    public int getScore_no() {
+        return score_no;
+    }
+
+    public void setScore_no(int score_no) {
+        this.score_no = score_no;
     }
 
     public int getCurriculum_no() {
@@ -81,7 +90,8 @@ public class ScoreVo {
     @Override
     public String toString() {
         return "ScoreVo{" +
-                "curriculum_no=" + curriculum_no +
+                "score_no=" + score_no +
+                ", curriculum_no=" + curriculum_no +
                 ", subInStep_no=" + subInStep_no +
                 ", user_no=" + user_no +
                 ", score=" + score +

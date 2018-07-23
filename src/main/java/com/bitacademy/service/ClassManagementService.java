@@ -17,20 +17,13 @@ import java.util.Map;
 @Service
 public class ClassManagementService {
 
-    @Autowired
-    ClassManagementDao classManagementDao;
-    @Autowired
-    CurriculumDao curriculumDao;
-    @Autowired
-    GisuDao gisuDao;
-    @Autowired
-    LectureReportDao lectureReportDao;
-    @Autowired
-    ProjectDao projectDao;
-    @Autowired
-    ScoreDao scoreDao;
-    @Autowired
-    UserInfoDao userInfoDao;
+    @Autowired ClassManagementDao classManagementDao;
+    @Autowired CurriculumDao curriculumDao;
+    @Autowired GisuDao gisuDao;
+    @Autowired LectureReportDao lectureReportDao;
+    @Autowired ProjectDao projectDao;
+    @Autowired ScoreDao scoreDao;
+    @Autowired UserInfoDao userInfoDao;
 
     public List<String> getWorkType() {
         return curriculumDao.getWorkType();
@@ -104,60 +97,50 @@ public class ClassManagementService {
     }
 
     public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+        List<Integer> list = scoreDao.chkSisNo(scoreVo.getSubInStep_no());
+        if (list.isEmpty()) {
+            scoreVo.setSubInStep_no(0);
+        }
         return scoreDao.getSutudentInScore(scoreVo);
     }
 
-    public int saveScore(ScoreVo scoreVo) {
-        return scoreDao.saveScore(scoreVo);
-    }
+//    public int saveScore(ScoreVo scoreVo) {
+//        return scoreDao.saveScore(scoreVo);
+//    }
 
     public List<UserInfoVo> getUserInfo(int currino) {
         return userInfoDao.getUserInfo(currino);
     }
 
     @Transactional
-    public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
-        System.out.println("서비스");
+    public int saveProjectDetail(MultipartHttpServletRequest multipartFile) {
         FileUpload fileUpload = new FileUpload();
         ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
         int projectNo = 0;
 
         FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
-        System.out.println("파일 처리 끝내고 서비스로 나옴");
         int file_no = 0;
         if (!multipartFile.getFile("projectFile").isEmpty()) {
             if (fileVo.getFile_no() == 0) {
-                System.out.println("일로들어가나?");
                 file_no = projectDao.saveProjectFile(fileVo); //file_no 리턴
             } else {
-                System.out.println("이쪽인가?");
                 projectDao.updateProjectFile(fileVo);
             }
         }
-        System.out.println("디비에 파일 정보 입력");
         int curriculum_no = Integer.parseInt(multipartFile.getParameter("detailCurriNo"));
-        System.out.println("1");
         int project_no;
-        System.out.println(multipartFile.getParameter("detailPjtNo"));
         if (!multipartFile.getParameter("detailPjtNo").equals("0")) {
-            System.out.println("여기?");
             project_no = Integer.parseInt(multipartFile.getParameter("detailPjtNo"));
             projectVo.setProject_no(project_no);
             projectMemberVo.setProject_no(project_no);
             projectNo = project_no;
         }
-        System.out.println("2");
         String projectName = multipartFile.getParameter("detailProjectName");
-        System.out.println("3");
         String outline = multipartFile.getParameter("outline");
-        System.out.println("4");
         String focus = multipartFile.getParameter("focus");
-        System.out.println("5");
         String applyField = multipartFile.getParameter("applyField");
-        System.out.println("6");
         String useTechnique = multipartFile.getParameter("useTechnique");
-        System.out.println("7");
 
         projectVo.setCurriculum_no(curriculum_no);
         projectVo.setProjectName(projectName);
@@ -166,38 +149,87 @@ public class ClassManagementService {
         projectVo.setApplyField(applyField);
         projectVo.setUseTechnique(useTechnique);
         if (file_no != 0) {
-            System.out.println("신규등록이 아님");
             projectVo.setFile_no(file_no);
         }
 
-        System.out.println("프로젝트 정보 저장 시작");
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
-        System.out.println(projectVo);
 
         if (projectVo.getProject_no() == 0) {
-            System.out.println("프로젝트 신규등록 들어감");
-            System.out.println(projectVo);
             projectDao.saveProjectDetail(projectVo);
-            System.out.println("프로젝트 신규등록 나옴");
             projectMemberVo.setProject_no(projectVo.getProject_no());
             projectNo = projectVo.getProject_no();
         } else {
-            System.out.println("프로젝트 업데이트 들어감");
             projectDao.updateProjectDetail(projectVo);
-            System.out.println("프로젝트 업데이트 나옴");
         }
-        System.out.println("프로젝트 멤버 삭제 들어감");
         projectDao.deleteProjectMember(projectVo.getProject_no());
-        System.out.println("프로젝트 멤버 삭제 나옴");
 
         for (String i : memberNo) {
             projectMemberVo.setUser_no(Integer.parseInt(i));
             projectDao.saveProjectMember(projectMemberVo);
-            System.out.println("멤버 등록 성공");
         }
-        System.out.println("프로젝트 등록 성공");
 
         return projectNo;
     }
+
+    @Transactional
+    public int saveScore(MultipartHttpServletRequest multipartFile) {
+        ScoreVo scoreVo = new ScoreVo();
+        FileUpload fileUpload = new FileUpload();
+        int file_no;
+        if (!multipartFile.getFile("studTestFile").isEmpty()) {
+            MultipartFile file = multipartFile.getFile("studTestFile");
+            FileVo fileVo = fileUpload.saveScoreFile(file);
+            file_no = scoreDao.saveScoreFile(fileVo);
+        } else {
+            file_no = 0;
+        }
+        int score_no = Integer.parseInt(multipartFile.getParameter("iScoreNo"));
+        int score = Integer.parseInt(multipartFile.getParameter("hScore"));
+        int user_no = Integer.parseInt(multipartFile.getParameter("iUserNo"));
+        int sis_no = Integer.parseInt(multipartFile.getParameter("iSisNo"));
+        int curri_no = Integer.parseInt(multipartFile.getParameter("iCurriNo"));
+
+        scoreVo.setScore_no(score_no);
+        scoreVo.setCurriculum_no(curri_no);
+        scoreVo.setSubInStep_no(sis_no);
+        scoreVo.setUser_no(user_no);
+        scoreVo.setScore(score);
+        scoreVo.setFile_no(file_no);
+
+        if (scoreVo.getScore_no() == 0) {
+            return scoreDao.saveScore(scoreVo);
+        } else {
+            return scoreDao.updateScore(scoreVo);
+
+// return scoreDao.updateScore(scoreVo);
+        }
+//        return 1;
+    }
+
+    @Transactional
+    public int saveTest(MultipartHttpServletRequest multipartFile) {
+        SubInStepVo subInStepVo = new SubInStepVo();
+        FileUpload fileUpload = new FileUpload();
+        int file_no;
+        if (!multipartFile.getFile("testFile").isEmpty()) {
+            MultipartFile file = multipartFile.getFile("testFile");
+            FileVo fileVo = fileUpload.saveScoreFile(file);
+            file_no = scoreDao.saveScoreFile(fileVo);
+        } else {
+            System.out.println("파일없음");
+            file_no = 0;
+        }
+
+        int testSisNo = Integer.parseInt(multipartFile.getParameter("testSisNo"));
+        System.out.println(testSisNo);
+        subInStepVo.setSubInStep_no(testSisNo);
+        subInStepVo.setFile_no(file_no);
+        if (file_no!=0) {
+            return scoreDao.saveTest(subInStepVo);
+        } else {
+            return 1;
+        }
+    }
 }
+
 

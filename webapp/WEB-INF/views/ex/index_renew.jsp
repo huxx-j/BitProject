@@ -12,6 +12,8 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
+	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
+
 
 </head>
 
@@ -215,20 +217,24 @@
 											<tr>
 			                  					<th>시작일</th>
 			                  					<td>
-									                <div class="input-group date">
-									                	<div class="input-group-addon input-sm">
-									                    	<i class="fa fa-calendar"></i>
-									                  	</div>
-														<input type="text" class="form-control input-sm pull-right" id="datepicker">									                  	
-									                </div>
+								<%--					<div class="input-group">
+														<input type="text" class="date-input form-control" name="date" id="date" data-select="datepicker" readonly="readonly">
+														<span class="date-span input-group-btn"><button type="button" class="btn btn-primary" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													</div>--%>
+									                <%--<div class="input-group date">--%>
+														<%--<input type="date" class="form-control input-sm pull-right" id="datepicker1">--%>
+									                	<%--&lt;%&ndash;<div class="input-group-addon input-sm">&ndash;%&gt;--%>
+															<%--<label for="datepicker1"><i class="fa fa-calendar"></i></label>--%>
+									                  	<%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+									                <%--</div>--%>
 			                  					</td>
 			                  					<th>종료일</th>
 			                  					<td>
-			                    					<div class="input-group date">
-									                	<div class="input-group-addon input-sm">
-									                    	<i class="fa fa-calendar"></i>
+			                    					<div class="input-group" style="border: 1px solid #c2c2c2">
+														<input type="text" class="form-control input-sm pull-right" name="date" id="date"  data-select="datepicker" style="border: none">
+									                	<div class="input-group-addon input-sm" style="border: none ">
+									                    	<span class="input-group-btn"><button type="button" class="btn" data-toggle="datepicker" style="border: none; background-color: rgba(255,255,255,0)"><i class="fa fa-calendar"></i></button></span>
 									                  	</div>
-														<input type="text" class="form-control input-sm pull-right" id="datepicker">									                  	
 									                </div>
 			                  					</td>
 											</tr>
@@ -352,3 +358,4 @@
         }
     });
 </script>
+<script type="text/javascript" src="/assets/js/jquery.datepicker.js"></script>

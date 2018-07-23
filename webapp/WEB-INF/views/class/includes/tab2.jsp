@@ -4,9 +4,9 @@
     <div class="col-xs-3">
         <div class="box">
             <div class="sub_list">
-                    <div class="box-header with-border">
-                        <h1 class="box-title"> 과목리스트</h1>
-                    </div>
+                <div class="box-header with-border">
+                    <h1 class="box-title"> 과목리스트</h1>
+                </div>
                 <%--과목리스트 뿌려질 자리--%>
             </div>
         </div>
@@ -19,23 +19,29 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th style="width: 8%; text-align: center">과정명</th>
-                            <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요
-                                <input id="iSisNo" type="hidden">
-                                <input id="iCurriNo" type="hidden">
-                                <input id="iSutdNo" type="hidden">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="a_c">과제</th>
-                            <td style="padding: 4px 0 0 8px">
-                                <input type="file" name="testFile" id="testFile" class="inputfile inputfile-6" onchange="pushTestFileName()" />
-                                <label for="testFile"><span id="testFileName">파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>
-                            </td>
-                        </tr>
-                    </table>
+                    <%--<form id="testForm" method="post" action="/api/cm/saveScore" enctype="multipart/form-data">--%>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 8%; text-align: center">과정명
+                                    <input id="iSisNo" name="iSisNo" type="hidden">
+                                    <input id="iCurriNo" name="iCurriNo" type="hidden">
+                                    <input id="iSutdNo" name="iSutdNo" type="hidden"></th>
+                                <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요
+                                </td>
+                            </tr>
+                            <tr class="testFileUploadTr">
+                                <th class="a_c">과제</th>
+                                <td class="testFileUploadTd" style="padding: 4px 0 0 8px">
+                                    <form id="testForm" method="post" action="/api/cm/saveTest" enctype="multipart/form-data">
+                                    <input type="file" name="testFile" id="testFile" class="inputfile inputfile-6"
+                                           onchange="pushTestFileName()" disabled="disabled">
+                                    <label for="testFile"><span id="testFileName">과목 선택 후 파일을 선택하세요</span> <h5> 파일선택
+                                        &hellip;</h5></label>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    <%--</form>--%>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
