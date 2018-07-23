@@ -1,15 +1,12 @@
 package com.bitacademy.util;
 
-import com.bitacademy.dao.ProjectDao;
 import com.bitacademy.vo.FileVo;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 
 public class FileUpload {
 
@@ -17,12 +14,13 @@ public class FileUpload {
         FileVo fileVo = new FileVo();
 
         int file_no = 0;
+        System.out.println("ㄱ");
         if (multipartFile.getParameter("file_no") != null) {
+            System.out.println("ㄴ");
             file_no = Integer.parseInt(multipartFile.getParameter("file_no"));
         }
-
+        System.out.println("ㄷ");
         if (!multipartFile.getFile("projectFile").isEmpty()) {
-            System.out.println("신규인지 파일 수정인지는 모르지만 파일이 들어옴");
             MultipartFile file = multipartFile.getFile("projectFile");
 
             String saveDir = "D:\\bit_file\\bit_project";
@@ -36,17 +34,13 @@ public class FileUpload {
                 byte[] fileData = file.getBytes();
                 OutputStream outputStream = new FileOutputStream(saveDir + "/" + saveName);
                 BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
-
                 bufferedOutputStream.write(fileData);
-
                 if (bufferedOutputStream != null) {
                     bufferedOutputStream.close();
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             fileVo.setFileName(saveName);
             fileVo.setFilePath(filePath);
@@ -54,7 +48,7 @@ public class FileUpload {
             System.out.println(saveName);
             System.out.println(filePath);
             System.out.println(fileSize);
-
+            System.out.println(file_no);
             if (file_no == 0) {
                 System.out.println("파일 신규등록");
                 return fileVo;

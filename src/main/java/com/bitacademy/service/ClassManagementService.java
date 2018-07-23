@@ -121,14 +121,17 @@ public class ClassManagementService {
         FileUpload fileUpload = new FileUpload();
         ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
+        int projectNo = 0;
 
         FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
         System.out.println("파일 처리 끝내고 서비스로 나옴");
-        int file_no =0;
+        int file_no = 0;
         if (!multipartFile.getFile("projectFile").isEmpty()) {
             if (fileVo.getFile_no() == 0) {
+                System.out.println("일로들어가나?");
                 file_no = projectDao.saveProjectFile(fileVo); //file_no 리턴
             } else {
+                System.out.println("이쪽인가?");
                 projectDao.updateProjectFile(fileVo);
             }
         }
@@ -138,9 +141,11 @@ public class ClassManagementService {
         int project_no;
         System.out.println(multipartFile.getParameter("detailPjtNo"));
         if (!multipartFile.getParameter("detailPjtNo").equals("0")) {
+            System.out.println("여기?");
             project_no = Integer.parseInt(multipartFile.getParameter("detailPjtNo"));
             projectVo.setProject_no(project_no);
             projectMemberVo.setProject_no(project_no);
+            projectNo = project_no;
         }
         System.out.println("2");
         String projectName = multipartFile.getParameter("detailProjectName");
@@ -167,7 +172,7 @@ public class ClassManagementService {
 
         System.out.println("프로젝트 정보 저장 시작");
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
-        System.out.println("프로젝트 정보 저장 시작2");
+        System.out.println(projectVo);
 
         if (projectVo.getProject_no() == 0) {
             System.out.println("프로젝트 신규등록 들어감");
@@ -175,6 +180,7 @@ public class ClassManagementService {
             projectDao.saveProjectDetail(projectVo);
             System.out.println("프로젝트 신규등록 나옴");
             projectMemberVo.setProject_no(projectVo.getProject_no());
+            projectNo = projectVo.getProject_no();
         } else {
             System.out.println("프로젝트 업데이트 들어감");
             projectDao.updateProjectDetail(projectVo);
@@ -183,18 +189,15 @@ public class ClassManagementService {
         System.out.println("프로젝트 멤버 삭제 들어감");
         projectDao.deleteProjectMember(projectVo.getProject_no());
         System.out.println("프로젝트 멤버 삭제 나옴");
-        int count = 0;
 
         for (String i : memberNo) {
             projectMemberVo.setUser_no(Integer.parseInt(i));
-            int c = projectDao.saveProjectMember(projectMemberVo);
-            System.out.println(c + "번째 멤버 등록 성공");
-            if (c != 0) {
-                count++;
-            }
+            projectDao.saveProjectMember(projectMemberVo);
+            System.out.println("멤버 등록 성공");
         }
         System.out.println("프로젝트 등록 성공");
-        return count;
+
+        return projectNo;
     }
 }
 

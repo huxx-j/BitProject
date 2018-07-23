@@ -97,7 +97,7 @@ public class ClassManagerApiController {
         return classManagementService.getUserInfo(currino);
     }
 
-//    @ResponseBody
+    @ResponseBody
     @RequestMapping(value = "/saveProjectFile", method = {RequestMethod.GET,RequestMethod.POST})
     public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
         System.out.println("컨트롤러");
