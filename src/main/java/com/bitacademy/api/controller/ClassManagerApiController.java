@@ -34,9 +34,9 @@ public class ClassManagerApiController {
     @RequestMapping(value = "/getLectureReport", method = RequestMethod.POST)
     public List<LectureReportVo> getLectureReport(@RequestBody LectureReportVo lectureReportVo) {
 //        System.out.println(lectureReportVo.toString());
-        List<LectureReportVo> list = classManagementService.getLetureReport(lectureReportVo);
+//        List<LectureReportVo> list = classManagementService.getLetureReport(lectureReportVo);
 //        System.out.println(list.toString());
-        return list;
+        return  classManagementService.getLetureReport(lectureReportVo);
     }
 
     @ResponseBody
@@ -65,14 +65,6 @@ public class ClassManagerApiController {
         return classManagementService.getProjectDetail(project_no);
     }
 
-//    @ResponseBody
-//    @RequestMapping(value = "/saveProjectDetail", method = RequestMethod.POST)
-//    public int saveProjectDetail(@RequestBody ProjectVo projectVo) {
-////        System.out.println(projectVo.toString());
-//        return classManagementService.saveProjectDetail(projectVo);
-////        System.out.println(projectVo.toString());
-//    }
-
     @ResponseBody
     @RequestMapping(value = "/getSubjectList", method = RequestMethod.POST)
     public List<ScoreVo> getSubjectList(@RequestParam("currival") int curriNo) {
@@ -84,12 +76,12 @@ public class ClassManagerApiController {
     public List<ScoreVo> getSutudentInScore(@RequestBody ScoreVo scoreVo) {
         return classManagementService.getSutudentInScore(scoreVo);
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/saveScore", method = RequestMethod.POST)
-    public int saveScore(@RequestBody ScoreVo scoreVo) {
-        return classManagementService.saveScore(scoreVo);
-    }
+//
+//    @ResponseBody
+//    @RequestMapping(value = "/saveScore", method = RequestMethod.POST)
+//    public int saveScore(@RequestBody ScoreVo scoreVo) {
+//        return classManagementService.saveScore(scoreVo);
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
@@ -98,10 +90,24 @@ public class ClassManagerApiController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/saveProjectFile", method = {RequestMethod.GET,RequestMethod.POST})
-    public int saveProjectFile(MultipartHttpServletRequest multipartFile) {
-        System.out.println("컨트롤러");
-        return classManagementService.saveProjectFile(multipartFile);
+    @RequestMapping(value = "/saveProjectDetail", method = {RequestMethod.GET,RequestMethod.POST})
+    public int saveProjectDetail(MultipartHttpServletRequest multipartFile) {
+//        System.out.println("컨트롤러");
+        return classManagementService.saveProjectDetail(multipartFile);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/saveScore", method = {RequestMethod.GET,RequestMethod.POST})
+    public int saveScore(MultipartHttpServletRequest multipartFile) {
+        classManagementService.saveScore(multipartFile);
+        return 1;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveTest", method = RequestMethod.POST)
+    public int saveTest(MultipartHttpServletRequest multipartFile) {
+        System.out.println("컨트롤러");
+        classManagementService.saveTest(multipartFile);
+        return 1;
+    }
 }

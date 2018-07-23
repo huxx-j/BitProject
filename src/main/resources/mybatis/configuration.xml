@@ -18,7 +18,7 @@
         <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
         <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="FileVo" type="com.bitacademy.vo.FileVo"/>
-
+        <typeAlias alias="SubInStepVo" type="com.bitacademy.vo.SubInStepVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/users.xml"/>

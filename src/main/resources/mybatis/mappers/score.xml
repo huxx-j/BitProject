@@ -4,8 +4,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="score">
 
-<select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
+    <select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
     <![CDATA[
+
       select SubInStep_no, SubjectName
       from v_subject
       where Step_no
@@ -14,24 +15,84 @@
                 where Package_no=(select Package_no
                                   from Curriculum
                                   where Curriculum_no=#{curriculum_no}))
-    ]]>
+
+        ]]>
 </select>
 
-    <select id="getSutudentInScore" parameterType="ScoreVo" resultType="ScoreVo">
+    <select id="chkSisNo" parameterType="Int" resultType="Int">
         <![CDATA[
-        select u.User_no, u.NameHan
-        from Users u, ApplyInfo a
-        where a.User_no=u.User_no
-               and a.Curriculum_no=#{curriculum_no}
-               and a.State='비트생'
+        select s.Score_no from Score s, SubInStep sis
+        where s.SubInStep_no=sis.SubInStep_no
+        and sis.SubInStep_no=#{sis_no}
         ]]>
     </select>
 
-    <insert id="saveScore" parameterType="ScoreVo">
+    <select id="getSutudentInScore" parameterType="ScoreVo" resultType="ScoreVo">
+        <if test="subInStep_no==0">
         <![CDATA[
+          select u.User_no, u.NameHan
+            from Users u, ApplyInfo a
+            where a.User_no=u.User_no
+            and a.Curriculum_no=#{curriculum_no}
+            and a.State='비트생'
+            ]]>
+        </if>
+        <if test="subInStep_no!=0">
+        <![CDATA[
+        select u.User_no, u.NameHan, s.Score, s.Score_no
+        from Users u, ApplyInfo a, Score s, SubInStep sis
+        where a.User_no=u.User_no
+               and a.Curriculum_no=#{curriculum_no}
+               and a.State='비트생'
+               and s.SubInStep_no=#{subInStep_no}
+               and s.SubInStep_no=sis.SubInStep_no
+               and u.User_no=s.User_no
+        ]]>
+        </if>
+    </select>
+
+    <insert id="saveScore" parameterType="ScoreVo">
+        <if test="file_no==0">
+            <![CDATA[
         insert into Score(Curriculum_no, SubInStep_no, User_no, Score)
         values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score})
         ]]>
+        </if>
+        <if test="file_no!=0">
+            <![CDATA[
+        insert into Score(Curriculum_no, SubInStep_no, User_no, Score, File_no)
+        values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score}, #{file_no})
+        ]]>
+        </if>
     </insert>
+
+    <insert id="saveScoreFile" parameterType="FileVo">
+        <selectKey keyProperty="file_no" resultType="Int" order="AFTER">
+            <![CDATA[
+            select LAST_INSERT_ID() from dual
+            ]]>
+        </selectKey>
+        <![CDATA[
+        insert into File(File_no, FileSize, FilePath, FileName)
+        values (#{file_no},#{fileSize},#{filePath},#{fileName})
+        ]]>
+    </insert>
+
+    <update id="updateScore" parameterType="ScoreVo">
+        <if test="file_no!=0">
+        <![CDATA[
+        update Score set Score=#{score}, File_no=#{file_no} where Score_no=#{score_no}
+        ]]>
+        </if>
+        <if test="file_no==0">
+            update Score set Score=#{score} where Score_no=#{score_no}
+        </if>
+    </update>
+
+    <update id="saveTest" parameterType="SubInStepVo">
+            <![CDATA[
+            update SubInStep set File_no=#{file_no} where SubInStep_no=#{SubInStep_no}
+            ]]>
+    </update>
 
 </mapper>
