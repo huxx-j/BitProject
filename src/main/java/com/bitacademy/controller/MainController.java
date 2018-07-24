@@ -5,7 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
+	//진현
+	public String main(){
+		return "curridesign/packmain";
+	}
+	//진현
 
+	//기본값
 		@RequestMapping("/")
 	public String mai1n(){
 		System.out.println("/index1");

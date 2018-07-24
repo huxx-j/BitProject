@@ -4,6 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style type="text/css">
+		ul{
+			list-style-type: none;
+		}
+
+	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -17,7 +23,6 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-
 <div class="wrapper">
 
 <c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
@@ -59,12 +64,77 @@
 
 								<div class="cate-outter bordered">
 									<div class="cate-toolbox">
-										<button type="button" class="btn btn-default btn-cate">추가</button>
+										<button type="button" id="addcate" class="btn btn-default btn-cate">추가</button>
 										<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
 									</div><!-- /.cate-toolbox -->
 									<div class="scroll">
-										<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-										<br><br><br><br><br><br><br><br><br>
+
+										<div class="tab-content-custom" style="height: 500px;">
+											<div class="tab-pane active" id="tab_1">
+
+												<ul id="treeDemo" class="ztree"></ul>
+
+												<%--<ul id="cate-tree" class="side-bar test" data-widget="tree">--%>
+
+
+													<%--<!-- 최하단 카테고리 조건(ajax구현 고려)--%>
+												<%--<c:forEach items="${sublist}" var="sub">--%>
+													<%--<ul class="treeview-menu">--%>
+														<%--<li><a href="#"><i class="fa fa-circle-o"></i> ${sub.subjectName}</a></li>--%>
+													<%--</ul>--%>
+												<%--</c:forEach>-->--%>
+
+													<%--<li class="treeview">--%>
+														<%--<a href="#"> <i class="fa fa-circle-o"></i>C<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+														<%--<ul class="treeview-menu">--%>
+																<%--<li class="treeview">--%>
+																			<%--<a href="#"><i class="fa fa-circle-o"></i> C <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																			<%--<ul class="treeview-menu">--%>
+																				<%--<li class="treeview">--%>
+																				<%--</li>--%>
+																			<%--</ul>--%>
+																			<%--<a href="#"><i class="fa fa-circle-o"></i> C++ <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																			<%--<ul class="treeview-menu">--%>
+																				<%--<li class="treeview">--%>
+																				<%--</li>--%>
+																			<%--</ul>--%>
+																<%--</li>--%>
+														<%--</ul>--%>
+													<%--</li>--%>
+													<%--<li class="treeview">--%>
+														<%--<a href="#"> <i class="fa fa-circle-o"></i>JAVA<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+														<%--<ul class="treeview-menu">--%>
+															<%--<li class="treeview">--%>
+																<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																<%--<ul class="treeview-menu">--%>
+																	<%--<li class="treeview">--%>
+																		<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA1 <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																		<%--<ul class="treeview-menu">--%>
+																			<%--<li class="treeview">--%>
+																			<%--</li>--%>
+																		<%--</ul>--%>
+																	<%--</li>--%>
+																<%--</ul>--%>
+																<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA WEB <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																<%--<ul class="treeview-menu">--%>
+																	<%--<li class="treeview">--%>
+																		<%--<a href="#"><i class="fa fa-circle-o"></i> SPRING <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
+																		<%--<ul class="treeview-menu">--%>
+																			<%--<li class="treeview">--%>
+																			<%--</li>--%>
+																		<%--</ul>--%>
+																	<%--</li>--%>
+																<%--</ul>--%>
+															<%--</li>--%>
+														<%--</ul>--%>
+													<%--</li>--%>
+
+												<%--</ul>--%>
+												</ul>
+											</div>
+
+											<!-- /.tab-pane -->
+										</div>
 									</div><!-- /.sub-body -->
 
 								</div><!-- /.cate-outter -->
@@ -92,34 +162,30 @@
 												<col width="120px" />
 												<col width="" />
 											</colgroup>
-
 											<tbody>
-
 											<tr>
 												<th>과목 카테고리</th>
 												<td>
-													<select class="form-control input-sm">
-														<option>기초 언어</option>
-														<option>데이터 베이스</option>
-														<option>option 3</option>
-														<option>option 4</option>
-														<option>option 5</option>
+													<select name='subcate' class='form-control input-sm'>
+													<c:forEach items="${list}" var="vo">
+														<option> ${vo.cateName} </option>
+													</c:forEach>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<th>과목 명</th>
-												<td><input class="form-control input-sm" type="text" placeholder=""></td>
+												<td><input name="SubjectName" class="form-control input-sm" type="text" placeholder=""></td>
 											</tr>
 											<tr>
 												<th>과목 개요</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td><textarea name="Outline" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 
 											</tbody>
 										</table>
 										<div class="sub-toolbox text-center">
-											<input type="submit" class="btn btn-primary">저장</input>
+											<input type="submit" value="저장" class="btn btn-primary">
 										</div>
 									</div>
 
@@ -142,8 +208,168 @@
 	<div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+<div class="modal fade" id="pop">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">카테고리 추가</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-condensed">
+				<tr>
+					<th>위치</th>
+					<td>
+				<select name='subcate' id="SubjectCate_no" class='form-control input-sm'>
+					<c:forEach items="${list}" var="vo">
+						<option  value="${vo.subjectCate_no}"> ${vo.cateName} </option>
+					</c:forEach>
+				</select>
+					</td>
+				</tr>
+					<tr>
+						<th>카테고리명</th>
+						<td>
+				<input style="width: 100%" type="text" name="CateName" value="" id="CateName">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="save">저장</button>
+				<button type="button" class="btn btn-primary" id="btn_cancel">취소</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 </body>
 </html>
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
-<%--jqgrid사용시 삭제할것--%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
+<script type="text/javascript">
+    // zTree 설정
+	var setting = {
+        data: {
+            simpleData: {
+                enable: true,
+
+            }
+        },
+        callback: {
+            beforeClick: subject  // 마우스 클릭 콜백함수 지정
+        }
+    };
+    var zNodes= [
+        <c:forEach items="${list}" var="vo">
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+        </c:forEach>
+        <c:forEach items="${sublist}" var="vo">
+        {id:${vo.subject_no},pId:${vo.subjectCate_no},name:"${vo.subjectName}",web:"${vo.subject_no}"},
+        </c:forEach>
+    ];
+
+
+
+
+
+    // zTree 초기화
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+	function subject(treeId, treeNode, clickFlag) {
+	    var no=treeNode.web;
+	    console.log(no);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/subject/subajax",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"no": no},
+           dataType : "json",
+            success : function(SubjectVo) {
+                console.log(SubjectVo);
+                $("input[name='SubjectName']").val(SubjectVo.subjectName),
+                $("textarea[name='Outline']").val(SubjectVo.outline),
+                $("select[name='subcate']").val(SubjectVo.subjectCate_no)
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
+
+    $("#addcate").on("click",function(){
+       $("#pop").modal();
+	});
+
+    $("#btn_cancel").on("click",function(){
+        $("#pop").modal("hide");
+    });
+
+    $("#save").on("click", function() {
+        event.preventDefault();
+        var SubjectCate_no = $("#SubjectCate_no").val();
+        var CateName = $("#CateName").val();
+		console.log(SubjectCate_no);
+        console.log(CateName);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/subject/addcate",
+            type : "post",
+			async: false,
+            // contentType : "application/json",
+            data : {"SubjectCate_no": SubjectCate_no, "CateName": CateName},
+            dataType : "json",
+            success : function() {
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+        location.reload();
+        $("#pop").modal("hide");
+    });
+</script>
+
+
+<%--<script type="text/javascript">--%>
+
+    <%--$(document).ready(function() {--%>
+        <%--console.log("정상실행");--%>
+		<%--var str=" ";--%>
+    	<%--str+= "<select class='form-control input-sm'>";--%>
+        <%--str+= "<c:forEach items="${list}" var="vo">";--%>
+        <%--str+= " <option> ${vo.cateName} </option> </c:forEach>";--%>
+        <%--str+= "</select>";--%>
+        <%--$("#subjectCate-list").append(str);--%>
+		<%--console.log("정상실행2");--%>
+		<%--start();--%>
+        <%--var objectValue="${list}";--%>
+        <%--console.log(objectValue);--%>
+    <%--});--%>
+
+ <%--function start(){--%>
+     <%--var str="";--%>
+
+	 <%--str+="<c:forEach items='${list}' var='vo1'><c:if test='${vo1.depth eq 1}'>";--%>
+	 <%--str+="<li class=\"treeview\">";--%>
+	 <%--str+="<a href=\"#\"> <i class=\"fa fa-circle-o\"></i>${vo1.cateName}<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> </a>";--%>
+     <%--str+="<ul class='treeview-menu'>";--%>
+     <%--str+="<li class=\"treeview\">";--%>
+	 <%--str+="</c:if><c:forEach items='${list}' var='vo2'><c:if test='${vo1.subjectCate_no eq vo2.parentCode}'>";--%>
+	 <%--str+= "<a href=\"#\"> <i class=\"fa fa-circle-o\"></i>${vo2.cateName}<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> </a>";--%>
+     <%--str+="<ul class='treeview-menu'>";--%>
+     <%--str+="<li class=\"treeview\">";--%>
+	 <%--str+="<c:forEach items='${nonlist}' var='no'><c:if test='${vo2.subjectCate_no eq no}'>";--%>
+	 <%--str += "</li>";--%>
+	 <%--str += "</ul></c:if></c:forEach></c:if></c:forEach><c:forEach items='${mdlist}' var='md'><c:if test='${vo1.groupCode eq md.groupCode}'><c:if test='${vo1.depth eq md.depth}'><c:if test='${vo1.orderCode eq md.orderCode}'>"--%>
+	 <%--for(var i=1;i<=${md.depth};i++)--%>
+	 <%--{	str += "</li>";--%>
+	 	<%--str += "</ul>";--%>
+	 <%--}--%>
+	 <%--str+="<c:if test='${vo1.orderCode eq md.orderCode}'> </li></c:if></c:if></c:if></c:if></c:forEach></c:forEach>";--%>
+     <%--$("#cate-tree").append(str);--%>
+ <%--}--%>
+
+    <%--jqgrid사용시 삭제할것--%>
 

@@ -54,19 +54,22 @@
 						<div class="col-xs-3">
 							<div class="sub-box">
 								<div class="cate-title">
-									과목카테고리
+									패카지카테고리
 								</div><!-- cate-title -->
 
 								<div class="cate-outter bordered">
 									<div class="cate-toolbox">
-										<button type="button" class="btn btn-default btn-cate">추가</button>
+										<button type="button" class="btn btn-default btn-cate" id="addcate">추가</button>
 										<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
 									</div><!-- /.cate-toolbox -->
 									<div class="scroll">
-										<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-										<br><br><br><br><br><br><br><br><br>
-									</div><!-- /.sub-body -->
+										<div class="tab-content-custom" style="height: 500px;">
 
+
+												<ul id="treeDemo" class="ztree"></ul>
+
+										</div>
+									</div><!-- /.sub-body -->
 								</div><!-- /.cate-outter -->
 
 								<div class="cate-toolbox">
@@ -84,68 +87,70 @@
 						<!-- 과목정보영역 -->
 						<div class="col-xs-9">
 
-							<!--탭 박스 외곽 -->
+ 							<!--탭 박스 외곽 -->
 							<div class="nav-tabs-custom">
 
 								<!-- 상단탭영역 -->
 								<ul class="nav nav-tabs">
-									<li class="active"><a href="#tab_1" data-toggle="tab">카테고리</a></li>
-									<li class=""><a href="#tab_2" data-toggle="tab">검색</a></li>
+									<li class="active"><a href="#tab_1" data-toggle="tab">패키지 개요</a></li>
+									<li class=""><a href="#tab_2" data-toggle="tab">구성 과목</a></li>
 								</ul>
 								<!-- /.상단탭영역 -->
 								<!-- /.탭내용박스 -->
 								<div class="tab-content">
 									<!-- 1번탭내용 -->
 									<div class="tab-pane active" id="tab_1">
+
+										<form id="" name="joinForm" method="get" action="${pageContext.request.contextPath}/package/add">
 										<!-- 1번탭내용 -->
 										<table class="table table-condensed">
 											<colgroup>
 												<col width="120px" />
 												<col width="" />
 											</colgroup>
-
 											<tbody>
 											<tr>
 												<th>패키지사용여부</th>
-												<td>
+												<td colspan="3">
 													<div class="">
-														<label class="form-controll-static"><input class="" type="radio" name="state" value="">준비중</label>
-														<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="Availability" value="0">준비중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="Availability" value="1">모집중</label>
 													</div>
 												</td>
 											</tr>
 											<tr>
 												<th>패키지카테고리</th>
-												<td>
-													<select class="form-control input-sm">
-														<option>국가기관</option>
-														<option>대학캠퍼스</option>
-														<option>option 3</option>
-														<option>option 4</option>
-														<option>option 5</option>
+												<td colspan="3">
+													<select name ="strPackageCate_no" class="form-control input-sm">
+														<c:forEach items="${list}" var="vo">
+															<option value='${vo.packageCate_no}'>${vo.cateName}</option>
+														</c:forEach>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<th>패키지명</th>
-												<td><input class="form-control input-sm" type="text" placeholder=""></td>
+												<td><input name="PackageName" class="form-control input-sm" type="text" placeholder=""></td>
+												<th  style="width:120px";>총 시간</th>
+												<td width="100px"><input style="width:50px"; name="TotalTime" class="form-control input-sm" type="text" placeholder="">
+												</td>
 											</tr>
 											<tr>
 												<th>훈련목적및목표</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Goal" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											<tr>
 												<th>주요훈련내용</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Content" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											<tr>
 												<th>훈련대상요건</th>
-												<td><textarea class="form-control" rows="6" placeholder=""></textarea></td>
+												<td colspan="3"><textarea name="Qualification" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
 											</tbody>
 										</table>
 										<div class="sub-toolbox text-center">
-											<button type="button" class="btn btn-primary">저장</button>
+											<input type="submit" value="저장"class="btn btn-primary">
 										</div>
 									</div>
 									<!-- /.1번탭내용 -->
@@ -229,7 +234,7 @@
 									</div>
 									<!-- /.2번메뉴내용 -->
 								</div>
-								<!-- /.탭내용박스 -->
+								<!-- /.탭6내용박스 -->
 							</div><!--/.탭 박스 외곽 -->
 						</div><!-- /.col-xs-9 -->
 						<!-- /.과목정보영역 -->
@@ -245,9 +250,125 @@
 
 	<div class="control-sidebar-bg"></div>
 </div>
+<div class="modal fade" id="pop">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">카테고리 추가</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-condensed">
+					<tr>
+						<th>위치</th>
+						<td>
+							<select name='subcate' id="PackageCate_no" class='form-control input-sm'>
+								<c:forEach items="${list}" var="vo">
+									<option  value="${vo.packageCate_no}"> ${vo.cateName} </option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>카테고리명</th>
+						<td>
+							<input style="width: 100%" type="text" name="CateName" value="" id="CateName">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="save">저장</button>
+				<button type="button" class="btn btn-primary" id="btn_cancel">취소</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 <!-- ./wrapper -->
 </body>
 </html>
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
-<%--jqgrid사용시 삭제할것--%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
+<script type="text/javascript">
+    // zTree 설정
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true,
+            }
+        },
+        callback: {
+            beforeClick: package  // 마우스 클릭 콜백함수 지정
+        }
+    };
+    var zNodes= [
+        <c:forEach items="${list}" var="vo">
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+        </c:forEach>
+        <c:forEach items="${packlist}" var="vo">
+        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
+        </c:forEach>
+    ];
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+    function package(treeId, treeNode, clickFlag) {
+        var no=treeNode.web;
+        console.log(no);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/package/packajax",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"no": no},
+            dataType : "json",
+            success : function(PackageVo) {
+                console.log(PackageVo);
+                $("input[name='PackageName']").val(PackageVo.packageName),
+                    $("textarea[name='Goal']").val(PackageVo.goal),
+                    $("textarea[name='Content']").val(PackageVo.content),
+                    $("textarea[name='Qualification']").val(PackageVo.qualification),
+                    $("input[name='TotalTime']").val(PackgeVo.totalTime),
+					$("select[name='Availability']").val(PackageVo.availability)
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
+
+    $("#addcate").on("click",function(){
+        $("#pop").modal();
+    });
+
+    $("#btn_cancel").on("click",function(){
+        $("#pop").modal("hide");
+    });
+
+    $("#save").on("click", function() {
+        event.preventDefault();
+        var PackageCate_no = $("#PackageCate_no").val();
+        var CateName = $("#CateName").val();
+        console.log(PackageCate_no);
+        console.log(CateName);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/package/addcate",
+            type : "post",
+            async: false,
+            // contentType : "application/json",
+            data : {"PackageCate_no": PackageCate_no, "CateName": CateName},
+            dataType : "json",
+            success : function() {
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+        location.reload();
+        $("#pop").modal("hide");
+    });
+</script>
+    <%--jqgrid사용시 삭제할것--%>
 

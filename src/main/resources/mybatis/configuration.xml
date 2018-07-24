@@ -6,6 +6,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo"/>
+        <typeAlias alias="AllStepVo" type="com.bitacademy.vo.AllStepVo"/>
         <typeAlias alias="ApplicantVo" type="com.bitacademy.vo.ApplicantVo"/>
         <typeAlias alias="ApplyUserVo" type="com.bitacademy.vo.ApplyUserVo"/>
         <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo"/>
@@ -15,13 +16,16 @@
         <typeAlias alias="FileVo" type="com.bitacademy.vo.FileVo"/>
         <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
         <typeAlias alias="LicenceVo" type="com.bitacademy.vo.LicenceVo"/>
+        <typeAlias alias="PackageCateVo" type="com.bitacademy.vo.PackageCateVo"/>
         <typeAlias alias="PackageVo" type="com.bitacademy.vo.PackageVo"/>
         <typeAlias alias="ProjectMemberVo" type="com.bitacademy.vo.ProjectMemberVo"/>
         <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
         <typeAlias alias="ScholarshipVo" type="com.bitacademy.vo.ScholarshipVo"/>
         <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
+        <typeAlias alias="StepInPackVo" type="com.bitacademy.vo.StepInPackVo"/>
         <typeAlias alias="SubInStepVo" type="com.bitacademy.vo.SubInStepVo"/>
         <typeAlias alias="SubjectVo" type="com.bitacademy.vo.SubjectVo"/>
+        <typeAlias alias="SubjectCateVo" type="com.bitacademy.vo.SubjectCateVo"/>
         <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
         <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
@@ -35,6 +39,7 @@
         <mapper resource="mybatis/mappers/gisu.xml"/>
         <mapper resource="mybatis/mappers/lecturereport.xml"/>
         <mapper resource="mybatis/mappers/licence.xml"/>
+        <mapper resource="mybatis/mappers/package.xml"/>
         <mapper resource="mybatis/mappers/project.xml"/>
         <mapper resource="mybatis/mappers/score.xml"/>
         <mapper resource="mybatis/mappers/subject.xml"/>
