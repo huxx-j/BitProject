@@ -11,22 +11,21 @@ import com.bitacademy.service.ApplicantService;
 import com.bitacademy.vo.CurriculumVo;
 
 @Controller
-@RequestMapping("/applicant")
+@RequestMapping(value="/applicant")
 public class ApplicantController {
-	
+
 	@Autowired
 	ApplicantService applicantService;
 
-	@RequestMapping("/")
+	@RequestMapping(value="/")
 	public String applicantMain(Model model) {
-		
-//		System.out.println("지원자관리 들어가요");
-////		List<CurriculumVo> curriList = applicantService.getCurriList();
-//		System.out.println("나왔");
-////		model.addAttribute("curriList",curriList);
-//
+
+		System.out.println("지원자관리 들어가요");
+		List<CurriculumVo> curriList = applicantService.getFristWorkType();
+		model.addAttribute("curriList",curriList);
+
 		return "screening/applicantmanagement";
 	}
-	
-	
+
+
 }

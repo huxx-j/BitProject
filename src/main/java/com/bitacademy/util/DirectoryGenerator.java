@@ -16,9 +16,6 @@ public class DirectoryGenerator {
 
     public String DirectoryGenerator(MultipartHttpServletRequest multipartHttpServletRequest, String param){
         String saveDir;
-//        MultipartFile projectFile = multipartHttpServletRequest.getFile("projectFile");
-//        MultipartFile studTestFile = multipartHttpServletRequest.getFile("studTestFile");
-//        MultipartFile testFile = multipartHttpServletRequest.getFile("testFile");
         if(param.equals("project")) {
             int pjtCurriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("detailCurriNo"));
             String gisu = sqlSession.selectOne("gisu.getGisu", pjtCurriNo);

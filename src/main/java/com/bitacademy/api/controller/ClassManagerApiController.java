@@ -107,7 +107,7 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/saveTest", method = RequestMethod.POST)
     public int saveTest(MultipartHttpServletRequest multipartFile) {
-        System.out.println("컨트롤러");
+//        System.out.println("컨트롤러");
         return classManagementService.saveTest(multipartFile);
 
 //        return 1;

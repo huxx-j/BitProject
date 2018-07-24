@@ -5,7 +5,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/js/i18n/grid.locale-kr.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/js/jquery.jqGrid.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/jquery-ui/jquery-ui.js"></script> <%--20180724이서현추가
+--%><!-- Bootstrap 3.3.7 -->
 <script src="${pageContext.request.contextPath}/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="${pageContext.request.contextPath}/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>

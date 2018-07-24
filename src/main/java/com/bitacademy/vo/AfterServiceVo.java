@@ -2,19 +2,22 @@ package com.bitacademy.vo;
 
 public class AfterServiceVo {
     private int afterService_no;
-            private int user_no;
-            private String compName;
-            private String department;
-            private String state;
-            private String position;
-            private String periodFr;
-            private String periodTo;
-            private String telePhone;
+    private int user_no;
+    private String compName;
+    private String department;
+    private String state;
+    private String position;
+    private String periodFr;
+    private String periodTo;
+    private String telePhone;
+    private String tel;
+    private String address;
+
 
     public AfterServiceVo() {
     }
 
-    public AfterServiceVo(int afterService_no, int user_no, String compName, String department, String state, String position, String periodFr, String periodTo, String telePhone) {
+    public AfterServiceVo(int afterService_no, int user_no, String compName, String department, String state, String position, String periodFr, String periodTo, String telePhone, String tel, String address) {
         this.afterService_no = afterService_no;
         this.user_no = user_no;
         this.compName = compName;
@@ -24,6 +27,8 @@ public class AfterServiceVo {
         this.periodFr = periodFr;
         this.periodTo = periodTo;
         this.telePhone = telePhone;
+        this.tel = tel;
+        this.address = address;
     }
 
     public int getAfterService_no() {
@@ -98,6 +103,22 @@ public class AfterServiceVo {
         this.telePhone = telePhone;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "AfterServiceVo{" +
@@ -110,8 +131,8 @@ public class AfterServiceVo {
                 ", periodFr='" + periodFr + '\'' +
                 ", periodTo='" + periodTo + '\'' +
                 ", telePhone='" + telePhone + '\'' +
+                ", tel='" + tel + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
-//`User_no`, `CompName`, `Department`, `State`, `Position`, `PeriodFr`, `PeriodTo`, `TelePhone`
-//        `user_no`, `compName`, `department`, `state`, `position`, `periodFr`, `periodTo`, `telePhone`
