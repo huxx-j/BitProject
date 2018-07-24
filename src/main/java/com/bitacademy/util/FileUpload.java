@@ -24,7 +24,7 @@ public class FileUpload {
         }
     }
 
-    public FileVo saveProjectFile(MultipartHttpServletRequest multipartFile) {
+    public FileVo saveProjectFile(MultipartHttpServletRequest multipartFile, String saveDir) {
         FileVo fileVo = new FileVo();
 
         int file_no = 0;
@@ -34,7 +34,7 @@ public class FileUpload {
         if (!multipartFile.getFile("projectFile").isEmpty()) {
             MultipartFile file = multipartFile.getFile("projectFile");
 
-            String saveDir = "D:\\bit_file\\bit_project";
+//            String saveDir = "D:\\bit_file\\KUKA18-BD01\\project";
             String orgName = file.getOriginalFilename();
             String saveName = orgName;
             String filePath = saveDir + "\\" + saveName;
@@ -61,10 +61,10 @@ public class FileUpload {
         }
     }
 
-    public FileVo saveScoreFile(MultipartFile file) {
+    public FileVo saveScoreFile(MultipartFile file, String saveDir) {
         FileVo fileVo = new FileVo();
 
-        String saveDir = "D:\\bit_file\\KUKA18-BD01\\score\\23";
+//        String saveDir = "D:\\bit_file\\KUKA18-BD01\\score\\23";
         String orgName = file.getOriginalFilename();
         String saveName = orgName;
         String filePath = saveDir + "\\" + saveName;

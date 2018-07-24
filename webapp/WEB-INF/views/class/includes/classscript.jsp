@@ -597,7 +597,23 @@
         $("#iCurriNo").val(curriNo);
         $("#iSisNo").val(sisNo);
         removeTestUploadTd();
-        renderTestUploadTd(sisNo);
+
+        $.ajax({
+            url: "/api/cm/getSisInfo",
+            type: "post",
+            // contentType: "application/json",
+            async: false,
+            data: {"sisNo": sisNo},
+            dataType: "json",
+            success: function (result) {
+                renderTestUploadTd(sisNo,result);
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+
+
 
         scoreVo = {
             "subInStep_no": sisNo,
@@ -614,8 +630,7 @@
             success: function (result) {
 
                 for (var i = 0; i < result.length; i++) {
-                    renderScoreTableTd(result[i], i + 1)
-                    console.log("sdf" + result[i].score)
+                    renderScoreTableTd(result[i], i + 1);
                 }
                 renderscoreSaveBtn();
 
@@ -627,14 +642,16 @@
         });
     });
 
-    function renderTestUploadTd(sisNo) {
+    function renderTestUploadTd(sisNo, fileVo) {
         str = "";
         str += "<td class='testFileUploadTd' style='padding: 4px 0 0 8px'>" +
             "   <form id='testForm' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
             "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
-            "   </form>";
+            "       <input id='testFileNo' name='testFileNo' type='hidden' value='"+fileVo.file_no+"'>" +
+            "       <span>"+fileVo.fileName+"</span>" +
+            "   </form>" +
             "</td>";
 
         $(".testFileUploadTr").append(str);
@@ -678,7 +695,9 @@
             "       <input id='iUserNo" + i + "' name='iUserNo' type='hidden' value='" + ScoreVo.user_no + "'>" +
             "       <input id='iSisNo" + i + "' name='iSisNo' type='hidden' value='" + $("#iSisNo").val() + "'>" +
             "       <input id='iCurriNo" + i + "' name='iCurriNo' type='hidden' value='" + $("#iCurriNo").val() + "'>" +
-            "       <input id='iScoreNo" + i + "' name='iScoreNo' type='hidden' value='" + ScoreVo.score_no + "' prefix='0'></form></td>" +
+            "       <input id='iScoreNo" + i + "' name='iScoreNo' type='hidden' value='" + ScoreVo.score_no + "' prefix='0'>" +
+            "       <input id='iFileNo"+i+"' name='iFileNo' type='hidden' value='"+ScoreVo.file_no+"' prefix='0'>" +
+            "       <span>"+ScoreVo.fileName+"<span></form></td>" +
             "   </form>" +
             "   </tr>";
 
@@ -721,26 +740,8 @@
         for (var i = 1; i <= studNo; i++) {
             formData = new FormData($("#scoreForm" + i)[0]);
             url = "/api/cm/saveScore";
-            /*$.ajax({
-                url: "/api/cm/saveScore",
-                type: "post",
-                processData: false,
-                contentType: false,
-                // cache: false,
-                enctype: "multipart/form-data",
-                async: false,
-                data: formData,
-                dataType: "json",
-                success: function (result) {
-
-                },
-                error: function (XHR, status, error) {
-                    console.error(status + " : " + error);
-                }
-            });*/
             ajaxSaveScore(url,formData);
         }
-        alert("저장성공")
     });
 
     function ajaxSaveScore(url,formData) {

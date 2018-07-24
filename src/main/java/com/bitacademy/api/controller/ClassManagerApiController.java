@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -99,15 +100,24 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/saveScore", method = {RequestMethod.GET,RequestMethod.POST})
     public int saveScore(MultipartHttpServletRequest multipartFile) {
-        classManagementService.saveScore(multipartFile);
-        return 1;
+        return classManagementService.saveScore(multipartFile);
+//        return 1;
     }
 
     @ResponseBody
     @RequestMapping(value = "/saveTest", method = RequestMethod.POST)
     public int saveTest(MultipartHttpServletRequest multipartFile) {
         System.out.println("컨트롤러");
-        classManagementService.saveTest(multipartFile);
-        return 1;
+        return classManagementService.saveTest(multipartFile);
+
+//        return 1;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getSisInfo", method = RequestMethod.POST)
+    public FileVo getSisInfo(@RequestParam("sisNo") int sisNo) {
+        return classManagementService.getSisInfo(sisNo);
+
+//        return 1;
     }
 }
