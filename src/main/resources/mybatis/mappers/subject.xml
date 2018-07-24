@@ -3,6 +3,8 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subject">
+
+    <!--성우-->
     <insert id="add" parameterType="SubjectVo" >
         <![CDATA[
         insert into Subject values (#{Subject_no},#{SubjectCate_no},#{SubjectName},#{Outline});
@@ -19,4 +21,42 @@
         where sis.SubInStep_no=#{sisNo}
         ]]>
     </select>
+    <!--성우-->
+
+    <!--진현-->
+    <insert id="insert" parameterType="SubjectVo" >
+        <![CDATA[
+        insert into Subject (SubjectName,Outline) values (#{SubjectName},#{Outline})
+        ]]>
+    </insert>
+    <select id="listselect" resultType="SubjectCateVo">
+        <![CDATA[
+        select SubjectCate_no,CateName,GroupCode,ParentCode,Depth,OrderCode from SubjectCate order by GroupCode,OrderCode
+        ]]>
+    </select>
+    <select id="subselect" resultType="SubjectVo">
+        <![CDATA[
+        select Subject_no,SubjectCate_no,SubjectName,Outline from Subject
+        ]]>
+    </select>
+    <!--<select id="mdselect" resultType="MaxdepthVo">-->
+        <!--<![CDATA[-->
+       <!--select GroupCode,max(Depth) as Depth,max(OrderCode) as OrderCode from SubjectCate group by GroupCode-->
+        <!--]]>-->
+    <!--</select>-->
+    <select id="nselect" resultType="int">
+        <![CDATA[
+       select SubjectCate_no from SubjectCate where SubjectCate_no NOT IN (select sc.SubjectCate_no from SubjectCate sc, SubjectCate sc2 where sc.SubjectCate_no=sc2.ParentCode group by sc.SubjectCate_no)
+        ]]>
+    </select>
+    <select id="sub" parameterType="int" resultType="SubjectVo">
+        select Subject_no,SubjectCate_no,SubjectName,Outline from Subject where Subject_no=#{no}
+    </select>
+
+    <insert id="addcate" parameterType="SubjectCateVo" >
+        <![CDATA[
+        insert into SubjectCate (ParentCode,CateName) values (#{SubjectCate_no},#{CateName})
+        ]]>
+    </insert>
+    <!--진현-->
 </mapper>

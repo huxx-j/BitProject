@@ -5,36 +5,51 @@
 
 <configuration>
     <typeAliases>
-        <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
-        <typeAlias alias="ScholarshipVo" type="com.bitacademy.vo.ScholarshipVo"/>
-        <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
-        <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo"/>
-        <typeAlias alias="LicenceVo" type="com.bitacademy.vo.LicenceVo"/>
         <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo"/>
+        <typeAlias alias="AllStepVo" type="com.bitacademy.vo.AllStepVo"/>
+        <typeAlias alias="ApplicantVo" type="com.bitacademy.vo.ApplicantVo"/>
+        <typeAlias alias="ApplyUserVo" type="com.bitacademy.vo.ApplyUserVo"/>
+        <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo"/>
+        <typeAlias alias="CompletionVo" type="com.bitacademy.vo.CompletionVo"/>
+        <typeAlias alias="CurriculumCateVo" type="com.bitacademy.vo.CurriculumCateVo"/>
         <typeAlias alias="CurriculumVo" type="com.bitacademy.vo.CurriculumVo"/>
-        <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
-        <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
-        <typeAlias alias="ProjectMemberVo" type="com.bitacademy.vo.ProjectMemberVo"/>
-        <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
-        <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="FileVo" type="com.bitacademy.vo.FileVo"/>
+        <typeAlias alias="GisuVo" type="com.bitacademy.vo.GisuVo"/>
+        <typeAlias alias="JobVo" type="com.bitacademy.vo.JobVo"/>
+        <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
+        <typeAlias alias="LicenceVo" type="com.bitacademy.vo.LicenceVo"/>
+        <typeAlias alias="PackageCateVo" type="com.bitacademy.vo.PackageCateVo"/>
+        <typeAlias alias="PackageVo" type="com.bitacademy.vo.PackageVo"/>
+        <typeAlias alias="ProjectMemberVo" type="com.bitacademy.vo.ProjectMemberVo"/>
+        <typeAlias alias="ProjectVo" type="com.bitacademy.vo.ProjectVo"/>
+        <typeAlias alias="ScholarshipVo" type="com.bitacademy.vo.ScholarshipVo"/>
+        <typeAlias alias="ScoreVo" type="com.bitacademy.vo.ScoreVo"/>
+        <typeAlias alias="StepInPackVo" type="com.bitacademy.vo.StepInPackVo"/>
         <typeAlias alias="SubInStepVo" type="com.bitacademy.vo.SubInStepVo"/>
         <typeAlias alias="SubjectVo" type="com.bitacademy.vo.SubjectVo"/>
+        <typeAlias alias="SubjectCateVo" type="com.bitacademy.vo.SubjectCateVo"/>
+        <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
+        <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
+        <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
     </typeAliases>
     <mappers>
+        <mapper resource="mybatis/mappers/afterservice.xml"/>
+        <mapper resource="mybatis/mappers/applicant.xml"/>
+        <mapper resource="mybatis/mappers/class.xml"/>
+        <mapper resource="mybatis/mappers/completion.xml"/>
+        <mapper resource="mybatis/mappers/curriculum.xml"/>
+        <mapper resource="mybatis/mappers/gisu.xml"/>
+        <mapper resource="mybatis/mappers/job.xml"/>
+        <mapper resource="mybatis/mappers/lecturereport.xml"/>
+        <mapper resource="mybatis/mappers/licence.xml"/>
+        <mapper resource="mybatis/mappers/package.xml"/>
+        <mapper resource="mybatis/mappers/project.xml"/>
+        <mapper resource="mybatis/mappers/score.xml"/>
+        <mapper resource="mybatis/mappers/subject.xml"/>
+        <mapper resource="mybatis/mappers/usercareer.xml"/>
+        <mapper resource="mybatis/mappers/userinfo.xml"/>
         <mapper resource="mybatis/mappers/users.xml"/>
         <mapper resource="mybatis/mappers/userscholarship.xml"/>
         <mapper resource="mybatis/mappers/usertraining.xml"/>
-        <mapper resource="mybatis/mappers/usercareer.xml"/>
-        <mapper resource="mybatis/mappers/licence.xml"/>
-        <mapper resource="mybatis/mappers/afterservice.xml"/>
-        <mapper resource="mybatis/mappers/class.xml"/>
-        <mapper resource="mybatis/mappers/curriculum.xml"/>
-        <mapper resource="mybatis/mappers/gisu.xml"/>
-        <mapper resource="mybatis/mappers/lecturereport.xml"/>
-        <mapper resource="mybatis/mappers/project.xml"/>
-        <mapper resource="mybatis/mappers/score.xml"/>
-        <mapper resource="mybatis/mappers/userinfo.xml"/>
-        <mapper resource="mybatis/mappers/subject.xml"/>
     </mappers>
 </configuration>

@@ -247,12 +247,12 @@ public class ClassManagementService {
                 file_no = scoreDao.saveScoreFile(fileVo);
             }
         } else {
-            System.out.println("파일없음");
+//            System.out.println("파일없음");
             file_no = 0;
         }
 
         int testSisNo = Integer.parseInt(multipartFile.getParameter("testSisNo"));
-        System.out.println(testSisNo);
+//        System.out.println(testSisNo);
         subInStepVo.setSubInStep_no(testSisNo);
         subInStepVo.setFile_no(file_no);
         if (file_no!=0) {

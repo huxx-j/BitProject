@@ -5,8 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
+	//진현
+	public String main(){
+		return "curridesign/packmain";
+	}
+	//진현
 
-	@RequestMapping("/")
+	//기본값
+		@RequestMapping("/")
 	public String mai1n(){
 		System.out.println("/index1");
 		return "ex/index_renew";
@@ -18,7 +24,7 @@ public class MainController {
 		return "ex/index_renew2";
 	}
 	@RequestMapping("/1")
-	public String main(){
+	public String main1(){
 		System.out.println("/index3");
 		return "ex/index_renew1";
 	}

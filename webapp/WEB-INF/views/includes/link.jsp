@@ -3,6 +3,7 @@
 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bower_components/bootstrap/dist/css/bootstrap.min.css"> <%--20180724문희준 추가--%>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bower_components/font-awesome/css/font-awesome.css">
   <!-- Ionicons -->
