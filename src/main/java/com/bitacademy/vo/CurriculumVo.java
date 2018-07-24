@@ -7,6 +7,7 @@ public class CurriculumVo {
 	private int curriculum_no;
 	private String workType;
 	private String curriName;
+	private String curriNickname;
 	private String periodFr;
 	private String periodTo;
 	private String startDay;
@@ -18,16 +19,18 @@ public class CurriculumVo {
 	private String state;
 	private boolean mainViewFlag;
 	private boolean datailViewFlag;
-	
-	public CurriculumVo(int curriculumCate_no, int package_no, int curriculum_no, String workType, String curriName,
-			String periodFr, String periodTo, String startDay, String time, int num, String money, String support,
-			String inquiry, String state, boolean mainViewFlag, boolean datailViewFlag) {
-		
+	private String gisuName;
+
+	public CurriculumVo() {
+	}
+
+	public CurriculumVo(int curriculumCate_no, int package_no, int curriculum_no, String workType, String curriName, String curriNickname, String periodFr, String periodTo, String startDay, String time, int num, String money, String support, String inquiry, String state, boolean mainViewFlag, boolean datailViewFlag, String gisuName) {
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
 		this.curriculum_no = curriculum_no;
 		this.workType = workType;
 		this.curriName = curriName;
+		this.curriNickname = curriNickname;
 		this.periodFr = periodFr;
 		this.periodTo = periodTo;
 		this.startDay = startDay;
@@ -39,10 +42,7 @@ public class CurriculumVo {
 		this.state = state;
 		this.mainViewFlag = mainViewFlag;
 		this.datailViewFlag = datailViewFlag;
-	}
-
-	public CurriculumVo() {
-		
+		this.gisuName = gisuName;
 	}
 
 	public int getCurriculumCate_no() {
@@ -83,6 +83,14 @@ public class CurriculumVo {
 
 	public void setCurriName(String curriName) {
 		this.curriName = curriName;
+	}
+
+	public String getCurriNickname() {
+		return curriNickname;
+	}
+
+	public void setCurriNickname(String curriNickname) {
+		this.curriNickname = curriNickname;
 	}
 
 	public String getPeriodFr() {
@@ -173,15 +181,35 @@ public class CurriculumVo {
 		this.datailViewFlag = datailViewFlag;
 	}
 
+	public String getGisuName() {
+		return gisuName;
+	}
+
+	public void setGisuName(String gisuName) {
+		this.gisuName = gisuName;
+	}
+
 	@Override
 	public String toString() {
-		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no
-				+ ", curriculum_no=" + curriculum_no + ", workType=" + workType + ", curriName=" + curriName
-				+ ", periodFr=" + periodFr + ", periodTo=" + periodTo + ", startDay=" + startDay + ", time=" + time
-				+ ", num=" + num + ", money=" + money + ", support=" + support + ", inquiry=" + inquiry + ", state="
-				+ state + ", mainViewFlag=" + mainViewFlag + ", datailViewFlag=" + datailViewFlag + "]";
+		return "CurriculumVo{" +
+				"curriculumCate_no=" + curriculumCate_no +
+				", package_no=" + package_no +
+				", curriculum_no=" + curriculum_no +
+				", workType='" + workType + '\'' +
+				", curriName='" + curriName + '\'' +
+				", curriNickname='" + curriNickname + '\'' +
+				", periodFr='" + periodFr + '\'' +
+				", periodTo='" + periodTo + '\'' +
+				", startDay='" + startDay + '\'' +
+				", time='" + time + '\'' +
+				", num=" + num +
+				", money='" + money + '\'' +
+				", support='" + support + '\'' +
+				", inquiry='" + inquiry + '\'' +
+				", state='" + state + '\'' +
+				", mainViewFlag=" + mainViewFlag +
+				", datailViewFlag=" + datailViewFlag +
+				", gisuName='" + gisuName + '\'' +
+				'}';
 	}
-	
-	
-	
 }

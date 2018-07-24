@@ -2,8 +2,9 @@
 
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="curri">
+<mapper namespace="curriculum">
 
+    <!--성우-->
     <select id="getWorkType" resultType="String">
         <![CDATA[
         SELECT WorkType from Curriculum group by WorkType
@@ -21,6 +22,119 @@
         select CurriName, PeriodFr, PeriodTo from Curriculum where Curriculum_no=#{curriculum_no};
         ]]>
     </select>
+    <!--성우-->
 
+
+
+    <!--희준-->
+    <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
+ 		<![CDATA[
+ 			SELECT c.curriculum_no, c.package_no, c.curriName, c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money, c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, g.gisuName
+ 			FROM Curriculum as c, Gisu as g
+			WHERE c.curriculum_no and g.curriculum_no = #{curriculum_no} and c.package_no = #{package_no}
+ 		]]>
+ 	</select>
+
+    <update id = "edit" parameterType = "com.bitacademy.vo.CurriculumVo">
+ 		<![CDATA[
+ 			UPDATE Curriculum
+ 			SET
+ 			curriName = #{curriName}
+ 			, curriNickname = #{curriNickname}
+ 			, periodFr = #{periodFr}
+ 			, periodTo = #{periodTo}
+ 			, startDay = #{startDay}
+ 			, time = #{time}
+ 			, num = #{num}
+ 			, money = #{money}
+ 			, support = #{support}
+ 			, inquiry = #{inquiry}
+ 			, state = #{state}
+ 			WHERE curriculum_no = #{curriculum_no}
+ 		]]>
+ 	</update>
+
+    <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
+ 		<![CDATA[
+ 			INSERT INTO Curriculum (curriculumCate_no, workType, curriName, curriNickname, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, package_no)
+			VALUES(
+				(SELECT curriculumCate_no FROM CurriculumCate WHERE curriculumCate_no = #{curriculumCate_no}),
+				#{workType},
+				#{curriName},
+				#{curriNickname},
+				#{periodFr},
+				#{periodTo},
+				#{startDay},
+				#{time},
+				#{num},
+				#{money},
+				#{support},
+				#{inquiry},
+				#{state},
+			    (SELECT package_no from Package WHERE package_no = #{package_no})
+			    );
+ 		]]>
+ 	</insert>
+    <select id = "studentManagement"  resultType = "com.bitacademy.vo.ApplicantVo">
+		<![CDATA[
+			SELECT  u.user_no, u.nameHan, u.birthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.testResult, c.curriname
+			FROM Users as u, ApplyInfo as a, Curriculum as c
+			WHERE u.User_no = a.User_no and c.curriculum_no = 1 and a.curriculum_no = 1
+		]]>
+	</select>
+    <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
+		<![CDATA[
+			SELECT curriculum_no, package_no, curriculumCate_no, workType, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, curriNickname
+			FROM Curriculum;
+		]]>
+	</select>
+
+    <select id = "curriCateList" resultType = "com.bitacademy.vo.CurriculumCateVo">
+		<![CDATA[
+			SELECT curriculumCate_no, cateName, groupCode, parentCode, depth
+			FROM CurriculumCate;
+
+		]]>
+
+	</select>
+
+
+    <!--
+
+    <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo">
+        <![CDATA[
+
+            select curriculum_no, package_no, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state
+            from Curriculum
+            where curriculum_no = 2
+
+        ]]>
+    </select>
+
+     -->
+    <!--
+   <select id="viewCurriculumInfo" parameterType="int" resultType="com.bitacademy.vo.CurriculumVo">
+       <![CDATA[
+
+           select curriculum_no, package_no, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state
+           from Curriculum
+           where curriculum_no = #{curriculum_no}
+
+       ]]>
+   </select>
+     -->
+    <!--
+    <select id = "studentManagement" parameterType = "String" resultType = "com.bitacademy.vo.ApplicantVo">
+        <![CDATA[
+
+            select  u.User_no, u.NameHan, u.BirthDate, a.TestResult
+            from Users as u, ApplyInfo as a
+            where u.User_no = a.User_no
+
+        ]]>
+
+    </select>
+     -->
+<!--희준-->
 
 </mapper>

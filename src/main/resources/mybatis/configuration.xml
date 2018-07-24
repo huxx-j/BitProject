@@ -6,9 +6,11 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="AfterServiceVo" type="com.bitacademy.vo.AfterServiceVo"/>
+        <typeAlias alias="ApplicantVo" type="com.bitacademy.vo.ApplicantVo"/>
         <typeAlias alias="ApplyUserVo" type="com.bitacademy.vo.ApplyUserVo"/>
         <typeAlias alias="CareerVo" type="com.bitacademy.vo.CareerVo"/>
         <typeAlias alias="CompletionVo" type="com.bitacademy.vo.CompletionVo"/>
+        <typeAlias alias="CurriculumCateVo" type="com.bitacademy.vo.CurriculumCateVo"/>
         <typeAlias alias="CurriculumVo" type="com.bitacademy.vo.CurriculumVo"/>
         <typeAlias alias="FileVo" type="com.bitacademy.vo.FileVo"/>
         <typeAlias alias="LectureReportVo" type="com.bitacademy.vo.LectureReportVo"/>
