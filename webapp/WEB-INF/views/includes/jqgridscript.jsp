@@ -5,6 +5,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/js/i18n/grid.locale-kr.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/jqGrid/jquery-ui/jquery-ui.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${pageContext.request.contextPath}/assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->

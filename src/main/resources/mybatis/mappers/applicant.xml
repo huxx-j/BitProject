@@ -42,15 +42,15 @@
 
 <![CDATA[
 
-	   select Gisu.GisuName,Users.NameHan, Users.BirthDate,
+	   select Users.User_no, Gisu.GisuName,Users.NameHan, Users.BirthDate,Users.Gender,
 	   		  ApplyInfo.State,Users.Handphone,ApplyInfo.ApplyDay, ApplyInfo.TestDay,
-	   		  UserSchoolarship.School, UserSchoolarship.Major,
+	   		  UserScholarship.School, UserScholarship.Major,
 	   		  ApplyInfo.Deposit
        
 	   from ApplyInfo  
 	
 	   join Users on Users.User_no = ApplyInfo.User_no
-	   join UserSchoolarship on Users.User_no = UserSchoolarship.User_no
+	   join UserScholarship on Users.User_no = UserScholarship.User_no
 	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
 	   join Gisu on Curriculum.Curriculum_no = Gisu.Curriculum_no
 	   
@@ -59,5 +59,61 @@
 	]]>
 
 </select>
+
+<select id="getAppliedList" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
+
+<![CDATA[
+		
+	   select ApplyInfo.TestDay,Curriculum.CurriName,Curriculum.Curriculum_no,Users.User_no
+	   		  
+	   from ApplyInfo  
+	
+	   join Users on Users.User_no = ApplyInfo.User_no
+	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
+	   
+	   where Users.User_no = #{user_no};
+	]]>
+
+</select>
+
+<select id="apply_details" parameterType="map" resultType="com.bitacademy.vo.ApplyUserVo">
+
+<![CDATA[
+		
+	   select Curriculum.CurriName,Curriculum.Curriculum_no,Curriculum.WorkType,
+	   		  ApplyInfo.ApplyType,ApplyInfo.TestLang,ApplyInfo.TestScore,ApplyInfo.State,
+	   		  ApplyInfo.DepositDay,ApplyInfo.DepositAmount,ApplyInfo.CardPayDay,ApplyInfo.CardPayAmount,
+	   		  ApplyInfo.Deposit,ApplyInfo.TotalPay,ApplyInfo.User_no,ApplyInfo.Consult
+	   		  
+	   from ApplyInfo
+	   
+	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no  
+	   
+	   where Curriculum.Curriculum_no = #{curriculum_no} and ApplyInfo.User_no = #{user_no}
+	]]>
+
+</select>
+
+<update id="applyUpdate" parameterType="com.bitacademy.vo.ApplyUserVo">
+		
+		<![CDATA[
+		
+				update ApplyInfo
+				set ApplyType=#{applyType}, 
+					TestLang=#{testLang},
+					TestScore=#{testScore},
+					State=#{state},
+					DepositDay=#{depositDay},
+					DepositAmount=#{depositAmount},
+					CardPayDay=#{cardPayDay},
+					CardPayAmount=#{cardPayAmount},
+					Deposit=#{deposit},
+					TotalPay=#{totalPay},
+					Consult=#{consult}
+					
+					where User_no=#{user_no}
+		]]>
+	
+</update>
 
 </mapper>

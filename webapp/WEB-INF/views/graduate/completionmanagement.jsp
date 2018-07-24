@@ -78,15 +78,18 @@
 			 							<tbody>
 			 								<tr>
 												<td>
-			                    					<select class="form-control input-sm">
-			                    						<option>국가기관</option>
-			                    						<option>대학캠퍼스</option>
+			                    					<select name="workType"
+															class="form-control input-sm" id="workTypeSelect">
+			                    						<c:forEach items="${requestScope.curriList}"
+																	var="curriList">
+																	<option value="${curriList.workType}"
+																		id="${curriList.workType}">${curriList.workType}</option>
+																</c:forEach>
 			                  						</select>
 			                  					</td>
-			                  					<td>
-			                    					<select class="form-control input-sm">
-			                    						<option>라즈베리파이를 활용한 IoT서비스 고급인력 양성과정</option>
-			                    						<option>라즈베리파이를 활용한 IoT서비스 고급인력 양성과정</option>
+			                  					<td id="curriTd">
+			                    					<select name="strcurriName" class="form-control input-sm" id="curriSelect">
+			                    						
 			                  						</select>
 			                  					</td>
 											</tr>
@@ -94,7 +97,7 @@
 			  						</table>
 			  					</div><!-- /.sub-body -->
 		  						<div class="sub-toolbox text-center">
-	              					<button type="button" class="btn btn-primary">조회</button>
+	              					<button type="button" class="btn btn-primary" id="applySearch">조회</button>
 	              				</div>
 							</div><!-- sub-box -->
 						</div><!-- /.col-xs-12 -->
@@ -106,9 +109,9 @@
 		<!-- /.row 상단-->
 	
 		<!-- 하단 -->
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="box box-body">
+		<div class="row" style="height: 720px;">
+			<div class="col-xs-12" style="height: 720px;">
+				<div class="box box-body" style="height: 720px;">
 
 					<div class="row">
 						<div class="col-xs-12" >
@@ -116,7 +119,7 @@
 								<div class="sub-title">
 			              			수강생리스트
 			            		</div><!-- sub_title -->
-			            		<div class="sub-body bordered scroll" style="height:350px;">
+			            		<div class="sub-body" style="height:300px;">
 									<table id="jqGrid" style="text-align:center;"></table>
 
 									<div id="jqGridPager"></div>
@@ -132,41 +135,35 @@
 								<div class="sub-title">
 			              			취업정보
 			            		</div><!-- sub_title -->
-			            		<div class="sub-body bordered scroll" style="height:150px; ">
+			            		<div class="sub-body bordered" style="height:150px; ">
 			            			<table class="table table-hover table-condensed">
 			 							<colgroup>
 											<col width="" />
 											<col width="" />
 											<col width="" />
 											<col width="" />
-											<col width="5px" />
+											<col width="" />
 										</colgroup>
  							
 		 								<thead>
-			 								<tr>
+			 								<tr style="height:10px;">
 			 									<th></th>
 			 									<th>회사명</th>
 												<th>입사일</th>
 												<th>퇴사일</th>
-												<th style="width:5px;">재직여부</th>
+												<th>재직여부</th>
 			 								</tr>
 		 								</thead>	
 		 							
-	 									<tbody>
-			 								<tr>
-			 									<th>1</th>
-												<td>비트컴퓨터</td>
-			                  					<td>2016-09-12</td>
-			                  					<td>2018-04-12</td>
-			                  					<td style="width:5px;">×</td>
-											</tr>
-											<tr>
+	 									<tbody id="afterServiceTable">
+			 								
+											<!-- <tr>
 												<th>2</th>											
 												<td>위메프</td>
 												<td>2018-05-01</td>
 			                  					<td></td>
 			                  					<td style="width:10px;">○</td>
-											</tr>
+											</tr> -->
 	  									</tbody>
   									</table>
 			            		</div><!-- /.sub-body -->	
@@ -182,27 +179,24 @@
 			            			<table class="table table-condensed">
 			 							<colgroup>
 											<col width="80px" />
-											<col width="" />
+											<col width="300px" />
 											<col width="80px" />
-											<col width="" />
-											<col width="250px" />
+											<col width="300px" />
 										</colgroup>
 			 							
 			 							<tbody>
 			 								<tr>
 												<th>회사명</th>
 			                  					<td colspan="8">
-			                    					<select class="form-control input-sm">
-			                    						<option>비트컴퓨터</option>
-			                    						<option>위메프</option>
-			                  						</select>
+			                    					<input class="form-control input-sm" type="text" 
+			                    						name="compName" placeholder="">
 			                  					</td>
 			                  				</tr>
 			                  				
 			                  				<tr>
 			                  					<th>전화</th>
 			                  					<td>
-			                  						<input class="form-control input-sm" type="text" placeholder="">
+			                  						<input class="form-control input-sm" type="text" name="tel" placeholder="">
 			                  					</td>
 			                  					<th></th>
 			                  					<td colspan="2"></td>
@@ -210,37 +204,47 @@
 											<tr>
 												<th>입사일</th>
 			                  					<td>
-			                    					<div class="input-group date">
-									                	<div class="input-group-addon input-sm">
-									                    	<i class="fa fa-calendar"></i>
-									                  	</div>
-														<input type="text" class="form-control input-sm pull-right" id="datepicker">									                  	
-									                </div>
+			                    					<div class="input-group" style="border: 1px solid #c2c2c2">
+	                                                 				<span class="input-group-btn">
+			                                                  			<button type="button" class="btn" data-toggle="datepicker" style=" 
+			                                                  				background-color: rgba(255,255,255,0)"  id="testDatepicker">
+			                                                  			<label for="date1">
+			                                                  			<i class="fa fa-calendar"></i>
+			                                                  			</label></button>
+		                                                  			</span>
+					                                          <input type="text" class="form-control input-sx pull-right" 
+					                                            name="date1" id="date1"  data-select="datepicker" style="border: none">
+				                                           </div>
 			                  					</td>
 			                  					<th>퇴사일</th>
-			                  					<td colspan="2">
-			                    					<div class="input-group date">
-									                	<div class="input-group-addon input-sm">
-									                    	<i class="fa fa-calendar"></i>
-									                  	</div>
-														<input type="text" class="form-control input-sm pull-right" id="datepicker" style="width:100%;">									                  	
-									                </div>
+			                  					<td>
+			                    					<div class="input-group" style="border: 1px solid #c2c2c2">
+	                                                 				<span class="input-group-btn">
+			                                                  			<button type="button" class="btn" data-toggle="datepicker" style=" 
+			                                                  				background-color: rgba(255,255,255,0)"  id="testDatepicker">
+			                                                  			<label for="date2">
+			                                                  			<i class="fa fa-calendar"></i>
+			                                                  			</label></button>
+		                                                  			</span>
+					                                        <input type="text" class="form-control input-sx pull-right" 
+					                                               name="date2" id="date2"  data-select="datepicker" style="border: none; width:100%;">
+				                                    </div>
 			                  					</td>
 											</tr>
 											<tr>
 												<th>직책</th>
 			                  					<td>
-			                    					<input class="form-control input-sm" type="text" placeholder="">
+			                    					<input class="form-control input-sm" type="text" name = "position" placeholder="">
 			                  					</td>
 			                  					<th>부서</th>
 			                  					<td colspan="2">
-			                    					<input class="form-control input-sm" type="text" placeholder="">
+			                    					<input class="form-control input-sm" type="text" name = "department" placeholder="">
 			                  					</td>
 											</tr>
 											<tr>
 												<th>회사주소</th>
 												<td colspan="8">
-												<input class="form-control input-sm" type="text" placeholder="">
+												<input class="form-control input-sm" type="text" name = "address" placeholder="">
 												</td>
 											</tr>
 			  							</tbody>
@@ -255,6 +259,7 @@
 				
 				</div><!-- /.box -->
 			</div><!-- /.col-xs-12 -->
+		</div>
 		</div>
 		<!-- /.row 하단-->
 	
@@ -280,104 +285,249 @@
 </html>
 
 <script type="text/javascript">
-    $(document).ready(function() {
 
-        var cnames = ['번호', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부'];
+$(document).ready(function() {
 
-        $("#jqGrid").jqGrid({
-            url: "jqgridStartMain.do",
-            datatype: "local",
-            colNames: cnames,
-            colModel: [
-                {name: 'seq', index: 'seq', width: 50, align: "center"},
-                {name: 'gisu', index: 'gisu', width: 100, align: "center"},
-                {name: 'name', index: 'name', width: 100, align: "center"},
-                {name: 'birth', index: 'birth', width: 100, align: "center"},
-                {name: 'gender', index: 'gender', width: 50, align: "center"},
-                {name: 'result', index: 'result', width: 80, align: "center"},
-                {name: 'phone', index: 'phone', width: 150, align: "center"},
-                {name: 'appdate', index: 'appdate', width: 100, align: "center"},
-                {name: 'exdate', index: 'exdate', width: 100, align: "center"},
-                {name: 'school', index: 'school', width: 150, align: "center"},
-                {name: 'major', index: 'major', width: 150, align: "center"},
-                {name: 'yn', index: 'yn', width: 80, align: "center"}
-            ],
-            rowheight: 20,
-            height: 230,
-            rowNum: 15,
-            rowList: [10, 20, 30],
-            pager: '#jqGridPager',
-            rownumbers: true,
-            ondblClickRow: function (rowId, iRow, iCol, e) {
+	var selectValue = $("#workTypeSelect option:selected").val();
+		console.log("ajsdfhijashdfahdfuihsadijfb");
+		console.log(selectValue);
 
-                if (iCol == 1) {
+		$.ajax({
+			url : "${pageContext.request.contextPath }/api/completion/getcurri",
+			type : "get",
+			data : {"workType" : selectValue},
+			dataType : "json",
+			success : function(list) {
+			console.log("지원자 관리 들어갔다 왔어요");
+			$("#curriSelect").remove();
+			var str = "";
+			str += "<select id='curriSelect' style='width: 90%'></select>";
 
-                    alert(rowId + " 째줄 입니다.");
-                }
-            },
+					$("#curriTd").append(str);
 
-            viewrecords: true,
-            /* caption: "유저 정보" */
+					for (var i = 0; i < list.length; i++) {
+						renderCurri(list[i])}
+											
+					},
+					error : function(XHR, status, error) {
+							console.error(status + " : "+ error)}
+			});
 
+			//업무 구분별 과목 불러오는 스크립트
+			$("#workTypeSelect").change(function() {
+				var selectValue = $("#workTypeSelect option:selected").val();
 
-        });
+				$.ajax({
+						url : "/api/completion/getcurri",
+						type : "get",
+						data : {"workType" : selectValue},
+						dataType : "json",
+						success : function(list) {
+								  $("#curriSelect").remove();
+									var str = "";
+									str += "<select id='curriSelect' style='width: 90%'></select>";
+									$("#curriTd").append(str);
+									for (var i = 0; i < list.length; i++) {
+										/* console.log(list[i]) */
+										renderCurri(list[i])
+															}
+									},
+									error : function(XHR,status,error) {
+											console.error(status+ " : "+ error)}
+						});
 
+				});
 
-        /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
+	function renderCurri(curri) {
+			var str = "";
+			str += "<option value='" + curri.curriculum_no + "'>"
+									 + curri.curriName + "</option>";
 
-        // $(function () {
-        //
-        //     $.ajax({
-        //         url: "/api/getuserinfo",
-        //         type: "post",
-        //         dataType: "json",
-        //         success: function (result) {
-        //             console.log(result);
-        //
-        //             for (var i = 0; i<result.length; i++)
-        //                 $("#jqGrid").jqGrid('addRowData', i+1, result[i]);
-        //         },
-        //         error: function (XHR, status, error) {
-        //             console.error(status + " : " + error);
-        //         }
-        //     });
-        //
-        // });
+			$("#curriSelect").append(str);
+			
+	};
+   
+ });
+ 
+$(document).on("click","#applySearch",function() {
+	var selectValue = $("#curriSelect option:selected").val();
+	console.log("클릭됨" + selectValue);
+	$.ajax({
+		url : "/api/completion/search",
+		type : "get",
+		data : {
+			"selectValue" : selectValue
+		},
+		dataType : "json",
+		success : function(list) {
 
+			console.log("search 잘 들어갔다 나옴");
 
-    });
+			for (var i = 0; i < list.length; i++)
+				$("#jqGrid").jqGrid('addRowData', i + 1,
+						list[i]);
+		},
+		error : function(request, status, error) {
+			alert("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:"
+					+ error);
+		}
+	});
 
+});
 
-    $(function () {
-        var mydata = [
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            {seq:"1",gisu:"KUKA18_RD01",name:"이서현",birth:'1987-05-13',gender:"여",result:"합격",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서울대학교",major:"컴퓨터공학과",yn:"미납"},
-            
-        ];
+	var cnames = [ 'j', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자','전형일자', '학교', '전공', '입금여부' ];
+	
+	$("#jqGrid")
+	.jqGrid(
+		{
+			url : "jqgridStartMain.do",
+			datatype : "local",
+			colNames : cnames,
+			colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
+						 {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
+						 {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
+						 {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
+						 {name : 'gender',index : 'gender',width : 50,align : "center"},
+						 {name : 'state',index : 'state',width : 80,align : "center"},
+						 {name : 'handphone',index : 'handphone',width : 150,align : "center"},
+						 {name : 'applyDay',index : 'applyDay',width : 100,align : "center"},
+						 {name : 'testDay',index : 'testDay',width : 100,align : "center"},
+						 {name : 'school',index : 'school',width : 150,align : "center"},
+						 {name : 'major',index : 'major',width : 150,align : "center"},
+						 {name : 'deposit',index : 'deposit',width : 80,align : "center"} ],
+			
+			rowheight : 20,
+			height : 230,
+			width : 1265,
+			rowNum : 15,
+			rowList : [ 10, 20, 30 ],
+			pager : '#jqGridPager',
+			rownumbers : true,
 
-        for (var i=0; i<=mydata.length; i++) {
-            $("#jqGrid").jqGrid('addRowData', i+1, mydata[i]);
-        }
-    });
-</script>
+		ondblClickRow : function(rowId, iRow, iCol, e) {
+		
+		var rowId = $("#jqGrid").getGridParam("selrow");
+		var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
+		console.log(userNo)
+						/*  alert("나중에 " + userNo + "") */
+		
+		$.ajax({
+				url : "/api/completion/afterServiceList",
+				type : "get",
+				data : {"user_no" : userNo},
+				dataType : "json",
+				success : function(list) {
+						  console.log(list);
+		
+					    /*  $("#applyDelete").remove(); */
+		
+					    for (var i = 0; i < list.length; i++) {
+								renderApplied(list[i])
+							}
+		
+					},
+				error : function(request, status, error) {
+						alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);}
+									
+		});						
+		
+						/* function renderApplied(list) {
+						  var str = "";
+						  str += "<tr onClick='past_apply(" + list.curriculum_no + ")'>";
+						     str += "<td value='" + list.curriculum_no + "'>" + list.testDay + "</td>";
+						     str += "<td value='" + list.curriculum_no + "'>" + list.curriName + "</td>";
+						     str += "</tr>";
+						     $("#appliedTable").append(str);
+						
+							}; */
+		
+						function renderApplied(list) {
+							var str = "";
+							str += "<tr id='" + list.afterService_no+ "' name='" + list.user_no + "' class='past'>";
+							str += "<td value='" + list.afterService_no + "'>"
+									+ list.afterService_no + "</td>";
+							str += "<td value='" + list.afterService_no + "'>"
+									+ list.compName + "</td>";
+							str += "<td value='" + list.afterService_no + "'>"
+									+ list.periodFr + "</td>";
+							str += "<td value='" + list.afterService_no + "'>"
+									+ list.periodTo + "</td>";
+							str += "<td value='" + list.afterService_no + "'>"
+									+ list.state + "</td>";
+							str += "</tr>";
+							$("#afterServiceTable").append(str);
+		
+						}
+						;
+		
+					},
+		
+					viewrecords : true
+				/* caption: "유저 정보" */
+		});
+	function past_apply(afterService_no, user_no) {
+
+			console.log(user_no);
+
+			$.ajax({
+					url : "/api/completion/afterService_details",
+					type : "get",
+					data : {"afterService_no" : afterService_no,
+							"user_no" : user_no},
+					dataType : "json",
+					success : function(afterVo) {
+								console.log(afterVo)
+								$("input[name='hidden_no']").val(afterVo.user_no)
+								$("input[name='compName']").val(afterVo.compName)
+								$("input[name='tel']").val(afterVo.tel)
+								$("input[name='periodFr']").val(afterVo.periodFr)
+								$("input[name='periodTo']").val(afterVo.periodTo)
+								/* var str = "";
+								str += "<option>"+afterVo.testLang+"<option>";
+								$("[name=testLang]").append(str);*/
+								$("input[name='position']").val(afterVo.position)
+								$("input[name='department']").val(afterVo.department)
+								$("input[name='address']").val(afterVo.address)
+
+							},
+							error : function(request, status, error) {
+								alert("code:" + request.status + "\n" + "message:"
+										+ request.responseText + "\n" + "error:" + error);
+							}
+						});
+
+					}
+
+					$("#afterServiceTable").on("click", "[class=past]", function() {
+						console.log("들어왔음");
+						var afterService_no = $(this).attr("id");
+						var user_no = $(this).attr("name");
+						past_apply(afterService_no, user_no);
+
+					});
+	
+	//달력1
+	$("#date1").datepicker();
+	//달력2
+	$("#date2").datepicker();
+
+	$.datepicker.setDefaults({
+		prevText : '이전 달',
+		nextText : '다음 달',
+		monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+					   '8월', '9월', '10월', '11월', '12월' ], //월 이름
+		monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+					         '7월', '8월', '9월', '10월', '11월', '12월' ], //
+		dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+		dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+		showMonthAfterYear : true,
+		yearSuffix : '년',
+		changeMonth : true,
+		changeYear : true,
+		dateFormat : "yy-mm-dd"
+	
+});
+
+	</script>

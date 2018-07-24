@@ -1,6 +1,7 @@
 package com.bitacademy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,20 @@ public class ApplicantDao {
 		System.out.println(list.toString());
 		
 		return list;
+	}
+	
+	public List<ApplyUserVo> getAppliedList(int user_no){
+		
+		return sqlSession.selectList("applicant.getAppliedList",user_no);
+	}
+	
+	public ApplyUserVo apply_details(Map<String,Integer> noMap) {
+		
+		return sqlSession.selectOne("applicant.apply_details",noMap);
+	}
+	
+	public void applyUpdate(ApplyUserVo applyVo) {
+		
+		sqlSession.update("applicant.applyUpdate",applyVo);
 	}
 }
