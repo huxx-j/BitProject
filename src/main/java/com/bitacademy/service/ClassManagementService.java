@@ -1,6 +1,7 @@
 package com.bitacademy.service;
 
 import com.bitacademy.dao.*;
+import com.bitacademy.util.DirectoryGenerator;
 import com.bitacademy.util.FileUpload;
 import com.bitacademy.vo.*;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +19,14 @@ import java.util.Map;
 @Service
 public class ClassManagementService {
 
-    @Autowired ClassManagementDao classManagementDao;
-    @Autowired CurriculumDao curriculumDao;
-    @Autowired GisuDao gisuDao;
-    @Autowired LectureReportDao lectureReportDao;
-    @Autowired ProjectDao projectDao;
-    @Autowired ScoreDao scoreDao;
-    @Autowired UserInfoDao userInfoDao;
+    @Autowired private ClassManagementDao classManagementDao;
+    @Autowired private CurriculumDao curriculumDao;
+    @Autowired private GisuDao gisuDao;
+    @Autowired private LectureReportDao lectureReportDao;
+    @Autowired private ProjectDao projectDao;
+    @Autowired private ScoreDao scoreDao;
+    @Autowired private UserInfoDao userInfoDao;
+    @Autowired private DirectoryGenerator directoryGenerator;
 
     public List<String> getWorkType() {
         return curriculumDao.getWorkType();
@@ -100,7 +103,17 @@ public class ClassManagementService {
         List<Integer> list = scoreDao.chkSisNo(scoreVo.getSubInStep_no());
         if (list.isEmpty()) {
             scoreVo.setSubInStep_no(0);
+            List<ScoreVo> scoreVoList = scoreDao.getSutudentInScore(scoreVo);
+            for (ScoreVo aScoreVoList : scoreVoList) {
+                aScoreVoList.setFileName("등록된 파일이 없습니다.");
+            }
+            return scoreVoList;
         }
+//        List<ScoreVo> scoreList = scoreDao.getSutudentInScore(scoreVo);
+//        for (ScoreVo score : scoreList) {
+//
+//        }
+//        return scoreList;
         return scoreDao.getSutudentInScore(scoreVo);
     }
 
@@ -118,16 +131,26 @@ public class ClassManagementService {
         ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
         int projectNo = 0;
-
-        FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
         int file_no = 0;
         if (!multipartFile.getFile("projectFile").isEmpty()) {
+            String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "project");
+            FileVo fileVo = fileUpload.saveProjectFile(multipartFile, saveDir);
             if (fileVo.getFile_no() == 0) {
                 file_no = projectDao.saveProjectFile(fileVo); //file_no 리턴
             } else {
                 projectDao.updateProjectFile(fileVo);
             }
         }
+
+//            FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
+//        int file_no = 0;
+//        if (!multipartFile.getFile("projectFile").isEmpty()) {
+//            if (fileVo.getFile_no() == 0) {
+//                file_no = projectDao.saveProjectFile(fileVo); //file_no 리턴
+//            } else {
+//                projectDao.updateProjectFile(fileVo);
+//            }
+//        }
         int curriculum_no = Integer.parseInt(multipartFile.getParameter("detailCurriNo"));
         int project_no;
         if (!multipartFile.getParameter("detailPjtNo").equals("0")) {
@@ -177,8 +200,9 @@ public class ClassManagementService {
         FileUpload fileUpload = new FileUpload();
         int file_no;
         if (!multipartFile.getFile("studTestFile").isEmpty()) {
+            String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "score");
             MultipartFile file = multipartFile.getFile("studTestFile");
-            FileVo fileVo = fileUpload.saveScoreFile(file);
+            FileVo fileVo = fileUpload.saveScoreFile(file, saveDir);
             file_no = scoreDao.saveScoreFile(fileVo);
         } else {
             file_no = 0;
@@ -212,9 +236,16 @@ public class ClassManagementService {
         FileUpload fileUpload = new FileUpload();
         int file_no;
         if (!multipartFile.getFile("testFile").isEmpty()) {
+            String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "test");
             MultipartFile file = multipartFile.getFile("testFile");
-            FileVo fileVo = fileUpload.saveScoreFile(file);
-            file_no = scoreDao.saveScoreFile(fileVo);
+            FileVo fileVo = fileUpload.saveScoreFile(file, saveDir);
+            if (Integer.parseInt(multipartFile.getParameter("testFileNo"))!=0){
+                file_no = Integer.parseInt(multipartFile.getParameter("testFileNo"));
+                fileVo.setFile_no(file_no);
+                return scoreDao.updateScoreFile(fileVo);
+            } else {
+                file_no = scoreDao.saveScoreFile(fileVo);
+            }
         } else {
             System.out.println("파일없음");
             file_no = 0;
@@ -229,6 +260,19 @@ public class ClassManagementService {
         } else {
             return 1;
         }
+    }
+
+    public FileVo getSisInfo(int sisNo) {
+        List<FileVo> list = scoreDao.getSisInfo(sisNo);
+        FileVo fileVo = new FileVo();
+        if (list.isEmpty()) {
+            fileVo.setFile_no(0);
+            fileVo.setFileName("등록된 파일이 없습니다.");
+        } else {
+            fileVo.setFile_no(list.get(0).getFile_no());
+            fileVo.setFileName("등록된 파일 : " + list.get(0).getFileName());
+        }
+        return fileVo;
     }
 }
 

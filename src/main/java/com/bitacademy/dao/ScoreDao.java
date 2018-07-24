@@ -42,4 +42,12 @@ public class ScoreDao {
     public int saveTest(SubInStepVo subInStepVo) {
         return sqlSession.update("score.saveTest", subInStepVo);
     }
+
+    public List<FileVo> getSisInfo(int sisNo) {
+        return sqlSession.selectList("score.getSisInfo", sisNo);
+    }
+
+    public int updateScoreFile(FileVo fileVo) {
+        return sqlSession.update("score.updateScoreFile", fileVo);
+    }
 }

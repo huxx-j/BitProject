@@ -6,7 +6,6 @@
 
     <select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
     <![CDATA[
-
       select SubInStep_no, SubjectName
       from v_subject
       where Step_no
@@ -15,7 +14,6 @@
                 where Package_no=(select Package_no
                                   from Curriculum
                                   where Curriculum_no=#{curriculum_no}))
-
         ]]>
 </select>
 
@@ -29,24 +27,23 @@
 
     <select id="getSutudentInScore" parameterType="ScoreVo" resultType="ScoreVo">
         <if test="subInStep_no==0">
-        <![CDATA[
-          select u.User_no, u.NameHan
-            from Users u, ApplyInfo a
-            where a.User_no=u.User_no
-            and a.Curriculum_no=#{curriculum_no}
-            and a.State='비트생'
-            ]]>
-        </if>
-        <if test="subInStep_no!=0">
-        <![CDATA[
-        select u.User_no, u.NameHan, s.Score, s.Score_no
-        from Users u, ApplyInfo a, Score s, SubInStep sis
+            <![CDATA[
+        select u.User_no, u.NameHan
+        from Users u, ApplyInfo a
         where a.User_no=u.User_no
-               and a.Curriculum_no=#{curriculum_no}
-               and a.State='비트생'
-               and s.SubInStep_no=#{subInStep_no}
-               and s.SubInStep_no=sis.SubInStep_no
-               and u.User_no=s.User_no
+        and a.Curriculum_no=#{curriculum_no}
+        and a.State='비트생'
+        ]]>
+        </if>
+
+        <if test="subInStep_no!=0">
+            <![CDATA[
+       select u.User_no, u.NameHan, s.Score, s.Score_no, ifnull(s.File_no,0) as File_no,
+       if(isnull(f.FileName),'등록된 파일이 없습니다.', CONCAT('등록된 파일 : ',f.FileName)) as FileName from Users u
+        join ApplyInfo a on u.User_no = a.User_no and a.Curriculum_no=#{curriculum_no} and a.State='비트생'
+        join Score s on s.SubInStep_no=#{subInStep_no} and u.User_no=s.User_no
+        join SubInStep sis on s.SubInStep_no = sis.SubInStep_no
+        left join File f on s.File_no = f.File_no;
         ]]>
         </if>
     </select>
@@ -80,7 +77,7 @@
 
     <update id="updateScore" parameterType="ScoreVo">
         <if test="file_no!=0">
-        <![CDATA[
+            <![CDATA[
         update Score set Score=#{score}, File_no=#{file_no} where Score_no=#{score_no}
         ]]>
         </if>
@@ -92,7 +89,28 @@
     <update id="saveTest" parameterType="SubInStepVo">
             <![CDATA[
             update SubInStep set File_no=#{file_no} where SubInStep_no=#{SubInStep_no}
-            ]]>
+        ]]>
     </update>
 
+    <select id="getSisInfo" parameterType="Int" resultType="FileVo">
+        <![CDATA[
+        select f.FileName, f.File_no from File f, SubInStep sis where sis.File_no=f.File_no and SubInStep_no=#{sisNo};
+        ]]>
+    </select>
+
+    <update id="updateScoreFile" parameterType="FileVo">
+    <![CDATA[
+        update File set FileSize=#{fileSize}, FilePath=#{filePath}, FileName=#{fileName} where File_no=#{file_no}
+        ]]>
+    </update>
 </mapper>
+
+
+        <!--select u.User_no, u.NameHan, s.Score, s.Score_no-->
+        <!--from Users u, ApplyInfo a, Score s, SubInStep sis-->
+        <!--where a.User_no=u.User_no-->
+        <!--and a.Curriculum_no=#{curriculum_no}-->
+        <!--and a.State='비트생'-->
+        <!--and s.SubInStep_no=#{subInStep_no}-->
+        <!--and s.SubInStep_no=sis.SubInStep_no-->
+        <!--and u.User_no=s.User_no-->

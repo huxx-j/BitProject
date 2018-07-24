@@ -9,6 +9,7 @@ public class ScoreVo {
     private int file_no;
     private String subjectName;
     private String nameHan;
+    private String fileName;
 
     public ScoreVo() {
     }
@@ -21,6 +22,14 @@ public class ScoreVo {
         this.file_no = file_no;
         this.subjectName = subjectName;
         this.nameHan = nameHan;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public int getScore_no() {
@@ -98,6 +107,7 @@ public class ScoreVo {
                 ", file_no=" + file_no +
                 ", subjectName='" + subjectName + '\'' +
                 ", nameHan='" + nameHan + '\'' +
+                ", fileName='" + fileName + '\'' +
                 '}';
     }
 }
