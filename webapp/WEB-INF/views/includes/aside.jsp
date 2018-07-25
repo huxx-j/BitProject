@@ -19,8 +19,8 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="/subject/main"><i class="fa fa-circle-o"></i> 과목관리</a></li>
-	            	<li><a href="../../index2.html"><i class="fa fa-circle-o"></i> 패키지관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/subject/main"><i class="fa fa-circle-o"></i> 과목관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/package/main"><i class="fa fa-circle-o"></i> 패키지관리</a></li>
 	          	</ul>
 	        </li>
         
@@ -32,8 +32,8 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="/curri/"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
-	            	<li><a href="/applicant/"><i class="fa fa-circle-o"></i> 지원자관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/curri"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/applicant/"><i class="fa fa-circle-o"></i> 지원자관리</a></li>
 	          	</ul>
 	        </li>
         
@@ -45,7 +45,7 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="/cm/main"><i class="fa fa-circle-o"></i> 수업관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/cm/main"><i class="fa fa-circle-o"></i> 수업관리</a></li>
 	          	</ul>
 	        </li>
         
@@ -57,8 +57,8 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="/completion/"><i class="fa fa-circle-o"></i> 수료생관리</a></li>
-	            	<li><a href="../../index.html"><i class="fa fa-circle-o"></i> 기업취업의뢰</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/completion/"><i class="fa fa-circle-o"></i> 수료생관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/test"><i class="fa fa-circle-o"></i> 기업취업의뢰</a></li>
 	          	</ul>
 	        </li>
         
@@ -70,8 +70,8 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="../../index.html"><i class="fa fa-circle-o"></i> 회원관리</a></li>
-	            	<li><a href="../../index.html"><i class="fa fa-circle-o"></i> 강의평가</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/test1"><i class="fa fa-circle-o"></i> 회원관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/test2"><i class="fa fa-circle-o"></i> 강의평가</a></li>
 	            	<li><a href="../../index.html"><i class="fa fa-circle-o"></i> 업무구분관리</a></li>
 	          	</ul>
 	        </li>
