@@ -8,7 +8,7 @@
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
-            url: "/api/cm/getCurri",
+            url: "${pageContext.request.contextPath }/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -34,7 +34,7 @@
         var selectValue = $("#workTypeSelect option:selected").val();
 
         $.ajax({
-            url: "/api/cm/getCurri",
+            url: "${pageContext.request.contextPath}/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -69,14 +69,13 @@
     $("#curriSearchBtn").on("click", function () {
         removeReport();
         removeSaveBtn();
-        removeCurrentCurriInfo();
         removeTeamList();
         removePjtDetail()
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
         $.ajax({
-            url: "/api/cm/getCurriInfo",
+            url: "${pageContext.request.contextPath}/api/cm/getCurriInfo",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -99,7 +98,7 @@
 
     function ajaxGetTeamList(currival) {
         $.ajax({
-            url: "/api/cm/getTeamList",
+            url: "${pageContext.request.contextPath}/api/cm/getTeamList",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -130,8 +129,6 @@
             removeReport();
             removeSaveBtn();
             renderSaveBtn();
-            removeCurrentCurriInfo();
-            renderCurrentCurriInfo();
             $("#selectedDate").val($("#reportDate").val());
             $("#selectedCurriNo").val($("#curriSelect option:selected").val());
             lectureReportVo = {
@@ -140,7 +137,7 @@
             };
 
             $.ajax({
-                url: "/api/cm/getLectureReport",
+                url: "${pageContext.request.contextPath}/api/cm/getLectureReport",
                 type: "post",
                 contentType: "application/json",
                 data: JSON.stringify(lectureReportVo),
@@ -178,7 +175,6 @@
         }
     }
 
-
     //수업일지 저장하는 스크립트
     $("#lectureReportSaveBtn").on("click", function () {
 
@@ -197,7 +193,7 @@
             };
 
             $.ajax({
-                url: "/api/cm/saveLectureReport",
+                url: "${pageContext.request.contextPath}/api/cm/saveLectureReport",
                 type: "post",
                 contentType: "application/json",
                 async: false,
@@ -220,7 +216,7 @@
 
         }
         alert(countUpdate + "개 항목 업데이트 / " + countInsert + "개 항목 저장 완료")
-    })
+    });
 
     //저장버튼 생성 스크립트
     function renderSaveBtn() {
@@ -232,14 +228,6 @@
 
     function removeSaveBtn() {
         $("#lectureReportSaveBtn").remove();
-    }
-
-    function renderCurrentCurriInfo() {
-        $("#currentCurriInfo").val($("#reportDate").val() + " / " + $("#curriNameInfo").text());
-    }
-
-    function removeCurrentCurriInfo() {
-        $("#currentCurriInfo").val("");
     }
 
     //프로젝트
@@ -260,7 +248,7 @@
 
     function callMemberTable(curriNo) {
         $.ajax({
-            url: "/api/cm/getMemberName",
+            url: "${pageContext.request.contextPath}/api/cm/getMemberName",
             type: "post",
             data: {"curriNo": curriNo},
             dataType: "json",
@@ -418,7 +406,7 @@
 
     function ajaxTeamDetail(project_no, curriNo) {
         $.ajax({
-            url: "/api/cm/getProjectDetail",
+            url: "${pageContext.request.contextPath}/api/cm/getProjectDetail",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -523,7 +511,7 @@
         } else {
 
             $.ajax({
-                url: "/api/cm/saveProjectDetail",
+                url: "${pageContext.request.contextPath}/api/cm/saveProjectDetail",
                 type: "post",
                 processData: false,
                 contentType: false,
@@ -552,7 +540,7 @@
     //이론평가 탭
     function ajaxRenderSubjectList(currival) {
         $.ajax({
-            url: "/api/cm/getSubjectList",
+            url: "${pageContext.request.contextPath}/api/cm/getSubjectList",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -599,7 +587,7 @@
         removeTestUploadTd();
 
         $.ajax({
-            url: "/api/cm/getSisInfo",
+            url: "${pageContext.request.contextPath}/api/cm/getSisInfo",
             type: "post",
             // contentType: "application/json",
             async: false,
@@ -621,7 +609,7 @@
         };
 
         $.ajax({
-            url: "/api/cm/getSutudentInScore",
+            url: "${pageContext.request.contextPath}/api/cm/getSutudentInScore",
             type: "post",
             contentType: "application/json",
             async: false,
@@ -734,12 +722,12 @@
     $(document).on("click", "button[name=scoreSaveBtn]", function () {
         var studNo = $("#iSutdNo").val();
         var formData = new FormData($("#testForm")[0]);
-        var url = "/api/cm/saveTest";
+        var url = "${pageContext.request.contextPath}/api/cm/saveTest";
         ajaxSaveScore(url,formData);
 
         for (var i = 1; i <= studNo; i++) {
             formData = new FormData($("#scoreForm" + i)[0]);
-            url = "/api/cm/saveScore";
+            url = "${pageContext.request.contextPath}/api/cm/saveScore";
             ajaxSaveScore(url,formData);
         }
     });
@@ -808,7 +796,7 @@
         /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
         $(function () {
             $.ajax({
-                url: "/api/cm/getUserInfo",
+                url: "${pageContext.request.contextPath}/api/cm/getUserInfo",
                 type: "post",
                 // contentType: "application/json",
                 // async: false,
@@ -835,4 +823,43 @@
     function removeJqGridTable() {
         $("#gbox_jqGrid").remove();
     }
+
+
+
+    //수업일지탭 달력 선택시 인풋태그에 출력해주는 스크립트
+    $(function () {
+        $('#wrapper .version strong').text('v' + $.fn.pignoseCalendar.version);
+
+        function onSelectHandler(date, context) {
+            var $element = context.element;
+            var $calendar = context.calendar;
+            // var $box = $element.siblings('#reportDate').show();
+            var text = '';
+
+            if (date[0] !== null) {
+                text += date[0].format('YYYY-MM-DD');
+            }
+
+            if (date[0] !== null && date[1] !== null) {
+                text += ' ~ ';
+            }
+            else if (date[0] === null && date[1] == null) {
+                text += 'nothing';
+            }
+
+            if (date[1] !== null) {
+                text += date[1].format('YYYY-MM-DD');
+            }
+            $("#reportDate").val(text);
+            // $box.text(text);
+        }
+
+        // Default Calendar 셀랙트 이벤트 핸들러
+        $('.calendar').pignoseCalendar({
+            lang : 'ko',
+            select: onSelectHandler
+        });
+    });
+
+
 </script>
