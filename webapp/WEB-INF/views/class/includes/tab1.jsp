@@ -3,8 +3,8 @@
     <div class="col-xs-12">
             <!-- /.box-header -->
             <div class="col-xs-3" style="padding-left:0; padding-right: 0">
-                <div class="box-header with-border"> 강의일자
-                    <input id="reportDate" type="date" value="${date}" style="margin-left: 10px">
+                <div class="box-header with-border a_c"> 강의일자
+                    <input id="reportDate" type="text" value="${date}" placeholder="날짜를 선택하세요" style="margin-left: 10px; width: 40%">
                     <button id="reportCallBtn" type="button" class="btn btn-primary btn-call">불러오기</button>
                     <input id="selectedCurriNo" type="hidden">
                     <input id="selectedDate" type="hidden">
@@ -16,12 +16,12 @@
                 <%--<div class="box-body">--%>
                     <table class="table table-condensed">
                         <tr>
-                            <th style="width: 5%; text-align: center">교시</th>
-                            <th style="width: 10%; text-align: center">시간</th>
-                            <th style="width: 15%; text-align: center">훈련과목</th>
-                            <th style="width: 50%; text-align: center">훈련내용</th>
-                            <th style="width: 15%; text-align: center">담당교사</th>
-                            <th style="width: 5%; text-align: center">비고</th>
+                            <th style="width: 42px; text-align: center">교시</th>
+                            <th style="width: 104px; text-align: center">시간</th>
+                            <th style="width: 121px; text-align: center">훈련과목</th>
+                            <th style="width: 398px; text-align: center">훈련내용</th>
+                            <th style="width: 100px; text-align: center">담당교사</th>
+                            <th style="width: 141px; text-align: center">비고</th>
                         </tr>
                         <tr>
                             <td id="period1" class="a_c">1</td>

@@ -185,7 +185,7 @@ tbody > tr > th{
 .nav > li > a{
 	padding: 2px 15px 5px 15px !important;
 	/* margin: 0px 20px 0px 0px;  */
-	border-radius: 4px !important;
+	/*border-radius: 4px !important;*/ /*20180726 성우 탭 보더 때문에 삭제*/
 }
 
 
@@ -232,5 +232,6 @@ tbody > tr > th{
 	}
 }
 
+/** tab css **/
 
 

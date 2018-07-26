@@ -20,7 +20,3 @@
  </insert>
 
 </mapper>
-
-
-        <!--`User_no`, `LiceName`, `AcquirDate`, `IssueOrgan`, `Score`-->
-        <!--`user_no`, `liceName`, `acquirDate`, `issueOrgan`, `score`-->
