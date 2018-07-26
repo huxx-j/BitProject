@@ -8,7 +8,7 @@
 	border: 1px solid #CCC;
 	font-size: 16px;
 	font-weight: 400;
-	z-index: 50;
+	z-index: 150;
 	/* box-shadow */
 	-webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
 	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
@@ -261,4 +261,16 @@
 	padding-top: 2px;!important;
 	height: 25px;!important;
 	width: 62px;!important;
+}
+
+.border-none {
+	border: none;
+}
+.border-inputcolor {
+	border: 1px solid #d2d6de;
+}
+.btn-date {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-color: rgba(0,0,0,0);
 }

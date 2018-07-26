@@ -844,7 +844,7 @@
                 text += ' ~ ';
             }
             else if (date[0] === null && date[1] == null) {
-                text += 'nothing';
+                text += '날짜를 선택하세요';
             }
 
             if (date[1] !== null) {

@@ -60,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td><select id="workTypeSelect" style="width:70%">
-                                    <c:forEach items="${workType}" var="wt">
+                                    <c:forEach items="${workType}" var="wt"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
@@ -130,7 +130,7 @@
                         </div>
                         <!-- nav-tabs-custom -->
                     </div>
-                        </div>
+                    </div>
                     <!-- /.col -->
                 </div>
             </div>
