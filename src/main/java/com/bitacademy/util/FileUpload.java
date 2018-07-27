@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 public class FileUpload {
 
+    //파일을 저장하는 메소드
     private void upload(MultipartFile file, String saveDir, String saveName){
         try {
             byte[] fileData = file.getBytes();
@@ -24,6 +25,7 @@ public class FileUpload {
         }
     }
 
+    //프로젝트 파일 저장하는 메소드
     public FileVo saveProjectFile(MultipartHttpServletRequest multipartFile, String saveDir) {
         FileVo fileVo = new FileVo();
 
@@ -61,6 +63,7 @@ public class FileUpload {
         }
     }
 
+    //이론평가 학생들 파일을 저장하는 메소드
     public FileVo saveScoreFile(MultipartFile file, String saveDir) {
         FileVo fileVo = new FileVo();
 

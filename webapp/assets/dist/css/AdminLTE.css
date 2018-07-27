@@ -2517,7 +2517,7 @@ a:focus {
   margin-left: 0;
 }
 .nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
-  border-left-color: #4545/*transparen*/t;
+  border-left-color: #4545/*transparen*/;
 }
 .nav-tabs-custom > .nav-tabs.pull-right {
   float: none !important;
@@ -2551,8 +2551,8 @@ a:focus {
   padding: 10px;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  border: 1px solid #4545;
-  border-top: none;
+  /*border: 1px solid #4545;*/
+  /*border-top: none;*/
 }
 .nav-tabs-custom .dropdown.open > a:active,
 .nav-tabs-custom .dropdown.open > a:focus {

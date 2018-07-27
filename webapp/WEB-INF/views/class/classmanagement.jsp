@@ -45,30 +45,36 @@
         <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-body">
+                <div class="box box-body" style="padding-right: 36px">
                     <div class="box-header with-border">
                         <h3 class="box-title"> 교육과정검색</h3>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
+                    <%--<div class="box-body">--%>
                         <table class="table table-bordered">
                             <tr>
-                                <th style="width: 30%">업무구분</th>
-                                <th style="width: 30%">교육과정(반) 명</th>
-                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel" value="all">&ensp;전체 &ensp;
-                                    <input type="radio" name="ra_sel" value="ongoing" checked>&ensp;수업중</th>
+                                <th style="width: 20%">업무구분</th>
+                                <th style="width: 80%">교육과정(반) 명</th>
+                                <%--<th style="width: 40%; border-left: hidden">--%>
+                                    <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="all">전체</label>--%>
+                                    <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>--%>
+                                <%--</th>--%>
                             </tr>
                             <tr>
-                                <td><select id="workTypeSelect" style="width:70%">
+                                <td><select class="form-control input-sm" id="workTypeSelect" style="width:100%">
                                     <c:forEach items="${workType}" var="wt"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
-                                <td colspan="2" id="curriTd"><select id="curriSelect" style="width: 90%">
-                                </select></td>
+                                <td id="curriTd">
+                                    <label class="form-controll-static"><input type="radio" name="ra_sel" value="all">전체</label>
+                                    <label class="form-controll-static"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
+                                    <select class="form-control input-sm" id="curriSelect" style="width: 86%">
+                                    </select>
+                                </td>
                             </tr>
                         </table>
-                    </div>
+                    <%--</div>--%>
                     <div class="sub-toolbox text-center">
                         <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
                     </div>
@@ -79,19 +85,19 @@
                         <input id="selectedCurri" type="hidden">
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
+                    <div class="box-body" style="padding-right: 36px">
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td id="curriNameInfo" colspan="3" style="width: 55%"></td>
+                                <td id="curriNameInfo" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td id="gisuInfo" style="width: 29%"></td>
+                                <td id="gisuInfo" style="width: 42%"></td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
                                 <td id="periodFrInfo" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td id="periodToInfo" colspan="3" style="width: 42%"></td>
+                                <td id="periodToInfo" style="width: 42%"></td>
                             </tr>
                         </table>
                     </div>
