@@ -26,6 +26,15 @@ public class PackageController {
         //return packageVo;
 //       return subjectService.getsub(no);
     }
+    //카테고리 수정을 위한 함수 (제거, 드래그, 이름수정)
+    @ResponseBody
+    @RequestMapping(value = "/UpdateCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public void UpdateCate(@RequestParam("subjectCateVo") SubjectCateVo subjectCateVo) {
+        packageService.UpdateCate(subjectCateVo);
+        //return packageVo;
+//       return subjectService.getsub(no);
+    }
+
     @ResponseBody
     @RequestMapping(value = "/packajax", method = {RequestMethod.POST,RequestMethod.GET})
     public PackageVo packajax(@RequestParam("no") int no) {

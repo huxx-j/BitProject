@@ -41,7 +41,7 @@ public class CompletionApiController {
 		
 		System.out.println(applyUserlist.toString());
 		
-		return applyUserlist ;
+		return applyUserlist;
 	}
 	
 	@ResponseBody

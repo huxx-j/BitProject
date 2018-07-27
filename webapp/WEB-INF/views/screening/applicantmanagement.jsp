@@ -655,7 +655,6 @@
             data: JSON.stringify(report),
             dataType: "json",
             success: function () {
-
                 alert("항목 저장 완료");
             },
             error: function (XHR, status, error) {

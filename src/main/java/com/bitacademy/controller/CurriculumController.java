@@ -14,56 +14,55 @@ import java.util.List;
 @RequestMapping(value = "/curri")
 public class CurriculumController {
 
-	@Autowired
-	private CurriculumService curriService;
+    @Autowired
+    private CurriculumService curriService;
 
-	 @RequestMapping(value = "")
-	 public String curriMain(Model model) {
-		 System.out.println(curriService.currilist());
-		model.addAttribute("list",curriService.currilist());
-		
-		model.addAttribute("cateList", curriService.curriCateList());
-		System.out.println(curriService.curriCateList());
-	 System.out.println("curriMain");
-	
-	 return "screening/index_curri";
-	 }
+    @RequestMapping(value = "")
+    public String curriMain(Model model) {
+        System.out.println(curriService.currilist());
+        model.addAttribute("list", curriService.currilist());
 
-	 // 교육과정 추가 버튼
-	@RequestMapping(value = "/addCurriBtn")
-	public String addCurriBtn() {
+        model.addAttribute("cateList", curriService.curriCateList());
+        System.out.println(curriService.curriCateList());
+        System.out.println("curriMain");
 
-		return "screening/addCurri";
-	}
-	
-	@RequestMapping(value = "/addCurri")
-	public String addCurri(@ModelAttribute CurriculumVo curriVo) {
-		System.out.println("[curriController]addCurri IN"+curriVo.toString());
-		curriService.addCurri(curriVo);
-		
-		return "redirect:/curri";
-	}
+        return "screening/index_curri";
+    }
 
-	// 패키지 보기 버튼
-	@RequestMapping(value = "/curriPopUp")
-	public String popUp() {
-		
-		return "screening/curriPopUp";
-		
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/{curriculum_no}")
-	public String viewCurriculum(@PathVariable String curriculum_no, Model model) {
-		System.out.println("[curriController] IN");
-		System.out.println("curriculum_no: " + curriculum_no);
-		
-		CurriculumVo curriVo = curriService.viewCurriculum(curriculum_no);
-		model.addAttribute("curri", curriVo);
-		System.out.println("curri toString" + curriVo);
-		return "screening/index_curri";
-	}
-	
+    // 교육과정 추가 버튼
+    @RequestMapping(value = "/addCurriBtn")
+    public String addCurriBtn() {
+
+        return "screening/addCurri";
+    }
+
+    @RequestMapping(value = "/addCurri")
+    public String addCurri(@ModelAttribute CurriculumVo curriVo) {
+        System.out.println("[curriController]addCurri IN" + curriVo.toString());
+        curriService.addCurri(curriVo);
+
+        return "redirect:/curri";
+    }
+
+    // 패키지 보기 버튼
+    @RequestMapping(value = "/curriPopUp")
+    public String popUp() {
+
+        return "screening/curriPopUp";
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{curriculum_no}")
+    public CurriculumVo viewCurriculum(@PathVariable String curriculum_no, Model model) {
+        System.out.println("[curriController] IN");
+        System.out.println("curriculum_no: " + curriculum_no);
+
+        CurriculumVo curriVo = curriService.viewCurriculum(curriculum_no);
+        System.out.println("curri toString" + curriVo);
+        return curriVo;
+    }
+
 //	@RequestMapping(value = "/{curriculum_no}")
 //	public String viewCurriculum(@PathVariable String curriculum_no, Model model) {
 //		System.out.println("[curriController] IN");
@@ -79,25 +78,25 @@ public class CurriculumController {
 //		System.out.println("[curriController] studentManagement OUT" + applicantList.toString());
 //		return "screening/index_curri";
 //	}
-	
-	/////////////////////////////////////////////////
-	//					 수정 버튼  					   //
-	/////////////////////////////////////////////////
-	@RequestMapping(value = "/edit/{curriculum_no}")
-	public String edit(@ModelAttribute CurriculumVo curriVo) {
-		System.out.println("[curriController] edit IN");
-		curriService.edit(curriVo);
-		return "redirect:/curri/{curriculum_no}";
 
-	}
-	
-	//기수부여
-	@ResponseBody
-	@RequestMapping(value = "/gisuGrant")
-	public String gisuGrant(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
-		
-		return "screening/index_curri";
-	}
+    /////////////////////////////////////////////////
+    //					 수정 버튼  			   //
+    /////////////////////////////////////////////////
+    @RequestMapping(value = "/edit/{curriculum_no}")
+    public String edit(@ModelAttribute CurriculumVo curriVo) {
+        System.out.println("[curriController] edit IN");
+        curriService.edit(curriVo);
+        return "redirect:/curri/{curriculum_no}";
+
+    }
+
+    //기수부여
+    @ResponseBody
+    @RequestMapping(value = "/gisuGrant")
+    public String gisuGrant(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
+
+        return "screening/index_curri";
+    }
 //	@RequestMapping("/{curriculum_no}")
 //	public String studentManagement(Model model, @PathVariable String curriculum_no) {
 //		System.out.println("curriController] studentManagement IN");
@@ -114,7 +113,7 @@ public class CurriculumController {
 //		System.out.println("[curriController] studentManagement OUT" + applicantList.toString());
 //		return "screening/index_curri";
 //	}
-	
+
 //	@RequestMapping(value = "/curriInfo")
 //	public String viewCurriculum(Model model) {
 //		System.out.println("[curriController] IN");
@@ -140,9 +139,8 @@ public class CurriculumController {
 //		
 //		return "screening/index_curri";
 //	}
-	
-	
-	
+
+
 //	원래꺼
 //	@RequestMapping(value = "")
 //	public String viewCurriculum(Model model) {

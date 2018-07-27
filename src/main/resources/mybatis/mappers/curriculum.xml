@@ -13,7 +13,9 @@
 
     <select id="getCurri" parameterType="String" resultType="CurriculumVo">
         <![CDATA[
-        select Curriculum_no, CurriName from Curriculum where WorkType=#{workType}
+        select Curriculum_no, CurriName
+        from Curriculum
+        where WorkType=#{workType}
         ]]>
     </select>
 
@@ -29,7 +31,8 @@
     <!--희준-->
     <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
  		<![CDATA[
- 			SELECT c.curriculum_no, c.package_no, c.curriName, c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money, c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, g.gisuName
+ 			SELECT c.curriculum_no, c.package_no, c.curriName, c.periodFr, c.periodTo, c.startDay,
+ 			c.time, c.num, c.money, c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, g.gisuName
  			FROM Curriculum as c, Gisu as g
 			WHERE c.curriculum_no and g.curriculum_no = #{curriculum_no} and c.package_no = #{package_no}
  		]]>

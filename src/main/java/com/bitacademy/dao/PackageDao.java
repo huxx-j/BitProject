@@ -44,4 +44,10 @@ public class PackageDao {
     public List<StepInPackVo> getstep(int no) {
         return sqlSession.selectList("package.getstep",no);
     }
+
+    public void UpdateCate(SubjectCateVo subjectCateVo) {
+        sqlSession.update("package.CateUpdate",subjectCateVo);
+    }
+
+    
 }

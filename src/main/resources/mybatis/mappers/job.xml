@@ -24,8 +24,6 @@
 			select Users.NameHan nameHan, Gisu.GisuName gisuName
 			from Users join ApplyInfo using(User_no) join Curriculum using (Curriculum_no) join Gisu using (Curriculum_no)
 			where Users.NameHan=#{name} and Gisu.GisuName=#{gisu}
-			
-
 	]]>
 	</select>
 

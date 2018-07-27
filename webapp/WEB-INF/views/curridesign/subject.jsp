@@ -4,175 +4,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style type="text/css">
-		ul{
-			list-style-type: none;
-		}
-
-	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<title>TCOMS ver2</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	
+	<!-- 공통css -->
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
-	<%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
-	<%--jqgrid 사용하는 페이지용 스크립트 임포트 태그(마지막에 스크립트 임포트 태그는 삭제할것--%>
+	
+	<!-- 자신의 css사용시 --> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+	
+	<!-- 그리드 사용시 주석풀어 사용 -->
+	<%-- <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import> --%>
 
-	<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" type="text/css">--%>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
 
-	<!-- Content Header (Page header) -->
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>패키지관리
-			<small>it all starts here</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li><a href="#">과정설계업무</a></li>
-			<li class="active">패키지관리</li>
-		</ol>
-	</section>
-
-
-	<!-- Main content -->
-	<section class="content">
-
-		<div class="row">
+		<!-- Content Header (Page header) -->
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>패키지관리
+				<small>it all starts here</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li><a href="#">과정설계업무</a></li>
+				<li class="active">패키지관리</li>
+			</ol>
+		</section>
 
 
-			<div class="col-xs-12">
-				<div class="box box-body">
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-body">
+						<div class="row">
+							<!-- 카테고리영역 -->
+							<div class="col-xs-3">
+							
+								<div class="sub-box">
+								<!-- <div class="cate-title">
+									패카지카테고리
+								</div> --><!-- cate-title -->
 
-					<div class="row">
-						<!-- 카테고리영역 -->
-						<div class="col-xs-3">
-							<div class="sub-box">
-								<div class="cate-title">
-									과목카테고리
-								</div><!-- cate-title -->
-
-								<div class="cate-outter bordered">
-									<div class="cate-toolbox">
-										<button type="button" id="addcate" class="btn btn-default btn-cate">추가</button>
+								<div class="bordered">
+									
+									<div class="cate-toolbox-top clearfix">
+										<button type="button" id="addcate" class="btn btn-default btn-cate pull-right">추가</button>
 										<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
 									</div><!-- /.cate-toolbox -->
+									
 									<div class="scroll">
+										
+										<!-- 카테고리 메인영역 -->
+										<div class="cate-box">
+											<div class="" id="">
 
-										<div class="tab-content-custom" style="height: 500px;">
-											<div class="tab-pane active" id="tab_1">
+												<ul id="treeDemo" class="ztree">
 
-												<ul id="treeDemo" class="ztree"></ul>
-
-												<%--<ul id="cate-tree" class="side-bar test" data-widget="tree">--%>
-
-
-													<%--<!-- 최하단 카테고리 조건(ajax구현 고려)--%>
-												<%--<c:forEach items="${sublist}" var="sub">--%>
-													<%--<ul class="treeview-menu">--%>
-														<%--<li><a href="#"><i class="fa fa-circle-o"></i> ${sub.subjectName}</a></li>--%>
-													<%--</ul>--%>
-												<%--</c:forEach>-->--%>
-
-													<%--<li class="treeview">--%>
-														<%--<a href="#"> <i class="fa fa-circle-o"></i>C<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-														<%--<ul class="treeview-menu">--%>
-																<%--<li class="treeview">--%>
-																			<%--<a href="#"><i class="fa fa-circle-o"></i> C <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																			<%--<ul class="treeview-menu">--%>
-																				<%--<li class="treeview">--%>
-																				<%--</li>--%>
-																			<%--</ul>--%>
-																			<%--<a href="#"><i class="fa fa-circle-o"></i> C++ <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																			<%--<ul class="treeview-menu">--%>
-																				<%--<li class="treeview">--%>
-																				<%--</li>--%>
-																			<%--</ul>--%>
-																<%--</li>--%>
-														<%--</ul>--%>
-													<%--</li>--%>
-													<%--<li class="treeview">--%>
-														<%--<a href="#"> <i class="fa fa-circle-o"></i>JAVA<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-														<%--<ul class="treeview-menu">--%>
-															<%--<li class="treeview">--%>
-																<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																<%--<ul class="treeview-menu">--%>
-																	<%--<li class="treeview">--%>
-																		<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA1 <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																		<%--<ul class="treeview-menu">--%>
-																			<%--<li class="treeview">--%>
-																			<%--</li>--%>
-																		<%--</ul>--%>
-																	<%--</li>--%>
-																<%--</ul>--%>
-																<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA WEB <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																<%--<ul class="treeview-menu">--%>
-																	<%--<li class="treeview">--%>
-																		<%--<a href="#"><i class="fa fa-circle-o"></i> SPRING <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																		<%--<ul class="treeview-menu">--%>
-																			<%--<li class="treeview">--%>
-																			<%--</li>--%>
-																		<%--</ul>--%>
-																	<%--</li>--%>
-																<%--</ul>--%>
-															<%--</li>--%>
-														<%--</ul>--%>
-													<%--</li>--%>
-
-												<%--</ul>--%>
 												</ul>
 											</div>
 
-											<!-- /.tab-pane -->
 										</div>
-									</div><!-- /.sub-body -->
-
-								</div><!-- /.cate-outter -->
-
-								<div class="cate-toolbox">
-									<div class="input-group input-group-sm">
-										<input class="form-control" type="text">
-										<span class="input-group-btn">
-                     							<button class="btn btn-info btn-flat" type="button">Go!</button>
-                   						</span>
-									</div>
-								</div><!-- /.cate-toolbox -->
+										<!-- /.카테고리 메인영역 -->
+										
+											
+									</div><!-- /.scroll -->
+								
+									<div class="cate-toolbox-bottom">
+										<div class="input-group input-group-sm">
+											<input class="form-control cate-search-input" type="text">
+											<span class="input-group-btn">
+	                     							<button class="btn btn-default btn-cate-search" type="button">검색</button>
+	                   						</span>
+										</div>
+									</div><!-- /.cate-toolbox -->
+								</div><!-- /.bordered -->
+									
 							</div><!-- /.sub-box -->
-						</div><!-- /.col-xs-3 -->
-						<!-- /.카테고리영역 -->
-
-						<!-- 과목정보영역 -->
-						<form id="" name="addsubject" method="get" action="${pageContext.request.contextPath}/subject/add">
-						<div class="col-xs-9">
-
-								<div class="tab-content">
-
-									<button  id="btnAddsubject" style="margin-bottom:5px; float: right" class="btn btn-info btn-flat" type="button">과목 추가</button>
-
-									<table class="table table-condensed">
+							
+							</div><!-- /.col-xs-3 -->
+							<!-- /.카테고리영역 -->
+							
+							<!-- 과목정보영역 -->
+							<div class="col-xs-9">
+								<div class="sub-box">
+									<div class="sub-toolbox clearfix">
+										<button  id="btnAddsubject" class="btn btn-default pull-right" type="button">과목 추가</button>
+									</div>
+									
+									<div class="sub-body">
+										<table class="table table-condensed">
 											<colgroup>
 												<col width="120px" />
 												<col width="" />
 											</colgroup>
-
 											<tbody>
-
 											<tr>
 												<th>과목 카테고리</th>
 												<td>
-													<select name='subcate' class='form-control input-sm'>
+													<select name='subcate' class='form-control'>
 													<c:forEach items="${list}" var="vo">
 														<option> ${vo.cateName} </option>
 													</c:forEach>
@@ -181,39 +124,42 @@
 											</tr>
 											<tr>
 												<th>과목 명</th>
-												<td><input name="SubjectName" class="form-control input-sm" type="text" placeholder=""></td>
+												<td><input name="SubjectName" class="form-control" type="text" placeholder=""></td>
 											</tr>
 											<tr>
 												<th>과목 개요</th>
 												<td><textarea name="Outline" class="form-control" rows="6" placeholder=""></textarea></td>
 											</tr>
-
+	
 											</tbody>
 										</table>
-										<div class="sub-toolbox text-center">
-											<input type="submit" value="저장" class="btn btn-primary">
-										</div>
+									</div><!-- /.sub-body -->
+									<div class="sub-toolbox clearfix text-center">
+										<input type="submit" value="수정" class="btn btn-primary">
+										<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">
 									</div>
-								</div>
-								<!-- /.탭내용박스 -->
-							</div><!--/.탭 박스 외곽 -->
-						</form>
-						</div><!-- /.col-xs-9 -->
-						<!-- /.과목정보영역 -->
-					</div><!-- /.row -->
+								</div><!-- /.sub-box -->
+							</div><!-- /.col-xs-9 -->
+							<!-- /.과목정보영역 -->
+						</div><!-- /.row -->
+					</div><!-- /.box box-body -->
+				</div><!-- /.col-xs-12 -->
+			</div><!-- /.row -->
+		</section>
+		<!-- /.content -->
+	
+	</div>
+	<!-- /.content-wrapper -->
 
-			</div><!-- /.col-xs-12 -->
-	</section>
-		</div><!-- /.row -->
-	</section>
-	<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 
 	<div class="control-sidebar-bg"></div>
+
 </div>
 <!-- ./wrapper -->
+
+<!-- ***************************************** -->
+<!-- 모달창영역 -->
 <div class="modal fade" id="pop">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -236,7 +182,7 @@
 					<tr>
 						<th>카테고리명</th>
 						<td>
-				<input style="width: 100%" type="text" name="CateName" value="" id="CateName">
+							<input style="width: 100%" type="text" name="CateName" value="" id="CateName">
 						</td>
 					</tr>
 				</table>
@@ -247,9 +193,13 @@
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
-</div>
+</div><!-- /.modal -->
+<!-- /.모달창영역 -->	
+<!-- ***************************************** -->
+
 </body>
-</html>
+
+<!-- 자바스트립트영역 -->
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
@@ -259,29 +209,37 @@
     // zTree 설정
 	var setting = {
         edit:{
-			 drag:{
-                 autoExpandTrigger: true,
-                 prev: dropPrev,
-                 inner: dropInner,
-                 next: dropNext
-			},
-            enable:true
+            drag:{
+                autoExpandTrigger: true,
+                prev: dropPrev,
+                inner: dropInner,
+                next: dropNext
+            },
+            enable:true,
+            editNameSelectAll: true,
+            showRemoveBtn: true, //showRemoveBtn
+            showRenameBtn: true  //showRenameBtn
         },
         data: {
             simpleData: {
-                enable: true
+                enable: true,
             }
         },
         callback: {
-            beforeClick: subject,  // 마우스 클릭 콜백함수 지정
+            beforeClick: subject,      // 마우스 클릭 콜백함수 지정
             beforeDrag: beforeDrag,
-            beforeDrop: beforeDrop,
+            beforeEditName: beforeEditName,
+            beforeRemove: beforeRemove,
+            beforeRename: beforeRename,
+            onRename:onRename,
+            onRemove: onRemove,
             beforeDragOpen: beforeDragOpen,
             onDrag: onDrag,
             onDrop: onDrop,
             onExpand: onExpand
         }
     };
+
     var zNodes= [
         <c:forEach items="${list}" var="vo">
         {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
@@ -291,22 +249,122 @@
         </c:forEach>
     ];
 
+    <!--삭제 수정용-->
+    function beforeEditName(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        setTimeout(function() {
+            if (confirm(" '" + treeNode.name + "'을(를) 수정 하시겠습니까?")) {
+                setTimeout(function() {
+                    zTree.editName(treeNode);
+                }, 0);
+            }
+        }, 0);
+        return false;
+    }
+
+    <!--삭제 수정용(삭제확인 메세지 출력 및 삭제 전 노드 정보 출력)-->
+    function beforeRemove(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
+    }
+    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
+    function onRemove(e, treeId, treeNode) {
+        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+    }
+    <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
+    function beforeRename(treeId, treeNode, newName, isCancel) {
+        className = (className === "dark" ? "":"dark");
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
+
+
+        if (newName.length == 0) {
+            setTimeout(function() {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.cancelEditName();
+                alert("공백은 입력할수 없습니다.");
+            }, 0);
+            return false;
+        }
+        return true;
+    }
+    <!--삭제 수정용(수정 후 데이터 출력)-->
+    function onRename(e, treeId, treeNode, isCancel) {
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId + (isCancel ? "</span>":""));
+        UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
+    }
+    <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
+    // function showRemoveBtn(treeId, treeNode) {
+    //     return !treeNode.isFirstNode;
+    // }
+    <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
+    // function showRenameBtn(treeId, treeNode) {
+    //     return !treeNode.isLastNode;
+    // }
+    <!--삭제 수정용-->
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='"+className+"'>"+str+"</li>");
+        if(log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+    <!--삭제 수정용-->
+    function getTime() {
+        var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+        return (h+":"+m+":"+s+ " " +ms);
+    }
+    <!--삭제 수정용-->
+    var newCount = 1;
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+
+        if (btn) btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            return false;
+        });
+    };
+    <!--삭제 수정용-->
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+    <!--삭제 수정용-->
+    function selectAll() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+    }
+    <!--드래그용 함수-->
     function dropPrev(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
         if (pNode && pNode.dropInner === false) {
-        return false;
-    }
-    else {
-        for (var i=0,l=curDragNodes.length; i<l; i++) {
-            var curPNode = curDragNodes[i].getParentNode();
-            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-                return false;
+            return false;
+        }
+        else {
+            for (var i=0,l=curDragNodes.length; i<l; i++) {
+                var curPNode = curDragNodes[i].getParentNode();
+                if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+                    return false;
+                }
             }
         }
-    }
         return true;
     }
-
+    <!--드래그용 함수-->
     function dropInner(treeId, nodes, targetNode) {
         if (targetNode && targetNode.dropInner === false) {
             return false;
@@ -321,7 +379,7 @@
         }
         return true;
     }
-
+    <!--드래그용 함수-->
     function dropNext(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
         if (pNode && pNode.dropInner === false) {
@@ -339,6 +397,7 @@
 
     var log, className = "dark", curDragNodes, autoExpandNode;
 
+    <!--드래그용 함수-->
     function beforeDrag(treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
@@ -354,12 +413,12 @@
         curDragNodes = treeNodes;
         return true;
     }
-
+    <!--드래그용 함수-->
     function beforeDragOpen(treeId, treeNode) {
         autoExpandNode = treeNode;
         return true;
     }
-
+    <!--드래그용 함수-->
     function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
@@ -367,24 +426,27 @@
         return true;
     }
 
+    <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
     function onDrag(event, treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+" nodes." );
     }
 
+    <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
     function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        console.log("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        console.log("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
     }
 
+    <!--드래그용 함수-->
     function onExpand(event, treeId, treeNode) {
         if (treeNode === autoExpandNode) {
             className = (className === "dark" ? "":"dark");
-            showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+            console.log("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
         }
     }
-
+    <!--드래그용 함수-->
     function showLog(str) {
         if (!log) log = $("#log");
         log.append("<li class='"+className+"'>"+str+"</li>");
@@ -392,7 +454,7 @@
             log.get(0).removeChild(log.children("li")[0]);
         }
     }
-
+    <!--드래그용 함수-->
     function getTime() {
         var now= new Date(),
             h=now.getHours(),
@@ -401,53 +463,43 @@
             ms=now.getMilliseconds();
         return (h+":"+m+":"+s+ " " +ms);
     }
+    <!--드래그용 함수-->
     function setTrigger() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
     }
 
-	<!--이름수정, 삭제용-->
-    function setEdit() {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-            remove = $("#remove").attr("checked"),
-            rename = $("#rename").attr("checked"),
-            removeTitle = $.trim($("#removeTitle").get(0).value),
-            renameTitle = $.trim($("#renameTitle").get(0).value);
-        zTree.setting.edit.showRemoveBtn = remove;
-        zTree.setting.edit.showRenameBtn = rename;
-        zTree.setting.edit.removeTitle = removeTitle;
-        zTree.setting.edit.renameTitle = renameTitle;
-        console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
-            'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
-    }
 
-    <!--이름수정, 삭제용-->
-    function showCode(str) {
-        var code = $("#code");
-        code.empty();
-        for (var i=0, l=str.length; i<l; i++) {
-            code.append("<li>"+str[i]+"</li>");
-        }
-    }
+
+
 
     // zTree 초기화
-
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
         $("#callbackTrigger").bind("change", {}, setTrigger);
-
-		<!--이름 수정,삭제용-->
-        setEdit();
-         $("#remove").bind("change", setEdit);
-         $("#rename").bind("change", setEdit);
-         $("#removeTitle").bind("propertychange", setEdit)
-             .bind("input", setEdit);
-         $("#renameTitle").bind("propertychange", setEdit)
-             .bind("input", setEdit);
+        $("#selectAll").bind("click", selectAll);
     });
+    function UpdateCate(name,id,pId){
+        subjectCateVo={
+            CateName : name,
+            SubjectCate_no :id,
+            ParentCode : pId
+        }
+        $.ajax({
+            url : "${pageContext.request.contextPath }/subject/UpdateCate",
+            type : "POST",
+            //contentType : "application/json",
+            data : subjectCateVo,
+            dataType : "json",
+            success : function(SubjectVo) {
+                console.log(SubjectVo);
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
 
-
+    }
 	function subject(treeId, treeNode, clickFlag) {
 	    var no=treeNode.web;
 	    console.log(no);
@@ -500,46 +552,4 @@
         $("#pop").modal("hide");
     });
 </script>
-
-
-<%--<script type="text/javascript">--%>
-
-    <%--$(document).ready(function() {--%>
-        <%--console.log("정상실행");--%>
-		<%--var str=" ";--%>
-    	<%--str+= "<select class='form-control input-sm'>";--%>
-        <%--str+= "<c:forEach items="${list}" var="vo">";--%>
-        <%--str+= " <option> ${vo.cateName} </option> </c:forEach>";--%>
-        <%--str+= "</select>";--%>
-        <%--$("#subjectCate-list").append(str);--%>
-		<%--console.log("정상실행2");--%>
-		<%--start();--%>
-        <%--var objectValue="${list}";--%>
-        <%--console.log(objectValue);--%>
-    <%--});--%>
-
- <%--function start(){--%>
-     <%--var str="";--%>
-
-	 <%--str+="<c:forEach items='${list}' var='vo1'><c:if test='${vo1.depth eq 1}'>";--%>
-	 <%--str+="<li class=\"treeview\">";--%>
-	 <%--str+="<a href=\"#\"> <i class=\"fa fa-circle-o\"></i>${vo1.cateName}<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> </a>";--%>
-     <%--str+="<ul class='treeview-menu'>";--%>
-     <%--str+="<li class=\"treeview\">";--%>
-	 <%--str+="</c:if><c:forEach items='${list}' var='vo2'><c:if test='${vo1.subjectCate_no eq vo2.parentCode}'>";--%>
-	 <%--str+= "<a href=\"#\"> <i class=\"fa fa-circle-o\"></i>${vo2.cateName}<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> </a>";--%>
-     <%--str+="<ul class='treeview-menu'>";--%>
-     <%--str+="<li class=\"treeview\">";--%>
-	 <%--str+="<c:forEach items='${nonlist}' var='no'><c:if test='${vo2.subjectCate_no eq no}'>";--%>
-	 <%--str += "</li>";--%>
-	 <%--str += "</ul></c:if></c:forEach></c:if></c:forEach><c:forEach items='${mdlist}' var='md'><c:if test='${vo1.groupCode eq md.groupCode}'><c:if test='${vo1.depth eq md.depth}'><c:if test='${vo1.orderCode eq md.orderCode}'>"--%>
-	 <%--for(var i=1;i<=${md.depth};i++)--%>
-	 <%--{	str += "</li>";--%>
-	 	<%--str += "</ul>";--%>
-	 <%--}--%>
-	 <%--str+="<c:if test='${vo1.orderCode eq md.orderCode}'> </li></c:if></c:if></c:if></c:if></c:forEach></c:forEach>";--%>
-     <%--$("#cate-tree").append(str);--%>
- <%--}--%>
-
-    <%--jqgrid사용시 삭제할것--%>
-
+</html>

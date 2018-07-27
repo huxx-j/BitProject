@@ -84,11 +84,8 @@
 	   		  ApplyInfo.ApplyType,ApplyInfo.TestLang,ApplyInfo.TestScore,ApplyInfo.State,
 	   		  ApplyInfo.DepositDay,ApplyInfo.DepositAmount,ApplyInfo.CardPayDay,ApplyInfo.CardPayAmount,
 	   		  ApplyInfo.Deposit,ApplyInfo.TotalPay,ApplyInfo.User_no,ApplyInfo.Consult
-
 	   from ApplyInfo
-
 	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
-
 	   where Curriculum.Curriculum_no = #{curriculum_no} and ApplyInfo.User_no = #{user_no}
 	]]>
 
@@ -110,8 +107,7 @@
 					Deposit=#{deposit},
 					TotalPay=#{totalPay},
 					Consult=#{consult}
-
-					where User_no=#{user_no}
+				where User_no=#{user_no}
 		]]>
 
 </update>
