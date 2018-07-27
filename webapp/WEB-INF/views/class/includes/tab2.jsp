@@ -32,7 +32,7 @@
                             <tr class="testFileUploadTr">
                                 <th class="a_c">과제</th>
                                 <td class="testFileUploadTd" style="padding: 4px 0 0 8px">
-                                    <form id="testForm" method="post" action="/api/cm/saveTest" enctype="multipart/form-data">
+                                    <form id="testForm" method="post" action="${pageContext.request.contextPath }/api/cm/saveTest" enctype="multipart/form-data">
                                     <input type="file" name="testFile" id="testFile" class="inputfile inputfile-6"
                                            onchange="pushTestFileName()" disabled="disabled">
                                     <label for="testFile"><span id="testFileName">과목 선택 후 파일을 선택하세요</span> <h5> 파일선택

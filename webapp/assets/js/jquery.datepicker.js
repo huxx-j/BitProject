@@ -9,15 +9,16 @@
 	//
 	$.datePicker = {
 		strings: {
-			monthsFull: ['January', 'Febraury', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-			monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-			daysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-			daysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+			monthsFull: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			monthsShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			daysFull: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+			daysShort: ['일', '월', '화', '수', '목', '금', '토'],
 			messageLocked: 'The day you have just selected is not available'
 		},
 		defaults: {
 			formatDate: function(date) {
-				var formatted = $.datePicker.utils.pad(date.getFullYear()+ '-' + $.datePicker.utils.pad(date.getMonth() + 1, 2) + '-' +date.getDate(), 2);
+                // var formatted = $.datePicker.utils.pad(date.getDate(), 2) + '/' + $.datePicker.utils.pad(date.getMonth() + 1, 2) + '/' + date.getFullYear();
+				var formatted = date.getFullYear()+ '-' + $.datePicker.utils.pad(date.getMonth() + 1, 2) + '-' +$.datePicker.utils.pad(date.getDate(), 2);
 				return formatted;
 			},
 			parseDate: function(string) {
