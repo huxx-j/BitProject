@@ -54,12 +54,12 @@
 									<div class = "cate-outter bordered">
 										<div class = "cate-toolbox">
 											<button type = "button" class = "btn btn-default btn-cate">추가</button>
-											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>"
+											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
 										</div><!-- /.cate-toolbox -->
 										<div class = "scroll">
 											<div class = "tab-content-custom" style = "height:500px;">
 												<div class = "row">
-													<ul id = "treeDemo2" class = "ztree"></ul>
+													<ul id = "treeDemo" class = "ztree"></ul>
 												</div>
 											</div><!-- /.tab-content-custom -->
 										</div><!-- /.scroll -->
@@ -85,13 +85,20 @@
 									<!-- 상단 탭 영역 -->
 									<ul class = "nav nav-tabs" id = "curri-nav-tab">
 										<li class = "active"><a href = "#tab_1" data-toggle = "tab">교육과정정보</a></li>
+										<li class = ""><a href = "#tab_2" data-toggle = "tab">홈페이지관리</a></li>
+										<li class = ""><a href = "#tab_3" data-toggle = "tab">교육생관리</a></li>
+										<li class = ""><a href = "#tab_4" data-toggle = "tab">강사배정</a></li>
+										<li class = ""><a href = "#tab_5" data-toggle = "tab">강의실배정</a></li>
+										<a href = "${pageContext.request.contextPath }/curri/addCurriBtn">
+											<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" >교육과정추가</button>
+										</a>
 									</ul><!-- /.nav nav-tabs -->
 									<!-- /.상단 탭 영역 끝 -->
 									<!-- 탭 내용 박스 -->
 									<div class = "tab-content">
 										<!-- 1번 탭 내용 -->
 										<div class = "tab-pane active" id = "tab_1">
-											<form action = "${pageContext.request.contextPath }/curri/addCurri" method = "post">
+											<form action = "${pageContext.request.contextPath }/curri/edit/${curriculum_no}" method = "post">
 												<!-- 1번탭 상단 -->
 												<div class = "row"><!-- tab_1 row1 -->
 													<div class = "col-xs-12">
@@ -115,8 +122,8 @@
 																		</td>
 																		<th>선택패키지</th>
 																		<td>
-																			<input type = "hidden" name = "package_no" style = "border:none;" value = "1">
-																			<input type = "form-control input-sm" readonly name = "packageName" style = "border:none; width : 60%;" value = "(웹)자바 스프링 Node 960시간">
+																			<input type = "hidden" name = "package_no"  style = "border:none;">
+																			<input type = "form-control input-sm" readonly name = "packageName" style = "border : none; width : 60%;" >
 																			<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
 																		</td>
 																	</tr>
@@ -138,7 +145,7 @@
 																			<div class = "scroll">
 																				<div class = "tab-content-custom" style = "height : 500px;">
 																					<div class "row">
-																						<ul id = "treeDemo2" class = "ztree"></ul>
+																						<ul id = "treeDemo" class = "ztree"></ul>
 																					</div><!-- /.row -->
 																				</div><!-- /.tab-content-custom -->
 																			</div><!-- /.modal scroll -->
@@ -166,7 +173,7 @@
 																	<tr>
 																		<th>교육과정명</th>
 																		<td colspan = "3">
-																			<input type = "hidden" type = "text" name = "curriculum_no">
+																			<input type = "hidden"  name = "curriculum_no">
 																			<input class = "form-control input-sm" type = "text" style = "width : 98%;" name = "curriName">
 																		</td>
 																		<th>과목별명</th>
@@ -238,31 +245,197 @@
 																	</tr>
 																	<tr>
 																		<th>상태</th>
-																		<td colspan="3"><label class="form-controll-static"><input class="" type="radio" name="state" value="준비중" <%-- ${curri.state == '준비중'?'checked':'' } --%>>준비중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="모집중" <%-- ${curri.state == '모집중'?'checked':'' } --%>>모집중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="모집마감" <%-- ${curri.state == '모집마감'?'checked':'' } --%>>모집마감</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="수업중" <%-- ${curri.state == '수업중'?'checked':'' } --%>>수업중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="종료" <%-- ${curri.state == '종료'?'checked':'' } --%>>종료</label>
+																		<td colspan="3"><label class="form-controll-static"><input class="state1" type="radio" name="state1" value="준비중" <%-- ${curri.state == '준비중'?'checked':'' } --%>>준비중</label>
+																			<label class="form-controll-static"><input class="state2" type="radio" name="state2" value="모집중" <%-- ${curri.state == '모집중'?'checked':'' } --%>>모집중</label>
+																			<label class="form-controll-static"><input class="state3" type="radio" name="state3" value="모집마감" <%-- ${curri.state == '모집마감'?'checked':'' } --%>>모집마감</label>
+																			<label class="form-controll-static"><input class="state4" type="radio" name="state4" value="수업중" <%-- ${curri.state == '수업중'?'checked':'' } --%>>수업중</label>
+																			<label class="form-controll-static"><input class="state5" type="radio" name="state5" value="종료" <%-- ${curri.state == '종료'?'checked':'' } --%>>종료</label>
 																		</td>
 																		<th>기수</th>
 																		<td><input type="text" class="form-control input-sm" name = "gisuName"></td>
 																	</tr>
 																</table>
 															</div><!-- /.sub-box -->
+															<div class = "sub-toolbox text-center">
+																<input type = "submit" class = "btn btn-primary" value = "수정">
+															</div><!-- /.sub-toolbox text-center -->
 														</div><!-- /.sub-box -->
 													</div><!-- /.col-xs-12 -->
 												</div><!-- /.tab_1 row2(1번탭 하단) -->
-															<div class = "sub-toolbox text-center">
-																<input type = "submit" class = "btn btn-primary" value = "저장">
-																<a href = "${pageContext.request.contextPath }/curri">
-																	<button type = "button" class = "btn btn-default pull-right" >취소</button>
-																</a>
-															</div><!-- /.sub-toolbox text-center -->
 											</form><!-- /.tab_1 form -->
 										</div><!-- /.tab_1 -->
 										<!-- /.1번탭 -->
 										
+										<!-- 2번탭 영역 시작 -->
+										<div class = "tab-pane" id = "tab_2">
+											<div class = "row">
+												<div class = "col-xs-12">
+													<table class = "table table-condensed">
+														<tr>
+															<th>교육과정명</th>
+															<td class = "col-xs-10">
+																<input type = "text" class = "form-control input-sm" readonly name = "curriName">
+															</td>
+														</tr>
+													</table>
+												</div><!-- /.col-xs-12 -->
+											</div><!-- /.row 2번탭 상단-->
+											<div class = "row" style = "padding : 10px 0 0 0;">
+												<div class = "col-xs-12">
+													<table class = "table table-condensed" >
+														<tr>
+															<th class = "col-xs-1">메인페이지</th>
+															<td class = "col-xs-5">
+																<label class = "form-control-static"><input type = "radio" name = "mainViewFlag" value = "노출">노출</label>
+																<label class = "form-control-static"><input type = "radio" name = "mainViewFlag" value = "숨김">숨김</label>
+																<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" id = "myBtn">미리보기</button>
+															</td>
+															<th class = "col-xs-1">상세페이지</th>
+															<td>
+																<label class = "form-control-static"><input type = "radio" name = "detailViewFlag" value = "노출">노출</label>
+																<label class = "form-control-static"><input type = "radio" name = "detailViewFlag" value = "숨김">숨김</label>
+																<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" id = "myBtn">미리보기</button>
+															</td>
+														</tr>
+													</table>
+												</div><!-- /.col-xs-12 -->
+											</div><!-- /.row 2번탭 하단 -->
+										</div><!-- /.tab_2 -->
+										<!-- /.2번탭 끝 -->
 										
+										
+										<!-- 3번탭 영역 시작 -->
+										<div class = "tab-pane" id = "tab_3">
+											<div class = "row">
+												<div class = "col-xs-12">
+													<table class = "table table-condensed">
+														<tr>
+															<th>교육과정명</th>
+															<td class = "col-xs-10"><input type = "text" class = "form-control input-sm" readonly name = "curriName"></td>
+														</tr>
+													</table>
+												</div><!-- /.col-xs-12" -->
+											</div><!-- /.row 3번탭 상단 -->
+											<div class = "row" style = "padding = 10px 0 0 0;">
+												<div class = "col-xs-12" >
+													<div class = "sub-box">
+														<div class = "sub-title" style = "padding : 10px 0 0 0;">
+															기수부여
+														</div>
+														<div class = "row">
+															<div class = "col-xs-12">
+																<div class = "col-xs-5">
+																	<div class = "sub-box" style = "border : 1px solid; border-color: #d2d6de; padding: 10px;">
+																		<div class = "sub-title">
+																			전체지원자리스트
+																		</div><!-- /.sub-title -->
+																		<div class = "sub-box">
+																			<table class = "table table-condensed">
+																				<tr>
+																					<th>이름</th>
+																					<th>생년월일</th>
+																					<th>성별</th>
+																					<th>전형결과</th>
+																					<th>선택</th>
+																				</tr>
+																				<tr>
+																					<td></td>
+																					<td></td>
+																					<td></td>
+																					<td></td>
+																					<td>
+																						<label class = "form-control-static"><input type = "checkbox" class = "" name = "gisuGrant" value = ""></label>
+																					</td>
+																				</tr>
+																			</table>
+																		</div><!-- /.sub-box -->
+																	</div><!-- /.sub-box -->
+																</div><!-- /.col-xs-5 좌측-->
+																<div class = "col-xs-2">
+																	<button type = "button" class = "btn btn-default" value = "">></button>
+																	<button type = "button" class = "btn btn-default" value = ""><</button>
+																</div><!-- /.col-xs-2 -->
+																<div class = "col-xs-5" style = "border : 1px solid; border-color: #d2d6de; padding: 10px;">
+																	<div class = "sub-box">
+																		<div class = "sub-title">
+																			수강생리스트
+																		</div><!-- /.sub-title -->
+																		<div class = "sub-box">
+																			<table class = "table table-condensed">
+																				<tr>
+																					<th>이름</th>
+																					<th>생년월일</th>
+																					<th>성별</th>
+																					<th>전형결과</th>
+																					<th>선택</th>
+																				</tr>
+																				<tr>
+																					<td></td>
+																					<td></td>
+																					<td></td>
+																					<td></td>
+																					<td>
+																						<label class = "form-control-static"><input type = "checkbox" class = "" name = "gisuGrant" value = ""></label>
+																					</td>
+																				</tr>
+																			</table>
+																		</div><!-- /.sub-box -->
+																	</div><!-- /.sub-box -->
+																</div><!-- /.col-xs-5 우측 -->
+															</div><!-- /.col-xs-12 -->
+														</div><!-- /.row  -->
+													</div><!-- /.sub-box -->
+													<div class = "sub-toolbox text-center">
+														<button type = "button" class = "btn btn-primary">저장</button>
+													</div><!-- /.sub-toolbox text-center -->
+												</div><!-- /.col-xs-12 -->
+											</div><!-- /.row 3번탭 하단 -->
+										</div><!-- /.tab_3 -->
+										<!-- /.3번탭 끝 -->
+										
+										
+										<!-- 4번탭 영역 시작 -->
+										<div class = "tab-pane" id = "tab_4">
+											<div class = "row">
+												<div class = "col-xs-12">
+													<table class = "table table-condensed">
+														<tr>
+															<th>교육과정명</th>
+															<td class = "col-xs-10"><input type = "text" class = "form-control input-sm" readonly name = "curriName"></td>
+														</tr>
+													</table>
+												</div><!-- /.col-xs-12" -->
+											</div><!-- /.row 4번탭 상단 -->
+											<div class = "row">
+												<div class = "col-xs-12">
+												
+												</div><!-- /.col-xs-12 -->
+											</div><!-- /.row 4번탭 하단 -->
+										</div><!-- /.tab_4 -->
+										<!-- /.4번탭 끝 -->
+										
+										
+										<!-- 5번탭 영역 시작 -->
+										<div class = "tab-pane" id = "tab_5">
+											<div class = "row">
+												<div class = "col-xs-12">
+													<table class = "table table-condensed">
+														<tr>
+															<th>교육과정명</th>
+															<td class = "col-xs-10"><input type = "text" class = "form-control input-sm" readonly name = "curriName"></td>
+														</tr>
+													</table>
+												</div><!-- /.col-xs-12" -->
+											</div><!-- /.row 5번탭 상단 -->
+											<div class = "row">
+												<div class = "col-xs-12">
+												
+												</div><!-- /.col-xs-12 -->
+											</div><!-- /.row 5번탭 하단 -->
+										</div><!-- /.tab_5 -->
+										<!-- /.5번탭 끝 -->
+
+
 										
 									</div><!-- /.tab-content -->
 									<!-- /.탭 내용 박스 끝 -->
@@ -302,7 +475,7 @@
         },
         callback: {
             beforeClick: package  // 마우스 클릭 콜백함수 지정
-        }
+        },
     };
 
     var zNodes= [
@@ -315,9 +488,11 @@
     ];
 
     $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+        var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        console.log(nodes);
+        
     });
-
+	
     function package(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
         console.log(curriculum_no);
@@ -333,7 +508,10 @@
 //                 $("#workType option:eq(국가기간)").attr("selected", "selected"),
 //                 $("#workType option:eq(핵심역량)").attr("selected", "selected"),
 //                 $("#workType option:eq(방학단기)").attr("selected", "selected"),
-                $("#workType").index($("#workType option:selected")),
+//                 $("#workType").index($("#workType option:selected")),
+				$("input:radio[name='state2']:checked").val(CurriculumVo.state),
+                $("input[name='package_no']").val(CurriculumVo.package_no),
+                $("input[name='packageName']").val(CurriculumVo.packageName),
                 $("input[name='curriculum_no']").val(CurriculumVo.curriculum_no),
 				$("input[name='curriName']").val(CurriculumVo.curriName),
 				$("input[name='curriNickname']").val(CurriculumVo.curriNickname),
