@@ -15,6 +15,21 @@
 	width: 180px;
 }
 
+/*side-bar collapse 방지*/
+@media (max-width: 767px) {
+	.main-sidebar {
+		padding-top: 50px;
+	}
+}
+@media (max-width: 767px) {
+	.main-sidebar {
+		-webkit-transform: translate(0px, 0);
+		-ms-transform: translate(-230px, 0);
+		-o-transform: translate(-230px, 0);
+		transform: translate(0px, 0);
+	}
+}
+
 .content-wrapper {
 	margin-left: 180px;
 }
@@ -37,7 +52,7 @@
 
 /* 컨텐츠영역 기본폰트 설정 */
 .content {
-	font-size: 12px;
+	font-size: 12px !important;
 }
 
 /* 페이지 타이틀 폰트크기 */
@@ -46,56 +61,7 @@
 	font-size: 20px;
 }
 
-/***********************************/
-/* 영역관련  */
 
-/* 영역박스  */
-.sub-box{
-	margin:0px 0px 0px 0px;
-}
-
-.sub-title{
-	font-size: 14px;
-	font-weight :800;
-	margin:0px 0px 3px 0px;
-}
-
-.sub-body{
-	padding: 2px 2px 2px 2px;
-}
-
-
-.sub-toolbox{
-	margin: 5px 0px 5px 0px;
-}
-
-.cate-title{
-	font-size: 14px;
-	font-weight :800;
-	margin:12px 0px 3px 0px;
-}
-
-.cate-toolbox{
-	background-color: #e2e6ef !important;
-	padding: 2px 2px 2px 2px;
-}
-
-.bordered{
-	border: 1px solid #a2a5ab !important;
-}
-
-.scroll{
-	/* overflow:scroll; */
-	overflow-y:scroll;
-	white-space: nowrap;
-}
-
-
-/***********************************/
-/* 카테고리 박스  */
-.cate-box{
-	margin:0px 0px 0px 0px;
-}
 
 
 /***********************************/
@@ -103,7 +69,7 @@
 
 /* 테이블 기본값 재정의 */
 .table {
-	margin: 0px 0px 0px 0px;
+	margin: 5px 0px 0px 0px;
 }
 
 /* 테이블 라인(border) 정의*/
@@ -119,6 +85,217 @@ thead > tr > th,
 tbody > tr > th{
 	background-color: #e2e6ef !important;
 }
+
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td,
+.table-condensed > thead > tr > td{
+	padding: 2px 2px 2px 2px !important;
+}
+
+
+/***********************************/
+/* form 관련 */
+
+/* text, select textarea 재정의 */
+input[type=text]{
+	height:25px !important;
+	padding: 0px 3px 0px 5px !important;
+	font-size: 12px !important;
+}
+
+
+select{
+	height:25px !important;
+	padding: 0px 3px 0px 3px !important;
+	font-size: 12px !important;
+}
+
+textarea{
+	padding: 3px 3px 3px 5px !important;
+	font-size: 12px !important;
+}
+
+input[type=radio] {
+	margin: -4px 1px 0px 0px !important;
+  	vertical-align: middle;
+  	font-size: 12px !important;
+}
+
+.radio-group{
+	padding: 1px 0px 1px 0px;
+}
+
+.radiobox{
+	font-weight: normal;
+	padding: 0px 10px 0px 0px !important;
+	font-size: 12px;
+	margin:2px 0px 1px 0px !important;
+}
+
+
+
+
+/***********************************/
+/* 영역관련  */
+
+/* 영역박스  */
+.sub-box{
+	margin:0px 0px 0px 0px;
+}
+
+/* 영역타이틀  */
+.sub-title{
+	font-size: 14px;
+	font-weight :800;
+	margin:0px 0px 3px 0px;
+}
+
+/* 영역컨텐츠박스 */
+.sub-body{
+	padding: 0px 0px 0px 0px;
+	margin:5px 0px 5px 0px;
+}
+
+/* 영역버튼박스 */
+.sub-toolbox{
+	margin: 0px 0px 0px 0px;
+}
+
+
+
+/***********************************/
+/* 카테고리관련 박스관련*/
+
+
+/* 카테고리 타이틀 */
+.cate-title{
+	font-size: 14px;
+	font-weight :800;
+	margin:0px 0px 0px 2px;
+}
+
+/* 카테고리 박스*/
+.cate-box{
+	height: 450px !important;
+}
+
+
+/* 상단 툴박스 */
+.cate-toolbox-top{
+	background-color: #e2e6ef !important;
+	padding: 1px 1px 3px 1px;
+	margin: 0px 0px 0px 0px;
+}
+
+/* 하단툴박스 */
+.cate-toolbox-bottom{
+	background-color: #e2e6ef !important;
+	padding: 3px 1px 1px 1px;
+	margin: 0px 0px 0px 0px;
+}
+
+/* 검색창 input */
+.cate-search-input{
+	height:30px !important;
+	padding: 0px 3px 0px 5px !important;
+	border-radius: 0px !important;
+	font-size: 14px !important;
+}
+
+/* 카테고리 검색버튼 */
+.btn-cate-search{
+	width: 60px !important;
+	height:25px !important;
+	padding: 0px 0px 0px 0px !important;
+	margin: 0px 0px 0px 0px !important;
+	text-align: center !important;
+}
+
+/* 카테고리 툴박스 버튼 */
+.btn-cate {
+	width: 60px;
+	height: 25px;
+	padding: 0px 0px 0px 0px !important;
+	margin: 0px 0px 0px 5px !important;
+	text-align: center !important;
+}
+
+
+
+/***********************************/
+/* 버튼관련 */
+
+/* 버튼 기본모양 */
+.btn {
+	border-radius: 2px !important;
+	padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* 중요버튼(파란 보통크기: 저장, 수정) */
+.btn-primary {	
+	width: 100px !important;
+	height:30px !important;
+	text-align: center !important;
+}
+
+/* 회색버튼 가로 세로 사이즈가 없음 */
+.btn-default {
+	border-color: #adadad;
+	text-align: center !important;
+}
+
+/* 취소 삭제용 버튼*/
+.btn-sub {
+	width: 60px !important;
+	height:30px !important;
+}
+
+
+/* 작은 사이즈 버튼*/
+.btn-sm {
+	width: 60px !important;
+	height:20px !important;
+	text-align: center !important;
+}
+
+
+/* 아주작은 사이즈 버튼*/
+.btn-ssm {
+	width: 60px !important;
+	height:10px !important;
+	text-align: center !important;
+}
+
+
+/* 로그아웃버튼 */
+.btnLogout {
+	border-radius: 4px !important;
+	height: 28px;
+	margin-top: 10px;
+	padding: 0px 12px 0px 12px; 
+	font-size: 12px;
+	text-align: center !important;
+}
+
+
+/* 서브메뉴 */
+.nav > li > a{
+	padding: 2px 15px 5px 15px !important;
+	/* margin: 0px 20px 0px 0px;  */
+
+}
+
+
+/***********************************/
+/* tab 관련 */
+.tab-content{
+	padding: 0px 0px 0px 0px !important;
+}
+
+
 
 
 /***********************************/
@@ -143,95 +320,29 @@ tbody > tr > th{
 }
 
 
-/***********************************/
-/* 버튼관련 */
+.w10{width: 10px !important;}
+.w20{width: 20px !important;}
+.w30{width: 30px !important;}
+.w40{width: 40px !important;}
+.w50{width: 50px !important;}
+.w60{width: 60px !important;}
+.w70{width: 70px !important;}
+.w80{width: 80px !important;}
+.w90{width: 90px !important;}
+.w100{width: 100px !important;}
+.w120{width: 120px !important;}
+.w140{width: 140px !important;}
 
-/* 버튼 기본모양 */
-.btn {
-	border-radius: 2px !important;
-	padding: 5px 10px;
-    font-size: 12px;
-    line-height: 1.5;
+
+
+.bordered{
+	border: 1px solid #a2a5ab !important;
 }
 
-/* 중요버튼 */
-.btn-primary {	
-	width: 100px;
+.scroll{
+	/* overflow:scroll; */
+	overflow-y:scroll;
+	white-space: nowrap;
 }
-
-/* 기본버튼 */
-.btn-default {
-	width: 100px;
-	border-color: #adadad;
-}
-
-.btn-cate {
-	width: 80px;
-	height: 25px;
-	padding: 0px 0px 0px 0px; 
-}
-
-
-.btnLogout {
-	border-radius: 4px !important;
-	height: 28px;
-	margin-top: 10px;
-	padding: 0px 12px 0px 12px; 
-	font-size: 12px;
-}
-
-
-/* 서브메뉴 */
-.nav > li > a{
-	padding: 2px 15px 5px 15px !important;
-	/* margin: 0px 20px 0px 0px;  */
-	/*border-radius: 4px !important;*/ /*20180726 성우 탭 보더 때문에 삭제*/
-}
-
-
-/***********************************/
-/* form 관련 */
-
-/* text, select 에 붙인다 */
-.input-sm{
-	height:25px !important;
-	padding: 0px 3px 0px 3px;
-}
-
-.form-controll-static{
-	margin: 0px 20px 0px 0px;
-	font-weight: normal;
-}
-
-
-
-
-
-.w20{width: 20px;}
-.w40{width: 40px;}
-.w60{width: 60px;}
-.w80{width: 80px;}
-.w100{width: 100px;}
-.w120{width: 120px;}
-.w140{width: 140px;}
-
-
-
-/*side-bar collapse 방지*/
-@media (max-width: 767px) {
-	.main-sidebar {
-		padding-top: 50px;
-	}
-}
-@media (max-width: 767px) {
-	.main-sidebar {
-		-webkit-transform: translate(0px, 0);
-		-ms-transform: translate(-230px, 0);
-		-o-transform: translate(-230px, 0);
-		transform: translate(0px, 0);
-	}
-}
-
-/** tab css **/
 
 
