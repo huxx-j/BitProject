@@ -45,7 +45,7 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="${pageContext.request.contextPath }/cm/main"><i class="fa fa-circle-o"></i> 수업관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath }/cm/"><i class="fa fa-circle-o"></i> 수업관리</a></li>
 	          	</ul>
 	        </li>
         

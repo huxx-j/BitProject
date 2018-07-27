@@ -15,7 +15,7 @@
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control input-sm' style='width: 86%'></select>";
 
                 $("#curriTd").append(str);
 
@@ -41,7 +41,7 @@
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control input-sm' style='width: 86%'></select>";
 
                 $("#curriTd").append(str);
 
@@ -300,7 +300,7 @@
         });
         str = str.slice(0, -2);
         id = id.slice(0, -1);
-        console.log(id)
+        // console.log(id)
         $("#membersName").text(str);
         $("#membersId").val(id);
         $("#selectTeamMember").modal('hide');
@@ -318,7 +318,7 @@
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' name='detailProjectName' type='text' style='width: 100%'></td>" +
+            "                            <td colspan='2'><input id='detailProjectName' class='form-control input-sm' name='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
@@ -339,21 +339,21 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' name='outline' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='textarea-sm' name='outline' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' name='focus' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' class='textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' name='applyField' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' name='useTechnique' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -438,7 +438,7 @@
             "                    <table class='table table-bordered'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <td colspan='2'><input id='detailProjectName' class='form-control input-sm' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
@@ -462,21 +462,21 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' name='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='textarea-sm' name='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' class='textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -575,6 +575,7 @@
         $("div[name=subList]").remove();
     }
 
+    //이론평가탭 과목리스트를 클릭하면 학생리스트 뿌려주는 스크립트
     $(document).on("click", "div[name=subList]", function () {
         removeScoreTable();
         renderScoreTableTh();
@@ -586,6 +587,13 @@
         $("#iSisNo").val(sisNo);
         removeTestUploadTd();
 
+        ajaxGetSisInfo(sisNo);
+
+        ajaxGetSutudentInScore(sisNo,curriNo);
+    });
+
+    //과목명과 과목별 시험지 파일 정보를 가져오는 스크립트
+    function ajaxGetSisInfo(sisNo){
         $.ajax({
             url: "${pageContext.request.contextPath}/api/cm/getSisInfo",
             type: "post",
@@ -600,9 +608,10 @@
                 console.error(status + " : " + error);
             }
         });
+    }
 
-
-
+    //과목을 수강하는 학생들의 이론평가 점수와 파일 정보를 가져오는 스크립트
+    function ajaxGetSutudentInScore(sisNo, curriNo){
         scoreVo = {
             "subInStep_no": sisNo,
             "curriculum_no": curriNo
@@ -628,7 +637,8 @@
                 console.error(status + " : " + error);
             }
         });
-    });
+    }
+
 
     function renderTestUploadTd(sisNo, fileVo) {
         str = "";
@@ -674,7 +684,7 @@
         str += "<tr class='scoreTable'>" +
             "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
             "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
-            "       <td><input id='iScore" + i + "' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
+            "       <td><input id='iScore" + i + "' class='form-control input-sm' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
             "       <td style='padding:7px 0 2px 8px ;'>" +
             "       <form id='scoreForm" + i + "' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
             "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
@@ -730,6 +740,16 @@
             url = "${pageContext.request.contextPath}/api/cm/saveScore";
             ajaxSaveScore(url,formData);
         }
+
+        /*저장버튼 누르면 점수 테이블 새로고침하는 스크립트*/
+        var curriNo = $("#iCurriNo").val();
+        var sisNo = $("#iSisNo").val();
+        removeScoreTable();
+        renderScoreTableTh();
+        removeTestUploadTd();
+        ajaxGetSisInfo(sisNo);
+        ajaxGetSutudentInScore(sisNo,curriNo);
+
     });
 
     function ajaxSaveScore(url,formData) {

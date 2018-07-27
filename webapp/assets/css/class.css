@@ -164,3 +164,16 @@
 .file-td {
     padding: 4px 0 0 8px;
 }
+
+.form-control {
+    display: inline !important;
+}
+
+.textarea-sm {
+    border: 1px solid #ccc;
+}
+
+.line-table {
+    background-color: #C2C2C2 ;
+    padding: 2px !important;
+}

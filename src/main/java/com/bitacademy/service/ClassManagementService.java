@@ -28,6 +28,7 @@ public class ClassManagementService {
     @Autowired private UserInfoDao userInfoDao;
     @Autowired private DirectoryGenerator directoryGenerator;
 
+    //페이지 로딩할때 업무구분 불러오는 코드
     public List<String> getWorkType() {
         return curriculumDao.getWorkType();
     }
@@ -117,10 +118,6 @@ public class ClassManagementService {
         return scoreDao.getSutudentInScore(scoreVo);
     }
 
-//    public int saveScore(ScoreVo scoreVo) {
-//        return scoreDao.saveScore(scoreVo);
-//    }
-
     public List<UserInfoVo> getUserInfo(int currino) {
         return userInfoDao.getUserInfo(currino);
     }
@@ -142,15 +139,6 @@ public class ClassManagementService {
             }
         }
 
-//            FileVo fileVo = fileUpload.saveProjectFile(multipartFile);
-//        int file_no = 0;
-//        if (!multipartFile.getFile("projectFile").isEmpty()) {
-//            if (fileVo.getFile_no() == 0) {
-//                file_no = projectDao.saveProjectFile(fileVo); //file_no 리턴
-//            } else {
-//                projectDao.updateProjectFile(fileVo);
-//            }
-//        }
         int curriculum_no = Integer.parseInt(multipartFile.getParameter("detailCurriNo"));
         int project_no;
         if (!multipartFile.getParameter("detailPjtNo").equals("0")) {
@@ -208,7 +196,12 @@ public class ClassManagementService {
             file_no = 0;
         }
         int score_no = Integer.parseInt(multipartFile.getParameter("iScoreNo"));
-        int score = Integer.parseInt(multipartFile.getParameter("hScore"));
+        int score;
+        if (multipartFile.getParameter("hScore").equals("")) {
+            score = 0;
+        } else {
+            score = Integer.parseInt(multipartFile.getParameter("hScore"));
+        }
         int user_no = Integer.parseInt(multipartFile.getParameter("iUserNo"));
         int sis_no = Integer.parseInt(multipartFile.getParameter("iSisNo"));
         int curri_no = Integer.parseInt(multipartFile.getParameter("iCurriNo"));
@@ -224,10 +217,7 @@ public class ClassManagementService {
             return scoreDao.saveScore(scoreVo);
         } else {
             return scoreDao.updateScore(scoreVo);
-
-// return scoreDao.updateScore(scoreVo);
         }
-//        return 1;
     }
 
     @Transactional
@@ -247,12 +237,10 @@ public class ClassManagementService {
                 file_no = scoreDao.saveScoreFile(fileVo);
             }
         } else {
-//            System.out.println("파일없음");
             file_no = 0;
         }
 
         int testSisNo = Integer.parseInt(multipartFile.getParameter("testSisNo"));
-//        System.out.println(testSisNo);
         subInStepVo.setSubInStep_no(testSisNo);
         subInStepVo.setFile_no(file_no);
         if (file_no!=0) {
