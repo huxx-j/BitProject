@@ -13,6 +13,10 @@
     <c:import url="/WEB-INF/views/includes/link.jsp" />
     <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
+
+    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/demo/css/style.css">--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/demo/css/ui.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/dist/css/pignose.calendar.min.css">
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -56,7 +60,7 @@
                             </tr>
                             <tr>
                                 <td><select id="workTypeSelect" style="width:70%">
-                                    <c:forEach items="${workType}" var="wt">
+                                    <c:forEach items="${workType}" var="wt"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
@@ -91,10 +95,10 @@
                             </tr>
                         </table>
                     </div>
-                </div>
+                <%--</div>--%>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box box-body">
+                        <div class="box-body">
 
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
@@ -126,9 +130,10 @@
                         </div>
                         <!-- nav-tabs-custom -->
                     </div>
-                        </div>
+                    </div>
                     <!-- /.col -->
                 </div>
+            </div>
             </div>
         </div>
         </section>
@@ -148,6 +153,6 @@
 
 </body>
 </html>
-<%--<c:import url="/WEB-INF/views/includes/script.jsp" />--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/pg-calendar/dist/js/pignose.calendar.full.min.js"></script>
 
 <c:import url="includes/classscript.jsp" />

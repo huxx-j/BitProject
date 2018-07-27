@@ -7,18 +7,20 @@
     <!--성우-->
     <insert id="add" parameterType="SubjectVo" >
         <![CDATA[
-        insert into Subject values (#{Subject_no},#{SubjectCate_no},#{SubjectName},#{Outline});
+        insert into Subject
+            values (#{Subject_no},#{SubjectCate_no},#{SubjectName},#{Outline});
         ]]>
     </insert>
 
     <select id="getSubjectNoForDirGen" parameterType="Int" resultType="HashMap">
         <![CDATA[
-        select g.GisuName, sis.Subject_no from SubInStep sis
-        join StepInPack sip on sis.Step_no = sip.Step_no
-        join Package p on sip.Package_no = p.Package_no
-        join Curriculum c on p.Package_no = c.Package_no
-        join Gisu g on c.Curriculum_no = g.Curriculum_no
-        where sis.SubInStep_no=#{sisNo}
+        select g.GisuName, sis.Subject_no
+            from SubInStep sis
+            join StepInPack sip on sis.Step_no = sip.Step_no
+            join Package p on sip.Package_no = p.Package_no
+            join Curriculum c on p.Package_no = c.Package_no
+            join Gisu g on c.Curriculum_no = g.Curriculum_no
+            where sis.SubInStep_no=#{sisNo}
         ]]>
     </select>
     <!--성우-->

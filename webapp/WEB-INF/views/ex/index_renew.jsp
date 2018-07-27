@@ -12,7 +12,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
-	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css">
 
 
 </head>
@@ -26,85 +26,65 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    
+
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
-		<h1>지원자관리
+		<h1>태그 사용 설명서
 			<small>it all starts here</small>
 		</h1>
-		<ol class="breadcrumb">
-		  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-		  <li><a href="#">전형업무관리</a></li>
-		  <li class="active">지원자관리</li>
-		</ol>
 	</section>
+
+
+
 	<!-- /.Content Header (Page header) -->
-	
+
 	<!-- Main content -->
 	<section class="content">
-		
+
 		<!-- 상단 -->
 		<div class="row">
 			<div class="col-xs-12">
-			
+
 				<div class="box box-body">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="sub-box">
-								<div class="sub-title">
-			              			수강생검색
-			            		</div><!-- sub_title -->
-								
-								<div class="sub-body">
-									<table class="table table-condensed">
-			 							<colgroup>
-											<col width="250px" />
-											<col width="" />
-											<col width="300px" />
-										</colgroup>
-			 							
-			 							<thead>
-			 								<tr>
-			 									<th>업무구분</th>
-												<th>교육과정명</th>
-												<th>상태</th>
-			 								</tr>
-			 							</thead>	
-			 							
-			 							<tbody>
-			 								<tr>
-												<td>
-			                    					<select class="form-control input-sm">
-			                    						<option>국가기관</option>
-			                    						<option>대학캠퍼스</option>
-			                  						</select>
-			                  					</td>
-			                  					<td>
-			                    					<select class="form-control input-sm">
-			                    						<option>국가기관</option>
-			                    						<option>대학캠퍼스</option>
-			                  						</select>
-			                  					</td>
-			                  					<td>
-			                    					<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>
-		                   							<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
-			                  					</td>
-											</tr>
-			  							</tbody>
-			  						</table>
-			  					</div><!-- /.sub-body -->
-		  						<div class="sub-toolbox text-center">
-	              					<button type="button" class="btn btn-primary">조회</button>
-	              				</div>
-							</div><!-- sub-box -->
-						</div><!-- /.col-xs-12 -->
-					</div><!-- /.row -->
+                    <div class="sub-title">
+                        DatePicker 사용법
+                    </div>
+                    <div class="sub-body">
+                        <textarea style="width: 100%; height: 200px">
+1. <head></head>영역에 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css"> 를 추가
+2. 문서하단에<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"/> 추가
+3. 달력을 쓸 위치에
+<div class="input-group border-inputcolor w140">
+    <input type="text" class="input-sm form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+    <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+</div>
+를 추가하면 아래와 같은 달력이 생김
+태그의 가로 길이는 div의  w140클래스를 지우고 Style에서 width를 줘서 조절하면 됨 (w140은 width를 140px으로 설정한 CSS임)
+input태그에 id랑 name은 바꿔도 되지만 data-select="datepicker" data-toggle="datepicker" 이거는 절대 바꾸면 안됨
+id겹치게 만들지 말것!!!
+
+</textarea>
+                    </div>
+							<div class="sub-body">
+						        <div class="input-group border-inputcolor w140">
+							        <input type="text" class="input-sm form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+							        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+						        </div>
+                                <br>
+
+                                <h5>w100(width 100px짜리 달력)</h5>
+							    <div class="input-group border-inputcolor w100">
+							    	<input type="text" class="input-sm form-control border-none" name="date2" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+								    <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+						    	</div>
+					    	</div>
+
 				</div><!-- /.box -->
-			
+
 			</div><!-- /.col-xs-12 -->
 		</div>
 		<!-- /.row 상단-->
-	
+
 		<!-- 하단 -->
 		<div class="row">
 			<div class="col-xs-12">
@@ -120,8 +100,8 @@
 									<table id="jqGrid"></table>
 
 									<div id="jqGridPager"></div>
-			            		</div><!-- /.sub-body -->	
-			            		
+			            		</div><!-- /.sub-body -->
+
 							</div><!-- /.sub-box -->
 						</div><!-- /.col-xs-12 -->
 					</div><!-- /.row -->
@@ -138,14 +118,14 @@
 											<col width="" />
 											<col width="" />
 										</colgroup>
- 							
+
 		 								<thead>
 			 								<tr>
 			 									<th>전형일자</th>
 												<th>과정명</th>
 			 								</tr>
-		 								</thead>	
-		 							
+		 								</thead>
+
 	 									<tbody>
 			 								<tr>
 												<td>2018-05-01</td>
@@ -157,7 +137,7 @@
 											</tr>
 	  									</tbody>
   									</table>
-			            		</div><!-- /.sub-body -->	
+			            		</div><!-- /.sub-body -->
 							</div><!-- /.sub-box -->
 						</div><!-- /.col-xs-3 -->
 						<div class="col-xs-9">
@@ -174,7 +154,7 @@
 											<col width="" />
 											<col width="250px" />
 										</colgroup>
-			 							
+
 			 							<tbody>
 			 								<tr>
 												<th>업무구분</th>
@@ -186,7 +166,7 @@
 			                  					</td>
 			                  					<td rowspan="5"><textarea class="form-control" rows="9" placeholder="상담내역"></textarea></td>
 			                  				</tr>
-			                  				
+
 			                  				<tr>
 			                  					<th rowspan="2">교육과정명</th>
 			                  					<td colspan="3">
@@ -202,7 +182,7 @@
 			                    					<input class="form-control input-sm" type="text" placeholder="">
 			                  					</td>
 											</tr>
-											
+
 											<tr>
 			                  					<th>체크박스</th>
 			                  					<td colspan="3">
@@ -213,7 +193,7 @@
 		                   							<label class="form-controll-static"><input class="" type="checkbox" name="state" value="">종료</label>
 			                  					</td>
 											</tr>
-											
+
 											<tr>
 			                  					<th>시작일</th>
 			                  					<td>
@@ -230,35 +210,35 @@
 			                  					</td>
 			                  					<th>종료일</th>
 			                  					<td>
-			                    					<div class="input-group" style="border: 1px solid #c2c2c2">
-														<input type="text" class="form-control input-sm pull-right" name="date" id="date"  data-select="datepicker" style="border: none">
-									                	<div class="input-group-addon input-sm" style="border: none ">
-									                    	<span class="input-group-btn"><button type="button" class="btn" data-toggle="datepicker" style="border: none; background-color: rgba(255,255,255,0)"><i class="fa fa-calendar"></i></button></span>
-									                  	</div>
-									                </div>
+			                    					<%--<div class="input-group" style="border: 1px solid #c2c2c2">--%>
+														<%--<input type="text" class="form-control input-sm pull-right" name="date" id="date"  data-select="datepicker" style="border: none">--%>
+									                	<%--<div class="input-group-addon input-sm" style="border: none ">--%>
+									                    	<%--<span class="input-group-btn"><button type="button" class="btn" data-toggle="datepicker" style="border: none; background-color: rgba(255,255,255,0)"><i class="fa fa-calendar"></i></button></span>--%>
+									                  	<%--</div>--%>
+									                <%--</div>--%>
 			                  					</td>
 											</tr>
-											
+
 			  							</tbody>
 			  						</table>
-			            		</div><!-- /.sub-body -->	
+			            		</div><!-- /.sub-body -->
 			            		<div class="sub-toolbox text-center">
 	              						<button type="button" class="btn btn-primary">저장</button>
 	              				</div>
 							</div><!-- /.sub-box -->
 						</div><!-- /.col-xs-9 -->
 					</div><!-- /.row -->
-				
+
 				</div><!-- /.box -->
 			</div><!-- /.col-xs-12 -->
 		</div>
 		<!-- /.row 하단-->
-	
+
 	</section>
 	<!-- /.Main content -->
- 
- 
- 
+
+
+
 </div>
 <!-- /.content-wrapper -->
 
@@ -358,4 +338,4 @@
         }
     });
 </script>
-<script type="text/javascript" src="/assets/js/jquery.datepicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>
