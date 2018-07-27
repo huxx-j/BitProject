@@ -19,7 +19,9 @@
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
 	<%--<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>--%>
 	<%--jqgrid 사용하는 페이지용 스크립트 임포트 태그(마지막에 스크립트 임포트 태그는 삭제할것--%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
 
+	<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" type="text/css">--%>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -53,7 +55,7 @@
 
 			<div class="col-xs-12">
 				<div class="box box-body">
-					<form id="" name="joinForm" method="get" action="${pageContext.request.contextPath}/subject/add">
+
 					<div class="row">
 						<!-- 카테고리영역 -->
 						<div class="col-xs-3">
@@ -152,17 +154,21 @@
 						<!-- /.카테고리영역 -->
 
 						<!-- 과목정보영역 -->
+						<form id="" name="addsubject" method="get" action="${pageContext.request.contextPath}/subject/add">
 						<div class="col-xs-9">
 
 								<div class="tab-content">
 
 									<button  id="btnAddsubject" style="margin-bottom:5px; float: right" class="btn btn-info btn-flat" type="button">과목 추가</button>
-										<table class="table table-condensed">
+
+									<table class="table table-condensed">
 											<colgroup>
 												<col width="120px" />
 												<col width="" />
 											</colgroup>
+
 											<tbody>
+
 											<tr>
 												<th>과목 카테고리</th>
 												<td>
@@ -188,16 +194,16 @@
 											<input type="submit" value="저장" class="btn btn-primary">
 										</div>
 									</div>
-
-
 								</div>
 								<!-- /.탭내용박스 -->
 							</div><!--/.탭 박스 외곽 -->
+						</form>
 						</div><!-- /.col-xs-9 -->
 						<!-- /.과목정보영역 -->
 					</div><!-- /.row -->
 
 			</div><!-- /.col-xs-12 -->
+	</section>
 		</div><!-- /.row -->
 	</section>
 	<!-- /.content -->
@@ -245,19 +251,35 @@
 </body>
 </html>
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.exedit.js"></script>
 <script type="text/javascript">
     // zTree 설정
 	var setting = {
+        edit:{
+			 drag:{
+                 autoExpandTrigger: true,
+                 prev: dropPrev,
+                 inner: dropInner,
+                 next: dropNext
+			},
+            enable:true
+        },
         data: {
             simpleData: {
-                enable: true,
-
+                enable: true
             }
         },
         callback: {
-            beforeClick: subject  // 마우스 클릭 콜백함수 지정
+            beforeClick: subject,  // 마우스 클릭 콜백함수 지정
+            beforeDrag: beforeDrag,
+            beforeDrop: beforeDrop,
+            beforeDragOpen: beforeDragOpen,
+            onDrag: onDrag,
+            onDrop: onDrop,
+            onExpand: onExpand
         }
     };
     var zNodes= [
@@ -269,14 +291,162 @@
         </c:forEach>
     ];
 
+    function dropPrev(treeId, nodes, targetNode) {
+        var pNode = targetNode.getParentNode();
+        if (pNode && pNode.dropInner === false) {
+        return false;
+    }
+    else {
+        for (var i=0,l=curDragNodes.length; i<l; i++) {
+            var curPNode = curDragNodes[i].getParentNode();
+            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+                return false;
+            }
+        }
+    }
+        return true;
+    }
 
+    function dropInner(treeId, nodes, targetNode) {
+        if (targetNode && targetNode.dropInner === false) {
+            return false;
+        } else {
+            for (var i=0,l=curDragNodes.length; i<l; i++) {
+                if (!targetNode && curDragNodes[i].dropRoot === false) {
+                    return false;
+                } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    function dropNext(treeId, nodes, targetNode) {
+        var pNode = targetNode.getParentNode();
+        if (pNode && pNode.dropInner === false) {
+            return false;
+        } else {
+            for (var i=0,l=curDragNodes.length; i<l; i++) {
+                var curPNode = curDragNodes[i].getParentNode();
+                if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    var log, className = "dark", curDragNodes, autoExpandNode;
+
+    function beforeDrag(treeId, treeNodes) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+        for (var i=0,l=treeNodes.length; i<l; i++) {
+            if (treeNodes[i].drag === false) {
+                curDragNodes = null;
+                return false;
+            } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
+                curDragNodes = null;
+                return false;
+            }
+        }
+        curDragNodes = treeNodes;
+        return true;
+    }
+
+    function beforeDragOpen(treeId, treeNode) {
+        autoExpandNode = treeNode;
+        return true;
+    }
+
+    function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
+        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
+        return true;
+    }
+
+    function onDrag(event, treeId, treeNodes) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+    }
+
+    function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
+        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+    }
+
+    function onExpand(event, treeId, treeNode) {
+        if (treeNode === autoExpandNode) {
+            className = (className === "dark" ? "":"dark");
+            showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+        }
+    }
+
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='"+className+"'>"+str+"</li>");
+        if(log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+
+    function getTime() {
+        var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+        return (h+":"+m+":"+s+ " " +ms);
+    }
+    function setTrigger() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
+    }
+
+	<!--이름수정, 삭제용-->
+    function setEdit() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            remove = $("#remove").attr("checked"),
+            rename = $("#rename").attr("checked"),
+            removeTitle = $.trim($("#removeTitle").get(0).value),
+            renameTitle = $.trim($("#renameTitle").get(0).value);
+        zTree.setting.edit.showRemoveBtn = remove;
+        zTree.setting.edit.showRenameBtn = rename;
+        zTree.setting.edit.removeTitle = removeTitle;
+        zTree.setting.edit.renameTitle = renameTitle;
+        console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
+            'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
+    }
+
+    <!--이름수정, 삭제용-->
+    function showCode(str) {
+        var code = $("#code");
+        code.empty();
+        for (var i=0, l=str.length; i<l; i++) {
+            code.append("<li>"+str[i]+"</li>");
+        }
+    }
 
     // zTree 초기화
+
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+        $("#callbackTrigger").bind("change", {}, setTrigger);
+
+		<!--이름 수정,삭제용-->
+        setEdit();
+         $("#remove").bind("change", setEdit);
+         $("#rename").bind("change", setEdit);
+         $("#removeTitle").bind("propertychange", setEdit)
+             .bind("input", setEdit);
+         $("#renameTitle").bind("propertychange", setEdit)
+             .bind("input", setEdit);
     });
+
 
 	function subject(treeId, treeNode, clickFlag) {
 	    var no=treeNode.web;
