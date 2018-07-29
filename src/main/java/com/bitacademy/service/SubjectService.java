@@ -16,14 +16,19 @@ public class SubjectService {
     @Autowired
     private SubjectDao subjectDao;
 
+
     public void add(SubjectVo subjectVo){
         System.out.println(subjectVo.toString());
         subjectDao.insert(subjectVo);
     }
+
+
     public List<SubjectCateVo> getcatelist(){
 
         return subjectDao.selectcatelist();
     }
+
+
     public List<SubjectVo> getsublist(){
 
         return subjectDao.selectsublist();
