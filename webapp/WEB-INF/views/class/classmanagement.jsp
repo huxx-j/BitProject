@@ -51,25 +51,29 @@
                     </div>
                     <!-- /.box-header -->
                     <%--<div class="box-body">--%>
-                        <table class="table table-bordered">
+                        <table class="table table-condensed">
                             <tr>
                                 <th style="width: 20%">업무구분</th>
-                                <th style="width: 80%">교육과정(반) 명</th>
+                                <th colspan="2">교육과정(반) 명</th>
                                 <%--<th style="width: 40%; border-left: hidden">--%>
                                     <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="all">전체</label>--%>
                                     <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>--%>
                                 <%--</th>--%>
                             </tr>
                             <tr>
-                                <td><select class="form-control input-sm" id="workTypeSelect" style="width:100%">
+                                <td><select class="form-control" id="workTypeSelect" style="width:100%">
                                     <c:forEach items="${workType}" var="wt"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
-                                <td id="curriTd">
-                                    <label class="form-controll-static"><input type="radio" name="ra_sel" value="all">전체</label>
-                                    <label class="form-controll-static"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
-                                    <select class="form-control input-sm" id="curriSelect" style="width: 86%">
+                                <td style="border-right: none !important; width: 130px;">
+                                    <div class="radio-group w100 disp-inline">
+                                        <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
+                                        <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
+                                    </div>
+                                </td>
+                                <td id="curriTd" style="border-left: none !important;">
+                                    <select class="form-control" id="curriSelect" style="width: 100%">
                                     </select>
                                 </td>
                             </tr>
@@ -86,7 +90,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body" style="padding-right: 36px">
-                        <table class="table table-bordered">
+                        <table class="table table-condensed">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
                                 <td id="curriNameInfo" style="width: 42%"></td>
