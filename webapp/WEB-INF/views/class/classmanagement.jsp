@@ -66,7 +66,7 @@
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
-                                <td style="border-right: none !important; width: 130px;">
+                                <td class="table-text" style="border-right: none !important; width: 130px;">
                                     <div class="radio-group w100 disp-inline">
                                         <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
                                         <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
@@ -93,15 +93,15 @@
                         <table class="table table-condensed">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td id="curriNameInfo" style="width: 42%"></td>
+                                <td id="curriNameInfo" class="table-text" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td id="gisuInfo" style="width: 42%"></td>
+                                <td id="gisuInfo" class="table-text" style="width: 42%"></td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
-                                <td id="periodFrInfo" style="width: 42%"></td>
+                                <td id="periodFrInfo" class="table-text" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td id="periodToInfo" style="width: 42%"></td>
+                                <td id="periodToInfo" class="table-text" style="width: 42%"></td>
                             </tr>
                         </table>
                     </div>

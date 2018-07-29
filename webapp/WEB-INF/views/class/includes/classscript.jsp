@@ -642,7 +642,7 @@
 
     function renderTestUploadTd(sisNo, fileVo) {
         str = "";
-        str += "<td class='testFileUploadTd file-td'>" +
+        str += "<td class='testFileUploadTd'>" +
             "   <form id='testForm' class='file-form' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
             "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
@@ -663,10 +663,10 @@
     function renderScoreTableTh() {
         str = "";
         str += "<tr class='scoreTable'>" +
-            "       <th class='a_c file-th' style='width: 5%'>No</th>" +
-            "       <th class='a_c file-th' style='width: 15%'>이름</th>" +
-            "       <th class='a_c file-th' style='width: 10%'>점수</th>" +
-            "       <th class='a_c file-th' style='width: 70%'>첨부파일</th>" +
+            "       <th class='a_c' style='width: 5%'>No</th>" +
+            "       <th class='a_c' style='width: 15%'>이름</th>" +
+            "       <th class='a_c' style='width: 10%'>점수</th>" +
+            "       <th class='a_c' style='width: 70%'>첨부파일</th>" +
             "   </tr>";
 
         $("#score-table").append(str);
@@ -682,10 +682,10 @@
     function renderScoreTableTd(ScoreVo, i) {
         str = "";
         str += "<tr class='scoreTable'>" +
-            "       <td class='a_c file-th' style='padding-top: 10px'>" + i + "</td>" +
-            "       <td class='a_c file-th' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
-            "       <td class='file-td'><input id='iScore" + i + "' class='form-control' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
-            "       <td class='file-td'>" +
+            "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
+            "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
+            "       <td><input id='iScore" + i + "' class='form-control' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
+            "       <td>" +
             "       <form id='scoreForm" + i + "' class='file-form' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
             "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
             "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
