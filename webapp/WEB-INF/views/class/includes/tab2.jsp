@@ -20,17 +20,17 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <%--<form id="testForm" method="post" action="/api/cm/saveScore" enctype="multipart/form-data">--%>
-                        <table class="table table-bordered">
+                        <table class="table table-condensed">
                             <tr>
-                                <th class="file-th" style="width: 8%; text-align: center">과정명
+                                <th style="width: 8%; text-align: center">과정명
                                     <input id="iSisNo" name="iSisNo" type="hidden">
                                     <input id="iCurriNo" name="iCurriNo" type="hidden">
                                     <input id="iSutdNo" name="iSutdNo" type="hidden"></th>
-                                <td id="subName" class="file-th" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요
+                                <td id="subName" style="width: 55%"> 과목리스트에서 과목명을 선택해주세요
                                 </td>
                             </tr>
                             <tr class="testFileUploadTr">
-                                <th class="a_c file-th">과제</th>
+                                <th class="a_c">과제</th>
                                 <td class="testFileUploadTd file-td">
                                     <form id="testForm" class="file-form" method="post" action="${pageContext.request.contextPath }/api/cm/saveTest" enctype="multipart/form-data">
                                     <input type="file" name="testFile" id="testFile" class="inputfile inputfile-6"
@@ -45,15 +45,15 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="score-table" class="table table-bordered">
+                    <table id="score-table" class="table table-condensed">
                         <tr class="scoreTable">
-                            <th class="a_c file-th" style="width: 5%">No</th>
-                            <th class="a_c file-th" style="width: 15%">이름</th>
-                            <th class="a_c file-th" style="width: 10%">점수</th>
-                            <th class="a_c file-th" style="width: 70%">첨부파일</th>
+                            <th class="a_c" style="width: 5%">No</th>
+                            <th class="a_c" style="width: 15%">이름</th>
+                            <th class="a_c" style="width: 10%">점수</th>
+                            <th class="a_c" style="width: 70%">첨부파일</th>
                         </tr>
                         <tr class="scoreTable">
-                            <td colspan="4" class="a_c file-th">과목리스트에서 과목명을 선택하세요</td>
+                            <td colspan="4" class="a_c">과목리스트에서 과목명을 선택하세요</td>
                         </tr>
                         <%--점수 테이블 뿌려질 자리--%>
                     </table>
