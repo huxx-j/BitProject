@@ -4,7 +4,7 @@
         <div id="teamListDiv" class="box">
             <div class="box-header with-border">
                 <h1 class="box-title"> 팀 리스트</h1>
-                <button id="addTeam" class="btn btn-primary btn-call-se" style="float: right" type="button">팀 추가
+                <button id="addTeam" class="btn btn-default btn-cate-search w100" style="float: right" type="button">팀 추가
                 </button>
             </div>
             <%--팀 리스트 뿌려질 자리--%>

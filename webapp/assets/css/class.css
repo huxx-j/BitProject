@@ -1,8 +1,9 @@
 .btn-call {
     padding: 0px;
     margin-left: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     width: 70px;
+    height: 25px;
 }
 
 #currentCurriInfo {
@@ -161,11 +162,7 @@
     background-color: #265a88;
 }
 
-.file-td {
-    padding: 4px 0 0 8px;
-}
-
-.form-control {
+.disp-inline {
     display: inline !important;
 }
 
@@ -176,4 +173,30 @@
 .line-table {
     background-color: #C2C2C2 ;
     padding: 2px !important;
+}
+
+.file-form {
+    height: 25px;
+}
+
+.file-td {
+    padding: 2px !important;
+}
+
+.file-th {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+.class-td {
+    padding: 2px !important;
+}
+
+.class-th {
+    padding-top : 6px !important;
+    padding-bottom: 6px !important;
+}
+
+textarea {
+    resize: none !important;
 }

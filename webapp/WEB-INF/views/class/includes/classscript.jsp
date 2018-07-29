@@ -15,7 +15,7 @@
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' class='form-control input-sm' style='width: 86%'></select>";
+                str += "<select id='curriSelect' class='form-control'></select>";
 
                 $("#curriTd").append(str);
 
@@ -41,7 +41,7 @@
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' class='form-control input-sm' style='width: 86%'></select>";
+                str += "<select id='curriSelect' class='form-control'></select>";
 
                 $("#curriTd").append(str);
 
@@ -315,16 +315,16 @@
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
-            "                    <table class='table table-bordered'>" +
+            "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' class='form-control input-sm' name='detailProjectName' type='text' style='width: 100%'></td>" +
+            "                            <td colspan='2'><input id='detailProjectName' class='form-control' name='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'></td>" +
-            "                            <td style='width: 100px'>" +
-            "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
+            "                            <td class='w100'>" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원선택" +
             "                                </button>" +
             "                                <input id='membersId' name='membersId' type='hidden'>" +
@@ -334,26 +334,26 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' class='textarea-sm' name='outline' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='form-control' name='outline' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' class='textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2''><textarea id='focus' class='form-control' name='focus' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' class='textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='form-control' name='applyField' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' class='textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='form-control' name='useTechnique' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -435,16 +435,16 @@
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
-            "                    <table class='table table-bordered'>" +
+            "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' class='form-control input-sm' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <td colspan='2' class='file-td'><input id='detailProjectName' class='form-control' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'>" + projectVo.membersName + "</td>" +
-            "                            <td style='width: 100px'>" +
-            "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
+            "                            <td class='w100'>" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
             "                                <input id='file_no' name='file_no' type='hidden' value='" + projectVo.file_no + "'> " +
@@ -455,28 +455,28 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "                               <span>" + projectVo.fileName + "</span>" +
             "                           </td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' class='textarea-sm' name='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='form-control textarea-sm' name='outline' rows='4' style='resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' class='textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' class='form-control textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' class='textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='form-control textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' class='textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='form-control textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -642,8 +642,8 @@
 
     function renderTestUploadTd(sisNo, fileVo) {
         str = "";
-        str += "<td class='testFileUploadTd' style='padding: 4px 0 0 8px'>" +
-            "   <form id='testForm' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
+        str += "<td class='testFileUploadTd file-td'>" +
+            "   <form id='testForm' class='file-form' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
             "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
@@ -663,10 +663,10 @@
     function renderScoreTableTh() {
         str = "";
         str += "<tr class='scoreTable'>" +
-            "       <th class='a_c' style='width: 5%'>No</th>" +
-            "       <th class='a_c' style='width: 15%'>이름</th>" +
-            "       <th class='a_c' style='width: 10%'>점수</th>" +
-            "       <th class='a_c' style='width: 70%'>첨부파일</th>" +
+            "       <th class='a_c file-th' style='width: 5%'>No</th>" +
+            "       <th class='a_c file-th' style='width: 15%'>이름</th>" +
+            "       <th class='a_c file-th' style='width: 10%'>점수</th>" +
+            "       <th class='a_c file-th' style='width: 70%'>첨부파일</th>" +
             "   </tr>";
 
         $("#score-table").append(str);
@@ -682,11 +682,11 @@
     function renderScoreTableTd(ScoreVo, i) {
         str = "";
         str += "<tr class='scoreTable'>" +
-            "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
-            "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
-            "       <td><input id='iScore" + i + "' class='form-control input-sm' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
-            "       <td style='padding:7px 0 2px 8px ;'>" +
-            "       <form id='scoreForm" + i + "' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
+            "       <td class='a_c file-th' style='padding-top: 10px'>" + i + "</td>" +
+            "       <td class='a_c file-th' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
+            "       <td class='file-td'><input id='iScore" + i + "' class='form-control' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
+            "       <td class='file-td'>" +
+            "       <form id='scoreForm" + i + "' class='file-form' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
             "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
             "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='hScore" + i + "' name='hScore' type='hidden' value='" + ScoreVo.score + "'>" +
