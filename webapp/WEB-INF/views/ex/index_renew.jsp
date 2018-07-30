@@ -11,8 +11,7 @@
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
-	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css">
+	<%--<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css">--%>
 
 
 </head>
@@ -51,9 +50,8 @@
                     </div>
                     <div class="sub-body">
                         <textarea style="width: 100%; height: 200px">
-1. <head></head>영역에 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css"> 를 추가
-2. 문서하단에<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"/> 추가
-3. 달력을 쓸 위치에
+달력 1개만 쓸때
+달력을 쓸 위치에
 <div class="input-group border-inputcolor w140">
     <input type="text" class="input-sm form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
     <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
@@ -72,11 +70,39 @@ id겹치게 만들지 말것!!!
 						        </div>
                                 <br>
 
-                                <h5>w100(width 100px짜리 달력)</h5>
-							    <div class="input-group border-inputcolor w100">
-							    	<input type="text" class="input-sm form-control border-none" name="date2" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
-								    <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
-						    	</div>
+								<textarea rows="18" style="width: 100%;">
+달력 2개 쓸때 코드
+달력을 쓸 위치에
+<div class="clearfix">
+	<div class="input-group border-inputcolor w140 pull-left">
+		<input class="input-datepicker form-control border-none" name="date1" id="date3" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+		<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+	</div>
+	<div class="pull-left"> &nbsp;&nbsp; - &nbsp;&nbsp;</div>
+	<div class="input-group border-inputcolor w140 pull-left">
+		<input class="input-datepicker form-control border-none" name="date1" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+		<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+	</div>
+</div>
+를 추가하면 아래와 같은 달력이 생김
+태그의 가로 길이는 div의  w140클래스를 지우고 Style에서 width를 줘서 조절하면 됨 (w140은 width를 140px으로 설정한 CSS임)
+input태그에 id랑 name은 바꿔도 되지만 data-select="datepicker" data-toggle="datepicker" 이거는 절대 바꾸면 안됨
+id겹치게 만들지 말것!!!
+
+</textarea>
+
+                                <h5>두개 붙일때</h5>
+								<div class="clearfix">
+									<div class="input-group border-inputcolor w140 pull-left">
+										<input class="input-datepicker form-control border-none" name="date1" id="date3" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+										<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+									</div>
+									<div class="pull-left"> &nbsp;&nbsp; - &nbsp;&nbsp;</div>
+									<div class="input-group border-inputcolor w140 pull-left">
+										<input class="input-datepicker form-control border-none" name="date1" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+										<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+									</div>
+								</div>
 					    	</div>
 
 				</div><!-- /.box -->
@@ -189,4 +215,5 @@ id겹치게 만들지 말것!!!
         }
     });
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>--%>
+<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>

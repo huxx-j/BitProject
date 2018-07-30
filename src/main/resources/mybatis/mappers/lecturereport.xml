@@ -7,7 +7,7 @@
     <select id="getLectureReport" parameterType="LectureReportVo" resultType="LectureReportVo">
         <![CDATA[
         SELECT Curriculum_no, Subject, Content,
-        Teacher, ETC, Period, ClassDate
+        Teacher, Etc, Period, ClassDate
             from LectureReport
             where Curriculum_no=#{curriculum_no}
                 and ClassDate=#{classDate}
@@ -16,15 +16,15 @@
     </select>
     
     <insert id="saveLectureReport" parameterType="LectureReportVo">
-<!--<if test="subject != '' or content != '' or instructor != '' or eTC != ''">-->
+<!--<if test="subject != '' or content != '' or teacher != '' or etc != ''">-->
      <![CDATA[
         insert into LectureReport(LectureReport_no, Curriculum_no, Subject,
-        Content, Teacher, ETC, Period, ClassDate)
+        Content, Teacher, Etc, Period, ClassDate)
             values (#{lectureReport_no}, #{curriculum_no}, #{subject},
-            #{content}, #{teacher}, #{eTC}, #{period}, #{classDate})
+            #{content}, #{teacher}, #{etc}, #{period}, #{classDate})
         ON DUPLICATE
             KEY UPDATE Curriculum_no=#{curriculum_no}, Subject=#{subject},
-            Content=#{content}, Teacher=#{teacher}, ETC=#{eTC}, Period=#{period}, ClassDate=#{classDate}
+            Content=#{content}, Teacher=#{teacher}, Etc=#{etc}, Period=#{period}, ClassDate=#{classDate}
         ]]>
 <!--</if>-->
 
