@@ -29,11 +29,24 @@
     <!--희준-->
     <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
  		<![CDATA[
- 			SELECT c.curriculum_no, c.package_no, c.curriName, c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money, c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, g.gisuName
- 			FROM Curriculum as c, Gisu as g
-			WHERE c.curriculum_no and g.curriculum_no = #{curriculum_no} and c.package_no = #{package_no}
+ 			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName, 
+ 					c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money, 
+ 					c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName
+ 			FROM Curriculum as c
+ 			JOIN Package as p ON c.package_no = p.package_no
+ 			JOIN Gisu as g ON c.curriculum_no = g.curriculum_no
+ 			WHERE c.curriculum_no = #{curriculum_no}
  		]]>
  	</select>
+<!--     <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" > -->
+<!--  		<![CDATA[ -->
+<!--  			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName,  -->
+<!--  					c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money,  -->
+<!--  					c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName -->
+<!--  			FROM Curriculum as c, Gisu as g, Package as p -->
+<!-- 			WHERE c.curriculum_no and g.curriculum_no = #{curriculum_no} and c.package_no = #{package_no}  -->
+<!--  		]]> -->
+<!--  	</select> -->
 
     <update id = "edit" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
@@ -84,7 +97,7 @@
 	</select>
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
-			SELECT curriculum_no, package_no, curriculumCate_no, workType, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, curriNickname
+			SELECT workType, curriculum_no, package_no, curriculumCate_no, workType, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, curriNickname
 			FROM Curriculum;
 		]]>
 	</select>

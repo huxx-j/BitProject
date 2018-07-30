@@ -32,7 +32,7 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="${pageContext.request.contextPath }/curri/"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath }/curri"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
 	            	<li><a href="${pageContext.request.contextPath }/applicant/"><i class="fa fa-circle-o"></i> 지원자관리</a></li>
 	          	</ul>
 	        </li>
