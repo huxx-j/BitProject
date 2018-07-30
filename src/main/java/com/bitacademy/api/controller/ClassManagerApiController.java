@@ -42,6 +42,7 @@ public class ClassManagerApiController {
     @ResponseBody
     @RequestMapping(value = "/saveLectureReport", method = RequestMethod.POST)
     public int saveLectureReport(@RequestBody LectureReportVo lectureReportVo) {
+        System.out.println(lectureReportVo.toString());
         return classManagementService.saveLectureReport(lectureReportVo);
     }
 

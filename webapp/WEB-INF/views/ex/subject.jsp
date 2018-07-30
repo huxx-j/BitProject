@@ -16,7 +16,7 @@
 	
 	<!-- 자신의 css사용시 --> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
-	
+	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
 	<!-- 그리드 사용시 주석풀어 사용 -->
 	<%-- <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import> --%>
 
@@ -125,7 +125,19 @@
 											</tr>
 											<tr>
 												<th>과목 명</th>
-												<td><input name="SubjectName" class="form-control" type="text" placeholder=""></td>
+												<td>
+													<div class="clearfix">
+													<div class="input-group border-inputcolor w140 pull-left">
+														<input class="input-datepicker form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+														<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													</div>
+													<div class="pull-left"> &nbsp;&nbsp; - &nbsp;&nbsp;</div>
+													<div class="input-group border-inputcolor w140 pull-left">
+														<input class="input-datepicker form-control border-none" name="date1" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+														<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													</div>
+													</div>
+												</td>
 											</tr>
 											<tr>
 												<th>과목 개요</th>
@@ -554,3 +566,4 @@
     });
 </script>
 </html>
+<script type="text/javascript" src="/assets/js/jquery.datepicker.js"/>

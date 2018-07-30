@@ -116,8 +116,8 @@
     function rederInfo(map) {
         $("#curriNameInfo").text(map.vo.curriName);
         $("#gisuInfo").text(map.gisu);
-        $("#periodFrInfo").text(map.vo.periodFr);
-        $("#periodToInfo").text(map.vo.periodTo);
+        $("#periodFrInfo").text(map.vo.startDate);
+        $("#periodToInfo").text(map.vo.endDate);
     }
 
     //수업일지 불러오는 스크립트
@@ -133,7 +133,7 @@
             $("#selectedCurriNo").val($("#curriSelect option:selected").val());
             lectureReportVo = {
                 curriculum_no: $("#curriSelect option:selected").val(),
-                date: $("#reportDate").val()
+                classDate: $("#reportDate").val()
             };
 
             $.ajax({
@@ -162,8 +162,8 @@
     function renderLectureReport(LectureReportVo, i) {
         $("#sub" + i).val(LectureReportVo.subject);
         $("#con" + i).val(LectureReportVo.content);
-        $("#t" + i).val(LectureReportVo.instructor);
-        $("#note" + i).val(LectureReportVo.eTC);
+        $("#t" + i).val(LectureReportVo.teacher);
+        $("#note" + i).val(LectureReportVo.etc);
     }
 
     function removeReport() {
@@ -176,7 +176,7 @@
     }
 
     //수업일지 저장하는 스크립트
-    $("#lectureReportSaveBtn").on("click", function () {
+    $(document).on("click","#lectureReportSaveBtn", function () {
 
         var countUpdate = 0;
         var countInsert = 0;
@@ -185,13 +185,12 @@
             report = {
                 subject: $("#sub" + i).val(),
                 content: $("#con" + i).val(),
-                instructor: $("#t" + i).val(),
-                eTC: $("#note" + i).val(),
+                teacher: $("#t" + i).val(),
+                etc: $("#note" + i).val(),
                 period: $("#period" + i).text(),
-                date: $("#selectedDate").val(),
+                classDate: $("#selectedDate").val(),
                 curriculum_no: $("#selectedCurri").val()
             };
-
             $.ajax({
                 url: "${pageContext.request.contextPath}/api/cm/saveLectureReport",
                 type: "post",
@@ -792,9 +791,9 @@
                 {name: 'studResNum', index: 'studResNum', width: 100, align: "center"},
                 {name: 'gender', index: 'gender', width: 60, align: "center"},
                 {name: 'testResult', index: 'testResult', width: 95, align: "center"},
-                {name: 'handphone', index: 'handphone', width: 150, align: "center"},
-                {name: 'applyDay', index: 'applyDay', width: 100, align: "center"},
-                {name: 'testDay', index: 'testDay', width: 100, align: "center"},
+                {name: 'cellphone', index: 'cellphone', width: 150, align: "center"},
+                {name: 'applyDate', index: 'applyDate', width: 100, align: "center"},
+                {name: 'testDate', index: 'testDate', width: 100, align: "center"},
                 {name: 'school', index: 'school', width: 140, align: "center"},
                 {name: 'major', index: 'major', width: 140, align: "center"},
                 {name: 'deposit', index: 'deposit', width: 60, align: "center"}
