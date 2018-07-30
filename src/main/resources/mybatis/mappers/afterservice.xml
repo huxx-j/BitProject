@@ -22,10 +22,3 @@
  </insert>
 
 </mapper>
-<!--`User_no`, `CompName`, `Department`, `State`, `Position`, `PeriodFr`, `PeriodTo`, `TelePhone`-->
-        <!--`user_no`, `compName`, `department`, `state`, `position`, `periodFr`, `periodTo`, `telePhone`-->
-
-
-        <!--#{User_no}, #{PeriodFr}, #{PeriodTo}, #{Oragan}, #{Course}, #{Content}-->
-
-        <!--`User_no`, `PeriodFr`, `PeriodTo`, `Oragan`, `Course`, `Content`-->

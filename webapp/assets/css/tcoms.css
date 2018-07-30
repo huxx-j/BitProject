@@ -80,6 +80,11 @@ tbody > tr > td{
 	border: 1px solid #a2a5ab !important;
 }
 
+/* 테이블 td 중간정렬 */
+.table > tbody > tr > td {
+    vertical-align: middle !important;
+}
+
 /* 테이블 해더 부분 배경색  정의*/
 thead > tr > th,
 tbody > tr > th{

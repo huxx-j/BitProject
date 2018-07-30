@@ -15,7 +15,6 @@
      <![CDATA[
         INSERT INTO bitacademy_test.Licence (User_no, LiceName, AcquirDate, IssueOrgan, Score)
         VALUES (#{user_no}, #{liceName}, #{acquirDate}, #{issueOrgan}, #{score}
-)
         ]]>
  </insert>
 

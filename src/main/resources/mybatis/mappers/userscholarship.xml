@@ -14,14 +14,8 @@
         <result column="Major" property="major" />
         <result column="SubMajor" property="subMajor" />
     </resultMap>
-    <!--`User_no`, `PeriodFr`, `PeriodTo`, `School`, `Stat`, `Location`, `Degree`, `Major`, `SubMajor`-->
-    <!---->
-    <!---->
-    <!--User_no, PeriodFr, PeriodTo, School, Stat, Location, Degree, Major, SubMajor-->
-    <!--user_no, periodFr, periodTo, school, stat, location, degree, major, subMajor-->
-    <!--`User_no`, `PeriodFr`, `PeriodTo`, `School`, `Stat`, `Location`, `Degree`, `Major`, `SubMajor`-->
 
-
+    <!-- 데이터 추가할때 썼던 쿼리 -->
     <insert id="addscholar" parameterType="ScholarshipVo">
      <![CDATA[
         INSERT INTO bitacademy_test.UserScholarship (User_no, PeriodFr, PeriodTo, School, Stat, Location, Degree, Major, SubMajor)

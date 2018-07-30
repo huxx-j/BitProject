@@ -123,13 +123,3 @@
         ]]>
     </update>
 </mapper>
-
-
-        <!--select u.User_no, u.NameHan, s.Score, s.Score_no-->
-        <!--from Users u, ApplyInfo a, Score s, SubInStep sis-->
-        <!--where a.User_no=u.User_no-->
-        <!--and a.Curriculum_no=#{curriculum_no}-->
-        <!--and a.State='비트생'-->
-        <!--and s.SubInStep_no=#{subInStep_no}-->
-        <!--and s.SubInStep_no=sis.SubInStep_no-->
-        <!--and u.User_no=s.User_no-->

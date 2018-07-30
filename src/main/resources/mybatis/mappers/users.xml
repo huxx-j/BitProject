@@ -40,9 +40,7 @@
         <result column="File_no" property="file_no" />
     </resultMap>
 
-    <!--#{AuthCode}, #{NameHan}, #{NameEng}, #{LoginID}, #{Password}, #{BirthDate}, #{StudResNum}, #{Address}, #{FamilyAddress}, #{PostNum}, #{Handphone}, #{Telephone}, #{Email}, #{HomePage}, #{Bank}, #{Depositor}, #{AccountNum}, #{MillArm}, #{MillRank}, #{MillEnrollDate}, #{MillDischargeDate}, #{MillIncompletReason}, #{Language}, #{OS}, #{ProLang}, #{Magazine}, #{Newspaper}, #{AfterPlan}, #{Motive}, #{LearningContent}, #{ConsultContent}, #{Thesis}, #{File_no}-->
-    <!--#{authCode}, #{nameHan}, #{nameEng}, #{loginID}, #{password}, #{birthDate}, #{studResNum}, #{address}, #{familyAddress}, #{postNum}, #{handphone}, #{telephone}, #{email}, #{homePage}, #{bank}, #{depositor}, #{accountNum}, #{millArm}, #{millRank}, #{millEnrollDate}, #{millDischargeDate}, #{millIncompletReason}, #{language}, #{oS}, #{proLang}, #{magazine}, #{newspaper}, #{afterPlan}, #{motive}, #{learningContent}, #{consultContent}, #{thesis}, #{file_no}-->
-
+    <!-- 데이터 추가할때 썼던 쿼리 -->
     <insert id="add" parameterType="UsersVo">
         <![CDATA[
         INSERT INTO bitacademy_test.Users (

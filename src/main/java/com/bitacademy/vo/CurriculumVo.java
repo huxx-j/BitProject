@@ -7,42 +7,40 @@ public class CurriculumVo {
 	private int curriculum_no;
 	private String workType;
 	private String curriName;
-	private String curriNickname;
-	private String periodFr;
-	private String periodTo;
-	private String startDay;
+	private String startDate;
+	private String endDate;
+	private String testDate;
 	private String time;
-	private int num;
-	private String money;
+	private int maxCnt;
+	private String price;
 	private String support;
-	private String inquiry;
-	private String state;
-	private boolean mainViewFlag;
-	private boolean datailViewFlag;
-	private String gisuName;
+	private String managerInfo;
+	private String useState;
+	private int mainViewFlag;
+	private int datailViewFlag;
+	private String curriNickname;
 
 	public CurriculumVo() {
 	}
 
-	public CurriculumVo(int curriculumCate_no, int package_no, int curriculum_no, String workType, String curriName, String curriNickname, String periodFr, String periodTo, String startDay, String time, int num, String money, String support, String inquiry, String state, boolean mainViewFlag, boolean datailViewFlag, String gisuName) {
+	public CurriculumVo(int curriculumCate_no, int package_no, int curriculum_no, String workType, String curriName, String startDate, String endDate, String testDate, String time, int maxCnt, String price, String support, String managerInfo, String useState, int mainViewFlag, int datailViewFlag, String curriNickname) {
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
 		this.curriculum_no = curriculum_no;
 		this.workType = workType;
 		this.curriName = curriName;
-		this.curriNickname = curriNickname;
-		this.periodFr = periodFr;
-		this.periodTo = periodTo;
-		this.startDay = startDay;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.testDate = testDate;
 		this.time = time;
-		this.num = num;
-		this.money = money;
+		this.maxCnt = maxCnt;
+		this.price = price;
 		this.support = support;
-		this.inquiry = inquiry;
-		this.state = state;
+		this.managerInfo = managerInfo;
+		this.useState = useState;
 		this.mainViewFlag = mainViewFlag;
 		this.datailViewFlag = datailViewFlag;
-		this.gisuName = gisuName;
+		this.curriNickname = curriNickname;
 	}
 
 	public int getCurriculumCate_no() {
@@ -85,36 +83,28 @@ public class CurriculumVo {
 		this.curriName = curriName;
 	}
 
-	public String getCurriNickname() {
-		return curriNickname;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setCurriNickname(String curriNickname) {
-		this.curriNickname = curriNickname;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getPeriodFr() {
-		return periodFr;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setPeriodFr(String periodFr) {
-		this.periodFr = periodFr;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getPeriodTo() {
-		return periodTo;
+	public String getTestDate() {
+		return testDate;
 	}
 
-	public void setPeriodTo(String periodTo) {
-		this.periodTo = periodTo;
-	}
-
-	public String getStartDay() {
-		return startDay;
-	}
-
-	public void setStartDay(String startDay) {
-		this.startDay = startDay;
+	public void setTestDate(String testDate) {
+		this.testDate = testDate;
 	}
 
 	public String getTime() {
@@ -125,20 +115,20 @@ public class CurriculumVo {
 		this.time = time;
 	}
 
-	public int getNum() {
-		return num;
+	public int getMaxCnt() {
+		return maxCnt;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setMaxCnt(int maxCnt) {
+		this.maxCnt = maxCnt;
 	}
 
-	public String getMoney() {
-		return money;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setMoney(String money) {
-		this.money = money;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getSupport() {
@@ -149,44 +139,44 @@ public class CurriculumVo {
 		this.support = support;
 	}
 
-	public String getInquiry() {
-		return inquiry;
+	public String getManagerInfo() {
+		return managerInfo;
 	}
 
-	public void setInquiry(String inquiry) {
-		this.inquiry = inquiry;
+	public void setManagerInfo(String managerInfo) {
+		this.managerInfo = managerInfo;
 	}
 
-	public String getState() {
-		return state;
+	public String getUseState() {
+		return useState;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setUseState(String useState) {
+		this.useState = useState;
 	}
 
-	public boolean isMainViewFlag() {
+	public int getMainViewFlag() {
 		return mainViewFlag;
 	}
 
-	public void setMainViewFlag(boolean mainViewFlag) {
+	public void setMainViewFlag(int mainViewFlag) {
 		this.mainViewFlag = mainViewFlag;
 	}
 
-	public boolean isDatailViewFlag() {
+	public int getDatailViewFlag() {
 		return datailViewFlag;
 	}
 
-	public void setDatailViewFlag(boolean datailViewFlag) {
+	public void setDatailViewFlag(int datailViewFlag) {
 		this.datailViewFlag = datailViewFlag;
 	}
 
-	public String getGisuName() {
-		return gisuName;
+	public String getCurriNickname() {
+		return curriNickname;
 	}
 
-	public void setGisuName(String gisuName) {
-		this.gisuName = gisuName;
+	public void setCurriNickname(String curriNickname) {
+		this.curriNickname = curriNickname;
 	}
 
 	@Override
@@ -197,19 +187,18 @@ public class CurriculumVo {
 				", curriculum_no=" + curriculum_no +
 				", workType='" + workType + '\'' +
 				", curriName='" + curriName + '\'' +
-				", curriNickname='" + curriNickname + '\'' +
-				", periodFr='" + periodFr + '\'' +
-				", periodTo='" + periodTo + '\'' +
-				", startDay='" + startDay + '\'' +
+				", startDate='" + startDate + '\'' +
+				", endDate='" + endDate + '\'' +
+				", testDate='" + testDate + '\'' +
 				", time='" + time + '\'' +
-				", num=" + num +
-				", money='" + money + '\'' +
+				", maxCnt=" + maxCnt +
+				", price='" + price + '\'' +
 				", support='" + support + '\'' +
-				", inquiry='" + inquiry + '\'' +
-				", state='" + state + '\'' +
+				", managerInfo='" + managerInfo + '\'' +
+				", useState='" + useState + '\'' +
 				", mainViewFlag=" + mainViewFlag +
 				", datailViewFlag=" + datailViewFlag +
-				", gisuName='" + gisuName + '\'' +
+				", curriNickname='" + curriNickname + '\'' +
 				'}';
 	}
 }
