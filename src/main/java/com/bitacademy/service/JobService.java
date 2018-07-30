@@ -28,7 +28,7 @@ public class JobService {
 
 	public List<GisuVo> getGisu(String gisu, String name) {
 
-		Map<String, String> map = new HashMap<>(); // Object 첫번째 키값
+		Map<String, String> map = new HashMap<>();
 		map.put("gisu", gisu);
 		map.put("name", name);
 		

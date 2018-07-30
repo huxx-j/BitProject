@@ -31,12 +31,9 @@ public class JobDao {
 	/*지원자 리스트 조회*/
 	
 	public List<GisuVo> getGisu(Map<String, String> map) {
-
-		// 세개 보낼때는 Map
+		
 		return sqlSession.selectList("job.selectList2", map);
-
-		// job은 <mapper namespace="job"> 이고 . selectList2은 <select id="selectList2" 이다.
-
+		
 	}
 
 }
