@@ -23,16 +23,10 @@ public class JobController {
 	@Autowired
 	JobService jobService;
 
-	@RequestMapping("/test")
+	@RequestMapping("/jobrequest")
 	public String test(){
-		System.out.println("/test");
-		return "graduate/test";
-	}
-
-	@RequestMapping("/test1")
-	public String test1(){
-		System.out.println("/test1");
-		return "graduate/test1";
+		System.out.println("/jobrequest");
+		return "graduate/jobrequest";
 	}
 
 	@RequestMapping("/test2")
@@ -68,4 +62,17 @@ public class JobController {
 		return getGisu;
 	}
 
+	@RequestMapping("/p")
+	public String packmain(){
+		System.out.println("/packmain");
+		return "ex/packmain";
+	}
+	
+	@RequestMapping("/s")
+	public String subject(){
+		System.out.println("/subject");
+		return "ex/subject";
+	}
+
+	
 }
