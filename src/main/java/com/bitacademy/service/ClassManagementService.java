@@ -53,9 +53,9 @@ public class ClassManagementService {
     }
 
     public int saveLectureReport(LectureReportVo lectureReportVo) {
-        String lectureReport_no = lectureReportVo.getDate().replace("-", "") + "-" + lectureReportVo.getCurriculum_no() + "-" + lectureReportVo.getPeriod();
+        String lectureReport_no = lectureReportVo.getClassDate().replace("-", "") + "-" + lectureReportVo.getCurriculum_no() + "-" + lectureReportVo.getPeriod();
         lectureReportVo.setLectureReport_no(lectureReport_no);
-        if (!lectureReportVo.getSubject().equals("") || !lectureReportVo.getContent().equals("") || !lectureReportVo.getInstructor().equals("") || !lectureReportVo.geteTC().equals("")) {
+        if (!lectureReportVo.getSubject().equals("") || !lectureReportVo.getContent().equals("") || !lectureReportVo.getTeacher().equals("") || !lectureReportVo.geteTC().equals("")) {
             return lectureReportDao.saveLetureReport(lectureReportVo);
         } else {
             return 0;

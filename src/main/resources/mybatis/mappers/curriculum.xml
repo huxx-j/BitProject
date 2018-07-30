@@ -19,7 +19,7 @@
 
     <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
         <![CDATA[
-        select CurriName, PeriodFr, PeriodTo from Curriculum where Curriculum_no=#{curriculum_no};
+        select CurriName, StartDate, EndDate from Curriculum where Curriculum_no=#{curriculum_no};
         ]]>
     </select>
     <!--성우-->
