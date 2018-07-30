@@ -30,6 +30,7 @@ public class CurriculumDao {
 
 
     //희준
+    
     public CurriculumVo viewCurriculum(String curriculum_no ){
         System.out.println("[curriDao] viewCurriculum");
 
