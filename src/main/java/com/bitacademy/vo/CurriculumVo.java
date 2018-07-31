@@ -17,19 +17,18 @@ public class CurriculumVo {
 	private String price;
 	private String support;
 	private String gisuName;
-  private String managerInfo;
-	private String useState;
+	private String managerInfo;
+	private String state;
 	private int mainViewFlag;
 	private int datailViewFlag;
-	private String curriNickname;
-  
-
-
 	public CurriculumVo() {
 		super();
 	}
-
-	public CurriculumVo(int curriculumCate_no, int package_no, int curriculum_no, String workType, String curriName, String startDate, String endDate, String testDate, String time, int maxCnt, String price, String support, String managerInfo, String useState, int mainViewFlag, int datailViewFlag, String curriNickname) {
+	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String workType,
+			String curriName, String curriNickname, String startDate, String endDate, String testDate, String time,
+			int maxCnt, String price, String support, String gisuName, String managerInfo, String state,
+			int mainViewFlag, int datailViewFlag) {
+		super();
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
 		this.packageName = packageName;
@@ -44,11 +43,11 @@ public class CurriculumVo {
 		this.maxCnt = maxCnt;
 		this.price = price;
 		this.support = support;
+		this.gisuName = gisuName;
 		this.managerInfo = managerInfo;
-		this.useState = useState;
+		this.state = state;
 		this.mainViewFlag = mainViewFlag;
 		this.datailViewFlag = datailViewFlag;
-
 	}
 	public int getCurriculumCate_no() {
 		return curriculumCate_no;
@@ -86,7 +85,6 @@ public class CurriculumVo {
 	public void setCurriName(String curriName) {
 		this.curriName = curriName;
 	}
-
 	public String getCurriNickname() {
 		return curriNickname;
 	}
@@ -110,7 +108,6 @@ public class CurriculumVo {
 	}
 	public void setTestDate(String testDate) {
 		this.testDate = testDate;
-
 	}
 	public String getTime() {
 		return time;
@@ -118,7 +115,6 @@ public class CurriculumVo {
 	public void setTime(String time) {
 		this.time = time;
 	}
-
 	public int getMaxCnt() {
 		return maxCnt;
 	}
@@ -130,7 +126,6 @@ public class CurriculumVo {
 	}
 	public void setPrice(String price) {
 		this.price = price;
-
 	}
 	public String getSupport() {
 		return support;
@@ -138,72 +133,45 @@ public class CurriculumVo {
 	public void setSupport(String support) {
 		this.support = support;
 	}
-
+	public String getGisuName() {
+		return gisuName;
+	}
+	public void setGisuName(String gisuName) {
+		this.gisuName = gisuName;
+	}
 	public String getManagerInfo() {
 		return managerInfo;
 	}
-
 	public void setManagerInfo(String managerInfo) {
 		this.managerInfo = managerInfo;
 	}
-
-	public String getUseState() {
-		return useState;
+	public String getState() {
+		return state;
 	}
-
-	public void setUseState(String useState) {
-		this.useState = useState;
+	public void setState(String state) {
+		this.state = state;
 	}
-
 	public int getMainViewFlag() {
 		return mainViewFlag;
 	}
-
 	public void setMainViewFlag(int mainViewFlag) {
 		this.mainViewFlag = mainViewFlag;
 	}
-
 	public int getDatailViewFlag() {
 		return datailViewFlag;
 	}
-
 	public void setDatailViewFlag(int datailViewFlag) {
 		this.datailViewFlag = datailViewFlag;
 	}
-
-	public String getCurriNickname() {
-		return curriNickname;
-	}
-
-	public void setCurriNickname(String curriNickname) {
-		this.curriNickname = curriNickname;
-
-	}
 	@Override
 	public String toString() {
-
-		return "CurriculumVo{" +
-				"curriculumCate_no=" + curriculumCate_no +
-				", package_no=" + package_no +
-				", curriculum_no=" + curriculum_no +
-				", workType='" + workType + '\'' +
-				", curriName='" + curriName + '\'' +
-				", startDate='" + startDate + '\'' +
-				", endDate='" + endDate + '\'' +
-				", testDate='" + testDate + '\'' +
-				", time='" + time + '\'' +
-				", maxCnt=" + maxCnt +
-				", price='" + price + '\'' +
-				", support='" + support + '\'' +
-				", managerInfo='" + managerInfo + '\'' +
-				", useState='" + useState + '\'' +
-				", mainViewFlag=" + mainViewFlag +
-				", datailViewFlag=" + datailViewFlag +
-				", curriNickname='" + curriNickname + '\'' +
-				'}';
+		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no + ", packageName="
+				+ packageName + ", curriculum_no=" + curriculum_no + ", workType=" + workType + ", curriName="
+				+ curriName + ", curriNickname=" + curriNickname + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", testDate=" + testDate + ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support="
+				+ support + ", gisuName=" + gisuName + ", managerInfo=" + managerInfo + ", state=" + state
+				+ ", mainViewFlag=" + mainViewFlag + ", datailViewFlag=" + datailViewFlag + "]";
 	}
-	
-	
-	
+
 	
 }
