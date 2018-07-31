@@ -70,12 +70,24 @@
 											<tbody>
 												<tr>
 													<th>검색조건</th>
-													<td>
-														<div class="radio-group">
-															<label class="radiobox"><input class="" type="radio" name="Availability" value="0">전체보기</label>
-															<label class="radiobox"><input class="" type="radio" name="Availability" value="0">게시중만 보기</label>
-															<label class="radiobox"><input class="" type="radio" name="Availability" value="0">상시채용만 보기</label>
-															<label class="radiobox"><input class="" type="radio" name="Availability" value="0">신청일로 조회</label>
+													<td class="clearfix">
+														<div class="radio-group pull-left">
+															<label class="radiobox"><input class="whole" type="radio" name="comCondition" value="1" checked="checked">전체보기</label>
+															<label class="radiobox"><input class="post" type="radio" name="comCondition" value="2">게시중만 보기</label>
+															<label class="radiobox"><input class="employment" type="radio" name="comCondition" value="3">상시채용만 보기</label>
+															<label class="radiobox"><input class="inquiry" type="radio" name="comCondition" value="4">신청일로 조회</label>
+														</div>
+
+														<div class="clearfix pull-left dateRange">
+															<div class="input-group border-inputcolor w140 pull-left">
+																<input class="input-datepicker form-control border-none" name="date1" id="date3" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+															</div>
+															<div class="pull-left"> &nbsp;&nbsp; - &nbsp;&nbsp;</div>
+															<div class="input-group border-inputcolor w140 pull-left">
+																<input class="input-datepicker form-control border-none" name="date1" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+															</div>
 														</div>
 														
 														<%-- <!-- <달력> -->
@@ -95,11 +107,14 @@
 										</table>
 									</div>
 									
+
 									<!-- 업체검색 조회 -->
 									<div class="sub-toolbox clearfix text-center">
 										<input type="submit" value="검색" class="btn btn-primary" id="btn_search">
 									</div>
 									
+
+
 								</div>
 								<!-- sub-box -->
 							</div>
@@ -338,10 +353,51 @@
 <script type="text/javascript">
 
 
-   $("#btn_search").on("click", function(){
-	   console.log("검색클릭");
-	   
-   });
+$(document).ready(function() {
+	/* 시작시 달력 안보이게 */
+	$(".dateRange").hide();
+});
+
+
+
+/* 검색조건(라디오버튼) 선택했을때 */
+$("[name=comCondition]").on("click", function(){                 //btn_search 는 id (#은 id, .은 class) on 누르고 클릭했을때 function 함수
+
+	var $this = $(this).val();
+	console.log($this);
+
+	if($this == 4){
+		$(".dateRange").show();
+	}else{
+		$(".dateRange").hide();
+	}
+
+});
+
+
+
+
+
+
+
+/* 검색버튼 클릭했을때 */
+$("#btn_search").on("click", function(){                 //btn_search 는 id (#은 id, .은 class) on 누르고 클릭했을때 function 함수
+	var comCondition = $('input[name=comCondition]:checked').val();       //라디오 버튼 눌렀을때  name값들 들어가기
+
+	if(comCondition != 4 ){
+		$(".daterange").hide();
+	}
+	console.log(comCondition);
+});
+
+
+	/* 검색조건이 날짜(라디오버튼) 일때 */
+/* 	$('input:radio[name=이름]').is(':checked');
+ */
+
+
+
+
    
    
 
