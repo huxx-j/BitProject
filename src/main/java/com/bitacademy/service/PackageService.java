@@ -66,5 +66,10 @@ public class PackageService {
     public List<StepInPackVo> getstep(int no) {
         return packageDao.getstep(no);
     }
+
+    public void UpdateCate(SubjectCateVo subjectCateVo) {
+         packageDao.UpdateCate(subjectCateVo);
+
+    }
 }
 

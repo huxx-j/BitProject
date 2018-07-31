@@ -77,4 +77,17 @@ public class SubjectCateVo {
     public void setSubject_no(int subject_no) {
         Subject_no = subject_no;
     }
+
+    @Override
+    public String toString() {
+        return "SubjectCateVo{" +
+                "SubjectCate_no=" + SubjectCate_no +
+                ", CateName='" + CateName + '\'' +
+                ", GroupCode=" + GroupCode +
+                ", ParentCode=" + ParentCode +
+                ", Depth=" + Depth +
+                ", OrderCode=" + OrderCode +
+                ", Subject_no=" + Subject_no +
+                '}';
+    }
 }

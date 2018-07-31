@@ -28,7 +28,7 @@
     <!--진현-->
     <insert id="insert" parameterType="SubjectVo" >
         <![CDATA[
-        insert into Subject (SubjectName,Outline) values (#{SubjectName},#{Outline})
+        insert into Subject (SubjectCate_no,SubjectName,Outline) values (#{SubjectCate_no},#{SubjectName},#{Outline})
         ]]>
     </insert>
     <select id="listselect" resultType="SubjectCateVo">
@@ -60,5 +60,24 @@
         insert into SubjectCate (ParentCode,CateName) values (#{SubjectCate_no},#{CateName})
         ]]>
     </insert>
+    <update id="CateUpdate" parameterType="SubjectCateVo">
+        <![CDATA[
+        UPDATE SubjectCate set
+        CateName=#{CateName},
+        ParentCode=#{ParentCode}
+        where
+        SubjectCate_no=#{subjectCate_no}
+        ]]>
+    </update>
+
+    <update id="SubjectUpdate" parameterType="SubjectCateVo">
+        <![CDATA[
+        UPDATE Subject set
+        SubjectName=#{CateName},
+        SubjectCate_no=#{ParentCode}
+         where
+         Subject_no=#{subjectCate_no}
+        ]]>
+    </update>
     <!--진현-->
 </mapper>
