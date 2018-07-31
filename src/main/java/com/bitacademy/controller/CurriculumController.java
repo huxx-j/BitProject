@@ -112,5 +112,12 @@ public class CurriculumController {
 //		return "screening/index_curri";
 //	}
 	
-	
+	@RequestMapping(value = "p")
+	public String p() {
+		return "ex/packmain";
+	}
+	@RequestMapping(value = "s")
+	public String s() {
+		return "ex/subject";
+	}
 }
