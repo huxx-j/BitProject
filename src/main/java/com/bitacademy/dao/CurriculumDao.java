@@ -55,8 +55,9 @@ public class CurriculumDao {
     }
     
     //전체지원자 리스트 조회
-    public ApplicantVo viewApplicantList(String curriculum_no) {
-    	return sqlSession.selectOne("curriculum.viewApplicantList", curriculum_no);
+    public List<ApplicantVo> viewApplicantList(String curriculum_no) {
+    	System.out.println(curriculum_no);
+    	return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
     }
 //    public List<ApplicantVo> studentManagement(String curriculum_no){
 //        System.out.println("[curriDao] studentManagement");

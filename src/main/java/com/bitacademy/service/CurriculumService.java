@@ -42,7 +42,7 @@ public class CurriculumService {
 		return curriDao.curriCateList();
 	}
 	
-	public ApplicantVo viewApplicantList(String curriculum_no){
+	public List<ApplicantVo> viewApplicantList(String curriculum_no){
 		System.out.println("viewApplicantList" + curriculum_no);
 		return curriDao.viewApplicantList(curriculum_no);
 	}
