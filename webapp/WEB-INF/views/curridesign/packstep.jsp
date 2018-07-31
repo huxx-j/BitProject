@@ -116,7 +116,7 @@
 										</table>
 
 										<br>
-										<button  id="btnAddstep" style="margin-bottom:5px; float: right" class="btn btn-info btn-flat" type="button">단계 추가</button>
+										<button  id="btnAddstep" style="margin-bottom:5px; float: right" class="btn btn-default btn-sub pull-right" type="button">단계 추가</button>
 										<li id="step-list">
 
 										<table class="table table-condensed">
@@ -142,7 +142,7 @@
 											<tr id="subject-item0" style="height: 150px">
 												<td></td>
 												<td>
-													<button style=" float: right;" class="btn btn-info btn-flat" type="button">과목선택</button>
+													<button style=" float: right;" class="btn btn-default btn-sub pull-right" type="button">과목선택</button>
 												</td>
 												<td>
 												<textarea name="steplist[0].sublist[0].Content" style="width: 490px; height: 135px;">
@@ -152,7 +152,7 @@
 													<input name="steplist[0].sublist[0].SubHour" style="width:25px; margin-right: 5px" type="text">시간
 												</td>
 												<td>
-													<button  id="del-subject" class="btn btn-info btn-flat" type="button" data-val="0">삭제</button>
+													<button  id="del-subject" class="btn btn-default btn-sub pull-right" type="button" data-val="0">삭제</button>
 												</td>
 											</tr>
 											</tbody>
@@ -161,7 +161,7 @@
 										</li>
 										<div class="sub-toolbox text-center">
 											<input type="submit" value="저장"class="btn btn-primary">
-										</div>
+										</div>ㄴ
 									</div>
 									<!-- /.2번메뉴내용 -->
 								</div><!-- /.sub-box -->
@@ -325,7 +325,7 @@
             str+=    "<tr id=subject-item"+sub+" style='height: 150px'>";
             str+=    "<td></td>";
             str+=    "<td>";
-            str+=    "<button style=' float: right;' class='btn btn-info btn-flat' type='button'>과목선택</button>";
+            str+=    "<button style=' float: right;' class='btn btn-default btn-sub pull-right' type='button'>과목선택</button>";
             str+=    "</td>";
             str+=    "<td>";
             str+=    "<textarea name='steplist["+step+"].sublist["+sub+"].Content' style='width: 490px; height: 135px;'>";

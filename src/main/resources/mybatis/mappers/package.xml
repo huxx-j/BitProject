@@ -22,7 +22,7 @@
         select
         Package_no,
         PackageCate_no,
-        Availability,
+        UseStatus,
         PackageName,
         Goal,
         Content,
@@ -38,7 +38,7 @@
         select
         Package_no,
         PackageCate_no,
-        Availability,
+        UseStatus,
         PackageName,
         Goal,
         Content,
@@ -61,7 +61,7 @@
         insert into Package
         (Package_no,
         PackageCate_no,
-        Availability,
+        UseStatus,
         PackageName,
         Goal,
         Content,
@@ -137,4 +137,11 @@
         ]]>
     </select>
 
+    <update id="CateUpdate" parameterType="PackageCateVo">
+        <![CDATA[
+        UPDATE PackageCate set
+        CateName=#{CateName},
+        ParentCode=#{ParentCode}
+        ]]>
+    </update>
 </mapper>

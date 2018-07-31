@@ -135,8 +135,12 @@
 										</table>
 									</div><!-- /.sub-body -->
 									<div class="sub-toolbox clearfix text-center">
-										<input type="submit" value="수정" class="btn btn-primary">
-										<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">
+										<div id="button">
+											<div id="inner-button">
+											<input type="submit" value="저장" class="btn btn-primary">
+											</div>
+										</div>
+
 									</div>
 								</div><!-- /.sub-box -->
 							</div><!-- /.col-xs-9 -->
@@ -188,6 +192,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
+
 				<button type="button" class="btn btn-primary" id="save">저장</button>
 				<button type="button" class="btn btn-primary" id="btn_cancel">취소</button>
 			</div>
@@ -415,6 +420,7 @@
     }
     <!--드래그용 함수-->
     function beforeDragOpen(treeId, treeNode) {
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " +  "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+" nodes." );
         autoExpandNode = treeNode;
         return true;
     }
@@ -429,14 +435,15 @@
     <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
     function onDrag(event, treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+" nodes." );
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes.id+"/pId:"+treeNodes.pId+" nodes." );
     }
 
     <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
     function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
-        console.log("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        console.log("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType + "이름:" + treeNodes.toString() + "/ID:" + treeNodes+"/pId:"+treeNodes);
+        console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
 
     <!--드래그용 함수-->
@@ -479,20 +486,23 @@
         $("#callbackTrigger").bind("change", {}, setTrigger);
         $("#selectAll").bind("click", selectAll);
     });
+
     function UpdateCate(name,id,pId){
+        console.log(name+id+pId);
         subjectCateVo={
-            CateName : name,
-            SubjectCate_no :id,
-            ParentCode : pId
+            cateName : name,
+            subjectCate_no :id,
+            parentCode : pId
         }
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/UpdateCate",
-            type : "POST",
-            //contentType : "application/json",
-            data : subjectCateVo,
+            type : "post",
+            contentType : "application/json",
+            data : JSON.stringify(subjectCateVo),
             dataType : "json",
-            success : function(SubjectVo) {
-                console.log(SubjectVo);
+
+            success : function(SubjectCateVo) {
+                console.log(SubjectCateVo);
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
@@ -502,6 +512,7 @@
     }
 	function subject(treeId, treeNode, clickFlag) {
 	    var no=treeNode.web;
+	    var str ="";
 	    console.log(no);
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/subajax",
@@ -510,7 +521,14 @@
             data : {"no": no},
            dataType : "json",
             success : function(SubjectVo) {
+
                 console.log(SubjectVo);
+               $("#inner-button").remove();
+               str+="<div id='inner-button'>"
+                str+="<input type='button' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
+				str+='<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">';
+                str+="</div>"
+				$("#button").append(str);
                 $("input[name='SubjectName']").val(SubjectVo.subjectName),
                 $("textarea[name='Outline']").val(SubjectVo.outline),
                 $("select[name='subcate']").val(SubjectVo.subjectCate_no)
@@ -520,7 +538,18 @@
             }
         });
     }
+	$("#btnAddsubject").on("click",function () {
+	    var str=" ";
+        $("input[name='SubjectName']").val("");
+		$("textarea[name='Outline']").val("");
+		$("select[name='subcate']").val("");
+        $("#inner-button").remove();
+        str+="<div id='inner-button'>";
+        str+= '<input type="submit" value="저장" class="btn btn-primary">';
+        str+="</div>";
+        $("#button").append(str);
 
+    })
     $("#addcate").on("click",function(){
        $("#pop").modal();
 	});

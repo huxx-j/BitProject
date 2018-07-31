@@ -60,5 +60,24 @@
         insert into SubjectCate (ParentCode,CateName) values (#{SubjectCate_no},#{CateName})
         ]]>
     </insert>
+    <update id="CateUpdate" parameterType="SubjectCateVo">
+        <![CDATA[
+        UPDATE SubjectCate set
+        CateName=#{CateName},
+        ParentCode=#{ParentCode}
+        where
+        SubjectCate_no=#{subjectCate_no}
+        ]]>
+    </update>
+
+    <update id="SubjectUpdate" parameterType="SubjectCateVo">
+        <![CDATA[
+        UPDATE Subject set
+        SubjectName=#{CateName},
+        SubjectCate_no=#{ParentCode}
+         where
+         Subject_no=#{subjectCate_no}
+        ]]>
+    </update>
     <!--진현-->
 </mapper>

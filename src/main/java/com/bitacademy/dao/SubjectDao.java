@@ -38,7 +38,14 @@ public class SubjectDao {
     public SubjectVo getsub(int no) {
         return sqlSession.selectOne("subject.sub", no);
     }
-
+    public void UpdateCate(SubjectCateVo subjectCateVo) {
+        System.out.println(subjectCateVo.toString()+"dao");
+        sqlSession.update("subject.CateUpdate",subjectCateVo);
+    }
+    public void UpdateSubject(SubjectCateVo subjectCateVo){
+        System.out.println(subjectCateVo.toString()+"dao");
+        sqlSession.update("subject.SubjectUpdate",subjectCateVo);
+    }
     public void addcate(SubjectCateVo subjectCateVo) {
         sqlSession.insert("subject.addcate",subjectCateVo);
     }

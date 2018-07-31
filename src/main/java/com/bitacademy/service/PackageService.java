@@ -68,7 +68,7 @@ public class PackageService {
     }
 
     public void UpdateCate(SubjectCateVo subjectCateVo) {
-        packageDao.UpdateCate(subjectCateVo);
+         packageDao.UpdateCate(subjectCateVo);
 
     }
 }

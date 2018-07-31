@@ -28,7 +28,19 @@ public class SubjectService {
         return subjectDao.selectcatelist();
     }
 
+    public void UpdateCate(SubjectCateVo subjectCateVo) {
+        if(subjectCateVo.getSubjectCate_no()>1000) {
+            System.out.println(subjectCateVo.toString()+"ser");
+            subjectDao.UpdateCate(subjectCateVo);
+        }
+        else if(subjectCateVo.getSubjectCate_no()<=1000){
+            System.out.println(subjectCateVo.toString()+"ser");
+            subjectDao.UpdateSubject(subjectCateVo);
+        }
 
+        //subjectDao.UpdateCate(subjectCateVo);
+
+    }
     public List<SubjectVo> getsublist(){
 
         return subjectDao.selectsublist();

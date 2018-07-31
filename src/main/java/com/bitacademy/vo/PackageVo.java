@@ -3,7 +3,7 @@ package com.bitacademy.vo;
 public class PackageVo {
     private int Package_no;
     private int PackageCate_no;
-    private int Availability;
+    private int UseStatus;
     private String PackageName;
     private String Goal;
     private String Content;
@@ -13,10 +13,10 @@ public class PackageVo {
     public PackageVo() {
     }
 
-    public PackageVo(int package_no, int packageCate_no, int availability, String packageName, String goal, String content, String qualification, int totalTime) {
+    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime) {
         Package_no = package_no;
         PackageCate_no = packageCate_no;
-        Availability = availability;
+        UseStatus = useStatus;
         PackageName = packageName;
         Goal = goal;
         Content = content;
@@ -40,12 +40,12 @@ public class PackageVo {
         PackageCate_no = packageCate_no;
     }
 
-    public int getAvailability() {
-        return Availability;
+    public int getUseStatus() {
+        return UseStatus;
     }
 
-    public void setAvailability(int availability) {
-        Availability = availability;
+    public void setUseStatus(int useStatus) {
+        UseStatus = useStatus;
     }
 
     public String getPackageName() {
@@ -93,7 +93,7 @@ public class PackageVo {
         return "PackageVo{" +
                 "Package_no=" + Package_no +
                 ", PackageCate_no=" + PackageCate_no +
-                ", Availability=" + Availability +
+                ", UseStatus=" + UseStatus +
                 ", PackageName='" + PackageName + '\'' +
                 ", Goal='" + Goal + '\'' +
                 ", Content='" + Content + '\'' +

@@ -19,6 +19,7 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
+
     @RequestMapping("/main")
     public String mai1n2(Model model) {
         List<SubjectCateVo> list = subjectService.getcatelist();
@@ -29,18 +30,34 @@ public class SubjectController {
         model.addAttribute("sublist", sublist);
 //        model.addAttribute("mdlist", mdlist);
         model.addAttribute("nonlist", nonlist);
+        model.addAttribute("formatflag",0);
         System.out.println(nonlist);
         return "curridesign/subject";
     }
     @ResponseBody
+    @RequestMapping(value = "/UpdateCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public void UpdateCate(@RequestBody SubjectCateVo subjectCateVo) {
+
+        System.out.println(subjectCateVo.toString()+"Con");
+        subjectService.UpdateCate(subjectCateVo);
+    }
+    @ResponseBody
     @RequestMapping(value = "/subajax", method = {RequestMethod.POST,RequestMethod.GET})
-    public SubjectVo subajax(@RequestParam("no") int no) {
+    public SubjectVo subajax(@RequestParam("no") int no ){
         System.out.println(subjectService.getsub(no));
         SubjectVo subjectVo = subjectService.getsub(no);
         System.out.println("요거? > " + subjectVo);
         return subjectVo;
 //       return subjectService.getsub(no);
     }
+    @ResponseBody
+    @RequestMapping(value = "/addformat", method = {RequestMethod.POST,RequestMethod.GET})
+    public void addformat(@RequestParam("formatflag") int formatflag ) {
+        System.out.println(formatflag);
+    }
+
+
+
     @RequestMapping(value = "/addcate", method = RequestMethod.POST)
     public void addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
         SubjectCateVo subjectCateVo=new SubjectCateVo();

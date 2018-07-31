@@ -1,6 +1,7 @@
 package com.bitacademy.controller;
 
 import com.bitacademy.service.PackageService;
+import com.bitacademy.service.SubjectService;
 import com.bitacademy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class PackageController {
 
     @Autowired
     private PackageService packageService;
+    @Autowired
+    private SubjectService subjectService;
+
     @ResponseBody
     @RequestMapping(value = "/stepajax", method = {RequestMethod.POST,RequestMethod.GET})
     public void stepajax(@RequestParam("no") int no) {
@@ -30,9 +34,8 @@ public class PackageController {
     @ResponseBody
     @RequestMapping(value = "/UpdateCate", method = {RequestMethod.POST,RequestMethod.GET})
     public void UpdateCate(@RequestParam("subjectCateVo") SubjectCateVo subjectCateVo) {
+        System.out.println(subjectCateVo);
         packageService.UpdateCate(subjectCateVo);
-        //return packageVo;
-//       return subjectService.getsub(no);
     }
 
     @ResponseBody
@@ -54,10 +57,14 @@ public class PackageController {
     }
     @RequestMapping("/main")
     public String main(Model model){
-        List<PackageCateVo> list=packageService.getcatelist();
+        List<PackageCateVo> packcatelist=packageService.getcatelist();
         List<PackageVo> packlist=packageService.getpacklist();
+        List<SubjectCateVo> subcatelist = subjectService.getcatelist();
+        List<SubjectVo> sublist= subjectService.getsublist();
         System.out.println(packlist.toString());
-        model.addAttribute("list",list);
+        model.addAttribute("subcatelist", subcatelist);
+        model.addAttribute("sublist", sublist);
+        model.addAttribute("packcatelist",packcatelist);
         model.addAttribute("packlist",packlist);
         return "curridesign/packmain";
     }
