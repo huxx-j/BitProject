@@ -194,12 +194,12 @@
 
 														<tr>
 															<th  style="width : 100px">패키지명</th>
-															<td name='PackageName' style="width : 500px" colspan="3" value="">
+															<td name='PackageName' style="width : 400px" colspan="3" value="">
 																<input name="PackageName" type="text" readonly style="border: none; width: 500px">
 															</td>
 															<th style="width : 100px" colspan="2">총 교육시간</th>
-															<td name='TotalTime' style="width : 100px" value="">
-																<input name="Time" type="text"  readonly>/<input name="TotalTime" type="text"  readonly style="border: none">시간
+															<td name='TotalTime' style="width : 200px" value="">
+																<input name="Time" type="text"  style="width: 30px" readonly>/<input name="TotalTime" type="text"  readonly style="border: none;width: 30px">시간
 															</td>
 														</tr>
 														</tbody>
