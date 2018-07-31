@@ -30,13 +30,13 @@
     <!-- 커리큘럼 조회 -->
      <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
  		<![CDATA[
-  			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName, 
+  			SELECT 	c.workType, c.curriculum_no, c.package_no, c.curriName, 
   					c.startDate, c.endDate, c.testDate, c.time, c.maxCnt, c.price, 
   					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName 
-  			FROM Curriculum as c 
- 			JOIN Package as p ON c.package_no = p.package_no 
- 			JOIN Gisu as g ON c.curriculum_no = g.curriculum_no 
-  			WHERE c.curriculum_no = #{curriculum_no} 
+			FROM Curriculum as c, Package as p, Gisu as g
+			WHERE c.Package_no = p.Package_no 
+			AND g.Curriculum_no = c.Curriculum_no
+			AND c.curriculum_no = #{curriculum_no};
   		]]> 
   	</select>
  	
@@ -105,13 +105,15 @@
 			FROM CurriculumCate;
 		]]>
 	</select>
-
-	<select id = "viewApplicantList" resultType = "com.bitacademy.vo.ApplicantVo">
+	
+<!-- 	//전체지원자리스트 조회 -->
+	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
 			SELECT u.User_no, u.NameHan, u.BirthDate, u.gender, a.TestResult, c.curriculum_no
-			FROM ApplyInfo as a 
-			JOIN Users as u ON a.User_no = u.User_no
-			JOIN Curriculum as c ON a.curriculum_no = c.curriculum_no  
+			FROM ApplyInfo as a, Users as u, Curriculum as c 
+			WHERE a.User_no = u.User_no
+			AND c.curriculum_no = a.curriculum_no
+			AND a.curriculum_no = #{curriculum_no}
 		]]>
 	
 	</select>

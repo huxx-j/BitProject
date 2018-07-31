@@ -169,11 +169,11 @@
 											<th>상태</th>
 											<td colspan="3">
 												<div class="radio-group">
-													<label class="radiobox"><input class="state" type="radio" name="state" value="준비중">준비중</label>
-													<label class="radiobox"><input class="state" type="radio" name="state" value="모집중">모집중</label>
-													<label class="radiobox"><input class="state" type="radio" name="state" value="모집마감">모집마감</label>
-													<label class="radiobox"><input class="state" type="radio" name="state" value="수업중">수업중</label>
-													<label class="radiobox"><input class="state" type="radio" name="state" value="종료">종료</label>
+													<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="준비중">준비중</label>
+													<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="모집중">모집중</label>
+													<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="모집마감">모집마감</label>
+													<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="수업중">수업중</label>
+													<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="종료">종료</label>
 												</div>
 											</td>
 											<th>기수</th>

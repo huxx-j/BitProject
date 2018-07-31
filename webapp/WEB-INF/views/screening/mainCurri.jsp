@@ -336,33 +336,44 @@
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         console.log(treeObj);
     });
+    
+    //교육과정 클릭 시 정보 뿌려줌
     function package(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
         console.log(curriculum_no);
         $.ajax({
             url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
             type : "POST",
-            data : {"curriculum_no": curriculum_no},
+//             data : {"curriculum_no": curriculum_no},
             dataType : "json",
 //             async: false,
-            success : function(CurriculumVo) {
-                console.log(CurriculumVo);
-                $("#workType").val(CurriculumVo.workType).prop("selected",true),
-                $("input[name='package_no']").val(CurriculumVo.package_no),
-                $("input[name='packageName']").val(CurriculumVo.packageName),
-                $("input[name='curriculum_no']").val(CurriculumVo.curriculum_no),
-				$("input[name='curriName']").val(CurriculumVo.curriName),
-				$("input[name='curriNickname']").val(CurriculumVo.curriNickname),
-				$("input[name='startDate']").val(CurriculumVo.startDate),
-				$("input[name='endDate']").val(CurriculumVo.endDate),
-				$("input[name='testDate']").val(CurriculumVo.testDate),
-				$("input[name='time']").val(CurriculumVo.time),
-				$("input[name='maxCnt']").val(CurriculumVo.maxCnt),
-				$("input[name='price']").val(CurriculumVo.price),
-				$("input[name='support']").val(CurriculumVo.support),
-				$("input[name='managerInfo']").val(CurriculumVo.managerInfo),
-				$("input[name='gisuName']").val(CurriculumVo.gisuName),
-				$("input[name='state'][value="+CurriculumVo.state+"]").attr("checked",true)
+            success : function(curriAllVo) {
+                
+            	console.log(curriAllVo);
+            	console.log(curriAllVo.curriculumVo);
+            	console.log(curriAllVo.applicantList);
+            	
+                console.log(curriAllVo.curriculumVo.state);
+                console.log(curriAllVo.applicantList);
+                
+                $("#workType").val(curriAllVo.curriculumVo.workType).prop("selected",true),
+                $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
+                $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
+                $("input[name='curriculum_no']").val(curriAllVo.curriculumVo.curriculum_no),
+				$("input[name='curriName']").val(curriAllVo.curriculumVo.curriName),
+				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
+				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
+				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
+				$("input[name='testDate']").val(curriAllVo.curriculumVo.testDate),
+				$("input[name='time']").val(curriAllVo.curriculumVo.time),
+				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
+				$("input[name='price']").val(curriAllVo.curriculumVo.price),
+				$("input[name='support']").val(curriAllVo.curriculumVo.support),
+				$("input[name='managerInfo']").val(curriAllVo.curriculumVo.managerInfo),
+				$("input[name='gisuName']").val(curriAllVo.curriculumVo.gisuName),
+            	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
+				$("input[name='state'][value="+curriAllVo.curriculumVo.state+"]").attr("checked",true)
+				
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);

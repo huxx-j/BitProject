@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.service.CurriculumService;
 import com.bitacademy.vo.ApplicantVo;
+import com.bitacademy.vo.CurriAllVo;
 import com.bitacademy.vo.CurriculumVo;
 
 @Controller
@@ -50,26 +51,26 @@ public class CurriculumController {
 	//curriculum_no값으로 교육과정 조회
 	@ResponseBody
 	@RequestMapping(value = "/{curriculum_no}")
-	public CurriculumVo viewCurriculum(@PathVariable String curriculum_no) {
-//		System.out.println("[curriController] IN");
-//		System.out.println("curriculum_no: " + curriculum_no);
+	public CurriAllVo viewCurriculum(@PathVariable String curriculum_no) {
+		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
+		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
 		
-		CurriculumVo curriVo = curriService.viewCurriculum(curriculum_no);
-//		System.out.println("curri toString" + curriVo);
-		return curriVo;
+		
+		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList);
+		System.out.println(curriAllVo.toString());
+		return curriAllVo;
 	}
 	
-	//지원자관리탭 (curriculum_no값으로 지원자 조회)
-	@ResponseBody
-	@RequestMapping(value = "viewApplicantList/{curriculum_no}")
-	public ApplicantVo viewApplicantList(@PathVariable String curriculum_no) {
-		System.out.println("[curriController] IN");
-		System.out.println("curriculum_no: " + curriculum_no);
-		
-		ApplicantVo applicantVo = curriService.viewApplicantList(curriculum_no);
-		System.out.println("지원자목록" + applicantVo);
-		return applicantVo;
-	}
+//	//지원자관리탭 (curriculum_no값으로 지원자 조회)
+//	@ResponseBody
+//	@RequestMapping(value = "viewApplicantList/{curriculum_no}")
+//	public List<ApplicantVo> viewApplicantList(@PathVariable int curriculum_no) {
+//		System.out.println("[curriController] IN");
+//		System.out.println("curriculum_no: " + curriculum_no);
+//		
+//		System.out.println("지원자목록" + applicantVo);
+//		return applicantVo;
+//	}
 	
 //	@RequestMapping(value = "/{curriculum_no}")
 //	public String viewCurriculum(@PathVariable String curriculum_no, Model model) {
