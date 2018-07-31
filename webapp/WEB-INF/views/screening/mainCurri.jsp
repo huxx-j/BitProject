@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -89,7 +88,7 @@
 										<li class = ""><a href = "#tab_3" data-toggle = "tab">교육생관리</a></li>
 										<li class = ""><a href = "#tab_4" data-toggle = "tab">강사배정</a></li>
 										<li class = ""><a href = "#tab_5" data-toggle = "tab">강의실배정</a></li>
-										<a href = "${pageContext.request.contextPath }/curri/addCurriBtn">
+										<a href = "${pageContext.request.contextPath }/curri/addCurriForm">
 											<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" >교육과정추가</button>
 										</a>
 									</ul><!-- /.nav nav-tabs -->
@@ -185,7 +184,7 @@
 																		<th>시작일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style="border: 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="periodFr" id="date2"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="startDate" id="date2"  data-select="datepicker" style="border: none; ">
 				                                                                <span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                   		<label for="date2"><i class="fa fa-calendar"></i></label>
@@ -197,7 +196,7 @@
 																		<th>종료일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="periodTo" id="date1"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="endDate" id="date1"  data-select="datepicker" style="border: none; ">
 																				<span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                    	<label for="date1"><i class="fa fa-calendar"></i></label>
@@ -209,7 +208,7 @@
 																		<th>전형일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="startDay" id="date3"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="testDate" id="date3"  data-select="datepicker" style="border: none; ">
 																				<span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                    	<label for="date3"><i class="fa fa-calendar"></i></label>
@@ -226,13 +225,13 @@
 																		</td>
 																		<th>정원</th>
 																		<td>
-																			<input type="text" class="form-control input-sm " style = "float:left; width : 150px;"name = "num"<%--  value="${curri.num }" --%>>명
+																			<input type="text" class="form-control input-sm " style = "float:left; width : 150px;"name = "maxCnt"<%--  value="${curri.num }" --%>>명
 																		</td>
 																	</tr>
 																	<tr>
 																		<th>교육비용</th>
 																		<td>
-																			<input type="text" class="form-control input-sm" name = "money"<%--  value="${curri.money }" --%>>
+																			<input type="text" class="form-control input-sm" name = "price"<%--  value="${curri.money }" --%>>
 																		</td>
 																		<th>교육비지원</th>
 																		<td>
@@ -240,16 +239,16 @@
 																		</td>
 																		<th>문의</th>
 																		<td>
-																			<input type="text" class="form-control input-sm" name = "inquiry" <%-- value="${curri.inquiry }" --%>>
+																			<input type="text" class="form-control input-sm" name = "managerInfo" <%-- value="${curri.inquiry }" --%>>
 																		</td>
 																	</tr>
 																	<tr>
 																		<th>상태</th>
-																		<td colspan="3"><label class="form-controll-static"><input class="state1" type="radio" name="state1" value="준비중" <%-- ${curri.state == '준비중'?'checked':'' } --%>>준비중</label>
-																			<label class="form-controll-static"><input class="state2" type="radio" name="state2" value="모집중" <%-- ${curri.state == '모집중'?'checked':'' } --%>>모집중</label>
-																			<label class="form-controll-static"><input class="state3" type="radio" name="state3" value="모집마감" <%-- ${curri.state == '모집마감'?'checked':'' } --%>>모집마감</label>
-																			<label class="form-controll-static"><input class="state4" type="radio" name="state4" value="수업중" <%-- ${curri.state == '수업중'?'checked':'' } --%>>수업중</label>
-																			<label class="form-controll-static"><input class="state5" type="radio" name="state5" value="종료" <%-- ${curri.state == '종료'?'checked':'' } --%>>종료</label>
+																		<td colspan="3"><label class="form-controll-static"><input class="state" type="radio" name="state" value="준비중" <%-- ${curri.state == '준비중'?'checked':'' } --%>>준비중</label>
+																			<label class="form-controll-static"><input class="state" type="radio" name="state" value="모집중" <%-- ${curri.state == '모집중'?'checked':'' } --%>>모집중</label>
+																			<label class="form-controll-static"><input class="state" type="radio" name="state" value="모집마감" <%-- ${curri.state == '모집마감'?'checked':'' } --%>>모집마감</label>
+																			<label class="form-controll-static"><input class="state" type="radio" name="state" value="수업중" <%-- ${curri.state == '수업중'?'checked':'' } --%>>수업중</label>
+																			<label class="form-controll-static"><input class="state" type="radio" name="state" value="종료" <%-- ${curri.state == '종료'?'checked':'' } --%>>종료</label>
 																		</td>
 																		<th>기수</th>
 																		<td><input type="text" class="form-control input-sm" name = "gisuName"></td>
@@ -339,10 +338,10 @@
 																					<th>선택</th>
 																				</tr>
 																				<tr>
-																					<td></td>
-																					<td></td>
-																					<td></td>
-																					<td></td>
+																					<td><input type = "text" class = "form-control input-sm" name = "nameHan" style = "border : none;"></td>
+																					<td><input type = "text" class = "form-control input-sm" name = "birthDate" style = "border : none;"></td>
+																					<td><input type = "text" class = "form-control input-sm" name = "gender" style = "border : none;"></td>
+																					<td><input type = "text" class = "form-control input-sm" name = "testResult" style = "border : none;"></td>
 																					<td>
 																						<label class = "form-control-static"><input type = "checkbox" class = "" name = "gisuGrant" value = ""></label>
 																					</td>
@@ -467,6 +466,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
 <script type="text/javascript">
+//교육과정 카테고리 탭
     var setting = {
         data: {
             simpleData: {
@@ -489,129 +489,63 @@
 
     $(document).ready(function(){
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        console.log(nodes);
-        
+        console.log(treeObj);
     });
-	
     function package(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
         console.log(curriculum_no);
         $.ajax({
             url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
-//	        url : "${pageContext.request.contextPath }/curri/curriAjax",
             type : "POST",
-            //contentType : "application/json",
             data : {"curriculum_no": curriculum_no},
             dataType : "json",
+//             async: false,
             success : function(CurriculumVo) {
                 console.log(CurriculumVo);
-//                 $("#workType option:eq(국가기간)").attr("selected", "selected"),
-//                 $("#workType option:eq(핵심역량)").attr("selected", "selected"),
-//                 $("#workType option:eq(방학단기)").attr("selected", "selected"),
-//                 $("#workType").index($("#workType option:selected")),
-				$("input:radio[name='state2']:checked").val(CurriculumVo.state),
+                $("#workType").val(CurriculumVo.workType).prop("selected",true),
                 $("input[name='package_no']").val(CurriculumVo.package_no),
                 $("input[name='packageName']").val(CurriculumVo.packageName),
                 $("input[name='curriculum_no']").val(CurriculumVo.curriculum_no),
 				$("input[name='curriName']").val(CurriculumVo.curriName),
 				$("input[name='curriNickname']").val(CurriculumVo.curriNickname),
-				$("input[name='periodFr']").val(CurriculumVo.periodFr),
-				$("input[name='periodTo']").val(CurriculumVo.periodTo),
-				$("input[name='startDay']").val(CurriculumVo.startDay),
+				$("input[name='startDate']").val(CurriculumVo.startDate),
+				$("input[name='endDate']").val(CurriculumVo.endDate),
+				$("input[name='testDate']").val(CurriculumVo.testDate),
 				$("input[name='time']").val(CurriculumVo.time),
-				$("input[name='num']").val(CurriculumVo.num),
-				$("input[name='money']").val(CurriculumVo.money),
+				$("input[name='maxCnt']").val(CurriculumVo.maxCnt),
+				$("input[name='price']").val(CurriculumVo.price),
 				$("input[name='support']").val(CurriculumVo.support),
-				$("input[name='inquiry']").val(CurriculumVo.inquiry),
-//                     $("input:radio[name=state]:input[value='+state+']").attr("checked",true),
-                    
-				$("input[name='gisuName']").val(CurriculumVo.gisuName)
+				$("input[name='managerInfo']").val(CurriculumVo.managerInfo),
+				$("input[name='gisuName']").val(CurriculumVo.gisuName),
+				$("input[name='state'][value="+CurriculumVo.state+"]").attr("checked",true)
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
     }
-    // 	$("#viewCurriInfo").on("click", function(){
-    // 		console.log("[viewCurriInfo] IN");
-
-    // 		/* 데이터 모으기 */
-    // 		var curriculum_no = $("[name = curriculum_no]").val();
-    // 		console.log(curriculum_no);
-    // 		/* 리스트 요청 ajax */
-    // 		$.ajax({
-
-    // 			url : "${pageContext.request.contextPath }/WEB-INF/views/screening/includes/nav_bar.jsp",
-    // 			type : "get",
-    // 			/* contentType : "application/json" */
-    // 	 		data : {curriculum_no : curriculum_no},
-    // 			/* data : JSON.stringify(guestbookVo), */
-    // 			dataType : "json",
-    // // 			cache : false,
-    // 			success : function(data){ //guestbookList가 apiGuestbookController의 guestbookList랑 같은 애는 아님.
-    // 				/*성공시 처리해야될 코드 작성*/
-    // 				console.log(data);
-    // 			},
-    // 			error : function(XHR, status, error) {
-    // 				console.error(status + " : " + error);
-    // 			}
-    // 		});
-    // 	});
-    // });
-
-
-    // // 체크박스//
-    // function selectDelRow() {
-
-    // 	var chk = document.getElementsByName("del_unit[]"); // 체크박스객체를 담는다
-    // 	var len = chk.length;    //체크박스의 전체 개수
-    // 	var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
-    // 	var checkCnt = 0;        //체크된 체크박스의 개수
-    // 	var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
-    // 	var rowid = '';             //체크된 체크박스의 모든 value 값을 담는다
-    // 	var cnt = 0;
-
-    // 	for(var i=0; i<len; i++){
-    // 		if(chk[i].checked == true){
-    // 			checkCnt++;        //체크된 체크박스의 개수
-    // 			checkLast = i;     //체크된 체크박스의 인덱스
-    // 		}
-    // 	}
-
-    // 	for(var i=0; i<len; i++){
-
-    // 		if(chk[i].checked == true){  //체크가 되어있는 값 구분
-
-    // 			checkRow = chk[i].value;
-
-
-
-    // 			if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
-
-    // 			rowid += "'"+checkRow+"'";        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-
-    // 			}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
-
-    // 			if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
-
-    // 			rowid += "'"+checkRow+"'";  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-
-    // 			}else{
-
-    // 			rowid += "'"+checkRow+"',";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)
-
-    // 			}
-    // 		}
-    // 		cnt++;
-
-    // 		checkRow = '';    //checkRow초기화.
-
-    // 	}
-    // 	alert(rowid);    //'value1', 'value2', 'value3' 의 형태로 출력된다.
-
-    // }
-    //////////////////////////////////////////////////////////////////////////
-
+  	/* $(document).on("click", "#treeDemo", function(){
+  		var curriculum_no = treeNode.web;
+  		console.log(curriculum_no);
+  		
+  		$.ajax({
+  			url : "${pageContext.request.contextPath}/curri/viewApplicantList/"+curriculum_no,
+  			type : "POST",
+  			data : {"curriculum_no" : curriculum_no},
+  			dataType : "json",
+  			async: false,
+  			success : function(ApplicantVo){
+  				console.log(ApplicantVo);
+  				$("input[name = 'nameHan']").val(ApplicantVo.nameHan),
+  				$("input[name = 'birthDate']").val(ApplicantVo.birthDate),
+  				$("input[name = 'gender']").val(ApplicantVo.gender),
+  				$("input[name = 'testResult']").val(ApplicantVo.testResult)
+  			},
+  			error : function(XHR, status, error){
+  				console.error(status + " : " + error);
+  			}
+  		});
+  	}); */
     //****************************************
     //**			현재 탭 유지					**
     //****************************************
@@ -644,7 +578,6 @@
         $('a[href=\'' + anchor + '\']').tab('show');
     });
     //****************************************
-
 
     //달력1
     $("#date1").datepicker();

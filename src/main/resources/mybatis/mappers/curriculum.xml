@@ -27,46 +27,40 @@
 
 
     <!--희준-->
-    <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
+    <!-- 커리큘럼 조회 -->
+     <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
  		<![CDATA[
- 			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName, 
- 					c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money, 
- 					c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName
- 			FROM Curriculum as c
- 			JOIN Package as p ON c.package_no = p.package_no
- 			JOIN Gisu as g ON c.curriculum_no = g.curriculum_no
- 			WHERE c.curriculum_no = #{curriculum_no}
- 		]]>
- 	</select>
-<!--     <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" > -->
-<!--  		<![CDATA[ -->
-<!--  			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName,  -->
-<!--  					c.periodFr, c.periodTo, c.startDay, c.time, c.num, c.money,  -->
-<!--  					c.support, c.inquiry, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName -->
-<!--  			FROM Curriculum as c, Gisu as g, Package as p -->
-<!-- 			WHERE c.curriculum_no and g.curriculum_no = #{curriculum_no} and c.package_no = #{package_no}  -->
-<!--  		]]> -->
-<!--  	</select> -->
-
+  			SELECT  c.workType, c.curriculum_no, c.package_no, c.curriName, 
+  					c.startDate, c.endDate, c.testDate, c.time, c.maxCnt, c.price, 
+  					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, p.packageName, g.gisuName 
+  			FROM Curriculum as c 
+ 			JOIN Package as p ON c.package_no = p.package_no 
+ 			JOIN Gisu as g ON c.curriculum_no = g.curriculum_no 
+  			WHERE c.curriculum_no = #{curriculum_no} 
+  		]]> 
+  	</select>
+ 	
+	<!-- 커리큘럼 수정 -->
     <update id = "edit" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
  			UPDATE Curriculum
  			SET
  			curriName = #{curriName}
  			, curriNickname = #{curriNickname}
- 			, periodFr = #{periodFr}
- 			, periodTo = #{periodTo}
- 			, startDay = #{startDay}
+ 			, startDate = #{startDate}
+ 			, endDate = #{endDate}
+ 			, testDate = #{testDate}
  			, time = #{time}
- 			, num = #{num}
- 			, money = #{money}
+ 			, maxCnt = #{maxCnt}
+ 			, price = #{price}
  			, support = #{support}
- 			, inquiry = #{inquiry}
+ 			, managerInfo = #{managerInfo}
  			, state = #{state}
  			WHERE curriculum_no = #{curriculum_no}
  		]]>
  	</update>
 
+	<!-- 커리큘럼 추가 -->
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
  			INSERT INTO Curriculum (curriculumCate_no, workType, curriName, curriNickname, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, package_no)
@@ -75,19 +69,21 @@
 				#{workType},
 				#{curriName},
 				#{curriNickname},
-				#{periodFr},
-				#{periodTo},
-				#{startDay},
+				#{startDate},
+				#{endDate},
+				#{testDate},
 				#{time},
-				#{num},
-				#{money},
+				#{maxCnt},
+				#{price},
 				#{support},
-				#{inquiry},
+				#{managerInfo},
 				#{state},
 			    (SELECT package_no from Package WHERE package_no = #{package_no})
 			    );
  		]]>
  	</insert>
+ 	
+ 	<!-- 교육생관리탭 교육생조회 -->
     <select id = "studentManagement"  resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
 			SELECT  u.user_no, u.nameHan, u.birthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.testResult, c.curriname
@@ -95,9 +91,10 @@
 			WHERE u.User_no = a.User_no and c.curriculum_no = 1 and a.curriculum_no = 1
 		]]>
 	</select>
+	
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
-			SELECT workType, curriculum_no, package_no, curriculumCate_no, workType, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state, curriNickname
+			SELECT workType, curriculum_no, package_no, curriculumCate_no, workType, curriName, startDate, endDate, testDate, time, maxCnt, price, support, managerInfo, state, curriNickname
 			FROM Curriculum;
 		]]>
 	</select>
@@ -106,36 +103,20 @@
 		<![CDATA[
 			SELECT curriculumCate_no, cateName, groupCode, parentCode, depth
 			FROM CurriculumCate;
-
 		]]>
+	</select>
 
+	<select id = "viewApplicantList" resultType = "com.bitacademy.vo.ApplicantVo">
+		<![CDATA[
+			SELECT u.User_no, u.NameHan, u.BirthDate, u.gender, a.TestResult, c.curriculum_no
+			FROM ApplyInfo as a 
+			JOIN Users as u ON a.User_no = u.User_no
+			JOIN Curriculum as c ON a.curriculum_no = c.curriculum_no  
+		]]>
+	
 	</select>
 
 
-    <!--
-
-    <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo">
-        <![CDATA[
-
-            select curriculum_no, package_no, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state
-            from Curriculum
-            where curriculum_no = 2
-
-        ]]>
-    </select>
-
-     -->
-    <!--
-   <select id="viewCurriculumInfo" parameterType="int" resultType="com.bitacademy.vo.CurriculumVo">
-       <![CDATA[
-
-           select curriculum_no, package_no, curriName, periodFr, periodTo, startDay, time, num, money, support, inquiry, state
-           from Curriculum
-           where curriculum_no = #{curriculum_no}
-
-       ]]>
-   </select>
-     -->
     <!--
     <select id = "studentManagement" parameterType = "String" resultType = "com.bitacademy.vo.ApplicantVo">
         <![CDATA[

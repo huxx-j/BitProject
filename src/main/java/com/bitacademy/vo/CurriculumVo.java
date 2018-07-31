@@ -9,14 +9,14 @@ public class CurriculumVo {
 	private String workType;
 	private String curriName;
 	private String curriNickname;
-	private String periodFr;
-	private String periodTo;
-	private String startDay;
+	private String startDate;
+	private String endDate;
+	private String testDate;
 	private String time;
-	private int num;
-	private String money;
+	private int maxCnt;
+	private String price;
 	private String support;
-	private String inquiry;
+	private String managerInfo;
 	private String state;
 	private boolean mainViewFlag;
 	private boolean datailViewFlag;
@@ -25,8 +25,8 @@ public class CurriculumVo {
 		super();
 	}
 	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String workType,
-			String curriName, String curriNickname, String periodFr, String periodTo, String startDay, String time,
-			int num, String money, String support, String inquiry, String state, boolean mainViewFlag,
+			String curriName, String curriNickname, String startDate, String endDate, String testDate, String time,
+			int maxCnt, String price, String support, String managerInfo, String state, boolean mainViewFlag,
 			boolean datailViewFlag, String gisuName) {
 		super();
 		this.curriculumCate_no = curriculumCate_no;
@@ -36,14 +36,14 @@ public class CurriculumVo {
 		this.workType = workType;
 		this.curriName = curriName;
 		this.curriNickname = curriNickname;
-		this.periodFr = periodFr;
-		this.periodTo = periodTo;
-		this.startDay = startDay;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.testDate = testDate;
 		this.time = time;
-		this.num = num;
-		this.money = money;
+		this.maxCnt = maxCnt;
+		this.price = price;
 		this.support = support;
-		this.inquiry = inquiry;
+		this.managerInfo = managerInfo;
 		this.state = state;
 		this.mainViewFlag = mainViewFlag;
 		this.datailViewFlag = datailViewFlag;
@@ -91,23 +91,23 @@ public class CurriculumVo {
 	public void setCurriNickname(String curriNickname) {
 		this.curriNickname = curriNickname;
 	}
-	public String getPeriodFr() {
-		return periodFr;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setPeriodFr(String periodFr) {
-		this.periodFr = periodFr;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
-	public String getPeriodTo() {
-		return periodTo;
+	public String getEndDate() {
+		return endDate;
 	}
-	public void setPeriodTo(String periodTo) {
-		this.periodTo = periodTo;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
-	public String getStartDay() {
-		return startDay;
+	public String getTestDate() {
+		return testDate;
 	}
-	public void setStartDay(String startDay) {
-		this.startDay = startDay;
+	public void setTestDate(String testDate) {
+		this.testDate = testDate;
 	}
 	public String getTime() {
 		return time;
@@ -115,17 +115,17 @@ public class CurriculumVo {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getNum() {
-		return num;
+	public int getMaxCnt() {
+		return maxCnt;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setMaxCnt(int maxCnt) {
+		this.maxCnt = maxCnt;
 	}
-	public String getMoney() {
-		return money;
+	public String getPrice() {
+		return price;
 	}
-	public void setMoney(String money) {
-		this.money = money;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	public String getSupport() {
 		return support;
@@ -133,11 +133,11 @@ public class CurriculumVo {
 	public void setSupport(String support) {
 		this.support = support;
 	}
-	public String getInquiry() {
-		return inquiry;
+	public String getManagerInfo() {
+		return managerInfo;
 	}
-	public void setInquiry(String inquiry) {
-		this.inquiry = inquiry;
+	public void setManagerInfo(String managerInfo) {
+		this.managerInfo = managerInfo;
 	}
 	public String getState() {
 		return state;
@@ -167,10 +167,13 @@ public class CurriculumVo {
 	public String toString() {
 		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no + ", packageName="
 				+ packageName + ", curriculum_no=" + curriculum_no + ", workType=" + workType + ", curriName="
-				+ curriName + ", curriNickname=" + curriNickname + ", periodFr=" + periodFr + ", periodTo=" + periodTo
-				+ ", startDay=" + startDay + ", time=" + time + ", num=" + num + ", money=" + money + ", support="
-				+ support + ", inquiry=" + inquiry + ", state=" + state + ", mainViewFlag=" + mainViewFlag
+				+ curriName + ", curriNickname=" + curriNickname + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", testDate=" + testDate + ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support="
+				+ support + ", managerInfo=" + managerInfo + ", state=" + state + ", mainViewFlag=" + mainViewFlag
 				+ ", datailViewFlag=" + datailViewFlag + ", gisuName=" + gisuName + "]";
 	}
-
+	
+	
+	
+	
 }

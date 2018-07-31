@@ -54,7 +54,7 @@
 									<div class = "cate-outter bordered">
 										<div class = "cate-toolbox">
 											<button type = "button" class = "btn btn-default btn-cate">추가</button>
-											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>"
+											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
 										</div><!-- /.cate-toolbox -->
 										<div class = "scroll">
 											<div class = "tab-content-custom" style = "height:500px;">
@@ -115,8 +115,8 @@
 																		</td>
 																		<th>선택패키지</th>
 																		<td>
-																			<input type = "hidden" name = "package_no" style = "border:none;" value = "1">
-																			<input type = "form-control input-sm" readonly name = "packageName" style = "border:none; width : 60%;" value = "(웹)자바 스프링 Node 960시간">
+																			<input type = "hidden" name = "package_no" style = "border:none;">
+																			<input type = "form-control input-sm" readonly name = "packageName" style = "border:none; width : 60%;" >
 																			<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
 																		</td>
 																	</tr>
@@ -178,7 +178,7 @@
 																		<th>시작일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style="border: 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="periodFr" id="date2"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="startDate" id="date2"  data-select="datepicker" style="border: none; ">
 				                                                                <span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                   		<label for="date2"><i class="fa fa-calendar"></i></label>
@@ -190,7 +190,7 @@
 																		<th>종료일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="periodTo" id="date1"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="endDate" id="date1"  data-select="datepicker" style="border: none; ">
 																				<span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                    	<label for="date1"><i class="fa fa-calendar"></i></label>
@@ -202,7 +202,7 @@
 																		<th>전형일</th>
 																		<td>
 																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="startDay" id="date3"  data-select="datepicker" style="border: none; ">
+																				<input type="text" class="form-control input-sm " name="testDate" id="date3"  data-select="datepicker" style="border: none; ">
 																				<span class="input-group-btn">
 				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
 				                                                                    	<label for="date3"><i class="fa fa-calendar"></i></label>
@@ -219,13 +219,13 @@
 																		</td>
 																		<th>정원</th>
 																		<td>
-																			<input type="text" class="form-control input-sm " style = "float:left; width : 150px;"name = "num"<%--  value="${curri.num }" --%>>명
+																			<input type="text" class="form-control input-sm " style = "float:left; width : 150px;"name = "maxCnt"<%--  value="${curri.num }" --%>>명
 																		</td>
 																	</tr>
 																	<tr>
 																		<th>교육비용</th>
 																		<td>
-																			<input type="text" class="form-control input-sm" name = "money"<%--  value="${curri.money }" --%>>
+																			<input type="text" class="form-control input-sm" name = "price"<%--  value="${curri.money }" --%>>
 																		</td>
 																		<th>교육비지원</th>
 																		<td>
@@ -233,7 +233,7 @@
 																		</td>
 																		<th>문의</th>
 																		<td>
-																			<input type="text" class="form-control input-sm" name = "inquiry" <%-- value="${curri.inquiry }" --%>>
+																			<input type="text" class="form-control input-sm" name = "managerInfo" <%-- value="${curri.inquiry }" --%>>
 																		</td>
 																	</tr>
 																	<tr>
@@ -253,7 +253,7 @@
 													</div><!-- /.col-xs-12 -->
 												</div><!-- /.tab_1 row2(1번탭 하단) -->
 															<div class = "sub-toolbox text-center">
-																<input type = "submit" class = "btn btn-primary" value = "저장">
+																<input type = "submit" class = "btn btn-primary" value = "저장" >
 																<a href = "${pageContext.request.contextPath }/curri">
 																	<button type = "button" class = "btn btn-default pull-right" >취소</button>
 																</a>
@@ -323,31 +323,27 @@
         console.log(curriculum_no);
         $.ajax({
             url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
-//	        url : "${pageContext.request.contextPath }/curri/curriAjax",
             type : "POST",
-            //contentType : "application/json",
             data : {"curriculum_no": curriculum_no},
             dataType : "json",
             success : function(CurriculumVo) {
                 console.log(CurriculumVo);
-//                 $("#workType option:eq(국가기간)").attr("selected", "selected"),
-//                 $("#workType option:eq(핵심역량)").attr("selected", "selected"),
-//                 $("#workType option:eq(방학단기)").attr("selected", "selected"),
-                $("#workType").index($("#workType option:selected")),
+                $("#workType").val(CurriculumVo.workType).prop("selected",true),
+                $("input[name='package_no']").val(CurriculumVo.package_no),
+                $("input[name='packageName']").val(CurriculumVo.packageName),
                 $("input[name='curriculum_no']").val(CurriculumVo.curriculum_no),
 				$("input[name='curriName']").val(CurriculumVo.curriName),
 				$("input[name='curriNickname']").val(CurriculumVo.curriNickname),
-				$("input[name='periodFr']").val(CurriculumVo.periodFr),
-				$("input[name='periodTo']").val(CurriculumVo.periodTo),
-				$("input[name='startDay']").val(CurriculumVo.startDay),
+				$("input[name='startDate']").val(CurriculumVo.startDate),
+				$("input[name='endDate']").val(CurriculumVo.endDate),
+				$("input[name='testDate']").val(CurriculumVo.testDate),
 				$("input[name='time']").val(CurriculumVo.time),
-				$("input[name='num']").val(CurriculumVo.num),
-				$("input[name='money']").val(CurriculumVo.money),
+				$("input[name='maxCnt']").val(CurriculumVo.maxCnt),
+				$("input[name='price']").val(CurriculumVo.price),
 				$("input[name='support']").val(CurriculumVo.support),
-				$("input[name='inquiry']").val(CurriculumVo.inquiry),
-//                     $("input:radio[name=state]:input[value='+state+']").attr("checked",true),
-                    
-				$("input[name='gisuName']").val(CurriculumVo.gisuName)
+				$("input[name='managerInfo']").val(CurriculumVo.managerInfo),
+				$("input[name='gisuName']").val(CurriculumVo.gisuName),
+				$("input[name='state'][value="+CurriculumVo.state+"]").attr("checked",true)
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
