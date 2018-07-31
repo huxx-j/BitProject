@@ -8,14 +8,14 @@
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
-            url: "/api/cm/getCurri",
+            url: "${pageContext.request.contextPath }/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control'></select>";
 
                 $("#curriTd").append(str);
 
@@ -34,14 +34,14 @@
         var selectValue = $("#workTypeSelect option:selected").val();
 
         $.ajax({
-            url: "/api/cm/getCurri",
+            url: "${pageContext.request.contextPath}/api/cm/getCurri",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
             success: function (list) {
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control'></select>";
 
                 $("#curriTd").append(str);
 
@@ -69,14 +69,13 @@
     $("#curriSearchBtn").on("click", function () {
         removeReport();
         removeSaveBtn();
-        removeCurrentCurriInfo();
         removeTeamList();
         removePjtDetail()
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
         $.ajax({
-            url: "/api/cm/getCurriInfo",
+            url: "${pageContext.request.contextPath}/api/cm/getCurriInfo",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -99,7 +98,7 @@
 
     function ajaxGetTeamList(currival) {
         $.ajax({
-            url: "/api/cm/getTeamList",
+            url: "${pageContext.request.contextPath}/api/cm/getTeamList",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -117,8 +116,8 @@
     function rederInfo(map) {
         $("#curriNameInfo").text(map.vo.curriName);
         $("#gisuInfo").text(map.gisu);
-        $("#periodFrInfo").text(map.vo.periodFr);
-        $("#periodToInfo").text(map.vo.periodTo);
+        $("#periodFrInfo").text(map.vo.startDate);
+        $("#periodToInfo").text(map.vo.endDate);
     }
 
     //수업일지 불러오는 스크립트
@@ -130,17 +129,15 @@
             removeReport();
             removeSaveBtn();
             renderSaveBtn();
-            removeCurrentCurriInfo();
-            renderCurrentCurriInfo();
             $("#selectedDate").val($("#reportDate").val());
             $("#selectedCurriNo").val($("#curriSelect option:selected").val());
             lectureReportVo = {
                 curriculum_no: $("#curriSelect option:selected").val(),
-                date: $("#reportDate").val()
+                classDate: $("#reportDate").val()
             };
 
             $.ajax({
-                url: "/api/cm/getLectureReport",
+                url: "${pageContext.request.contextPath}/api/cm/getLectureReport",
                 type: "post",
                 contentType: "application/json",
                 data: JSON.stringify(lectureReportVo),
@@ -165,8 +162,8 @@
     function renderLectureReport(LectureReportVo, i) {
         $("#sub" + i).val(LectureReportVo.subject);
         $("#con" + i).val(LectureReportVo.content);
-        $("#t" + i).val(LectureReportVo.instructor);
-        $("#note" + i).val(LectureReportVo.eTC);
+        $("#t" + i).val(LectureReportVo.teacher);
+        $("#note" + i).val(LectureReportVo.etc);
     }
 
     function removeReport() {
@@ -178,9 +175,8 @@
         }
     }
 
-
     //수업일지 저장하는 스크립트
-    $("#lectureReportSaveBtn").on("click", function () {
+    $(document).on("click","#lectureReportSaveBtn", function () {
 
         var countUpdate = 0;
         var countInsert = 0;
@@ -189,15 +185,14 @@
             report = {
                 subject: $("#sub" + i).val(),
                 content: $("#con" + i).val(),
-                instructor: $("#t" + i).val(),
-                eTC: $("#note" + i).val(),
+                teacher: $("#t" + i).val(),
+                etc: $("#note" + i).val(),
                 period: $("#period" + i).text(),
-                date: $("#selectedDate").val(),
+                classDate: $("#selectedDate").val(),
                 curriculum_no: $("#selectedCurri").val()
             };
-
             $.ajax({
-                url: "/api/cm/saveLectureReport",
+                url: "${pageContext.request.contextPath}/api/cm/saveLectureReport",
                 type: "post",
                 contentType: "application/json",
                 async: false,
@@ -220,7 +215,7 @@
 
         }
         alert(countUpdate + "개 항목 업데이트 / " + countInsert + "개 항목 저장 완료")
-    })
+    });
 
     //저장버튼 생성 스크립트
     function renderSaveBtn() {
@@ -232,14 +227,6 @@
 
     function removeSaveBtn() {
         $("#lectureReportSaveBtn").remove();
-    }
-
-    function renderCurrentCurriInfo() {
-        $("#currentCurriInfo").val($("#reportDate").val() + " / " + $("#curriNameInfo").text());
-    }
-
-    function removeCurrentCurriInfo() {
-        $("#currentCurriInfo").val("");
     }
 
     //프로젝트
@@ -260,7 +247,7 @@
 
     function callMemberTable(curriNo) {
         $.ajax({
-            url: "/api/cm/getMemberName",
+            url: "${pageContext.request.contextPath}/api/cm/getMemberName",
             type: "post",
             data: {"curriNo": curriNo},
             dataType: "json",
@@ -312,7 +299,7 @@
         });
         str = str.slice(0, -2);
         id = id.slice(0, -1);
-        console.log(id)
+        // console.log(id)
         $("#membersName").text(str);
         $("#membersId").val(id);
         $("#selectTeamMember").modal('hide');
@@ -327,16 +314,16 @@
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
-            "                    <table class='table table-bordered'>" +
+            "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' name='detailProjectName' type='text' style='width: 100%'></td>" +
+            "                            <td colspan='2'><input id='detailProjectName' class='form-control' name='detailProjectName' type='text' style='width: 100%'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'></td>" +
-            "                            <td style='width: 100px'>" +
-            "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
+            "                            <td class='w100'>" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원선택" +
             "                                </button>" +
             "                                <input id='membersId' name='membersId' type='hidden'>" +
@@ -346,26 +333,26 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' name='outline' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='form-control' name='outline' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' name='focus' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2''><textarea id='focus' class='form-control' name='focus' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' name='applyField' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='form-control' name='applyField' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' name='useTechnique' style='width: 100%; height: 70px; resize: none'></textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='form-control' name='useTechnique' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -418,7 +405,7 @@
 
     function ajaxTeamDetail(project_no, curriNo) {
         $.ajax({
-            url: "/api/cm/getProjectDetail",
+            url: "${pageContext.request.contextPath}/api/cm/getProjectDetail",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -447,16 +434,16 @@
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
-            "                    <table class='table table-bordered'>" +
+            "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
-            "                            <td colspan='2'><input id='detailProjectName' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
+            "                            <td colspan='2' class='file-td'><input id='detailProjectName' class='form-control' name='detailProjectName' type='text' style='width: 100%' value='" + projectVo.projectName + "'></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'>" + projectVo.membersName + "</td>" +
-            "                            <td style='width: 100px'>" +
-            "                                <button class='btn btn-primary btn-call-se' type='button' data-toggle='modal'" +
+            "                            <td class='w100'>" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
             "                                        data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
             "                                <input id='file_no' name='file_no' type='hidden' value='" + projectVo.file_no + "'> " +
@@ -467,28 +454,28 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2' style='padding:7px 0 2px 8px;'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "                               <span>" + projectVo.fileName + "</span>" +
             "                           </td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' name='outline' style='width: 100%; height: 70px; resize: none'>" + projectVo.outline + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='outline' class='form-control textarea-sm' name='outline' rows='4' style='resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>설계의<br>" +
             "                                주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' class='form-control textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='form-control textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='form-control textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
             "                </div>" +
@@ -523,7 +510,7 @@
         } else {
 
             $.ajax({
-                url: "/api/cm/saveProjectDetail",
+                url: "${pageContext.request.contextPath}/api/cm/saveProjectDetail",
                 type: "post",
                 processData: false,
                 contentType: false,
@@ -552,7 +539,7 @@
     //이론평가 탭
     function ajaxRenderSubjectList(currival) {
         $.ajax({
-            url: "/api/cm/getSubjectList",
+            url: "${pageContext.request.contextPath}/api/cm/getSubjectList",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -587,6 +574,7 @@
         $("div[name=subList]").remove();
     }
 
+    //이론평가탭 과목리스트를 클릭하면 학생리스트 뿌려주는 스크립트
     $(document).on("click", "div[name=subList]", function () {
         removeScoreTable();
         renderScoreTableTh();
@@ -598,8 +586,15 @@
         $("#iSisNo").val(sisNo);
         removeTestUploadTd();
 
+        ajaxGetSisInfo(sisNo);
+
+        ajaxGetSutudentInScore(sisNo,curriNo);
+    });
+
+    //과목명과 과목별 시험지 파일 정보를 가져오는 스크립트
+    function ajaxGetSisInfo(sisNo){
         $.ajax({
-            url: "/api/cm/getSisInfo",
+            url: "${pageContext.request.contextPath}/api/cm/getSisInfo",
             type: "post",
             // contentType: "application/json",
             async: false,
@@ -612,16 +607,17 @@
                 console.error(status + " : " + error);
             }
         });
+    }
 
-
-
+    //과목을 수강하는 학생들의 이론평가 점수와 파일 정보를 가져오는 스크립트
+    function ajaxGetSutudentInScore(sisNo, curriNo){
         scoreVo = {
             "subInStep_no": sisNo,
             "curriculum_no": curriNo
         };
 
         $.ajax({
-            url: "/api/cm/getSutudentInScore",
+            url: "${pageContext.request.contextPath}/api/cm/getSutudentInScore",
             type: "post",
             contentType: "application/json",
             async: false,
@@ -640,12 +636,13 @@
                 console.error(status + " : " + error);
             }
         });
-    });
+    }
+
 
     function renderTestUploadTd(sisNo, fileVo) {
         str = "";
-        str += "<td class='testFileUploadTd' style='padding: 4px 0 0 8px'>" +
-            "   <form id='testForm' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
+        str += "<td class='testFileUploadTd'>" +
+            "   <form id='testForm' class='file-form' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
             "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
@@ -686,9 +683,9 @@
         str += "<tr class='scoreTable'>" +
             "       <td class='a_c' style='padding-top: 10px'>" + i + "</td>" +
             "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
-            "       <td><input id='iScore" + i + "' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
-            "       <td style='padding:7px 0 2px 8px ;'>" +
-            "       <form id='scoreForm" + i + "' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
+            "       <td><input id='iScore" + i + "' class='form-control' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
+            "       <td>" +
+            "       <form id='scoreForm" + i + "' class='file-form' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
             "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
             "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='hScore" + i + "' name='hScore' type='hidden' value='" + ScoreVo.score + "'>" +
@@ -734,14 +731,24 @@
     $(document).on("click", "button[name=scoreSaveBtn]", function () {
         var studNo = $("#iSutdNo").val();
         var formData = new FormData($("#testForm")[0]);
-        var url = "/api/cm/saveTest";
+        var url = "${pageContext.request.contextPath}/api/cm/saveTest";
         ajaxSaveScore(url,formData);
 
         for (var i = 1; i <= studNo; i++) {
             formData = new FormData($("#scoreForm" + i)[0]);
-            url = "/api/cm/saveScore";
+            url = "${pageContext.request.contextPath}/api/cm/saveScore";
             ajaxSaveScore(url,formData);
         }
+
+        /*저장버튼 누르면 점수 테이블 새로고침하는 스크립트*/
+        var curriNo = $("#iCurriNo").val();
+        var sisNo = $("#iSisNo").val();
+        removeScoreTable();
+        renderScoreTableTh();
+        removeTestUploadTd();
+        ajaxGetSisInfo(sisNo);
+        ajaxGetSutudentInScore(sisNo,curriNo);
+
     });
 
     function ajaxSaveScore(url,formData) {
@@ -784,9 +791,9 @@
                 {name: 'studResNum', index: 'studResNum', width: 100, align: "center"},
                 {name: 'gender', index: 'gender', width: 60, align: "center"},
                 {name: 'testResult', index: 'testResult', width: 95, align: "center"},
-                {name: 'handphone', index: 'handphone', width: 150, align: "center"},
-                {name: 'applyDay', index: 'applyDay', width: 100, align: "center"},
-                {name: 'testDay', index: 'testDay', width: 100, align: "center"},
+                {name: 'cellphone', index: 'cellphone', width: 150, align: "center"},
+                {name: 'applyDate', index: 'applyDate', width: 100, align: "center"},
+                {name: 'testDate', index: 'testDate', width: 100, align: "center"},
                 {name: 'school', index: 'school', width: 140, align: "center"},
                 {name: 'major', index: 'major', width: 140, align: "center"},
                 {name: 'deposit', index: 'deposit', width: 60, align: "center"}
@@ -808,7 +815,7 @@
         /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
         $(function () {
             $.ajax({
-                url: "/api/cm/getUserInfo",
+                url: "${pageContext.request.contextPath}/api/cm/getUserInfo",
                 type: "post",
                 // contentType: "application/json",
                 // async: false,
@@ -835,4 +842,43 @@
     function removeJqGridTable() {
         $("#gbox_jqGrid").remove();
     }
+
+
+
+    //수업일지탭 달력 선택시 인풋태그에 출력해주는 스크립트
+    $(function () {
+        $('#wrapper .version strong').text('v' + $.fn.pignoseCalendar.version);
+
+        function onSelectHandler(date, context) {
+            var $element = context.element;
+            var $calendar = context.calendar;
+            // var $box = $element.siblings('#reportDate').show();
+            var text = '';
+
+            if (date[0] !== null) {
+                text += date[0].format('YYYY-MM-DD');
+            }
+
+            if (date[0] !== null && date[1] !== null) {
+                text += ' ~ ';
+            }
+            else if (date[0] === null && date[1] == null) {
+                text += '날짜를 선택하세요';
+            }
+
+            if (date[1] !== null) {
+                text += date[1].format('YYYY-MM-DD');
+            }
+            $("#reportDate").val(text);
+            // $box.text(text);
+        }
+
+        // Default Calendar 셀랙트 이벤트 핸들러
+        $('.calendar').pignoseCalendar({
+            lang : 'ko',
+            select: onSelectHandler
+        });
+    });
+
+
 </script>

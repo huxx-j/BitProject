@@ -16,3 +16,5 @@
 <script src="${pageContext.request.contextPath}/assets/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="${pageContext.request.contextPath}/assets/dist/js/demo.js"></script>
+<!-- 달력 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.datepicker.js"></script>

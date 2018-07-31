@@ -1,148 +1,148 @@
 package com.bitacademy.vo;
 
 public class UserInfoVo {
-    private int User_no;
-    private String NameHan;
-    private String StudResNum;
-    private String Gender;
-    private String Handphone;
-    private String School;
-    private String Major;
-    private String GisuName;
-    private String TestResult;
-    private String ApplyDay;
-    private String TestDay;
-    private String Deposit;
+    private int user_no;
+    private String nameHan;
+    private String studResNum;
+    private String gender;
+    private String cellphone;
+    private String school;
+    private String major;
+    private String gisuName;
+    private String testResult;
+    private String applyDate;
+    private String testDate;
+    private String deposit;
 
     public UserInfoVo() {
     }
 
-    public UserInfoVo(int user_no, String nameHan, String studResNum, String gender, String handphone, String school, String major, String gisuName, String testResult, String applyDay, String testDay, String deposit) {
-        User_no = user_no;
-        NameHan = nameHan;
-        StudResNum = studResNum;
-        Gender = gender;
-        Handphone = handphone;
-        School = school;
-        Major = major;
-        GisuName = gisuName;
-        TestResult = testResult;
-        ApplyDay = applyDay;
-        TestDay = testDay;
-        Deposit = deposit;
+    public UserInfoVo(int user_no, String nameHan, String studResNum, String gender, String cellphone, String school, String major, String gisuName, String testResult, String applyDate, String testDate, String deposit) {
+        this.user_no = user_no;
+        this.nameHan = nameHan;
+        this.studResNum = studResNum;
+        this.gender = gender;
+        this.cellphone = cellphone;
+        this.school = school;
+        this.major = major;
+        this.gisuName = gisuName;
+        this.testResult = testResult;
+        this.applyDate = applyDate;
+        this.testDate = testDate;
+        this.deposit = deposit;
     }
 
     public int getUser_no() {
-        return User_no;
+        return user_no;
     }
 
     public void setUser_no(int user_no) {
-        User_no = user_no;
+        this.user_no = user_no;
     }
 
     public String getNameHan() {
-        return NameHan;
+        return nameHan;
     }
 
     public void setNameHan(String nameHan) {
-        NameHan = nameHan;
+        this.nameHan = nameHan;
     }
 
     public String getStudResNum() {
-        return StudResNum;
+        return studResNum;
     }
 
     public void setStudResNum(String studResNum) {
-        StudResNum = studResNum;
+        this.studResNum = studResNum;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
-    public String getHandphone() {
-        return Handphone;
+    public String getCellphone() {
+        return cellphone;
     }
 
-    public void setHandphone(String handphone) {
-        Handphone = handphone;
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 
     public String getSchool() {
-        return School;
+        return school;
     }
 
     public void setSchool(String school) {
-        School = school;
+        this.school = school;
     }
 
     public String getMajor() {
-        return Major;
+        return major;
     }
 
     public void setMajor(String major) {
-        Major = major;
+        this.major = major;
     }
 
     public String getGisuName() {
-        return GisuName;
+        return gisuName;
     }
 
     public void setGisuName(String gisuName) {
-        GisuName = gisuName;
+        this.gisuName = gisuName;
     }
 
     public String getTestResult() {
-        return TestResult;
+        return testResult;
     }
 
     public void setTestResult(String testResult) {
-        TestResult = testResult;
+        this.testResult = testResult;
     }
 
-    public String getApplyDay() {
-        return ApplyDay;
+    public String getApplyDate() {
+        return applyDate;
     }
 
-    public void setApplyDay(String applyDay) {
-        ApplyDay = applyDay;
+    public void setApplyDate(String applyDate) {
+        this.applyDate = applyDate;
     }
 
-    public String getTestDay() {
-        return TestDay;
+    public String getTestDate() {
+        return testDate;
     }
 
-    public void setTestDay(String testDay) {
-        TestDay = testDay;
+    public void setTestDate(String testDate) {
+        this.testDate = testDate;
     }
 
     public String getDeposit() {
-        return Deposit;
+        return deposit;
     }
 
     public void setDeposit(String deposit) {
-        Deposit = deposit;
+        this.deposit = deposit;
     }
 
     @Override
     public String toString() {
         return "UserInfoVo{" +
-                "User_no=" + User_no +
-                ", NameHan='" + NameHan + '\'' +
-                ", StudResNum='" + StudResNum + '\'' +
-                ", Gender='" + Gender + '\'' +
-                ", Handphone='" + Handphone + '\'' +
-                ", School='" + School + '\'' +
-                ", Major='" + Major + '\'' +
-                ", GisuName='" + GisuName + '\'' +
-                ", TestResult='" + TestResult + '\'' +
-                ", ApplyDay='" + ApplyDay + '\'' +
-                ", TestDay='" + TestDay + '\'' +
-                ", Deposit='" + Deposit + '\'' +
+                "user_no=" + user_no +
+                ", nameHan='" + nameHan + '\'' +
+                ", studResNum='" + studResNum + '\'' +
+                ", gender='" + gender + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                ", school='" + school + '\'' +
+                ", major='" + major + '\'' +
+                ", gisuName='" + gisuName + '\'' +
+                ", testResult='" + testResult + '\'' +
+                ", applyDate='" + applyDate + '\'' +
+                ", testDate='" + testDate + '\'' +
+                ", deposit='" + deposit + '\'' +
                 '}';
     }
 }

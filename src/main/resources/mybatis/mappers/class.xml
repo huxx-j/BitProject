@@ -6,19 +6,24 @@
 
     <select id="getWorkType" resultType="String">
         <![CDATA[
-        SELECT WorkType from Curriculum group by WorkType
+        SELECT WorkType
+            from Curriculum
+            group by WorkType
         ]]>
     </select>
 
     <select id="getCurri" parameterType="String" resultType="String">
         <![CDATA[
-        select CurriName from Curriculum where WorkType=#{workType}
+        select CurriName
+            from Curriculum
+            where WorkType=#{workType}
         ]]>
     </select>
 
     <select id="getDate" resultType="String">
         <![CDATA[
-        select current_date from dual
+        select current_date
+            from dual
         ]]>
     </select>
 

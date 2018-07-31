@@ -3,7 +3,6 @@ package com.bitacademy.util;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
@@ -14,6 +13,7 @@ public class DirectoryGenerator {
     @Autowired
     SqlSession sqlSession;
 
+    //파일 분류별로 저장될 디렉토리를 리턴해주는 메소드
     public String DirectoryGenerator(MultipartHttpServletRequest multipartHttpServletRequest, String param){
         String saveDir;
         if(param.equals("project")) {
@@ -41,6 +41,7 @@ public class DirectoryGenerator {
         }
     }
 
+    //디렉토리가 없으면 만들어 주는 메소드
     private void makeDir(String saveDir) {
         File dir = new File(saveDir);
         if (!dir.exists()){

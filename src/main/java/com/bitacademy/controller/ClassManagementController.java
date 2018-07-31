@@ -14,14 +14,10 @@ public class ClassManagementController {
     @Autowired
     ClassManagementService classManagementService;
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String main(Model model){
-
         model.addAttribute("workType",classManagementService.getWorkType());
         model.addAttribute("date",classManagementService.getDate());
-        String date = classManagementService.getDate();
-//        System.out.println(date);
-
         return "/class/classmanagement";
     }
 }

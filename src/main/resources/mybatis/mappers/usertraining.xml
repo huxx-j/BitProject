@@ -12,6 +12,7 @@
         <result column="Content" property="content" />
     </resultMap>
 
+    <!-- 데이터 추가할때 썼던 쿼리 -->
     <insert id="addtraining" parameterType="TrainingVo">
      <![CDATA[
         INSERT INTO bitacademy_test.UserTraining (User_no, PeriodFr, PeriodTo, Oragan, Course, Content)
@@ -20,8 +21,3 @@
  </insert>
 
 </mapper>
-
-
-        <!--#{User_no}, #{PeriodFr}, #{PeriodTo}, #{Oragan}, #{Course}, #{Content}-->
-
-        <!--`User_no`, `PeriodFr`, `PeriodTo`, `Oragan`, `Course`, `Content`-->

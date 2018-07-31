@@ -1,8 +1,9 @@
 .btn-call {
     padding: 0px;
     margin-left: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     width: 70px;
+    height: 25px;
 }
 
 #currentCurriInfo {
@@ -84,7 +85,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
     overflow: hidden;
     padding: 5px 20px;
     /* 10px 20px */
@@ -161,6 +162,41 @@
     background-color: #265a88;
 }
 
+.disp-inline {
+    display: inline !important;
+}
+
+.textarea-sm {
+    border: 1px solid #ccc;
+}
+
+.line-table {
+    background-color: #C2C2C2 ;
+    padding: 2px !important;
+}
+
+.file-form {
+    height: 25px;
+}
+
 .file-td {
-    padding: 4px 0 0 8px;
+    padding: 2px !important;
+}
+
+.file-th {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+.class-td {
+    padding: 2px !important;
+}
+
+.table-text {
+    padding-top : 6px !important;
+    padding-bottom: 6px !important;
+}
+
+textarea {
+    resize: none !important;
 }

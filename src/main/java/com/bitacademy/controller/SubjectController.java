@@ -30,7 +30,6 @@ public class SubjectController {
 //        model.addAttribute("mdlist", mdlist);
         model.addAttribute("nonlist", nonlist);
         System.out.println(nonlist);
-        System.out.println("/index");
         return "curridesign/subject";
     }
     @ResponseBody
@@ -43,21 +42,13 @@ public class SubjectController {
 //       return subjectService.getsub(no);
     }
     @RequestMapping(value = "/addcate", method = RequestMethod.POST)
-    public void subajax(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
+    public void addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
         SubjectCateVo subjectCateVo=new SubjectCateVo();
         subjectCateVo.setSubjectCate_no(subjectCate_no);
         subjectCateVo.setCateName(CateName);
         System.out.println(subjectCateVo.toString());
         subjectService.addcate(subjectCateVo);
     }
-
-//    @RequestMapping("/treeList")
-//    @ResponseBody
-//    public List treeView(Model model){
-//        List treeListData = subjectService.treeList();
-//        return treeListData;
-//    }
-
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String insert(@ModelAttribute SubjectVo subjectVo) {
