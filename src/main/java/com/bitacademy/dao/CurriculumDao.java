@@ -30,8 +30,8 @@ public class CurriculumDao {
 
 
     //희준
+    //교육과정 메인
     public CurriculumVo viewCurriculum(String curriculum_no ){
-        System.out.println("[curriDao] viewCurriculum");
 
         return sqlSession.selectOne("curriculum.viewCurriculum",curriculum_no);
     }
@@ -42,20 +42,26 @@ public class CurriculumDao {
 
         return sqlSession.selectList("curriculum.curriCateList");
     }
+    
+    //교육과정 수정
     public int edit(CurriculumVo curriVo) {
 
-        System.out.println();
         return sqlSession.update("curriculum.edit", curriVo);
     }
-
+    //교육과정 추가
     public int addCurri(CurriculumVo curriVo) {
 
         return sqlSession.insert("curriculum.addCurri", curriVo);
     }
-    public List<ApplicantVo> studentManagement(String curriculum_no){
-        System.out.println("[curriDao] studentManagement");
-        return sqlSession.selectList("curriculum.studentManagement", curriculum_no);
+    
+    //전체지원자 리스트 조회
+    public ApplicantVo viewApplicantList(String curriculum_no) {
+    	return sqlSession.selectOne("curriculum.viewApplicantList", curriculum_no);
     }
+//    public List<ApplicantVo> studentManagement(String curriculum_no){
+//        System.out.println("[curriDao] studentManagement");
+//        return sqlSession.selectList("curriculum.studentManagement", curriculum_no);
+//    }
 
 //	public List<CurriculumVo> viewCurriculum( ){
 //		System.out.println("[curriDao] viewCurriculum");

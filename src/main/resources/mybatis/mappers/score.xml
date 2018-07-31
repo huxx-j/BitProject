@@ -7,43 +7,49 @@
     <select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
     <![CDATA[
       select SubInStep_no, SubjectName
-      from v_subject
-      where Step_no
-            in (select Step_no
-                from StepInPack
-                where Package_no=(select Package_no
-                                  from Curriculum
-                                  where Curriculum_no=#{curriculum_no}))
+          from v_subject
+          where Step_no
+                in (select Step_no
+                    from StepInPack
+                    where Package_no=(select Package_no
+                                      from Curriculum
+                                      where Curriculum_no=#{curriculum_no}))
         ]]>
 </select>
 
     <select id="chkSisNo" parameterType="Int" resultType="Int">
         <![CDATA[
-        select s.Score_no from Score s, SubInStep sis
-        where s.SubInStep_no=sis.SubInStep_no
-        and sis.SubInStep_no=#{sis_no}
+                select s.Score_no
+                    from Score s, SubInStep sis
+                    where s.SubInStep_no=sis.SubInStep_no
+                        and sis.SubInStep_no=#{sis_no}
         ]]>
     </select>
 
     <select id="getSutudentInScore" parameterType="ScoreVo" resultType="ScoreVo">
         <if test="subInStep_no==0">
             <![CDATA[
-        select u.User_no, u.NameHan
-        from Users u, ApplyInfo a
-        where a.User_no=u.User_no
-        and a.Curriculum_no=#{curriculum_no}
-        and a.State='비트생'
+                    select u.User_no, u.NameHan
+                        from Users u, ApplyInfo a
+                        where a.User_no=u.User_no
+                            and a.Curriculum_no=#{curriculum_no}
+                            and a.State='비트생'
         ]]>
         </if>
 
         <if test="subInStep_no!=0">
             <![CDATA[
-       select u.User_no, u.NameHan, s.Score, s.Score_no, ifnull(s.File_no,0) as File_no,
-       if(isnull(f.FileName),'등록된 파일이 없습니다.', CONCAT('등록된 파일 : ',f.FileName)) as FileName from Users u
-        join ApplyInfo a on u.User_no = a.User_no and a.Curriculum_no=#{curriculum_no} and a.State='비트생'
-        join Score s on s.SubInStep_no=#{subInStep_no} and u.User_no=s.User_no
-        join SubInStep sis on s.SubInStep_no = sis.SubInStep_no
-        left join File f on s.File_no = f.File_no;
+                   select u.User_no, u.NameHan, s.Score, s.Score_no,
+                           ifnull(s.File_no,0) as File_no,
+                           if(isnull(f.FileName),'등록된 파일이 없습니다.', CONCAT('등록된 파일 : ',f.FileName)) as FileName
+                      from Users u
+                      join ApplyInfo a on u.User_no = a.User_no
+                          and a.Curriculum_no=#{curriculum_no}
+                          and a.State='비트생'
+                      join Score s on s.SubInStep_no=#{subInStep_no}
+                          and u.User_no=s.User_no
+                      join SubInStep sis on s.SubInStep_no = sis.SubInStep_no
+                      left join File f on s.File_no = f.File_no;
         ]]>
         </if>
     </select>
@@ -51,14 +57,14 @@
     <insert id="saveScore" parameterType="ScoreVo">
         <if test="file_no==0">
             <![CDATA[
-        insert into Score(Curriculum_no, SubInStep_no, User_no, Score)
-        values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score})
+                insert into Score(Curriculum_no, SubInStep_no, User_no, Score)
+                    values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score})
         ]]>
         </if>
         <if test="file_no!=0">
             <![CDATA[
-        insert into Score(Curriculum_no, SubInStep_no, User_no, Score, File_no)
-        values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score}, #{file_no})
+                insert into Score(Curriculum_no, SubInStep_no, User_no, Score, File_no)
+                    values (#{curriculum_no}, #{subInStep_no}, #{user_no}, #{score}, #{file_no})
         ]]>
         </if>
     </insert>
@@ -66,51 +72,54 @@
     <insert id="saveScoreFile" parameterType="FileVo">
         <selectKey keyProperty="file_no" resultType="Int" order="AFTER">
             <![CDATA[
-            select LAST_INSERT_ID() from dual
+                  select LAST_INSERT_ID() from dual
             ]]>
         </selectKey>
         <![CDATA[
-        insert into File(File_no, FileSize, FilePath, FileName)
-        values (#{file_no},#{fileSize},#{filePath},#{fileName})
+                insert into File(File_no, FileSize, FilePath, FileName)
+                    values (#{file_no},#{fileSize},#{filePath},#{fileName})
         ]]>
     </insert>
 
     <update id="updateScore" parameterType="ScoreVo">
         <if test="file_no!=0">
             <![CDATA[
-        update Score set Score=#{score}, File_no=#{file_no} where Score_no=#{score_no}
+                  update Score
+                      set Score=#{score}, File_no=#{file_no}
+                      where Score_no=#{score_no}
         ]]>
         </if>
         <if test="file_no==0">
-            update Score set Score=#{score} where Score_no=#{score_no}
+            <![CDATA[
+            update Score
+                set Score=#{score}
+                where Score_no=#{score_no}
+            ]]>
         </if>
     </update>
 
     <update id="saveTest" parameterType="SubInStepVo">
             <![CDATA[
-            update SubInStep set File_no=#{file_no} where SubInStep_no=#{SubInStep_no}
+                  update SubInStep
+                      set File_no=#{file_no}
+                      where SubInStep_no=#{SubInStep_no}
         ]]>
     </update>
 
     <select id="getSisInfo" parameterType="Int" resultType="FileVo">
         <![CDATA[
-        select f.FileName, f.File_no from File f, SubInStep sis where sis.File_no=f.File_no and SubInStep_no=#{sisNo};
+                select f.FileName, f.File_no
+                        from File f, SubInStep sis
+                        where sis.File_no=f.File_no
+                        and SubInStep_no=#{sisNo}
         ]]>
     </select>
 
     <update id="updateScoreFile" parameterType="FileVo">
     <![CDATA[
-        update File set FileSize=#{fileSize}, FilePath=#{filePath}, FileName=#{fileName} where File_no=#{file_no}
+            update File
+                    set FileSize=#{fileSize}, FilePath=#{filePath}, FileName=#{fileName}
+                    where File_no=#{file_no}
         ]]>
     </update>
 </mapper>
-
-
-        <!--select u.User_no, u.NameHan, s.Score, s.Score_no-->
-        <!--from Users u, ApplyInfo a, Score s, SubInStep sis-->
-        <!--where a.User_no=u.User_no-->
-        <!--and a.Curriculum_no=#{curriculum_no}-->
-        <!--and a.State='비트생'-->
-        <!--and s.SubInStep_no=#{subInStep_no}-->
-        <!--and s.SubInStep_no=sis.SubInStep_no-->
-        <!--and u.User_no=s.User_no-->

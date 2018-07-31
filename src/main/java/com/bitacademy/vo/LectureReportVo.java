@@ -5,23 +5,23 @@ public class LectureReportVo {
     private int curriculum_no;
     private String subject;
     private String content;
-    private String instructor;
-    private String eTC;
+    private String teacher;
+    private String etc;
     private int period;
-    private String date;
+    private String classDate;
 
     public LectureReportVo() {
     }
 
-    public LectureReportVo(String lectureReport_no, int curriculum_no, String subject, String content, String instructor, String eTC, int period, String date) {
+    public LectureReportVo(String lectureReport_no, int curriculum_no, String subject, String content, String teacher, String etc, int period, String classDate) {
         this.lectureReport_no = lectureReport_no;
         this.curriculum_no = curriculum_no;
         this.subject = subject;
         this.content = content;
-        this.instructor = instructor;
-        this.eTC = eTC;
+        this.teacher = teacher;
+        this.etc = etc;
         this.period = period;
-        this.date = date;
+        this.classDate = classDate;
     }
 
     public String getLectureReport_no() {
@@ -56,20 +56,20 @@ public class LectureReportVo {
         this.content = content;
     }
 
-    public String getInstructor() {
-        return instructor;
+    public String getTeacher() {
+        return teacher;
     }
 
-    public void setInstructor(String instructor) {
-        this.instructor = instructor;
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
-    public String geteTC() {
-        return eTC;
+    public String getEtc() {
+        return etc;
     }
 
-    public void seteTC(String eTC) {
-        this.eTC = eTC;
+    public void setEtc(String etc) {
+        this.etc = etc;
     }
 
     public int getPeriod() {
@@ -80,12 +80,12 @@ public class LectureReportVo {
         this.period = period;
     }
 
-    public String getDate() {
-        return date;
+    public String getClassDate() {
+        return classDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setClassDate(String classDate) {
+        this.classDate = classDate;
     }
 
     @Override
@@ -95,10 +95,10 @@ public class LectureReportVo {
                 ", curriculum_no=" + curriculum_no +
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
-                ", instructor='" + instructor + '\'' +
-                ", eTC='" + eTC + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", etc='" + etc + '\'' +
                 ", period=" + period +
-                ", date='" + date + '\'' +
+                ", classDate='" + classDate + '\'' +
                 '}';
     }
 }

@@ -21,12 +21,12 @@ public class MainController {
 	@RequestMapping("/11")
 	public String mai1n2(){
 		System.out.println("/index2");
-		return "ex/index_renew2";
+		return "ex/subject";
 	}
 	@RequestMapping("/1")
 	public String main1(){
 		System.out.println("/index3");
-		return "ex/index_renew1";
+		return "ex/packmain";
 	}
 	
 	@RequestMapping("/12")

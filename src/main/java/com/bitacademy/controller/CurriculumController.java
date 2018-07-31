@@ -1,14 +1,20 @@
 package com.bitacademy.controller;
 
 
-import com.bitacademy.service.CurriculumService;
-import com.bitacademy.vo.CurriculumVo;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.bitacademy.service.CurriculumService;
+import com.bitacademy.vo.ApplicantVo;
+import com.bitacademy.vo.CurriculumVo;
 
 @Controller
 @RequestMapping(value = "/curri")
@@ -16,52 +22,53 @@ public class CurriculumController {
 
 	@Autowired
 	private CurriculumService curriService;
-
+	//교육과정관리 메인(카테고리 탭 포함)
 	 @RequestMapping(value = "")
 	 public String curriMain(Model model) {
-		 System.out.println(curriService.currilist());
 		model.addAttribute("list",curriService.currilist());
-		
 		model.addAttribute("cateList", curriService.curriCateList());
-		System.out.println(curriService.curriCateList());
-	 System.out.println("curriMain");
-	
-	 return "screening/index_curri";
+		System.out.println("curriMain");
+		return "screening/mainCurri";
 	 }
 
 	 // 교육과정 추가 버튼
-	@RequestMapping(value = "/addCurriBtn")
-	public String addCurriBtn() {
-
+	@RequestMapping(value = "/addCurriForm")
+	public String addCurriForm(Model model) {
+		model.addAttribute("list",curriService.currilist());
+		model.addAttribute("cateList", curriService.curriCateList());
 		return "screening/addCurri";
 	}
-	
+	// 교육과정 추가
 	@RequestMapping(value = "/addCurri")
 	public String addCurri(@ModelAttribute CurriculumVo curriVo) {
-		System.out.println("[curriController]addCurri IN"+curriVo.toString());
+//		System.out.println("[curriController]addCurri IN"+curriVo.toString());
 		curriService.addCurri(curriVo);
 		
 		return "redirect:/curri";
 	}
-
-	// 패키지 보기 버튼
-	@RequestMapping(value = "/curriPopUp")
-	public String popUp() {
-		
-		return "screening/curriPopUp";
-		
-	}
 	
+	//curriculum_no값으로 교육과정 조회
 	@ResponseBody
 	@RequestMapping(value = "/{curriculum_no}")
-	public String viewCurriculum(@PathVariable String curriculum_no, Model model) {
+	public CurriculumVo viewCurriculum(@PathVariable String curriculum_no) {
+//		System.out.println("[curriController] IN");
+//		System.out.println("curriculum_no: " + curriculum_no);
+		
+		CurriculumVo curriVo = curriService.viewCurriculum(curriculum_no);
+//		System.out.println("curri toString" + curriVo);
+		return curriVo;
+	}
+	
+	//지원자관리탭 (curriculum_no값으로 지원자 조회)
+	@ResponseBody
+	@RequestMapping(value = "viewApplicantList/{curriculum_no}")
+	public ApplicantVo viewApplicantList(@PathVariable String curriculum_no) {
 		System.out.println("[curriController] IN");
 		System.out.println("curriculum_no: " + curriculum_no);
 		
-		CurriculumVo curriVo = curriService.viewCurriculum(curriculum_no);
-		model.addAttribute("curri", curriVo);
-		System.out.println("curri toString" + curriVo);
-		return "screening/index_curri";
+		ApplicantVo applicantVo = curriService.viewApplicantList(curriculum_no);
+		System.out.println("지원자목록" + applicantVo);
+		return applicantVo;
 	}
 	
 //	@RequestMapping(value = "/{curriculum_no}")
@@ -80,9 +87,7 @@ public class CurriculumController {
 //		return "screening/index_curri";
 //	}
 	
-	/////////////////////////////////////////////////
-	//					 수정 버튼  					   //
-	/////////////////////////////////////////////////
+	//교육과정 수정
 	@RequestMapping(value = "/edit/{curriculum_no}")
 	public String edit(@ModelAttribute CurriculumVo curriVo) {
 		System.out.println("[curriController] edit IN");
@@ -96,16 +101,8 @@ public class CurriculumController {
 	@RequestMapping(value = "/gisuGrant")
 	public String gisuGrant(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
 		
-		return "screening/index_curri";
+		return "screening/mainCurri";
 	}
-//	@RequestMapping("/{curriculum_no}")
-//	public String studentManagement(Model model, @PathVariable String curriculum_no) {
-//		System.out.println("curriController] studentManagement IN");
-//		List<ApplicantVo> applicantList = curriService.studentManagement(curriculum_no);
-//		model.addAttribute("applicantList", applicantList);
-//		System.out.println("[curriController] studentManagement OUT" + applicantList.toString());
-//		return "screening/index_curri";
-//	}
 //	@RequestMapping("/student")
 //	public String studentManagement(Model model) {
 //		System.out.println("curriController] studentManagement IN");
@@ -115,48 +112,12 @@ public class CurriculumController {
 //		return "screening/index_curri";
 //	}
 	
-//	@RequestMapping(value = "/curriInfo")
-//	public String viewCurriculum(Model model) {
-//		System.out.println("[curriController] IN");
-//		List<CurriculumVo> curriList = curriService.viewCurriculum();
-//		model.addAttribute("curriList", curriList);
-//		
-//		return "screening/index_curri";
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping(value = "/curriInfo")
-//	public String viewCurriculumInfo(Model model, @RequestParam("curriculum_no") int curriculum_no) {
-//		System.out.println("[curriController] IN");
-//		
-//		//1안
-//		List<CurriculumVo> curriList = curriService.viewCurriculumInfo(curriculum_no);
-////		model.addAttribute("curriList", curriList);
-//		model.addAttribute("curri", curriList.get(0));
-//		
-//		//2안
-//		
-//		
-//		
-//		return "screening/index_curri";
-//	}
-	
-	
-	
-//	원래꺼
-//	@RequestMapping(value = "")
-//	public String viewCurriculum(Model model) {
-//		System.out.println("[curriController] IN");
-//		List<CurriculumVo> curriList = curriService.viewCurriculum();
-//		model.addAttribute("curriList", curriList);
-//		System.out.println("curriList toString" + curriList.toString());
-//		//////////////////student management//////////////////////////////////////
-//		List<ApplicantVo> applicantList = curriService.studentManagement();
-//		model.addAttribute("applicantList", applicantList);
-//		System.out.println(applicantList.toString());
-//		
-//		return "screening/index_curri";
-//	}
-//	
-//	
+	@RequestMapping(value = "p")
+	public String p() {
+		return "ex/packmain";
+	}
+	@RequestMapping(value = "s")
+	public String s() {
+		return "ex/subject";
+	}
 }

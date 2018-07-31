@@ -15,36 +15,43 @@ public class CurriculumService {
 	@Autowired
 	private CurriculumDao curriDao;
 	
-	
+	//커리큘럼 조회(curriculum_no값으로)
 	public CurriculumVo viewCurriculum(String curriculum_no){
  		
- 		System.out.println("[CurriService] viewCurriculum");
  		
 		return curriDao.viewCurriculum(curriculum_no);
  	}
-	
+	//교육과정 수정
 	public int edit(CurriculumVo curriVo) {
-		System.out.println("[CurriService] edit IN");
 		return curriDao.edit(curriVo);
 	}
 	
-
+	//교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
 		
 		return curriDao.addCurri(curriVo);
 	}
+	
+	//zTree 카테고리 탭 (목록 불러오기)
 	public List<CurriculumVo> currilist(){
 		return curriDao.currilist();
 	}
+	//zTree 카테고리 탭(목록 불러오기)
 	public List<CurriculumCateVo> curriCateList(){
 		
 		return curriDao.curriCateList();
 	}
-	public List<ApplicantVo> studentManagement(String curriculum_no){
-		
-		System.out.println("[CurriService] studentManagement IN");
-		return curriDao.studentManagement(curriculum_no);
+	
+	public ApplicantVo viewApplicantList(String curriculum_no){
+		System.out.println("viewApplicantList" + curriculum_no);
+		return curriDao.viewApplicantList(curriculum_no);
 	}
+//	
+//	public List<ApplicantVo> studentManagement(String curriculum_no){
+//		
+//		System.out.println("[CurriService] studentManagement IN");
+//		return curriDao.studentManagement(curriculum_no);
+//	}
 	
 //	
 	

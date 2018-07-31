@@ -13,6 +13,10 @@
     <c:import url="/WEB-INF/views/includes/link.jsp" />
     <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/class.css">
+
+    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/demo/css/style.css">--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/demo/css/ui.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/pg-calendar/dist/css/pignose.calendar.min.css">
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -41,30 +45,40 @@
         <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-body">
+                <div class="box box-body" style="padding-right: 36px">
                     <div class="box-header with-border">
                         <h3 class="box-title"> 교육과정검색</h3>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <table class="table table-bordered">
+                    <%--<div class="box-body">--%>
+                        <table class="table table-condensed">
                             <tr>
-                                <th style="width: 30%">업무구분</th>
-                                <th style="width: 30%">교육과정(반) 명</th>
-                                <th style="width: 40%; border-left: hidden"><input type="radio" name="ra_sel" value="all">&ensp;전체 &ensp;
-                                    <input type="radio" name="ra_sel" value="ongoing" checked>&ensp;수업중</th>
+                                <th style="width: 20%">업무구분</th>
+                                <th colspan="2">교육과정(반) 명</th>
+                                <%--<th style="width: 40%; border-left: hidden">--%>
+                                    <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="all">전체</label>--%>
+                                    <%--<label class="form-controll-static"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>--%>
+                                <%--</th>--%>
                             </tr>
                             <tr>
-                                <td><select id="workTypeSelect" style="width:70%">
-                                    <c:forEach items="${workType}" var="wt">
+                                <td><select class="form-control" id="workTypeSelect" style="width:100%">
+                                    <c:forEach items="${workType}" var="wt"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                         <option id="${wt}" value="${wt}">${wt}</option>
                                     </c:forEach>
                                 </select></td>
-                                <td colspan="2" id="curriTd"><select id="curriSelect" style="width: 90%">
-                                </select></td>
+                                <td class="table-text" style="border-right: none !important; width: 130px;">
+                                    <div class="radio-group w100 disp-inline">
+                                        <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
+                                        <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
+                                    </div>
+                                </td>
+                                <td id="curriTd" style="border-left: none !important;">
+                                    <select class="form-control" id="curriSelect" style="width: 100%">
+                                    </select>
+                                </td>
                             </tr>
                         </table>
-                    </div>
+                    <%--</div>--%>
                     <div class="sub-toolbox text-center">
                         <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
                     </div>
@@ -75,26 +89,26 @@
                         <input id="selectedCurri" type="hidden">
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <table class="table table-bordered">
+                    <div class="box-body" style="padding-right: 36px">
+                        <table class="table table-condensed">
                             <tr>
                                 <th style="width: 8%; text-align: center">과정구분</th>
-                                <td id="curriNameInfo" colspan="3" style="width: 55%"></td>
+                                <td id="curriNameInfo" class="table-text" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">기수</th>
-                                <td id="gisuInfo" style="width: 29%"></td>
+                                <td id="gisuInfo" class="table-text" style="width: 42%"></td>
                             </tr>
                             <tr>
                                 <th style="width: 8%; text-align: center">개강일</th>
-                                <td id="periodFrInfo" style="width: 42%"></td>
+                                <td id="periodFrInfo" class="table-text" style="width: 42%"></td>
                                 <th style="width: 8%; text-align: center">종강일</th>
-                                <td id="periodToInfo" colspan="3" style="width: 42%"></td>
+                                <td id="periodToInfo" class="table-text" style="width: 42%"></td>
                             </tr>
                         </table>
                     </div>
-                </div>
+                <%--</div>--%>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="box box-body">
+                        <div class="box-body">
 
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
@@ -126,9 +140,10 @@
                         </div>
                         <!-- nav-tabs-custom -->
                     </div>
-                        </div>
+                    </div>
                     <!-- /.col -->
                 </div>
+            </div>
             </div>
         </div>
         </section>
@@ -148,6 +163,6 @@
 
 </body>
 </html>
-<%--<c:import url="/WEB-INF/views/includes/script.jsp" />--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/pg-calendar/dist/js/pignose.calendar.full.min.js"></script>
 
 <c:import url="includes/classscript.jsp" />

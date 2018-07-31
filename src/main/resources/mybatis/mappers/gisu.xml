@@ -6,7 +6,9 @@
 
     <select id="getGisu" parameterType="Int" resultType="String">
         <![CDATA[
-        SELECT GisuName from Gisu where Curriculum_no=#{curriculum_no}
+        SELECT GisuName
+            from Gisu
+            where Curriculum_no=#{curriculum_no}
         ]]>
     </select>
 
