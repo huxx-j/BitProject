@@ -19,7 +19,7 @@ public class ApplicantVo {
 	private String cardPayDate;
 	private int cardPayAmount;
 	private String cardPayState;
-	private String depositDay;
+	private String depositDate;
 	private int totalPay;
 	private String note;
 	private String curriName;
@@ -30,7 +30,7 @@ public class ApplicantVo {
 	public ApplicantVo(int applicant_no, int user_no, int curriculum_no, String nameHan, String birthDate,
                        String applyDay, String applyType, String testDay, String testLang, int testScore, String testResult,
                        String comment, String deposit, int depositAmount, String cardPayDate, int cardPayAmount,
-                       String cardPayState, String depositDay, int totalPay, String note, String curriName, String gender) {
+                       String cardPayState, String depositDate, int totalPay, String note, String curriName, String gender) {
 		super();
 		this.applicant_no = applicant_no;
 		this.user_no = user_no;
@@ -49,7 +49,7 @@ public class ApplicantVo {
 		this.cardPayDate = cardPayDate;
 		this.cardPayAmount = cardPayAmount;
 		this.cardPayState = cardPayState;
-		this.depositDay = depositDay;
+		this.depositDate = depositDate;
 		this.totalPay = totalPay;
 		this.note = note;
 		this.curriName = curriName;
@@ -157,11 +157,11 @@ public class ApplicantVo {
 	public void setCardPayState(String cardPayState) {
 		this.cardPayState = cardPayState;
 	}
-	public String getDepositDay() {
-		return depositDay;
+	public String getDepositDate() {
+		return depositDate;
 	}
-	public void setDepositDay(String depositDay) {
-		this.depositDay = depositDay;
+	public void setDepositDate(String depositDate) {
+		this.depositDate = depositDate;
 	}
 	public int getTotalPay() {
 		return totalPay;
@@ -194,7 +194,7 @@ public class ApplicantVo {
 				+ applyType + ", testDay=" + testDay + ", testLang=" + testLang + ", testScore=" + testScore
 				+ ", testResult=" + testResult + ", comment=" + comment + ", deposit=" + deposit + ", depositAmount="
 				+ depositAmount + ", cardPayDate=" + cardPayDate + ", cardPayAmount=" + cardPayAmount
-				+ ", cardPayState=" + cardPayState + ", depositDay=" + depositDay + ", totalPay=" + totalPay + ", note="
+				+ ", cardPayState=" + cardPayState + ", depositDate=" + depositDate + ", totalPay=" + totalPay + ", note="
 				+ note + ", curriName=" + curriName + ", gender=" + gender + "]";
 	}
 	

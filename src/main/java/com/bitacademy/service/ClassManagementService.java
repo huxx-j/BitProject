@@ -29,8 +29,8 @@ public class ClassManagementService {
     @Autowired private DirectoryGenerator directoryGenerator;
 
     //페이지 로딩할때 업무구분 불러오는 코드
-    public List<String> getWorkType() {
-        return curriculumDao.getWorkType();
+    public List<String> getCateName() {
+        return curriculumDao.getCateName();
     }
 
     public List<CurriculumVo> getCurri(String workType) {

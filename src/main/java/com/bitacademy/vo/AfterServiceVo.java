@@ -12,12 +12,13 @@ public class AfterServiceVo {
     private String telePhone;
     private String tel;
     private String address;
+    private String companyAddress;
 
 
     public AfterServiceVo() {
     }
 
-    public AfterServiceVo(int afterService_no, int user_no, String compName, String department, String state, String position, String periodFr, String periodTo, String telePhone, String tel, String address) {
+    public AfterServiceVo(int afterService_no, int user_no, String compName, String department, String state, String position, String periodFr, String periodTo, String telePhone, String tel, String address,String companyAddress) {
         this.afterService_no = afterService_no;
         this.user_no = user_no;
         this.compName = compName;
@@ -29,6 +30,7 @@ public class AfterServiceVo {
         this.telePhone = telePhone;
         this.tel = tel;
         this.address = address;
+        this.companyAddress = companyAddress;
     }
 
     public int getAfterService_no() {
@@ -119,6 +121,14 @@ public class AfterServiceVo {
         this.address = address;
     }
 
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
     @Override
     public String toString() {
         return "AfterServiceVo{" +
@@ -133,6 +143,7 @@ public class AfterServiceVo {
                 ", telePhone='" + telePhone + '\'' +
                 ", tel='" + tel + '\'' +
                 ", address='" + address + '\'' +
+                ", companyAddress='" + companyAddress + '\'' +
                 '}';
     }
 }

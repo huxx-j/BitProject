@@ -3,7 +3,7 @@
 
 <mapper namespace="completion">
 
-<select id="getValStudent" resultType="com.bitacademy.vo.UsersVo">
+<!-- <select id="getValStudent" resultType="com.bitacademy.vo.UsersVo">
 
 <![CDATA[
 		select * from Users 
@@ -12,64 +12,95 @@
 				 	   curriculum.state=State;
 	]]>
 
-</select>
+</select> -->
 
 <select id="getCompletionStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
 
 <![CDATA[
-
-	   select Users.User_no, Gisu.GisuName,Users.NameHan, Users.BirthDate,
-	   		  ApplyInfo.State,Users.Handphone,ApplyInfo.ApplyDay, ApplyInfo.TestDay,
+	   select Users.User_no, Gisu.GisuName,Users.NameHan, Users.BirthDate,Users.Gender,
+	   		  ApplyInfo.TestResult,Users.Cellphone,ApplyInfo.ApplyDate, ApplyInfo.TestDate,
 	   		  UserScholarship.School, UserScholarship.Major,
 	   		  ApplyInfo.Deposit
-       
-	   from ApplyInfo  
-	
+	   from ApplyInfo
 	   join Users on Users.User_no = ApplyInfo.User_no
 	   join UserScholarship on Users.User_no = UserScholarship.User_no
 	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
 	   join Gisu on Curriculum.Curriculum_no = Gisu.Curriculum_no
-	   
 	   where Curriculum.Curriculum_no = #{curriculum_no};
 
 	]]>
-
 </select>
+<!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
 
-<select id="afterServiceList" parameterType="int" resultType="com.bitacademy.vo.AfterServiceVo">
+<select id="afterServiceList" parameterType="int" resultType="com.bitacademy.vo.UserCareerVo">
 
 <![CDATA[
 		
-	   select AfterService.CompName,AfterService.PeriodFr,AfterService.PeriodTo,AfterService.State,
-	   		  AfterService.afterService_no,Users.User_no
+	   select UserCareer.CompName,UserCareer.StartDate,UserCareer.EndDate,UserCareer.State,
+	   		  UserCareer.UserCareer_no,Users.User_no
 	   		  
-	   from AfterService  
+	   from UserCareer
 	
-	   join Users on Users.User_no = AfterService.User_no
+	   join Users on Users.User_no = UserCareer.User_no
 	   
 	   where Users.User_no = #{user_no};
 	]]>
 
-</select>
+</select><!-- 선택된 학생의 취업정보 가져가기 -->
 
-<select id="afterService_details" parameterType="map" resultType="com.bitacademy.vo.AfterServiceVo">
+<select id="afterService_details" parameterType="map" resultType="com.bitacademy.vo.UserCareerVo">
 
 <![CDATA[
             
-	  select AfterService.CompName,Company.Tel,AfterService.PeriodFr,
-			 AfterService.PeriodTo,AfterService.Position,AfterService.Department,
-			 AfterService.State,Company.Address
+	  select UserCareer.CompName,UserCareer.TelePhone,UserCareer.StartDate,UserCareer.UserCareer_no,
+			 UserCareer.EndDate,UserCareer.Role,UserCareer.Department,
+			 UserCareer.State,UserCareer.CompanyAddress,Users.User_no
 	
-	  from AfterService as AfterService
+	  from UserCareer as UserCareer
 
-	  join Users as Users on AfterService.User_no = Users.User_no
+	  join Users as Users on UserCareer.User_no = Users.User_no
       join Interview as Interview on Users.User_no = Interview.User_no
       join Company as Company on Interview.Commpany_no = Company.Commpany_no 
 
-	  where AfterService.AfterService_no = #{afterService_no} and AfterService.User_no = #{user_no};
+	  where UserCareer.UserCareer_no = #{userCareer_no} and UserCareer.User_no = #{user_no};
 	
 	]]>
 
-</select>
+</select><!-- 클릭된 취업내용 상세내역 가져가기 -->
+
+<update id="afterServiceUpdate" parameterType="com.bitacademy.vo.UserCareerVo">
+
+		<![CDATA[
+
+				update UserCareer
+								set CompName=#{compName},
+									StartDate=#{startDate},
+									EndDate=#{endDate},
+									Role=#{role},
+									TelePhone=#{telePhone},
+									State=#{state},
+									Department=#{department}
+						where User_no=#{user_no};
+
+		]]>
+
+</update><!-- 수정버튼 클릭 후 취업상세내용 업데이트하기 -->
+
+<insert id="afterServiceAdd" parameterType="com.bitacademy.vo.UserCareerVo">
+	<![CDATA[
+
+	insert into UserCareer(User_no,StartDate,EndDate,CompName,Role,TelePhone,CompanyAddress,State,Department)
+	values(	#{user_no},
+			#{startDate},
+			#{endDate},
+			#{compName},
+			#{role},
+			#{telePhone},
+			#{companyAddress},
+			#{state},
+			#{department}
+			);
+	]]>
+</insert><!-- 저장 버튼 클릭 후 취업내용 추가하기 -->
 
 </mapper>

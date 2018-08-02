@@ -1,4 +1,4 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%--<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -16,6 +16,14 @@
 			name="viewport">
 	<c:import url="/WEB-INF/views/includes/link.jsp" />
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp" />
+
+<style type="text/css">
+		.btn-date {
+			padding-top : 0px;
+			padding-bottom :0px;
+		}
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -42,13 +50,13 @@
 		<!-- /.Content Header (Page header) -->
 
 		<!-- Main content -->
-		<section class="content">
+		<section class="content" style="padding-top:10px;padding-bottom:10px;">
 
 			<!-- 상단 -->
 			<div class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-12" style="height: 155px;">
 
-					<div class="box box-body">
+					<div class="box box-body" style="padding-bottom: 0px;">
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="sub-box">
@@ -59,16 +67,18 @@
 									<div class="sub-body">
 										<table class="table table-condensed">
 											<colgroup>
-												<col width="250px" />
-												<col width="200px" />
+												<col width="150px" />
+												<col width="300px" />
 												<col width="" />
 											</colgroup>
 
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th>상태</th>
-												<th>교육과정명</th>
+												<th>교육과정명&nbsp;&nbsp;&nbsp;&nbsp;
+													<label class="form-controll-static"><input class="" type="radio" name="state" value="전체">전체</label>
+													<label class="form-controll-static"><input class="" type="radio" name="state" value="모집중">모집중</label>
+												</th>
 											</tr>
 											</thead>
 
@@ -82,11 +92,6 @@
 																id="${curriList.workType}">${curriList.workType}</option>
 													</c:forEach>
 												</select></td>
-												<td><label class="form-controll-static"><input
-														class="" type="radio" name="state" value="전체">전체</label>
-													<label class="form-controll-static"><input
-															class="" type="radio" name="state" value="모집중">모집중</label>
-												</td>
 												<td id="curriTd">
 													<select name="strcurriName" class="form-control input-sm" id="curriSelect">
 
@@ -116,9 +121,9 @@
 			<!-- /.row 상단-->
 
 			<!-- 하단 -->
-			<div class="row" style="height: 720px;">
-				<div class="col-xs-12" style="height: 720px;">
-					<div class="box box-body" style="height: 720px;">
+			<div class="row" style="height: 690px;">
+				<div class="col-xs-12" style="height: 690px;">
+					<div class="box box-body" style="height: 690px;">
 
 						<div class="row">
 							<div class="col-xs-12">
@@ -140,7 +145,7 @@
 						<!-- /.row -->
 						<div class="space"></div>
 						<div class="row">
-							<div class="col-xs-3">
+							<div class="col-xs-4" style="padding-right:0px;">
 								<div class="sub-box">
 									<div class="sub-title">과거지원내역</div>
 									<!-- sub_title -->
@@ -172,10 +177,10 @@
 								<!-- /.sub-box -->
 							</div>
 							<!-- /.col-xs-3 -->
-							<div class="col-xs-9" style="height: 320px;">
+							<div class="col-xs-6" style="height: 310px;padding-right:5px;width:645px;">
 								<div class="sub-box">
 									<div class="sub-box"
-										 style="height: 200px; width: 70%; float: left;">
+										 style="height: 200px;float: right;">
 										<div class="sub-title">지원내역상세</div>
 										<!-- sub_title -->
 
@@ -276,7 +281,7 @@
 												<td>
 													<div class="input-group" style="border: 1px solid #c2c2c2">
 	                                                 				<span class="input-group-btn">
-			                                                  			<button type="button" class="btn" data-toggle="datepicker" style="border: none;
+			                                                  			<button type="button" class="btn btn-date" data-toggle="datepicker" style="border: none;
 			                                                  				background-color: rgba(255,255,255,0)"  id="testDatepicker">
 			                                                  			<label for="date1">
 			                                                  			<i class="fa fa-calendar"></i>
@@ -296,7 +301,7 @@
 												<td>
 													<div class="input-group" style="border: 1px solid #c2c2c2">
 	                                                 				<span class="input-group-btn">
-			                                                  			<button type="button" class="btn" data-toggle="datepicker" style="border: none;
+			                                                  			<button type="button" class="btn btn-date" data-toggle="datepicker" style="border: none;
 			                                                  				background-color: rgba(255,255,255,0)"  id="testDatepicker">
 			                                                  			<label for="date2">
 			                                                  			<i class="fa fa-calendar" id="testDatepicker"></i>
@@ -328,19 +333,21 @@
 										</table>
 										<!-- /.sub-body -->
 									</div>
-									<div class="sub-box"
-										 style="width: 30%; height: 310px; float: right;">
-										<div class="sub-title">상담내역</div>
-										<div style="width: 100%; float: right; height: 100%">
-												<textarea class="form-control" rows="9"
-														  style="height: 278px;" id="consult" name="consult"></textarea>
-										</div>
-									</div>
 									<input type = "hidden" name="hidden_no">
 								</div>
 								<!-- /.sub-box -->
 							</div>
 							<!-- /.col-xs-9 -->
+							<div class = "col-xs-2" style="padding-left:0px;height: 310px;">
+									<div class="sub-box"
+										 style=" height: 310px;">
+										<div class="sub-title">상담내역</div>
+										<!-- <div style="width: 100%; float: right;"> -->
+												<textarea class="form-control" rows="9"
+														  style="height: 280px;" id="consult" name="consult"></textarea>
+										<!-- </div> -->
+									</div>
+							</div>
 							<div class="sub-toolbox text-center">
 								<button type="button" class="btn btn-primary" id="update">수정</button>
 							</div>
@@ -389,7 +396,7 @@
                 console.log("지원자 관리 들어갔다 왔어요");
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control input-sm' style='width: 90%'></select>";
 
                 $("#curriTd").append(str);
 
@@ -413,7 +420,7 @@
                 success : function(list) {
                     $("#curriSelect").remove();
                     var str = "";
-                    str += "<select id='curriSelect' style='width: 90%'></select>";
+                    str += "<select id='curriSelect' class='form-control input-sm' style='width: 90%'></select>";
                     $("#curriTd").append(str);
                     for (var i = 0; i < list.length; i++) {
                         console.log(list[i])
@@ -477,10 +484,10 @@
                     {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
                     {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
                     {name : 'gender',index : 'gender',width : 50,align : "center"},
-                    {name : 'state',index : 'state',width : 80,align : "center"},
-                    {name : 'handphone',index : 'handphone',width : 150,align : "center"},
-                    {name : 'applyDay',index : 'applyDay',width : 100,align : "center"},
-                    {name : 'testDay',index : 'testDay',width : 100,align : "center"},
+                    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
+                    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
+                    {name : 'applyDate',index : 'applyDate',width : 100,align : "center"},
+                    {name : 'testDate',index : 'testDate',width : 100,align : "center"},
                     {name : 'school',index : 'school',width : 150,align : "center"},
                     {name : 'major',index : 'major',width : 150,align : "center"},
                     {name : 'deposit',index : 'deposit',width : 80,align : "center"} ],

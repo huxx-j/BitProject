@@ -12,25 +12,26 @@ public class ApplyUserVo {
 	private String birthDate;
 	private String testScore;
 	private String gender;
-	private String state;
-	private String handphone;
+	private String testResult;
+	private String cellphone;
 	private String testLang;
-	private String applyDay;
-	private String testDay;
+	private String applyDate;
+	private String testDate;
 	private String school;
 	private String major;
 	private String deposit;
-	private String depositDay;
+	private String depositDate;
 	private String depositAmount;
-	private String cardPayDay;
+	private String cardPayDate;
 	private String cardPayAmount;
 	private String totalPay;
 	private String consult;
+
 	public ApplyUserVo(int user_no, int curriculum_no, String workType, String gisuName, String curriName,
-                       String nameHan, String applyType, String birthDate, String testScore, String gender, String state,
-                       String handphone, String testLang, String applyDay, String testDay, String school, String major,
-                       String deposit, String depositDay, String depositAmount, String cardPayDay, String cardPayAmount,
-                       String totalPay, String consult) {
+			String nameHan, String applyType, String birthDate, String testScore, String gender, String testResult,
+			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
+			String deposit, String depositDate, String depositAmount, String cardPayDate, String cardPayAmount,
+			String totalPay, String consult) {
 		
 		this.user_no = user_no;
 		this.curriculum_no = curriculum_no;
@@ -42,178 +43,228 @@ public class ApplyUserVo {
 		this.birthDate = birthDate;
 		this.testScore = testScore;
 		this.gender = gender;
-		this.state = state;
-		this.handphone = handphone;
+		this.testResult = testResult;
+		this.cellphone = cellphone;
 		this.testLang = testLang;
-		this.applyDay = applyDay;
-		this.testDay = testDay;
+		this.applyDate = applyDate;
+		this.testDate = testDate;
 		this.school = school;
 		this.major = major;
 		this.deposit = deposit;
-		this.depositDay = depositDay;
+		this.depositDate = depositDate;
 		this.depositAmount = depositAmount;
-		this.cardPayDay = cardPayDay;
+		this.cardPayDate = cardPayDate;
 		this.cardPayAmount = cardPayAmount;
 		this.totalPay = totalPay;
 		this.consult = consult;
 	}
+
 	public ApplyUserVo() {
 		
 	}
+
 	public int getUser_no() {
 		return user_no;
 	}
+
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
+
 	public int getCurriculum_no() {
 		return curriculum_no;
 	}
+
 	public void setCurriculum_no(int curriculum_no) {
 		this.curriculum_no = curriculum_no;
 	}
+
 	public String getWorkType() {
 		return workType;
 	}
+
 	public void setWorkType(String workType) {
 		this.workType = workType;
 	}
+
 	public String getGisuName() {
 		return gisuName;
 	}
+
 	public void setGisuName(String gisuName) {
 		this.gisuName = gisuName;
 	}
+
 	public String getCurriName() {
 		return curriName;
 	}
+
 	public void setCurriName(String curriName) {
 		this.curriName = curriName;
 	}
+
 	public String getNameHan() {
 		return nameHan;
 	}
+
 	public void setNameHan(String nameHan) {
 		this.nameHan = nameHan;
 	}
+
 	public String getApplyType() {
 		return applyType;
 	}
+
 	public void setApplyType(String applyType) {
 		this.applyType = applyType;
 	}
+
 	public String getBirthDate() {
 		return birthDate;
 	}
+
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
+
 	public String getTestScore() {
 		return testScore;
 	}
+
 	public void setTestScore(String testScore) {
 		this.testScore = testScore;
 	}
+
 	public String getGender() {
 		return gender;
 	}
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getState() {
-		return state;
+
+	public String getTestResult() {
+		return testResult;
 	}
-	public void setState(String state) {
-		this.state = state;
+
+	public void setTestResult(String testResult) {
+		this.testResult = testResult;
 	}
-	public String getHandphone() {
-		return handphone;
+
+	public String getCellphone() {
+		return cellphone;
 	}
-	public void setHandphone(String handphone) {
-		this.handphone = handphone;
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
+
 	public String getTestLang() {
 		return testLang;
 	}
+
 	public void setTestLang(String testLang) {
 		this.testLang = testLang;
 	}
-	public String getApplyDay() {
-		return applyDay;
+
+	public String getApplyDate() {
+		return applyDate;
 	}
-	public void setApplyDay(String applyDay) {
-		this.applyDay = applyDay;
+
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
 	}
-	public String getTestDay() {
-		return testDay;
+
+	public String getTestDate() {
+		return testDate;
 	}
-	public void setTestDay(String testDay) {
-		this.testDay = testDay;
+
+	public void setTestDate(String testDate) {
+		this.testDate = testDate;
 	}
+
 	public String getSchool() {
 		return school;
 	}
+
 	public void setSchool(String school) {
 		this.school = school;
 	}
+
 	public String getMajor() {
 		return major;
 	}
+
 	public void setMajor(String major) {
 		this.major = major;
 	}
+
 	public String getDeposit() {
 		return deposit;
 	}
+
 	public void setDeposit(String deposit) {
 		this.deposit = deposit;
 	}
-	public String getDepositDay() {
-		return depositDay;
+
+	public String getDepositDate() {
+		return depositDate;
 	}
-	public void setDepositDay(String depositDay) {
-		this.depositDay = depositDay;
+
+	public void setDepositDate(String depositDate) {
+		this.depositDate = depositDate;
 	}
+
 	public String getDepositAmount() {
 		return depositAmount;
 	}
+
 	public void setDepositAmount(String depositAmount) {
 		this.depositAmount = depositAmount;
 	}
-	public String getCardPayDay() {
-		return cardPayDay;
+
+	public String getCardPayDate() {
+		return cardPayDate;
 	}
-	public void setCardPayDay(String cardPayDay) {
-		this.cardPayDay = cardPayDay;
+
+	public void setCardPayDate(String cardPayDate) {
+		this.cardPayDate = cardPayDate;
 	}
+
 	public String getCardPayAmount() {
 		return cardPayAmount;
 	}
+
 	public void setCardPayAmount(String cardPayAmount) {
 		this.cardPayAmount = cardPayAmount;
 	}
+
 	public String getTotalPay() {
 		return totalPay;
 	}
+
 	public void setTotalPay(String totalPay) {
 		this.totalPay = totalPay;
 	}
+
 	public String getConsult() {
 		return consult;
 	}
+
 	public void setConsult(String consult) {
 		this.consult = consult;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ApplyUserVo [user_no=" + user_no + ", curriculum_no=" + curriculum_no + ", workType=" + workType
 				+ ", gisuName=" + gisuName + ", curriName=" + curriName + ", nameHan=" + nameHan + ", applyType="
 				+ applyType + ", birthDate=" + birthDate + ", testScore=" + testScore + ", gender=" + gender
-				+ ", state=" + state + ", handphone=" + handphone + ", testLang=" + testLang + ", applyDay=" + applyDay
-				+ ", testDay=" + testDay + ", school=" + school + ", major=" + major + ", deposit=" + deposit
-				+ ", depositDay=" + depositDay + ", depositAmount=" + depositAmount + ", cardPayDay=" + cardPayDay
-				+ ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consult=" + consult + "]";
+				+ ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="
+				+ applyDate + ", testDate=" + testDate + ", school=" + school + ", major=" + major + ", deposit="
+				+ deposit + ", depositDate=" + depositDate + ", depositAmount=" + depositAmount + ", cardPayDate="
+				+ cardPayDate + ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consult=" + consult
+				+ "]";
 	}
 	
 	

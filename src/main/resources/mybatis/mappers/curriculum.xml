@@ -5,15 +5,16 @@
 <mapper namespace="curriculum">
 
     <!--성우-->
-    <select id="getWorkType" resultType="String">
+    <select id="getCateName" resultType="String">
         <![CDATA[
-        SELECT WorkType from Curriculum group by WorkType
+        SELECT CateName from CurriculumCate group by CateName
         ]]>
     </select>
 
     <select id="getCurri" parameterType="String" resultType="CurriculumVo">
         <![CDATA[
-        select Curriculum_no, CurriName from Curriculum where WorkType=#{workType}
+         select Curriculum_no, CurriName from Curriculum C
+  			join CurriculumCate C2 on C.CurriculumCate_no = C2.CurriculumCate_no and C2.CateName=#{workType}
         ]]>
     </select>
 
