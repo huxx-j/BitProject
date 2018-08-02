@@ -16,8 +16,8 @@ public class CurriculumDao {
     SqlSession sqlSession;
 
     //성우
-    public List<String> getWorkType() {
-        return sqlSession.selectList("curriculum.getWorkType");
+    public List<String> getCateName() {
+        return sqlSession.selectList("curriculum.getCateName");
     }
 
     public List<CurriculumVo> getCurri(String workType) {

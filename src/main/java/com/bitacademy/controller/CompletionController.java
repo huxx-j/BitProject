@@ -21,10 +21,10 @@ public class CompletionController {
 	public String StudentMain(Model model) {
 
 		System.out.println("수료생관리로 가요");
-		List<CurriculumVo> curriList = completionService.getFristWorkType();
+		List<CurriculumVo> curriList = completionService.getWorkType();
 		model.addAttribute("curriList",curriList);
 
 		return"graduate/completionmanagement";
-	}
+	}//맨처음 업무구분 가져와 수료생관리 메인으로 넘어가기
 
 }

@@ -16,7 +16,7 @@ public class ClassManagementController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String main(Model model){
-        model.addAttribute("workType",classManagementService.getWorkType());
+        model.addAttribute("cateName",classManagementService.getCateName());
         model.addAttribute("date",classManagementService.getDate());
         return "/class/classmanagement";
     }

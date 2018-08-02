@@ -18,6 +18,7 @@
 			padding-top : 0px;
 			padding-bottom :0px;
 		}
+
 	</style>
 
 </head>
@@ -71,13 +72,15 @@
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th>교육과정명&nbsp;&nbsp;&nbsp;&nbsp;
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">준비중</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집마감</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">수업중</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="">종료</label>
+												<th>교육과정명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<div style = "float:right;">
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">준비중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집마감</label>
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">수업중</label>
+														<label class="form-controll-static"><input class="" type="radio" name="state" value="">종료</label>
+													</div>
 												</th>
 											</tr>
 											</thead>
@@ -137,7 +140,7 @@
 						</div><!-- /.row -->
 						<div class="space"></div>
 						<div class="row">
-							<div class="col-xs-3" style="margin-top:13px;">
+							<div class="col-xs-4" style="margin-top:13px;">
 								<div class="sub-box">
 									<div class="sub-title">
 										취업정보
@@ -176,13 +179,13 @@
 									</div><!-- /.sub-body -->
 								</div><!-- /.sub-box -->
 							</div><!-- /.col-xs-3 -->
-							<div class="col-xs-9">
+							<div class="col-xs-8">
 								<div class="sub-box">
-									<div class="row">
-										<div class="pull-right" style="margin-bottom:5px;width:100px;height:30px;padding-right:80px;float:left;">
+										<div class="pull-right" style="margin-bottom:5px;width:100px;height:30px;padding-right:15px;float:right;"id="companyAdd_div">
 											<button type="button" class="btn btn-primary" id="companyAdd">추가</button>
 										</div><!-- sub_title -->
-										<div class="sub-body" style="width:970px;height:220px;" id="companyTableDiv">
+									<div class="row">
+										<div class="sub-body" style="height:220px;padding-right: 15px;" id="companyTableDiv">
 											<table class="table table-condensed" id="companyTable">
 												<colgroup>
 													<col width="80px" />
@@ -196,17 +199,22 @@
 													<th>회사명</th>
 													<td colspan="8">
 														<input class="form-control input-sm" type="text"
-															   name="compName" placeholder="">
+															   name="compName" id="compName" placeholder="">
 													</td>
 												</tr>
 
 												<tr>
 													<th>전화</th>
 													<td>
-														<input class="form-control input-sm" type="text" name="tel" placeholder="">
+														<input class="form-control input-sm" type="text" id="telePhone" name="telePhone" placeholder="">
 													</td>
-													<th></th>
-													<td colspan="2"></td>
+													<th>재직여부</th>
+													<td colspan="2">
+														<select class="form-control input-sm" name="state" id="state">
+															<option>재직중</option>
+															<option>퇴사</option>
+														</select>
+													</td>
 												</tr>
 												<tr>
 													<th>입사일</th>
@@ -219,8 +227,8 @@
 			                                                  			<i class="fa fa-calendar"></i>
 			                                                  			</label></button>
 		                                                  			</span>
-															<input type="text" class="form-control input-sx pull-right"
-																   name="date1" id="date1"  data-select="datepicker" style="border: none;height:20px;">
+															<input type="text" class="form-control input-xs pull-right"
+																   name="date1" id="date1"  data-select="datepicker" style="border: none;width:270px;height:20px;">
 														</div>
 													</td>
 													<th>퇴사일</th>
@@ -233,25 +241,25 @@
 			                                                  			<i class="fa fa-calendar"></i>
 			                                                  			</label></button>
 		                                                  			</span>
-															<input type="text" class="form-control input-sx pull-right"
-																   name="date2" id="date2"  data-select="datepicker" style="border: none; width:100%;height:20px;">
+															<input type="text" class="form-control input-xs pull-right"
+																   name="date2" id="date2"  data-select="datepicker" style="border: none;width:270px;height:20px;">
 														</div>
 													</td>
 												</tr>
 												<tr>
 													<th>직책</th>
 													<td>
-														<input class="form-control input-sm" type="text" name = "position" placeholder="">
+														<input class="form-control input-sm" type="text" id="position" name = "position" placeholder="">
 													</td>
 													<th>부서</th>
 													<td colspan="2">
-														<input class="form-control input-sm" type="text" name = "department" placeholder="">
+														<input class="form-control input-sm" type="text" id="department" name = "department" placeholder="">
 													</td>
 												</tr>
 												<tr>
 													<th>회사주소</th>
 													<td colspan="8">
-														<input class="form-control input-sm" type="text" name = "address" placeholder="">
+														<input class="form-control input-sm" type="text" id="companyAddress" name = "companyAddress" placeholder="" >
 													</td>
 												</tr>
 												</tbody>
@@ -261,6 +269,8 @@
 											<button type="button" class="btn btn-primary" id="company_btn">수정</button>
 										</div>
 									</div><!-- /.sub-box -->
+									<input type = "hidden" name="hidden_no" id = "hidden_no">
+									<input type = "hidden" name="hidden_applyno" id = "hidden_applyno">
 								</div><!-- /.col-xs-9 -->
 							</div><!-- /.row -->
 
@@ -296,7 +306,6 @@
     $(document).ready(function() {
 
         var selectValue = $("#workTypeSelect option:selected").val();
-        console.log("ajsdfhijashdfahdfuihsadijfb");
         console.log(selectValue);
 
         $.ajax({
@@ -308,7 +317,7 @@
                 console.log("지원자 관리 들어갔다 왔어요");
                 $("#curriSelect").remove();
                 var str = "";
-                str += "<select id='curriSelect' style='width: 90%'></select>";
+                str += "<select id='curriSelect' class='form-control input-sm' style='width: 90%'></select>";
 
                 $("#curriTd").append(str);
 
@@ -332,7 +341,7 @@
                 success : function(list) {
                     $("#curriSelect").remove();
                     var str = "";
-                    str += "<select id='curriSelect' style='width: 90%'></select>";
+                    str += "<select id='curriSelect' class='form-control input-sm' style='width: 90%'></select>";
                     $("#curriTd").append(str);
                     for (var i = 0; i < list.length; i++) {
                         /* console.log(list[i]) */
@@ -362,13 +371,12 @@
         $.ajax({
             url : "/api/completion/search",
             type : "get",
-            data : {
-                "selectValue" : selectValue
-            },
+            data : {"selectValue" : selectValue},
             dataType : "json",
             success : function(list) {
-
                 console.log("search 잘 들어갔다 나옴");
+
+                jqGridUserInfo();
 
                 for (var i = 0; i < list.length; i++)
                     $("#jqGrid").jqGrid('addRowData', i + 1,
@@ -383,6 +391,11 @@
 
     });
 
+   function jqGridUserInfo() {
+
+	  removeJqGridTable();
+      renderJqGridTable();
+
     var cnames = [ 'j', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자','전형일자', '학교', '전공', '입금여부' ];
 
     $("#jqGrid")
@@ -396,10 +409,10 @@
                     {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
                     {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
                     {name : 'gender',index : 'gender',width : 50,align : "center"},
-                    {name : 'state',index : 'state',width : 80,align : "center"},
-                    {name : 'handphone',index : 'handphone',width : 150,align : "center"},
-                    {name : 'applyDay',index : 'applyDay',width : 100,align : "center"},
-                    {name : 'testDay',index : 'testDay',width : 100,align : "center"},
+                    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
+                    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
+                    {name : 'applyDate',index : 'applyDate',width : 100,align : "center"},
+                    {name : 'testDate',index : 'testDate',width : 100,align : "center"},
                     {name : 'school',index : 'school',width : 150,align : "center"},
                     {name : 'major',index : 'major',width : 150,align : "center"},
                     {name : 'deposit',index : 'deposit',width : 80,align : "center"} ],
@@ -451,16 +464,16 @@
 
                     function renderApplied(list) {
                         var str = "";
-                        str += "<tr id='" + list.afterService_no+ "' name='" + list.user_no + "' class='past'>";
-                        str += "<td value='" + list.afterService_no + "'>"
-                            + list.afterService_no + "</td>";
-                        str += "<td value='" + list.afterService_no + "'>"
+                        str += "<tr id='" + list.userCareer_no+ "' name='" + list.user_no + "' class='past'>";
+                        str += "<td value='" + list.userCareer_no + "'>"
+                            + list.userCareer_no + "</td>";
+                        str += "<td value='" + list.userCareer_no + "'>"
                             + list.compName + "</td>";
-                        str += "<td value='" + list.afterService_no + "'>"
-                            + list.periodFr + "</td>";
-                        str += "<td value='" + list.afterService_no + "'>"
-                            + list.periodTo + "</td>";
-                        str += "<td value='" + list.afterService_no + "'>"
+                        str += "<td value='" + list.userCareer_no + "'>"
+                            + list.startDate + "</td>";
+                        str += "<td value='" + list.userCareer_no + "'>"
+                            + list.endDate + "</td>";
+                        str += "<td value='" + list.userCareer_no + "'>"
                             + list.state + "</td>";
                         str += "</tr>";
                         $("#afterServiceTable").append(str);
@@ -471,34 +484,46 @@
                 viewrecords : true
                 /* caption: "유저 정보" */
             });
-    function past_apply(afterService_no, user_no) {
+  }
+
+   function renderJqGridTable() {
+      str = "";
+      str = "<table id='jqGrid'></table>";
+
+      $("div[name=jqgrid]").append(str);
+  }
+
+  function removeJqGridTable() {
+      $("#gbox_jqGrid").remove();
+  }
+
+
+   function past_apply(userCareer_no, user_no) {
 
         console.log(user_no);
+        console.log(userCareer_no);
 
         $.ajax({
             url : "/api/completion/afterService_details",
             type : "get",
-            data : {"afterService_no" : afterService_no,
+            data : {"userCareer_no" : userCareer_no,
                 "user_no" : user_no},
             dataType : "json",
-            success : function(afterVo) {
-                console.log(afterVo)
-                $("input[name='hidden_no']").val(afterVo.user_no)
-                $("input[name='compName']").val(afterVo.compName)
-                $("input[name='tel']").val(afterVo.tel)
-                $("input[name='date1']").val(afterVo.periodFr)
-                $("input[name='date2']").val(afterVo.periodTo)
-                /* var str = "";
-                str += "<option>"+afterVo.testLang+"<option>";
-                $("[name=testLang]").append(str);*/
-                $("input[name='position']").val(afterVo.position)
-                $("input[name='department']").val(afterVo.department)
-                $("input[name='address']").val(afterVo.address)
+            success : function(userCareerVo) {
+                console.log(userCareerVo)
+                $("input[name='hidden_no']").val(userCareerVo.user_no)
+                $("input[name='hidden_applyno']").val(userCareerVo.userCareer_no)
+                $("input[name='compName']").val(userCareerVo.compName)
+                $("input[name='telePhone']").val(userCareerVo.telePhone)
+                $("input[name='date1']").val(userCareerVo.startDate)
+                $("input[name='date2']").val(userCareerVo.endDate)
+                $("input[name='position']").val(userCareerVo.role)
+                $("input[name='department']").val(userCareerVo.department)
+                $("input[name='companyAddress']").val(userCareerVo.companyAddress)
 
             },
             error : function(request, status, error) {
-                alert("code:" + request.status + "\n" + "message:"
-                    + request.responseText + "\n" + "error:" + error);
+                alert("취업한 정보가 없습니다.");
             }
         });
 
@@ -532,91 +557,127 @@
         changeMonth : true,
         changeYear : true,
         dateFormat : "yy-mm-dd"
-
     });
 
-    $("#companyAdd").on("click", function () {
+    $(document).on("click","#companyAdd",function (user_no) {
 
+    	console.log(user_no);
         $("#companyAdd").remove();
-        $("#companyTable").empty();
+
+        $("input[name='compName']").val("")
+        $("input[name='telePhone']").val("")
+        $("input[name='date1']").val("")
+        $("input[name='date2']").val("")
+        $("input[name='position']").val("")
+        $("input[name='department']").val("")
+        $("input[name='companyAddress']").val("")
+
         $("#company_btn").remove();
 
-        var strTable = "";
-        strTable += "<table class='table table-condensed' id='companyTable'>";
 
-        strTable +="<colgroup>";
-        strTable +="<col width='80px' />";
-        strTable +="<col width='300px' />";
-        strTable +="<col width='80px' />";
-        strTable +="<col width='300px' />";
-        strTable +="</colgroup>";
-        strTable +="<tbody>";
-        strTable +="<tr>";
-        strTable +="<th>회사명</th>";
-        strTable +="<td colspan='8'>";
-        strTable +="<input class='form-control input-sm' type='text'name='compName' placeholder=''>";
-        strTable +="</td>";
-        strTable +="</tr>";
-        strTable +="<tr>";
-        strTable +="<th>전화</th>";
-        strTable +="<td>";
-        strTable +="<input class='form-control input-sm' type='text' name='tel' placeholder=''>";
-        strTable +="</td>";
-        strTable +="<th></th>";
-        strTable +="<td colspan='2'></td>";
-        strTable +="</tr>";
-        strTable +="<tr>";
-        strTable +="<th>입사일</th>";
-        strTable +="<td style='height:20px;'>";
-        strTable +="<div class='input-group' style='border: 1px solid #c2c2c2;height:20px;'>";
-        strTable +="<span class='input-group-btn'>";
-        strTable +="<span class='input-group-btn'>";
-        strTable +="<button type='button' class='btn btn-date' data-toggle='datepicker' style='background-color: rgba(255,255,255,0)'  id='testDatepicker'>";
-        strTable +="<label for='date1'>";
-        strTable +="<i class='fa fa-calendar'></i>";
-        strTable +="</label></button>";
-        strTable +="</span>";
-        strTable +="<input type='text' class='form-control input-sx pull-right'name='date1' id='date1'  data-select='datepicker' style='border: none;height:20px;'> ";
-        strTable +="</div>";
-        strTable +="</td>";
-        strTable +="<th>퇴사일</th>";
-        strTable +="<td style='height:20px;'>";
-        strTable +="<div class='input-group' style='border: 1px solid #c2c2c2;height:20px;'>";
-        strTable +="<span class='input-group-btn'>";
-        strTable +="<button type='button' class='btn btn-date' data-toggle='datepicker' style='background-color: rgba(255,255,255,0)'  id='testDatepicker'>";
-        strTable +="<label for='date2'>";
-        strTable +="<i class='fa fa-calendar'></i>";
-        strTable +="</label></button>";
-        strTable +="</span>";
-        strTable +="<input type='text' class='form-control input-sx pull-right'name='date2' id='date2'  data-select='datepicker' style='border: none; width:100%;height:20px;'>";
-        strTable +="</div>";
-        strTable +="</td>";
-        strTable +="</tr>";
-        strTable +="<tr>";
-        strTable +="<th>직책</th>";
-        strTable +="<td>";
-        strTable +="<input class='form-control input-sm' type='text' name = 'position' placeholder=''>";
-        strTable +="</td>";
-        strTable +="<th>부서</th>";
-        strTable +="<td colspan='2'>";
-        strTable +="<input class='form-control input-sm' type='text' name = 'department' placeholder=''>";
-        strTable +="</td>";
-        strTable +="</tr>";
-        strTable +="<tr>";
-        strTable +="<th>회사주소</th>";
-        strTable +="<td colspan='8'>";
-        strTable +="<input class='form-control input-sm' type='text' name = 'address' placeholder=''>";
-        strTable +="</td>";
-        strTable +="</tr>";
-        strTable +="</tbody>";
-        strTable +="</table>";
-
-        $("#companyTableDiv").append(strTable);
 
         var str = "";
-        str += "<button type='button' class='btn btn-primary' id='company_btn'>저장</button>";
+        str += "<button type='button' class='btn btn-primary' id='company_btnAdd'>저장</button>";
+        str += "&nbsp&nbsp&nbsp&nbsp<button type='button' class='btn btn-primary' id='company_cancle'>취소</button>";
         $("#company_btn_div").append(str);
 
     });
+
+    $("#company_btn_div").on("click","#company_btn", function () {
+
+        report = {
+            user_no: $("#hidden_no").val(),
+            userCareer_no:$("#hidden_applyno").val(),
+            compName: $("#compName").val(),
+            telePhone: $("#telePhone").val(),
+            startDate: $("#date1").val(),
+            endDate: $("#date2").val(),
+            role: $("#position").val(),
+            department: $("#department").val(),
+            companyAddress: $("#companyAddress").val(),
+            state:$("#state").selectValue()
+        };
+
+        $.ajax({
+
+            url: "/api/completion/afterServiceUpdate",
+            type: "post",
+            data : report,
+            dataType: "json",
+            success: function (result) {
+
+            	if(result==1){
+                alert("항목 수정 완료");
+
+            	}
+            },
+            error: function () {
+            	alert("항목을 수정할 수 없습니다.");
+            }
+        });
+
+    })
+
+    $("#company_btn_div").on("click","#company_btnAdd", function (user_no) {
+		console.log("저장버튼됨");
+        report = {
+            user_no: $("#hidden_no").val(),
+            userCareer_no:$("#hidden_applyno").val(),
+            compName: $("#compName").val(),
+            telePhone: $("#telePhone").val(),
+            startDate: $("#date1").val(),
+            endDate: $("#date2").val(),
+            role: $("#position").val(),
+            department: $("#department").val(),
+            companyAddress: $("#companyAddress").val()
+
+        };
+
+        console.log(report);
+        $.ajax({
+
+            url: "/api/completion/afterServiceAdd",
+            type: "post",
+            data : report,
+            dataType: "json",
+            success: function (result) {
+
+            	if(result==1){
+                alert("취업정보 저장 완료");}
+
+            	past_apply(userCareer_no, user_no)
+
+            },
+            error: function (XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+
+    })
+
+
+    $("#company_btn_div").on("click","#company_cancle",function () {
+
+         $("input[name='compName']").val("")
+         $("input[name='telePhone']").val("")
+         $("input[name='date1']").val("")
+         $("input[name='date2']").val("")
+         $("input[name='position']").val("")
+         $("input[name='department']").val("")
+         $("input[name='companyAddress']").val("")
+
+    	 $("#company_cancle").remove();
+    	 $("#company_btnAdd").remove();
+
+         var strAdd = "";
+         strAdd += "<button type='button' class='btn btn-primary' id='companyAdd'>추가</button>";
+         $("#companyAdd_div").append(strAdd);
+
+         var str = "";
+         str += "<button type='button' class='btn btn-primary' id='company_btn'>수정</button>";
+         $("#company_btn_div").append(str);
+
+    })
+
 </script>
 </html>

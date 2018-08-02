@@ -17,27 +17,25 @@ public class ApplicantService {
 	@Autowired
 	ApplicantDao applicantDao;
 
-	public List<CurriculumVo> getFristWorkType(){
+	public List<CurriculumVo> getWorkType(){
 
-
-		return applicantDao.getFristWorkType();
-	}
+		return applicantDao.getWorkType();
+	}//맨윗줄 업무구분 가져가기
 
 	public List<CurriculumVo> getCurriList(String workType){
 
-
 		return applicantDao.getCurriList(workType);
-	}
+	}//맨윗줄 업무구분관련된 수업이름 가져가기
 
 	public List<ApplyUserVo> search(int selectValue){
 
 		return applicantDao.search(selectValue);
-	}
+	}//조회하기 버튼 후 그리드영역 지원자 리스트 가져오기
 
 	public List<ApplyUserVo> getAppliedList(int user_no){
 
 		return applicantDao.getAppliedList(user_no);
-	}
+	}//선택된 사람의 과거 지원내역 가져가기
 
 	public ApplyUserVo apply_details(int curriculum_no,int user_no) {
 
@@ -46,23 +44,23 @@ public class ApplicantService {
 		noMap.put("user_no", user_no);
 
 		return applicantDao.apply_details(noMap);
-	}
+	}//선택된 과거 지원내역의 상세내용
 
 	public void applyUpdate(ApplyUserVo applyVo) {
 
-		String cardPayDay = applyVo.getCardPayDay();
-		String depositPayDay = applyVo.getDepositDay();
+		String cardPayDay = applyVo.getCardPayDate();
+		String depositPayDay = applyVo.getDepositDate();
 		int year = Integer.parseInt(cardPayDay.substring(0,4));
 		int month = Integer.parseInt(cardPayDay.substring(5, 7));
 		int day = Integer.parseInt(cardPayDay.substring(8,10));
-		applyVo.setCardPayDay(year+"/"+month+"/"+day);
+		applyVo.setCardPayDate(year+"/"+month+"/"+day);
 
-		System.out.println(year+"/"+month+"/"+day);
+		/*System.out.println(year+"/"+month+"/"+day);*/
 		year = Integer.parseInt(depositPayDay.substring(0,4));
 		month = Integer.parseInt(depositPayDay.substring(5,7));
 		day = Integer.parseInt(depositPayDay.substring(8,10));
-		applyVo.setDepositDay(year+"/"+month+"/"+day);
+		applyVo.setDepositDate(year+"/"+month+"/"+day);
 
 		applicantDao.applyUpdate(applyVo);
-	}
+	}//수정버튼 클릭 후 지원내역 수정
 }
