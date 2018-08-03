@@ -621,6 +621,7 @@
                 console.error(status + " : " + error);
             }
         });
+        onlyNumber()
     }
 
 
@@ -753,6 +754,14 @@
         });
     }
 
+    // 점수 input에 숫자이외 문자를 삭제하는 스크립트
+    function onlyNumber () {
+        $("input[name=iScore]").change(function(){
+            var cost = $(this).val();
+            cost = cost.replace(/[^0-9]/g,"");
+            $(this).val(cost);
+        });
+    }
 
 
     //학생관리 탭
