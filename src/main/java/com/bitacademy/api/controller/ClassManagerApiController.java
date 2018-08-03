@@ -26,7 +26,7 @@ public class ClassManagerApiController {
 
     //교육과정검색에서 조회버튼 누르면 수업관리에 과정정보 불러오는 코드
     @ResponseBody
-    @RequestMapping(value = "getCurriInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCurriInfo", method = RequestMethod.POST)
     public Map<String, Object> getCurriInfo(@RequestParam("currival") int curriculum_no) {
         return classManagementService.getCurriInfo(curriculum_no);
     }
@@ -76,7 +76,7 @@ public class ClassManagerApiController {
 
     //이론평가탭 과목별 학생리스트 불러오는 코드
     @ResponseBody
-    @RequestMapping(value = "getSutudentInScore", method = RequestMethod.POST)
+    @RequestMapping(value = "/getSutudentInScore", method = RequestMethod.POST)
     public List<ScoreVo> getSutudentInScore(@RequestBody ScoreVo scoreVo) {
         return classManagementService.getSutudentInScore(scoreVo);
     }

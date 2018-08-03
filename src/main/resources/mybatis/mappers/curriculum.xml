@@ -11,7 +11,7 @@
         ]]>
     </select>
 
-    <select id="getCurri" parameterType="String" resultType="CurriculumVo">
+    <select id="getCurriList" parameterType="String" resultType="CurriculumVo">
         <![CDATA[
          select Curriculum_no, CurriName from Curriculum C
   			join CurriculumCate C2 on C.CurriculumCate_no = C2.CurriculumCate_no and C2.CateName=#{workType}

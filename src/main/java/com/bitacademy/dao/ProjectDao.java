@@ -16,8 +16,8 @@ public class ProjectDao {
     SqlSession sqlSession;
 
 
-    public List<UsersVo> getMemberName(int curriNo) {
-        return sqlSession.selectList("project.getMemberName", curriNo);
+    public List<UsersVo> getMemberNameList(int curriNo) {
+        return sqlSession.selectList("project.getMemberNameList", curriNo);
     }
 
     public List<ProjectVo> getTeamList(int currival) {
@@ -40,8 +40,8 @@ public class ProjectDao {
         return sqlSession.update("project.updateProjectDetail", projectVo);
     }
 
-    public int saveProjectDetail(ProjectVo projectVo) {
-        return sqlSession.insert("project.saveProjectDetail", projectVo);
+    public int addProjectDetail(ProjectVo projectVo) {
+        return sqlSession.insert("project.addProjectDetail", projectVo);
     }
 
     public int saveProjectMember(ProjectMemberVo projectMemberVo) {

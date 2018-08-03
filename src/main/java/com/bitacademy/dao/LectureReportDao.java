@@ -12,11 +12,11 @@ public class LectureReportDao {
     @Autowired
     SqlSession sqlSession;
 
-    public List<LectureReportVo> getLetureReport(LectureReportVo lectureReportVo) {
-        return sqlSession.selectList("lectureReport.getLectureReport", lectureReportVo);
+    public List<LectureReportVo> getLetureReportList(LectureReportVo lectureReportVo) {
+        return sqlSession.selectList("lectureReport.getLectureReportList", lectureReportVo);
     }
 
-    public int saveLetureReport(LectureReportVo lectureReportVo) {
-        return sqlSession.insert("lectureReport.saveLectureReport", lectureReportVo);
+    public int addLetureReport(LectureReportVo lectureReportVo) {
+        return sqlSession.insert("lectureReport.addLectureReport", lectureReportVo);
     }
 }
