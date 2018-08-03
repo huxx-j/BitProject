@@ -33,8 +33,8 @@ public class ClassManagementService {
         return curriculumDao.getCateName();
     }
 
-    public List<CurriculumVo> getCurri(String workType) {
-        return curriculumDao.getCurri(workType);
+    public List<CurriculumVo> getCurriList(String workType) {
+        return curriculumDao.getCurriList(workType);
     }
 
     public Map<String, Object> getCurriInfo(int curriculum_no) {
@@ -44,26 +44,26 @@ public class ClassManagementService {
         return map;
     }
 
-    public List<LectureReportVo> getLetureReport(LectureReportVo lectureReportVo) {
-        return lectureReportDao.getLetureReport(lectureReportVo);
+    public List<LectureReportVo> getLetureReportList(LectureReportVo lectureReportVo) {
+        return lectureReportDao.getLetureReportList(lectureReportVo);
     }
 
     public String getDate() {
         return classManagementDao.getDate();
     }
 
-    public int saveLectureReport(LectureReportVo lectureReportVo) {
+    public int addLectureReport(LectureReportVo lectureReportVo) {
         String lectureReport_no = lectureReportVo.getClassDate().replace("-", "") + "-" + lectureReportVo.getCurriculum_no() + "-" + lectureReportVo.getPeriod();
         lectureReportVo.setLectureReport_no(lectureReport_no);
         if (!lectureReportVo.getSubject().equals("") || !lectureReportVo.getContent().equals("") || !lectureReportVo.getTeacher().equals("") || !lectureReportVo.getEtc().equals("")) {
-            return lectureReportDao.saveLetureReport(lectureReportVo);
+            return lectureReportDao.addLetureReport(lectureReportVo);
         } else {
             return 0;
         }
     }
 
-    public List<UsersVo> getMemberName(int curriNo) {
-        return projectDao.getMemberName(curriNo);
+    public List<UsersVo> getMemberNameList(int curriNo) {
+        return projectDao.getMemberNameList(curriNo);
     }
 
     public List<ProjectVo> getTeamList(int currival) {
@@ -100,11 +100,11 @@ public class ClassManagementService {
         return scoreDao.getSubjectList(curriNo);
     }
 
-    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+    public List<ScoreVo> getStudentInScoreList(ScoreVo scoreVo) {
         List<Integer> list = scoreDao.chkSisNo(scoreVo.getSubInStep_no());
         if (list.isEmpty()) {
             scoreVo.setSubInStep_no(0);
-            List<ScoreVo> scoreVoList = scoreDao.getSutudentInScore(scoreVo);
+            List<ScoreVo> scoreVoList = scoreDao.getStudentInScoreList(scoreVo);
             for (ScoreVo aScoreVoList : scoreVoList) {
                 aScoreVoList.setFileName("등록된 파일이 없습니다.");
             }
@@ -115,15 +115,15 @@ public class ClassManagementService {
 //
 //        }
 //        return scoreList;
-        return scoreDao.getSutudentInScore(scoreVo);
+        return scoreDao.getStudentInScoreList(scoreVo);
     }
 
-    public List<UserInfoVo> getUserInfo(int currino) {
-        return userInfoDao.getUserInfo(currino);
+    public List<UserInfoVo> getUserInfoList(int currino) {
+        return userInfoDao.getUserInfoList(currino);
     }
 
     @Transactional
-    public int saveProjectDetail(MultipartHttpServletRequest multipartFile) {
+    public int addProjectDetail(MultipartHttpServletRequest multipartFile) {
         FileUpload fileUpload = new FileUpload();
         ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
@@ -166,7 +166,7 @@ public class ClassManagementService {
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
 
         if (projectVo.getProject_no() == 0) {
-            projectDao.saveProjectDetail(projectVo);
+            projectDao.addProjectDetail(projectVo);
             projectMemberVo.setProject_no(projectVo.getProject_no());
             projectNo = projectVo.getProject_no();
         } else {
@@ -183,7 +183,7 @@ public class ClassManagementService {
     }
 
     @Transactional
-    public int saveScore(MultipartHttpServletRequest multipartFile) {
+    public int addScore(MultipartHttpServletRequest multipartFile) {
         ScoreVo scoreVo = new ScoreVo();
         FileUpload fileUpload = new FileUpload();
         int file_no;
@@ -191,7 +191,7 @@ public class ClassManagementService {
             String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "score");
             MultipartFile file = multipartFile.getFile("studTestFile");
             FileVo fileVo = fileUpload.saveScoreFile(file, saveDir);
-            file_no = scoreDao.saveScoreFile(fileVo);
+            file_no = scoreDao.addScoreFile(fileVo);
         } else {
             file_no = 0;
         }
@@ -214,14 +214,14 @@ public class ClassManagementService {
         scoreVo.setFile_no(file_no);
 
         if (scoreVo.getScore_no() == 0) {
-            return scoreDao.saveScore(scoreVo);
+            return scoreDao.addScore(scoreVo);
         } else {
             return scoreDao.updateScore(scoreVo);
         }
     }
 
     @Transactional
-    public int saveTest(MultipartHttpServletRequest multipartFile) {
+    public int addTest(MultipartHttpServletRequest multipartFile) {
         SubInStepVo subInStepVo = new SubInStepVo();
         FileUpload fileUpload = new FileUpload();
         int file_no;
@@ -234,7 +234,7 @@ public class ClassManagementService {
                 fileVo.setFile_no(file_no);
                 return scoreDao.updateScoreFile(fileVo);
             } else {
-                file_no = scoreDao.saveScoreFile(fileVo);
+                file_no = scoreDao.addScoreFile(fileVo);
             }
         } else {
             file_no = 0;
@@ -244,7 +244,7 @@ public class ClassManagementService {
         subInStepVo.setSubInStep_no(testSisNo);
         subInStepVo.setFile_no(file_no);
         if (file_no!=0) {
-            return scoreDao.saveTest(subInStepVo);
+            return scoreDao.addTest(subInStepVo);
         } else {
             return 1;
         }

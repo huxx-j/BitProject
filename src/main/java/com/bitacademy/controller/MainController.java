@@ -1,16 +1,12 @@
 package com.bitacademy.controller;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-	//진현
-	public String main(){
-		return "curridesign/packmain";
-	}
-	//진현
-
 	//기본값
 		@RequestMapping("/")
 	public String mai1n(){
@@ -44,7 +40,16 @@ public class MainController {
 	@RequestMapping("/14")
 	public String index12(){
 		System.out.println("/index6");
-		return "ex/index_renew4";
+		return "ex/index_jqgrid";
+	}
+
+	@ResponseBody
+	@RequestMapping("/jqtest")
+	public String jqtest(){
+		System.out.println("sdfgsdf");
+		String a = "{gisu: 'Kuka18', name: '하...', birth: '2018-08-05', gender: '남', result: '합격', phone: '010-958-9562'}";
+
+			return a;
 	}
 
 

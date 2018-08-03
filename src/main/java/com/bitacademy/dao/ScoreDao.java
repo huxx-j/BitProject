@@ -18,16 +18,16 @@ public class ScoreDao {
         return sqlSession.selectList("score.getSubjectList", curriNo);
     }
 
-    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
-        return sqlSession.selectList("score.getSutudentInScore", scoreVo);
+    public List<ScoreVo> getStudentInScoreList(ScoreVo scoreVo) {
+        return sqlSession.selectList("score.getStudentInScoreList", scoreVo);
     }
 
-    public int saveScore(ScoreVo scoreVo) {
-        return sqlSession.insert("score.saveScore", scoreVo);
+    public int addScore(ScoreVo scoreVo) {
+        return sqlSession.insert("score.addScore", scoreVo);
     }
 
-    public int saveScoreFile(FileVo fileVo) {
-        sqlSession.insert("score.saveScoreFile", fileVo);
+    public int addScoreFile(FileVo fileVo) {
+        sqlSession.insert("score.addScoreFile", fileVo);
         return fileVo.getFile_no();
     }
 
@@ -39,8 +39,8 @@ public class ScoreDao {
         return sqlSession.update("score.updateScore", scoreVo);
     }
 
-    public int saveTest(SubInStepVo subInStepVo) {
-        return sqlSession.update("score.saveTest", subInStepVo);
+    public int addTest(SubInStepVo subInStepVo) {
+        return sqlSession.update("score.addTest", subInStepVo);
     }
 
     public List<FileVo> getSisInfo(int sisNo) {
