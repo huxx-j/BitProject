@@ -30,6 +30,7 @@ public class PackageController {
         //return packageVo;
 //       return subjectService.getsub(no);
     }
+
     //카테고리 수정을 위한 함수 (제거, 드래그, 이름수정)
     @ResponseBody
     @RequestMapping(value = "/UpdateCate", method = {RequestMethod.POST,RequestMethod.GET})
@@ -40,9 +41,9 @@ public class PackageController {
 
     @ResponseBody
     @RequestMapping(value = "/packajax", method = {RequestMethod.POST,RequestMethod.GET})
-    public PackageVo packajax(@RequestParam("no") int no) {
-        System.out.println(packageService.getpack(no));
+    public PackageVo packajax(@RequestParam("no") int no,Model model) {
         PackageVo packageVo = packageService.getpack(no);
+        packageVo.setSteplist(packageService.getstep(packageVo.getPackage_no()));
         return packageVo;
 //       return subjectService.getsub(no);
     }

@@ -27,4 +27,16 @@ public class CompletionController {
 		return"graduate/completionmanagement";
 	}//맨처음 업무구분 가져와 수료생관리 메인으로 넘어가기
 
+	@RequestMapping("/p")
+	public String p() {
+
+		return"ex/packmain";
+	}
+
+	@RequestMapping("/s")
+	public String s() {
+
+		return"ex/subject";
+	}
+
 }

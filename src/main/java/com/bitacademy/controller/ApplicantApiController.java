@@ -18,9 +18,9 @@ public class ApplicantApiController {
 	
 	@ResponseBody
 	@RequestMapping(value="/getcurri", method=RequestMethod.GET)
-	public List<CurriculumVo> getcurri(@RequestParam("workType") String workType) {
+	public List<CurriculumVo> getcurri(@RequestParam("cateName") String cateName) {
 		/*System.out.println("ajax-list :" + workType);*/
-		List<CurriculumVo> list = applicantService.getCurriList(workType);
+		List<CurriculumVo> list = applicantService.getCurriList(cateName);
 		/*System.out.println(list.toString());*/
 		return list;
 	}//맨윗줄 업무구분관련된 수업이름 가져가기
@@ -63,12 +63,13 @@ public class ApplicantApiController {
 	
 	@ResponseBody
 	@RequestMapping(value="/applyUpdate", method=RequestMethod.POST)
-	public void applyUpdate(@RequestBody ApplyUserVo applyVo) {
+	public int applyUpdate(@RequestBody ApplyUserVo applyVo) {
 		
-		/*System.out.println("수정하러 컨트롤러");
-		System.out.println(applyVo);*/
-		applicantService.applyUpdate(applyVo);
+		System.out.println("수정하러 컨트롤러");
+		System.out.println(applyVo);
+		int result = applicantService.applyUpdate(applyVo);
 
+		return result;
 	}//수정버튼 클릭 후 지원내역 수정
 	
 }

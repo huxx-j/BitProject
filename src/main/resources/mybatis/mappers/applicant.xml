@@ -25,7 +25,8 @@
 
 <![CDATA[
 		select CurriName,Curriculum_no from Curriculum
-			   where WorkType = #{workType};
+		join CurriculumCate on Curriculum.CurriculumCate_no = CurriculumCate.CurriculumCate_no
+		where CateName = #{cateName};
 	]]>
 
 </select><!-- 맨윗줄 업무구분관련된 수업이름 가져가는 쿼리 -->
@@ -33,7 +34,7 @@
 <select id="getWorkType" resultType="com.bitacademy.vo.CurriculumVo">
 
 <![CDATA[
-		select WorkType from Curriculum group by WorkType;
+		select CateName from CurriculumCate group by CateName;
 	]]>
 
 </select><!-- 맨윗줄 업무구분 가져가는 쿼리 -->
@@ -80,7 +81,7 @@
 
 <![CDATA[
 
-	   select Curriculum.CurriName,Curriculum.Curriculum_no,Curriculum.WorkType,
+	   select Curriculum.CurriName,Curriculum.Curriculum_no,CurriculumCate.CateName,
 	   		  ApplyInfo.ApplyType,ApplyInfo.TestLang,ApplyInfo.TestScore,ApplyInfo.TestResult,
 	   		  ApplyInfo.DepositDate,ApplyInfo.DepositAmount,ApplyInfo.CardPayDate,ApplyInfo.CardPayAmount,
 	   		  ApplyInfo.Deposit,ApplyInfo.TotalPay,ApplyInfo.User_no,ApplyInfo.Consult
@@ -88,6 +89,7 @@
 	   from ApplyInfo
 
 	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
+	   join CurriculumCate on Curriculum.CurriculumCate_no = CurriculumCate.CurriculumCate_no
 
 	   where Curriculum.Curriculum_no = #{curriculum_no} and ApplyInfo.User_no = #{user_no}
 	]]>
@@ -103,15 +105,15 @@
 									TestLang=#{testLang},
 									TestScore=#{testScore},
 									TestResult=#{testResult},
-									DepositDate=#{depositDate},
+									Deposit=#{deposit},
 									DepositAmount=#{depositAmount},
 									CardPayDate=#{cardPayDate},
 									CardPayAmount=#{cardPayAmount},
-									Deposit=#{deposit},
+									DepositDate=#{depositDate},
 									TotalPay=#{totalPay},
 									Consult=#{consult}
 
-				where User_no=#{user_no};
+				where User_no=#{user_no} and Curriculum_no=#{curriculum_no};
 		]]>
 
 </update><!-- 지원내역 수정 쿼리  -->

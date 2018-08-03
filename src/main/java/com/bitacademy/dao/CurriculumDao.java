@@ -44,10 +44,19 @@ public class CurriculumDao {
     }
     
     //교육과정 수정
-    public int edit(CurriculumVo curriVo) {
-
-        return sqlSession.update("curriculum.edit", curriVo);
+    public int editCurri(CurriculumVo curriVo) {
+    	System.out.println("수정 다오 와따");
+        return sqlSession.update("curriculum.editCurri", curriVo);
     }
+
+    public int editCurriCate(CurriculumVo curriVo) {
+    	return sqlSession.update("curriculum.editCurriCate", curriVo);
+    }
+
+    public int editPackage(CurriculumVo curriVo) {
+    	return sqlSession.update("curriculum.editPackage", curriVo);
+    }
+
     //교육과정 추가
     public int addCurri(CurriculumVo curriVo) {
 

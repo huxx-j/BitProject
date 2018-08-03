@@ -21,9 +21,9 @@ public class CompletionDao {
         return sqlSession.selectList("applicant.getWorkType");
     }//맨윗줄 업무구분 가지러가기
 
-    public List<CurriculumVo> getCurriList(String workType){
+    public List<CurriculumVo> getCurriList(String cateName){
 
-        return sqlSession.selectList("applicant.getCurriList",workType);
+        return sqlSession.selectList("applicant.getCurriList",cateName);
     }//선택된 업무구분과 관련된 수업이름 가져가기
 
     public List<ApplyUserVo> search(int selectValue){
@@ -41,6 +41,7 @@ public class CompletionDao {
 
     public UserCareerVo afterService_details(Map<String,Integer> noMap) {
 
+    	System.out.println(noMap+"+detail 다오");
         return sqlSession.selectOne("completion.afterService_details",noMap);
 
     }//클릭된 취업내용 상세내역 가져가기

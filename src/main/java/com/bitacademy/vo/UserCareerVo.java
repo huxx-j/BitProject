@@ -1,5 +1,6 @@
 package com.bitacademy.vo;
 
+
 public class UserCareerVo {
 
 	private int userCareer_no;

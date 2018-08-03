@@ -60,9 +60,11 @@ public class PackageService {
     public PackageVo getpack(int no) {
         return packageDao.selectpackage(no);
     }
+
     public void addcate(PackageCateVo packageCateVo) {
         packageDao.addcate(packageCateVo);
     }
+
     public List<StepInPackVo> getstep(int no) {
         return packageDao.getstep(no);
     }

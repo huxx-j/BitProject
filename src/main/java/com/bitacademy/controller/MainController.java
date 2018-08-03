@@ -35,10 +35,10 @@ public class MainController {
 		return "ex/index1";
 	}
 	
-	@RequestMapping("/13")
+	@RequestMapping("/test1")
 	public String index11(){
 		System.out.println("/index5");
-		return "ex/index_renew3";
+		return "ex/index_renew1";
 	}
 	
 	@RequestMapping("/14")

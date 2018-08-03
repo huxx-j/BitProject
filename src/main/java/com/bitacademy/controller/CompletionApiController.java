@@ -25,10 +25,10 @@ public class CompletionApiController {
 	
 	@ResponseBody
 	@RequestMapping(value="/getcurri", method=RequestMethod.GET)
-	public List<CurriculumVo> getcurri(@RequestParam("workType") String workType) {
-		/*System.out.println("ajax-list :" + workType);*/
-		List<CurriculumVo> list = completionService.getCurriList(workType);
-		/*System.out.println(list.toString());*/
+	public List<CurriculumVo> getcurri(@RequestParam("cateName") String cateName) {
+		System.out.println("ajax-list :" + cateName);
+		List<CurriculumVo> list = completionService.getCurriList(cateName);
+		System.out.println(list.toString());
 		return list;
 	}//선택된 업무구분과 관련된 수업이름 가져가기
 	
@@ -59,11 +59,12 @@ public class CompletionApiController {
 	
 	@ResponseBody
 	@RequestMapping(value="/afterService_details", method=RequestMethod.GET)
-	public UserCareerVo afterService_details(@RequestParam int userCareer_no, @RequestParam int user_no) {
+	public UserCareerVo afterService_details(@RequestParam int user_no,@RequestParam int userCareer_no) {
 		
 		System.out.println("지원커리 상세내용");
-		System.out.println(userCareer_no+","+user_no);
-		UserCareerVo userCareerVo = completionService.afterService_details(userCareer_no,user_no);
+		System.out.println(user_no);
+		System.out.println(userCareer_no);
+		UserCareerVo userCareerVo = completionService.afterService_details(user_no,userCareer_no);
 		System.out.println(userCareerVo.toString());
 		
 		return userCareerVo;

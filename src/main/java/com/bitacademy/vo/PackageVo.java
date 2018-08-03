@@ -1,5 +1,7 @@
 package com.bitacademy.vo;
 
+import java.util.List;
+
 public class PackageVo {
     private int Package_no;
     private int PackageCate_no;
@@ -9,11 +11,12 @@ public class PackageVo {
     private String Content;
     private String Qualification;
     private int TotalTime;
+    private List<StepInPackVo> steplist;
 
     public PackageVo() {
     }
 
-    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime) {
+    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime, List<StepInPackVo> steplist) {
         Package_no = package_no;
         PackageCate_no = packageCate_no;
         UseStatus = useStatus;
@@ -22,7 +25,9 @@ public class PackageVo {
         Content = content;
         Qualification = qualification;
         TotalTime = totalTime;
+        this.steplist = steplist;
     }
+
 
     public int getPackage_no() {
         return Package_no;
@@ -88,6 +93,14 @@ public class PackageVo {
         TotalTime = totalTime;
     }
 
+    public List<StepInPackVo> getSteplist() {
+        return steplist;
+    }
+
+    public void setSteplist(List<StepInPackVo> steplist) {
+        this.steplist = steplist;
+    }
+
     @Override
     public String toString() {
         return "PackageVo{" +
@@ -99,7 +112,7 @@ public class PackageVo {
                 ", Content='" + Content + '\'' +
                 ", Qualification='" + Qualification + '\'' +
                 ", TotalTime=" + TotalTime +
+                ", steplist=" + steplist +
                 '}';
     }
-
 }
