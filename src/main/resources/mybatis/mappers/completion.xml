@@ -14,59 +14,57 @@
 
 </select> -->
 
+<!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
 <select id="getCompletionStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
 
-<![CDATA[
-	   select Users.User_no, Gisu.GisuName,Users.NameHan, Users.BirthDate,Users.Gender,
-	   		  ApplyInfo.TestResult,Users.Cellphone,ApplyInfo.ApplyDate, ApplyInfo.TestDate,
-	   		  UserScholarship.School, UserScholarship.Major,
-	   		  ApplyInfo.Deposit
-	   from ApplyInfo
-	   join Users on Users.User_no = ApplyInfo.User_no
-	   join UserScholarship on Users.User_no = UserScholarship.User_no
-	   join Curriculum on ApplyInfo.Curriculum_no = Curriculum.Curriculum_no
-	   join Gisu on Curriculum.Curriculum_no = Gisu.Curriculum_no
-	   where Curriculum.Curriculum_no = #{curriculum_no};
-
+	<![CDATA[
+		select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+			   a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
+			   s.School, s.Major,a.Deposit
+				  
+		from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+		where u.User_no = a.User_no
+		and s.User_no = u.User_no 
+		and a.Curriculum_no = c.Curriculum_no
+		and g.Curriculum_no = c.Curriculum_no
+		and c.Curriculum_no = #{curriculum_no};
 	]]>
 </select>
-<!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
 
-<select id="afterServiceList" parameterType="int" resultType="com.bitacademy.vo.UserCareerVo">
+<!-- 선택된 학생의 취업정보 가져가기 -->
+<select id="getUserCareerList" parameterType="int" resultType="com.bitacademy.vo.UserCareerVo">
 
-<![CDATA[
+	<![CDATA[		
+		select uc.CompName, 
+		       uc.StartDate, 
+		       uc.EndDate, 
+		       uc.State,
+		       uc.UserCareer_no, 
+		       uc.User_no  
+		from UserCareer uc
+		where uc.User_no = #{user_no}
+	]]>
+
+</select>
+
+<!-- 클릭된 취업내용 상세내역 가져가기 -->
+<select id="getUserCareer" parameterType="map" resultType="com.bitacademy.vo.UserCareerVo">
+
+	<![CDATA[
+	            
+		  select uc.CompName,uc.TelePhone,uc.StartDate,uc.UserCareer_no,
+				 uc.EndDate,uc.Role,uc.Department,
+				 uc.State,uc.CompanyAddress,u.User_no
 		
-	   select UserCareer.CompName,UserCareer.StartDate,UserCareer.EndDate,UserCareer.State,
-	   		  UserCareer.UserCareer_no,Users.User_no
-	   		  
-	   from UserCareer
-	
-	   join Users on Users.User_no = UserCareer.User_no
-	   
-	   where Users.User_no = #{user_no};
+		  from UserCareer uc,Users u
+		  
+		  where uc.User_no=u.User_no
+		  and uc.UserCareer_no=#{userCareer_no}
+		  and uc.User_no=#{user_no}
+		
 	]]>
 
-</select><!-- 선택된 학생의 취업정보 가져가기 -->
-
-<select id="afterService_details" parameterType="map" resultType="com.bitacademy.vo.UserCareerVo">
-
-<![CDATA[
-            
-	  select UserCareer.CompName,UserCareer.TelePhone,UserCareer.StartDate,UserCareer.UserCareer_no,
-			 UserCareer.EndDate,UserCareer.Role,UserCareer.Department,
-			 UserCareer.State,UserCareer.CompanyAddress,Users.User_no
-	
-	  from UserCareer as UserCareer
-
-	  join Users as Users on UserCareer.User_no = Users.User_no
-      join Interview as Interview on Users.User_no = Interview.User_no
-      join Company as Company on Interview.Commpany_no = Company.Commpany_no 
-
-	  where UserCareer.UserCareer_no=#{userCareer_no} and UserCareer.User_no = #{user_no};
-	
-	]]>
-
-</select><!-- 클릭된 취업내용 상세내역 가져가기 -->
+</select>
 
 <update id="afterServiceUpdate" parameterType="com.bitacademy.vo.UserCareerVo">
 	 <choose>
@@ -74,43 +72,43 @@
 		<![CDATA[
 
 				update UserCareer
-								set CompName=#{compName},
-									EndDate=#{endDate},
-									Role=#{role},
-									TelePhone=#{telePhone},
-									State=#{state},
-									Department=#{department}
-						where User_no=#{user_no};
-
+				set CompName=#{compName},
+					EndDate=#{endDate},
+					Role=#{role},
+					TelePhone=#{telePhone},
+					State=#{state},
+					Department=#{department}
+				where User_no=#{user_no}
+				and UserCareer_no=#{userCareer_no}
 		]]>
 	</when>
 	<when test="endDate.equals('')">
 		<![CDATA[
 
 				update UserCareer
-								set CompName=#{compName},
-									StartDate=#{startDate},
-									Role=#{role},
-									TelePhone=#{telePhone},
-									State=#{state},
-									Department=#{department}
-						where User_no=#{user_no};
-
+				set CompName=#{compName},
+					StartDate=#{startDate},
+					Role=#{role},
+					TelePhone=#{telePhone},
+					State=#{state},
+					Department=#{department}
+				where User_no=#{user_no}
+				and UserCareer_no=#{userCareer_no}
 		]]>
 	</when>
 	<otherwise>
 		<![CDATA[
 
 				update UserCareer
-								set CompName=#{compName},
-									StartDate=#{startDate},
-									EndDate=#{endDate},
-									Role=#{role},
-									TelePhone=#{telePhone},
-									State=#{state},
-									Department=#{department}
-						where User_no=#{user_no};
-
+				set CompName=#{compName},
+					StartDate=#{startDate},
+					EndDate=#{endDate},
+					Role=#{role},
+					TelePhone=#{telePhone},
+					State=#{state},
+					Department=#{department}
+				where User_no=#{user_no}
+				and UserCareer_no=#{userCareer_no}
 		]]>
 	</otherwise>
 	</choose>
