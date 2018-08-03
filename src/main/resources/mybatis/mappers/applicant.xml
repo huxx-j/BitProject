@@ -21,25 +21,40 @@
 		<result column="DatailViewFlag" property="datailViewFlag" />
 	</resultMap>
 
-	<select id="getCurriList" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo">
+	<!-- 맨윗줄 업무구분관련된 특정 업무의 커리큘럼리스트 가져가는 쿼리 -->
+	<select id="getCurriList" parameterType="int" resultType="com.bitacademy.vo.CurriculumVo">
 
-<![CDATA[
-		select CurriName,Curriculum_no from Curriculum
-		join CurriculumCate on Curriculum.CurriculumCate_no = CurriculumCate.CurriculumCate_no
-		where CateName = #{cateName};
-	]]>
+		<![CDATA[
+			select c.Curriculum_no, 
+			       c.CurriName,
+			       c.CurriculumCate_no
+			from Curriculum c
+			where c.CurriculumCate_no = #{curriculumCate_no}
+		]]>
 
-</select><!-- 맨윗줄 업무구분관련된 수업이름 가져가는 쿼리 -->
+	</select>
 
-<select id="getWorkType" resultType="com.bitacademy.vo.CurriculumVo">
+	<!-- 업무구분(커리큘럼카테고리) 리스트가져오기 -->	
+	<select id="getCurriCateList" resultType="com.bitacademy.vo.CurriculumCateVo">
+	
+		<![CDATA[
+			select  CurriculumCate_no,
+					CateName,
+					GroupCode,
+					ParentCode,
+					Depth
+			from CurriculumCate
+			where DelStatus=0
+		]]>
+	
+	</select><!-- 맨윗줄 업무구분 가져가는 쿼리 -->
 
-<![CDATA[
-		select CateName from CurriculumCate group by CateName;
-	]]>
 
-</select><!-- 맨윗줄 업무구분 가져가는 쿼리 -->
+
 
 	<select id="getApplyStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
+
+
 
 <![CDATA[
 

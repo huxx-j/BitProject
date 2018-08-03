@@ -17,6 +17,7 @@
 	<!-- 자신의 css사용시 --> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
+	
 	<!-- 그리드 사용시 주석풀어 사용 -->
 	<%-- <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import> --%>
 
@@ -31,7 +32,6 @@
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 
-		<!-- Content Header (Page header) -->
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>패키지관리
