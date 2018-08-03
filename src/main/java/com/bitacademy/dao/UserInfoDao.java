@@ -12,6 +12,7 @@ public class UserInfoDao {
     @Autowired
     SqlSession sqlSession;
 
+    //학생관리 탭에 유저정보를 불러오는 코드
     public List<UserInfoVo> getUserInfoList(int currino) {
         return sqlSession.selectList("userinfo.getUserInfoList", currino);
 

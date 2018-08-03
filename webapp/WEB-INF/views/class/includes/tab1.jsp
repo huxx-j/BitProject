@@ -4,13 +4,14 @@
         <div class="col-xs-3" style="padding-left:0; padding-right: 0">
             <div class="box-header with-border a_c"> 강의일자
                 <input id="reportDate" class="form-control disp-inline" type="text" value="${date}" placeholder="날짜를 선택하세요" style="margin-left: 10px; width: 40%">
-                <button id="reportCallBtn" type="button" class="btn btn-default btn-call" style="margin-left: 10px"> 불러오기
-                </button>
+                <button id="reportCallBtn" type="button" class="btn btn-default btn-call" style="margin-left: 10px"> 불러오기</button>
                 <input id="selectedCurriNo" type="hidden">
                 <input id="selectedDate" type="hidden">
-            </div>
-            <div class="calendar"></div> <%--pignose calendar 자리--%>
-        </div>
+            </div> <%--/.box-header with-border a_c--%>
+            <div class="calendar"> <%--pignose calendar--%>
+                <%--pignose calendar 자리--%>
+            </div> <%--/.pignose calendar--%>
+        </div> <%--/.col-xs-3--%>
         <div class="col-xs-9">
             <table class="table table-condensed"> <%--수업일지 테이블--%>
                 <tr>
@@ -147,7 +148,9 @@
                     <td class="a_c"><input id="note11" class="form-control" type="text"></td>
                 </tr>
             </table> <%--/.수업일지 테이블--%>
-            <div id="saveBtnToolbox" class="sub-toolbox text-center"></div>
+            <div id="saveBtnToolbox" class="sub-toolbox text-center">
+                <%--세이브 버튼자리--%>
+            </div> <%--/.saveBtnToolbox--%>
         </div> <%--/.col-xs-9--%>
     </div> <%--/.col-xs-12--%>
 </div> <%--/.row--%>

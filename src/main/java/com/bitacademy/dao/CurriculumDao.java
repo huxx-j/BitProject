@@ -15,20 +15,6 @@ public class CurriculumDao {
     @Autowired
     SqlSession sqlSession;
 
-    //성우
-    public List<String> getCateName() {
-        return sqlSession.selectList("curriculum.getCateName");
-    }
-
-    public List<CurriculumVo> getCurriList(String workType) {
-        return sqlSession.selectList("curriculum.getCurriList", workType);
-    }
-
-    public CurriculumVo getCurriInfo(int curriculum_no) {
-        return sqlSession.selectOne("curriculum.getCurriInfo", curriculum_no);
-    }
-
-
     //희준
     //교육과정 메인
     public CurriculumVo viewCurriculum(String curriculum_no ){

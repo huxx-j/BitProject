@@ -177,7 +177,6 @@
 
     //수업일지 저장하는 스크립트
     $(document).on("click","#lectureReportSaveBtn", function () {
-
         var countUpdate = 0;
         var countInsert = 0;
         var count = 0;
@@ -212,7 +211,6 @@
                     console.error(status + " : " + error);
                 }
             });
-
         }
         alert(countUpdate + "개 항목 업데이트 / " + countInsert + "개 항목 저장 완료")
     });
@@ -299,7 +297,6 @@
         });
         str = str.slice(0, -2);
         id = id.slice(0, -1);
-        // console.log(id)
         $("#membersName").text(str);
         $("#membersId").val(id);
         $("#selectTeamMember").modal('hide');
@@ -407,8 +404,6 @@
         $.ajax({
             url: "${pageContext.request.contextPath}/class/getProjectDetail",
             type: "post",
-            // contentType: "application/json",
-            // async: false,
             data: {"project_no": project_no},
             dataType: "json",
             success: function (result) {
@@ -431,7 +426,6 @@
             "                <div class='box-header with-border'>" +
             "                    <h1 class='box-title'> 프로젝트 상세정보 </h1>" +
             "                </div>" +
-            "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
             "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
@@ -497,9 +491,6 @@
         }
     }
 
-    // document.getElementById("projectFileName").innerHTML = $("#projectFile")[0].files[0].name;
-
-
     $(document).on("click", "#detailSaveBtn", function () {
         var currival = $("#pjtcurriculum_no").val();
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
@@ -530,8 +521,6 @@
             ajaxGetTeamList(currival);
             removePjtDetail();
             ajaxTeamDetail(projectNo, currival);
-
-            // $("#projectFileForm").submit();
         }
     });
 
@@ -541,8 +530,6 @@
         $.ajax({
             url: "${pageContext.request.contextPath}/class/getSubjectList",
             type: "post",
-            // contentType: "application/json",
-            // async: false,
             data: {"currival": currival},
             dataType: "json",
             success: function (result) {
@@ -596,7 +583,6 @@
         $.ajax({
             url: "${pageContext.request.contextPath}/class/getSisInfo",
             type: "post",
-            // contentType: "application/json",
             async: false,
             data: {"sisNo": sisNo},
             dataType: "json",
@@ -624,7 +610,6 @@
             data: JSON.stringify(scoreVo),
             dataType: "json",
             success: function (result) {
-
                 for (var i = 0; i < result.length; i++) {
                     renderScoreTableTd(result[i], i + 1);
                 }
@@ -656,7 +641,6 @@
 
     function removeTestUploadTd() {
         $(".testFileUploadTd").remove();
-
     }
 
     function renderScoreTableTh() {
@@ -748,7 +732,6 @@
         removeTestUploadTd();
         ajaxGetSisInfo(sisNo);
         ajaxGetStudentInScoreList(sisNo,curriNo);
-
     });
 
     function ajaxAddScore(url,formData) {
@@ -763,7 +746,6 @@
             data: formData,
             dataType: "json",
             success: function (result) {
-
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
@@ -798,8 +780,6 @@
                 {name: 'major', index: 'major', width: 140, align: "center"},
                 {name: 'deposit', index: 'deposit', width: 60, align: "center"}
             ],
-
-            // rowheight: 50,
             height: 300,
             rownumbers: true,
             ondblClickRow: function () {
@@ -809,7 +789,6 @@
                 alert("나중에 " + userNo + "")
             },
             viewrecords: true
-            // caption: "유저 정보"
         });
 
         /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
@@ -853,7 +832,6 @@
         function onSelectHandler(date, context) {
             var $element = context.element;
             var $calendar = context.calendar;
-            // var $box = $element.siblings('#reportDate').show();
             var text = '';
 
             if (date[0] !== null) {
@@ -871,7 +849,6 @@
                 text += date[1].format('YYYY-MM-DD');
             }
             $("#reportDate").val(text);
-            // $box.text(text);
         }
 
         // Default Calendar 셀랙트 이벤트 핸들러
@@ -880,6 +857,4 @@
             select: onSelectHandler
         });
     });
-
-
 </script>

@@ -10,6 +10,7 @@ public class GisuDao {
     @Autowired
     SqlSession sqlSession;
 
+    //커리큐럼 넘버로 기수만 불러오는 코드
     public String getGisu(int curriculum_no) {
         return sqlSession.selectOne("gisu.getGisu", curriculum_no);
     }

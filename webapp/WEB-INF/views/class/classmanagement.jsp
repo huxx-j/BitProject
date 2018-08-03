@@ -38,7 +38,7 @@
                 <li><a href="#"><i class="fa fa-dashboard"></i> 학사과정 업무</a></li>
                 <li class="active">수업관리</li>
             </ol>
-        </section>
+        </section> <%--/.content-header--%>
 
         <section class="content">
             <div class="row">
@@ -46,8 +46,8 @@
                     <div class="box box-body" style="padding-right: 36px">
                         <div class="box-header with-border">
                             <h3 class="box-title"> 교육과정검색</h3>
-                        </div>
-                        <table class="table table-condensed">
+                        </div> <%--/.box-header with-border--%>
+                        <table class="table table-condensed"> <%--교육과정검색 테이블--%>
                             <tr>
                                 <th style="width: 20%">업무구분</th>
                                 <th colspan="2">교육과정(반) 명</th>
@@ -63,26 +63,25 @@
                                         <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
                                         <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing"
                                                                        checked>수업중</label>
-                                    </div>
+                                    </div> <%--/.radio-group w100 disp-inline--%>
                                 </td>
                                 <td id="curriTd" style="border-left: none !important;">
                                     <select class="form-control" id="curriSelect" style="width: 100%">
                                     </select>
                                 </td>
                             </tr>
-                        </table>
+                        </table> <%--/.교육과정검색 테이블--%>
                         <div class="sub-toolbox text-center">
                             <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
-                        </div>
-                    </div>
+                        </div> <%--/.sub-toolbox text-center--%>
+                    </div> <%--/.box box-body--%>
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title"> 수업관리</h3>
                             <input id="selectedCurri" type="hidden">
-                        </div>
-                        <!-- /.box-header -->
+                        </div> <%--/.box-header with-border--%>
                         <div class="box-body" style="padding-right: 36px">
-                            <table class="table table-condensed">
+                            <table class="table table-condensed"> <%--수업관리 테이블--%>
                                 <tr>
                                     <th style="width: 8%; text-align: center">과정구분</th>
                                     <td id="curriNameInfo" class="table-text" style="width: 42%"></td>
@@ -95,8 +94,8 @@
                                     <th style="width: 8%; text-align: center">종강일</th>
                                     <td id="periodToInfo" class="table-text" style="width: 42%"></td>
                                 </tr>
-                            </table>
-                        </div>
+                            </table> <%--/.수업관리 테이블--%>
+                        </div> <%--/.box-body--%>
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box-body">
@@ -113,32 +112,28 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tab_1">
                                                 <c:import url="includes/tab1.jsp"/>
-                                            </div>
+                                            </div> <%--/.tab1--%>
                                             <div class="tab-pane" id="tab_2">
                                                 <c:import url="includes/tab2.jsp"/>
-                                            </div>
+                                            </div> <%--/.tab2--%>
                                             <div class="tab-pane" id="tab_3">
                                                 <c:import url="includes/tab3.jsp"/>
-                                            </div>
+                                            </div> <%--/.tab3--%>
                                             <div class="tab-pane" id="tab_4">
                                                 <c:import url="includes/tab4.jsp"/>
-                                            </div>
+                                            </div> <%--/.tab4--%>
                                             <div class="tab-pane" id="tab_5">
                                                 <c:import url="includes/tab5.jsp"/>
-                                            </div>
-                                        </div>
-                                        <!-- /.tab-content -->
-                                    </div>
-                                    <!-- nav-tabs-custom -->
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+                                            </div> <%--/.tab5--%>
+                                        </div><!-- /.tab-content -->
+                                    </div><!-- nav-tabs-custom -->
+                                </div> <%--/.box-body--%>
+                            </div><!-- /.col-xs-12 -->
+                        </div> <%--/.row--%>
+                    </div> <%--/.box--%>
+                </div> <%--/.col-xs-12--%>
+            </div> <%--/.row--%>
+        </section> <%--/.content--%>
     </div>
     <!-- /.content-wrapper -->
 
@@ -147,8 +142,7 @@
     <div class="control-sidebar-bg"></div>
 
 
-</div>
-<!-- ./wrapper -->
+</div><!-- ./wrapper -->
 
 
 </body>

@@ -6,19 +6,19 @@
             <div class="sub_list">
                 <div class="box-header with-border">
                     <h1 class="box-title"> 과목리스트</h1>
-                </div>
+                </div> <%--/.box-header with-border--%>
                 <%--과목리스트 뿌려질 자리--%>
-            </div>
-        </div>
-    </div>
+            </div> <%--/.sub_list--%>
+        </div> <%--/.box--%>
+    </div> <%--/.col-xs-3--%>
     <div class="col-xs-9">
         <div class="eval_data">
             <div class="box">
                 <div class="box-header with-border">
                     <h1 class="box-title"> 과목별 평가 자료</h1>
-                </div>
+                </div> <%--/.box-header with-border--%>
                 <div class="box-body">
-                    <table class="table table-condensed">
+                    <table class="table table-condensed"> <%--시험지테이블--%>
                         <tr>
                             <th style="width: 8%; text-align: center">과정명
                                 <input id="iSisNo" name="iSisNo" type="hidden">
@@ -36,10 +36,10 @@
                                 </form>
                             </td>
                         </tr>
-                    </table>
-                </div>
+                    </table> <%--/.시험지테이블--%>
+                </div> <%--/.box-body--%>
                 <div class="box-body">
-                    <table id="score-table" class="table table-condensed">
+                    <table id="score-table" class="table table-condensed"> <%--점수테이블--%>
                         <tr class="scoreTable">
                             <th class="a_c" style="width: 5%">No</th>
                             <th class="a_c" style="width: 15%">이름</th>
@@ -50,8 +50,8 @@
                             <td colspan="4" class="a_c">과목리스트에서 과목명을 선택하세요</td>
                         </tr>
                         <%--점수 테이블 뿌려질 자리--%>
-                    </table>
-                </div>
+                    </table> <%--/.점수테이블--%>
+                </div> <%--/.box-body--%>
                 <div id="scoreSaveBtn" class="sub-toolbox text-center">
                     <%--저장 버튼 뿌려질 자리--%>
                 </div>

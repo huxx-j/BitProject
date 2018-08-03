@@ -4,6 +4,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="score">
 
+    <!--과목 리스트를 가져오는 코드-->
     <select id="getSubjectList" parameterType="Int" resultType="ScoreVo">
     <![CDATA[
       select SubInStep_no, SubjectName
@@ -15,8 +16,9 @@
                                       from Curriculum
                                       where Curriculum_no=#{curriculum_no}))
         ]]>
-</select>
+    </select>
 
+    <!--선택한 과목이 신규작성인지 과거 작성이력이 있는지 확인하는 쿼리-->
     <select id="chkSisNo" parameterType="Int" resultType="Int">
         <![CDATA[
                 select s.Score_no
@@ -26,6 +28,7 @@
         ]]>
     </select>
 
+    <!--이론평가 학생점수 리스트를 가져오는 코드-->
     <select id="getStudentInScoreList" parameterType="ScoreVo" resultType="ScoreVo">
         <if test="subInStep_no==0">
             <![CDATA[
@@ -54,6 +57,7 @@
         </if>
     </select>
 
+    <!--점수정보를 저장하는 코드-->
     <insert id="addScore" parameterType="ScoreVo">
         <if test="file_no==0">
             <![CDATA[
@@ -69,6 +73,7 @@
         </if>
     </insert>
 
+    <!--평가파일을 저장하는 코드-->
     <insert id="addScoreFile" parameterType="FileVo">
         <selectKey keyProperty="file_no" resultType="Int" order="AFTER">
             <![CDATA[
@@ -81,6 +86,7 @@
         ]]>
     </insert>
 
+    <!--점수정보를 업데이트하는 코드-->
     <update id="updateScore" parameterType="ScoreVo">
         <if test="file_no!=0">
             <![CDATA[
@@ -98,6 +104,7 @@
         </if>
     </update>
 
+    <!--시험지 파일정보를 저장하는 코드-->
     <update id="addTest" parameterType="SubInStepVo">
             <![CDATA[
                   update SubInStep
@@ -106,6 +113,7 @@
         ]]>
     </update>
 
+    <!--평가파일 리스트를 가져오는 코드-->
     <select id="getSisInfo" parameterType="Int" resultType="FileVo">
         <![CDATA[
                 select f.FileName, f.File_no
@@ -115,6 +123,7 @@
         ]]>
     </select>
 
+    <!--평가파일 업데이트하는 코드-->
     <update id="updateScoreFile" parameterType="FileVo">
     <![CDATA[
             update File
