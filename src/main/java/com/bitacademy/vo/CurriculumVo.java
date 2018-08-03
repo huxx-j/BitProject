@@ -6,12 +6,11 @@ public class CurriculumVo {
 	private int package_no;
 	private String packageName;
 	private int curriculum_no;
-	private String workType;
+	private String cateName;
 	private String curriName;
 	private String curriNickname;
 	private String startDate;
 	private String endDate;
-	private String testDate;
 	private String time;
 	private int maxCnt;
 	private String price;
@@ -20,25 +19,24 @@ public class CurriculumVo {
 	private String managerInfo;
 	private String state;
 	private int mainViewFlag;
-	private int datailViewFlag;
+	private int detailViewFlag;
 	public CurriculumVo() {
 		super();
 	}
-	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String workType,
-			String curriName, String curriNickname, String startDate, String endDate, String testDate, String time,
-			int maxCnt, String price, String support, String gisuName, String managerInfo, String state,
-			int mainViewFlag, int datailViewFlag) {
+	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String cateName,
+			String curriName, String curriNickname, String startDate, String endDate, String time, int maxCnt,
+			String price, String support, String gisuName, String managerInfo, String state, int mainViewFlag,
+			int detailViewFlag) {
 		super();
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
 		this.packageName = packageName;
 		this.curriculum_no = curriculum_no;
-		this.workType = workType;
+		this.cateName = cateName;
 		this.curriName = curriName;
 		this.curriNickname = curriNickname;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.testDate = testDate;
 		this.time = time;
 		this.maxCnt = maxCnt;
 		this.price = price;
@@ -47,7 +45,7 @@ public class CurriculumVo {
 		this.managerInfo = managerInfo;
 		this.state = state;
 		this.mainViewFlag = mainViewFlag;
-		this.datailViewFlag = datailViewFlag;
+		this.detailViewFlag = detailViewFlag;
 	}
 	public int getCurriculumCate_no() {
 		return curriculumCate_no;
@@ -73,11 +71,11 @@ public class CurriculumVo {
 	public void setCurriculum_no(int curriculum_no) {
 		this.curriculum_no = curriculum_no;
 	}
-	public String getWorkType() {
-		return workType;
+	public String getCateName() {
+		return cateName;
 	}
-	public void setWorkType(String workType) {
-		this.workType = workType;
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
 	}
 	public String getCurriName() {
 		return curriName;
@@ -102,12 +100,6 @@ public class CurriculumVo {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}
-	public String getTestDate() {
-		return testDate;
-	}
-	public void setTestDate(String testDate) {
-		this.testDate = testDate;
 	}
 	public String getTime() {
 		return time;
@@ -157,21 +149,23 @@ public class CurriculumVo {
 	public void setMainViewFlag(int mainViewFlag) {
 		this.mainViewFlag = mainViewFlag;
 	}
-	public int getDatailViewFlag() {
-		return datailViewFlag;
+	public int getDetailViewFlag() {
+		return detailViewFlag;
 	}
-	public void setDatailViewFlag(int datailViewFlag) {
-		this.datailViewFlag = datailViewFlag;
+	public void setDetailViewFlag(int detailViewFlag) {
+		this.detailViewFlag = detailViewFlag;
 	}
 	@Override
 	public String toString() {
 		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no + ", packageName="
-				+ packageName + ", curriculum_no=" + curriculum_no + ", workType=" + workType + ", curriName="
+				+ packageName + ", curriculum_no=" + curriculum_no + ", cateName=" + cateName + ", curriName="
 				+ curriName + ", curriNickname=" + curriNickname + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", testDate=" + testDate + ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support="
-				+ support + ", gisuName=" + gisuName + ", managerInfo=" + managerInfo + ", state=" + state
-				+ ", mainViewFlag=" + mainViewFlag + ", datailViewFlag=" + datailViewFlag + "]";
+				+ ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support=" + support + ", gisuName="
+				+ gisuName + ", managerInfo=" + managerInfo + ", state=" + state + ", mainViewFlag=" + mainViewFlag
+				+ ", detailViewFlag=" + detailViewFlag + "]";
 	}
+
+
 
 	
 }

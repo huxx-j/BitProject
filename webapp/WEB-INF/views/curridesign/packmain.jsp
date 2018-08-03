@@ -115,9 +115,10 @@
 									<div class="tab-content">
 										<!-- 1번탭내용 -->
 										<div class="tab-pane active" id="tab_1">
+											<form id="package" name="package" method="get">
 											<div class="sub-box">
 												<div class="sub-body">
-													<form id="package" name="package" method="get" action="${pageContext.request.contextPath}/package/add">
+
 														<table class="table table-condensed">
 															<colgroup>
 																<col width="120px" />
@@ -171,18 +172,18 @@
 												</div><!-- /.sub-body -->
 
 												<div class="sub-toolbox clearfix text-center">
-													<input type="submit" value="저장" class="btn btn-primary">
+													<input type="button" value="저장" id="packageadd" class="btn btn-primary">
 													<input type="button" value="삭제" class="btn btn-default btn-sub pull-right">
 												</div>
 											</div><!-- /.sub-box -->
-
+											</form>
 										</div>
 										<!-- /.1번탭내용 -->
 
 										<!-- 2번탭내용 -->
 										<div class="tab-pane" id="tab_2">
 											<div class="sub-body">
-												<form id="stepadd" name="stepadd" method="get" action="${pageContext.request.contextPath}/package/stepadd">
+												<form id="stepadd" name="stepadd" method="get" action="${pageContext.request.contextPath}/package/stepadd"></form>
 													<!-- 2번메뉴내용 -->
 													<table class="table table-condensed">
 														<colgroup>
@@ -692,6 +693,23 @@
         });
 
     }
+    $("#packageadd").on("click", function() {
+        var formData = $("#package").serialize();
+        console.log("드가이씨1")
+		$.ajax({
+			cache : false,
+			url : "${pageContext.request.contextPath}/package/packageadd",
+			type : 'POST',
+			data : formData,
+			success:function(PackageVo){
+				console.log("드가이씨2")
+			},
+			error : function(xhr,status) {
+            console.error(status + " : " + error);
+		}
+		});
+    });
+
     function package(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
         console.log(no);
@@ -834,8 +852,10 @@
         console.log("발똥");
         var time=0;
         $(".time").each(function () {
-            time +=  parseInt($(this).val());
-            console.log(time);
+            if ($(this).val() !="") {
+                time += parseInt($(this).val());
+                console.log(time);
+            }
         });
         $("input[name=Time]").val(time);
     });

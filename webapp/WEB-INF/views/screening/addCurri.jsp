@@ -39,7 +39,6 @@
 
 		<!-- Main content -->
 		<section class = "content">
-		
 			<div class = "row">
 				<div class = "col-xs-12">
 					<div class = "box box-body">
@@ -137,7 +136,7 @@
 																		<div class = "modal-body">
 																			<div class = "scroll">
 																				<div class = "tab-content-custom" style = "height : 500px;">
-																					<div class "row">
+																					<div class= "row">
 																						<ul id = "treeDemo2" class = "ztree"></ul>
 																					</div><!-- /.row -->
 																				</div><!-- /.tab-content-custom -->

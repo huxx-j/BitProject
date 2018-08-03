@@ -58,7 +58,7 @@
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
 	            	<li><a href="${pageContext.request.contextPath}/completion/"><i class="fa fa-circle-o"></i> 수료생관리</a></li>
-	            	<li><a href="${pageContext.request.contextPath}/jobrequest"><i class="fa fa-circle-o"></i> 기업취업의뢰</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/jobrequest/"><i class="fa fa-circle-o"></i> 기업취업의뢰</a></li>
 	          	</ul>
 	        </li>
         

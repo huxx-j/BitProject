@@ -7,9 +7,7 @@ public class CurriculumCateVo {
 	private int groupCode;
 	private int parentCode;
 	private int depth;
-	public CurriculumCateVo() {
-		super();
-	}
+
 	public CurriculumCateVo(int curriculumCate_no, String cateName, int groupCode, int parentCode, int depth) {
 		super();
 		this.curriculumCate_no = curriculumCate_no;
@@ -17,6 +15,9 @@ public class CurriculumCateVo {
 		this.groupCode = groupCode;
 		this.parentCode = parentCode;
 		this.depth = depth;
+	}
+	public CurriculumCateVo() {
+		super();
 	}
 	public int getCurriculumCate_no() {
 		return curriculumCate_no;

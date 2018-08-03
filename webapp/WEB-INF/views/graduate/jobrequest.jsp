@@ -13,11 +13,10 @@
 	
 	<!-- 공통css -->
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
-	
-	<!-- 자신의 css사용시 --> 
-	
+
 	<!-- 그리드 사용시 주석풀어 사용 -->
-	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
+
+
 
 </head>
 
@@ -75,32 +74,20 @@
 															<label class="radiobox"><input class="whole" type="radio" name="comCondition" value="1" checked="checked">전체보기</label>
 															<label class="radiobox"><input class="post" type="radio" name="comCondition" value="2">게시중만 보기</label>
 															<label class="radiobox"><input class="employment" type="radio" name="comCondition" value="3">상시채용만 보기</label>
-															<label class="radiobox"><input class="inquiry" type="radio" name="comCondition" value="4">신청일로 조회</label>
+															<label class="radiobox"><input class="search" type="radio" name="comCondition" value="4">신청일로 조회</label>
 														</div>
 
 														<div class="clearfix pull-left dateRange">
 															<div class="input-group border-inputcolor w140 pull-left">
-																<input class="input-datepicker form-control border-none" name="date1" id="date3" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<input class="input-datepicker form-control border-none" name="startDate" id="startDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 																<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 															</div>
 															<div class="pull-left"> &nbsp;&nbsp; - &nbsp;&nbsp;</div>
 															<div class="input-group border-inputcolor w140 pull-left">
-																<input class="input-datepicker form-control border-none" name="date1" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<input class="input-datepicker form-control border-none" name="endDate" id="endDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 																<span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 															</div>
 														</div>
-														
-														<%-- <!-- <달력> -->
-														<div class="input-group form-inline date" style="float: left; padding-left: 20px">
-															<input type="text" style="width: 125px; margin-left: 20px;" class="form-control input-sm datepicker" id="datepicker1" name="date1">
-																<label for="datepicker1" style="background-image:${pageContext.request.contextPath}/assets/1.jpg">
-																 	<i class="fa fa-calendar" style="position: absolute; left: 145px; top: 7px; z-index: 2"></i>
-																</label>
-															<input type="text" style="width: 125px; margin-left: 20px;" class="form-control input-sm datepicker" id="datepicker2" name="date2">	 
-														     	<label for="datepicker2" style="background-image:${pageContext.request.contextPath}/assets/2.jpg">
-														        	<i class="fa fa-calendar" style="position: absolute; left: 290px; top: 7px; z-index: 2"></i>
-														        </label>
-														</div> --%>
 													</td>
 												</tr>
 											</tbody>
@@ -113,7 +100,6 @@
 										<input type="submit" value="검색" class="btn btn-primary" id="btn_search">
 									</div>
 									
-
 
 								</div>
 								<!-- sub-box -->
@@ -144,8 +130,9 @@
 									
 									
 										<!-- 업체정보 테이블 -->
-										<div name="jqgrid" class="box-body">
-										</div>
+										<table id="jqGrid" class="box-body">
+
+										</table>
 										
 									</div>
 									<!-- ./sub_body -->
@@ -208,11 +195,7 @@
 														</tbody>
 													</table>	
 												</div> <!--./innerBox -->
-									
-																				
-																		
-									
-									
+
 											</div>
 											<!-- ./sub_body -->
 											
@@ -256,8 +239,7 @@
 	<!-- /.content-wrapper -->
 	
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
-	
-	<div class="control-sidebar-bg"></div>
+	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
 	
 	<!-- Modal!!! -->
 	<div class="modal fade" id="insertDataModal">
@@ -293,7 +275,7 @@
 				
 				<!-- 추가 눌렀을때 조회 -->
 				<div class="sub-toolbox text-center">
-					<button type="submit" class="btn btn-primary" id="inquiry2">조회</button>
+					<button type="submit" class="btn btn-primary" id="inquiry">조회</button>
 				</div>
 				
 				<!-- sub_title -->
@@ -350,6 +332,7 @@
 </div>
 </body>
 
+
 <script type="text/javascript">
 
 
@@ -359,48 +342,182 @@ $(document).ready(function() {
 });
 
 
-
 /* 검색조건(라디오버튼) 선택했을때 */
-$("[name=comCondition]").on("click", function(){                 //btn_search 는 id (#은 id, .은 class) on 누르고 클릭했을때 function 함수
+$("[name=comCondition]").on("click", function(){                 		   //btn_search 는 id (#은 id, .은 class) on 누르고 클릭했을때 function 함수
 
 	var $this = $(this).val();
 	console.log($this);
 
 	if($this == 4){
 		$(".dateRange").show();
-	}else{
+	} else{
 		$(".dateRange").hide();
 	}
 
 });
 
-
-
-
-
-
-
 /* 검색버튼 클릭했을때 */
-$("#btn_search").on("click", function(){                 //btn_search 는 id (#은 id, .은 class) on 누르고 클릭했을때 function 함수
-	var comCondition = $('input[name=comCondition]:checked').val();       //라디오 버튼 눌렀을때  name값들 들어가기
-
-	if(comCondition != 4 ){
-		$(".daterange").hide();
+$("#btn_search").on("click", function(){
+	var comCondition = $('input[name=comCondition]:checked').val();        //라디오 버튼 눌렀을때  name값들 들어가기
+	var data
+ 	if (comCondition!=4) {
+		data = {"comCondition" :comCondition}
+	} else {
+		data = {"comCondition" :comCondition,
+				"startDate" : $("#startDate").val(),
+				"endDate" : $("#endDate").val()}
 	}
-	console.log(comCondition);
+	console.log("클릭됨" + comCondition);
+
+	$.ajax({
+        url: "${pageContext.request.contextPath}/jobRequestList"
+        type: "post",
+        data: data,
+
+        dataType: "json",
+        success: function (list) {
+      		console.log(list);
+
+           /*  for (var i = 0; i < list.length; i++){
+            	$("#jqGrid").jqGrid('addRowData', i + 1, list[i]);
+            } */
+        },
+        error: function (XHR, status, error) {
+            console.error(status + " : " + error);
+        }
+    });
+});
+
+/* 메인그리드관련 */
+var cnames = [ 'j', '게시유무', '블랙', '접수일', '회사명', '담당자', '모집부문', '모집인원', '이메일', '상시채용'];
+$("#jqGrid").jqGrid(
+	{
+		url : "jqgridStartMain.do",
+		datatype : "local",
+		colNames : cnames,
+		colModel : [{name : 'commpany_no',index : 'commpany_no',width : 10,hidden : true},
+					{name : 'Post',index : 'Post',width : 100,align : "center"},
+					{name : 'Black',index : 'Black',width : 100,align : "center"},
+					{name : 'Receipt',index : 'Receipt',width : 100,align : "center"},
+					{name : 'CompName',index : 'CompName',width : 50,align : "center"},
+					{name : 'Person',index : 'Person',width : 80,align : "center"},
+					{name : 'Field',index : 'Field',width : 150,align : "center"},
+					{name : 'Recruitment ',index : 'Recruitment ',width : 100,align : "center"},
+					{name : 'Email',index : 'Email',width : 100,align : "center"},
+					{name : 'Employment ',index : 'Employment ',width : 150,align : "center"} ],
+		rowheight : 20,
+		height : 230,
+		width : 1265,
+		rowNum : 15,
+		rowList : [ 10, 20, 30 ],
+		pager : '#jqGridPager',
+		rownumbers : true,
+
+		ondblClickRow : function(rowId, iRow, iCol, e) {
+
+			var rowId = $("#jqGrid").getGridParam("selrow");
+			var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
+			console.log(userNo)
+			/*  alert("나중에 " + userNo + "") */
+
+
+			$.ajax({
+            		url : "${pageContext.request.contextPath}/getSearchList",
+				type : "post",
+				data : {"commpany_no" : commpanyNo},
+				dataType : "json",
+				success : function(list) {
+               	 	console.log(list);
+
+                  		$("#searchList").empty();
+
+               		for (var i = 0; i < list.length; i++) {
+                   		renderApplied(list[i])
+              			}
+
+				},
+				error : function(request, status, error) {
+                		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+                	}
+			});
+		}
+    });
+
+
+
+
+
+/* 모달 선택 */
+$("#choice").on("click", function() {
+	event.preventDefault();
+	var GisuName = $("#GisuName").val();
+	var NameHan = $("#NameHan").val();
+	console.log(gisuName);
+	console.log(nameHan);
+
+	$.ajax({
+		url : "${pageContext.request.contextPath }/subject/addcate",
+		type : "post",
+		data : {
+			"GisuName" : GisuName,
+			"NameHan" : NameHan
+		},
+		dataType : "json",
+		success : function() {
+		},
+
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+	});
+
+
+$('[id=insertData]').on('click', function() {
+	$("[id=insertDataModal]").modal();
 });
 
 
-	/* 검색조건이 날짜(라디오버튼) 일때 */
-/* 	$('input:radio[name=이름]').is(':checked');
- */
+/* 모달 그리드 */
+var cnames = [ '번호', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부' ];
+$("#jqGrid").jqGrid(
+		{
+			url : "jqgridStartMain.do",
+			datatype : "local",
+			colNames : cnames,
+			colModel : [{name : 'seq',index : 'seq',width : 110,align : "center"},
+						{name : 'gisu',index : 'gisu',width : 200},
+						{name : 'name',index : 'name',width : 200},
+						{name : 'birth',index : 'birth',width : 200},
+						{name : 'gender',index : 'gender',width : 200},
+						{name : 'result',index : 'result',width : 200},
+						{name : 'phone', index : 'phone', width : 200},
+						{name : 'appdate', index : 'appdate', width : 200},
+						{name : 'exdate', index : 'exdate', width : 200},
+						{name : 'school', index : 'school', width : 200},
+						{name : 'major', index : 'major', width : 200},
+						{name : 'yn', index : 'yn', width : 200}
+					   ],
 
+			rowheight : 20,
+			height : 450,
+			rowNum : 15,
+			rowList : [ 10, 20, 30 ],
+			pager : '#jqGridPager',
+			rownumbers : true,
+			ondblClickRow : function(rowId, iRow, iCol, e) {
 
+			if (iCol == 1) {
+				alert(rowId + " 째줄 입니다.");
+			}
+		},
 
-
-   
-   
+		viewrecords : true,
+		caption : "유저 정보"
+});
 
 
 </script>
+
+
 </html>

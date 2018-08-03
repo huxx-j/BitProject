@@ -57,7 +57,7 @@ public class CurriculumController {
 		
 		
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList);
-		System.out.println(curriAllVo.toString());
+//		System.out.println(curriAllVo.toString());
 		return curriAllVo;
 	}
 	
@@ -89,14 +89,25 @@ public class CurriculumController {
 //	}
 	
 	//교육과정 수정
-	@RequestMapping(value = "/edit/{curriculum_no}")
-	public String edit(@ModelAttribute CurriculumVo curriVo) {
+	@ResponseBody
+	@RequestMapping(value = "/edit")
+	public int edit(@ModelAttribute CurriculumVo curriVo) {
 		System.out.println("[curriController] edit IN");
-		curriService.edit(curriVo);
-		return "redirect:/curri/{curriculum_no}";
+		System.out.println(curriVo.toString());
+		int result = curriService.edit(curriVo);
+		return result;
 
 	}
-	
+//	//교육과정 수정
+//	@ResponseBody
+//	@RequestMapping(value = "/edit/{curriculum_no}")
+//	public CurriculumVo edit(@ModelAttribute CurriculumVo curriVo) {
+//		System.out.println("[curriController] edit IN");
+//		curriService.edit(curriVo);
+//		return curriVo;
+//
+//	}
+
 	//기수부여
 	@ResponseBody
 	@RequestMapping(value = "/gisuGrant")

@@ -4,7 +4,7 @@ public class ApplyUserVo {
 	
 	private int user_no;
 	private int curriculum_no;
-	private String workType;
+	private String cateName;
 	private String gisuName;
 	private String curriName;
 	private String nameHan;
@@ -27,7 +27,7 @@ public class ApplyUserVo {
 	private String totalPay;
 	private String consult;
 
-	public ApplyUserVo(int user_no, int curriculum_no, String workType, String gisuName, String curriName,
+	public ApplyUserVo(int user_no, int curriculum_no, String cateName, String gisuName, String curriName,
 			String nameHan, String applyType, String birthDate, String testScore, String gender, String testResult,
 			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
 			String deposit, String depositDate, String depositAmount, String cardPayDate, String cardPayAmount,
@@ -35,7 +35,7 @@ public class ApplyUserVo {
 		
 		this.user_no = user_no;
 		this.curriculum_no = curriculum_no;
-		this.workType = workType;
+		this.cateName = cateName;
 		this.gisuName = gisuName;
 		this.curriName = curriName;
 		this.nameHan = nameHan;
@@ -79,12 +79,12 @@ public class ApplyUserVo {
 		this.curriculum_no = curriculum_no;
 	}
 
-	public String getWorkType() {
-		return workType;
+	public String getCateName() {
+		return cateName;
 	}
 
-	public void setWorkType(String workType) {
-		this.workType = workType;
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
 	}
 
 	public String getGisuName() {
@@ -257,7 +257,7 @@ public class ApplyUserVo {
 
 	@Override
 	public String toString() {
-		return "ApplyUserVo [user_no=" + user_no + ", curriculum_no=" + curriculum_no + ", workType=" + workType
+		return "ApplyUserVo [user_no=" + user_no + ", curriculum_no=" + curriculum_no + ", cateName=" + cateName
 				+ ", gisuName=" + gisuName + ", curriName=" + curriName + ", nameHan=" + nameHan + ", applyType="
 				+ applyType + ", birthDate=" + birthDate + ", testScore=" + testScore + ", gender=" + gender
 				+ ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="

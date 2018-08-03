@@ -72,8 +72,8 @@
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th>교육과정명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<div style = "float:right;">
+												<th>교육과정명
+													<div style = "float:right;padding-right:30px;">
 														<label class="form-controll-static"><input class="" type="radio" name="state" value="">전체</label>
 														<label class="form-controll-static"><input class="" type="radio" name="state" value="">준비중</label>
 														<label class="form-controll-static"><input class="" type="radio" name="state" value="">모집중</label>
@@ -89,11 +89,11 @@
 											<tr>
 												<td>
 													<select name="workType"
-															class="form-control input-sm" id="workTypeSelect">
+															class="form-control input-sm" id="cateNameSelect">
 														<c:forEach items="${requestScope.curriList}"
 																   var="curriList">
-															<option value="${curriList.workType}"
-																	id="${curriList.workType}">${curriList.workType}</option>
+															<option value="${curriList.cateName}"
+																	id="${curriList.cateName}">${curriList.cateName}</option>
 														</c:forEach>
 													</select>
 												</td>
@@ -269,8 +269,8 @@
 											<button type="button" class="btn btn-primary" id="company_btn">수정</button>
 										</div>
 									</div><!-- /.sub-box -->
-									<input type = "hidden" name="hidden_no" id = "hidden_no">
-									<input type = "hidden" name="hidden_applyno" id = "hidden_applyno">
+									<input type="hidden" name="hidden_no" id = "hidden_no">
+									<input type="hidden" name="hidden_applyno" id = "hidden_applyno">
 								</div><!-- /.col-xs-9 -->
 							</div><!-- /.row -->
 
@@ -305,13 +305,13 @@
 
     $(document).ready(function() {
 
-        var selectValue = $("#workTypeSelect option:selected").val();
+        var selectValue = $("#cateNameSelect option:selected").val();
         console.log(selectValue);
 
         $.ajax({
             url : "${pageContext.request.contextPath }/api/completion/getcurri",
             type : "get",
-            data : {"workType" : selectValue},
+            data : {"cateName" : selectValue},
             dataType : "json",
             success : function(list) {
                 console.log("지원자 관리 들어갔다 왔어요");
@@ -330,13 +330,13 @@
         });
 
         //업무 구분별 과목 불러오는 스크립트
-        $("#workTypeSelect").change(function() {
-            var selectValue = $("#workTypeSelect option:selected").val();
+        $("#cateNameSelect").change(function() {
+            var selectValue = $("#cateNameSelect option:selected").val();
 
             $.ajax({
                 url : "/api/completion/getcurri",
                 type : "get",
-                data : {"workType" : selectValue},
+                data : {"cateName" : selectValue},
                 dataType : "json",
                 success : function(list) {
                     $("#curriSelect").remove();
@@ -363,11 +363,43 @@
 
         };
 
+/*         ("#jqGrid").click(function(){
+
+        	var selectedRowId =  $("#jqGrid").getGridParam('selrow');
+        	var userNo = $("#jqGrid").getRowData(selectedRowId);
+        	/* var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
+            console.log(userNo);
+
+            $.ajax({
+                url : "/api/completion/afterServiceList",
+                type : "get",
+                data : {"user_no" : userNo},
+                dataType : "json",
+                success : function(list) {
+                    console.log(list);
+
+                    $("#afterServiceTable").empty();
+
+                    for (var i = 0; i < list.length; i++) {
+                        renderApplied(list[i])
+                    }
+
+                    $("input[name='hidden_no']").val(userNo)
+                    $("input[name='hidden_applyno']").val(userCareer_no)
+
+                },
+                error : function(request, status, error) {
+                    alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);}
+            });
+
+        }); */
     });
 
     $(document).on("click","#applySearch",function() {
         var selectValue = $("#curriSelect option:selected").val();
         console.log("클릭됨" + selectValue);
+         $("#jqGrid").empty();
+
         $.ajax({
             url : "/api/completion/search",
             type : "get",
@@ -375,8 +407,6 @@
             dataType : "json",
             success : function(list) {
                 console.log("search 잘 들어갔다 나옴");
-
-                jqGridUserInfo();
 
                 for (var i = 0; i < list.length; i++)
                     $("#jqGrid").jqGrid('addRowData', i + 1,
@@ -390,11 +420,6 @@
         });
 
     });
-
-   function jqGridUserInfo() {
-
-	  removeJqGridTable();
-      renderJqGridTable();
 
     var cnames = [ 'j', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자','전형일자', '학교', '전공', '입금여부' ];
 
@@ -425,11 +450,11 @@
                 pager : '#jqGridPager',
                 rownumbers : true,
 
-                ondblClickRow : function(rowId, iRow, iCol, e) {
+                ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
 
                     var rowId = $("#jqGrid").getGridParam("selrow");
                     var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
-                    console.log(userNo)
+                    console.log(userNo);
                     /*  alert("나중에 " + userNo + "") */
 
                     $.ajax({
@@ -446,21 +471,14 @@
                                 renderApplied(list[i])
                             }
 
+                            $("input[name='hidden_no']").val(userNo)
+                           /*  $("input[name='hidden_applyno']").val(userCareer_no) */
+
                         },
                         error : function(request, status, error) {
                             alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);}
 
                     });
-
-                    /* function renderApplied(list) {
-                      var str = "";
-                      str += "<tr onClick='past_apply(" + list.curriculum_no + ")'>";
-                         str += "<td value='" + list.curriculum_no + "'>" + list.testDay + "</td>";
-                         str += "<td value='" + list.curriculum_no + "'>" + list.curriName + "</td>";
-                         str += "</tr>";
-                         $("#appliedTable").append(str);
-
-                        }; */
 
                     function renderApplied(list) {
                         var str = "";
@@ -484,30 +502,16 @@
                 viewrecords : true
                 /* caption: "유저 정보" */
             });
-  }
-
-   function renderJqGridTable() {
-      str = "";
-      str = "<table id='jqGrid'></table>";
-
-      $("div[name=jqgrid]").append(str);
-  }
-
-  function removeJqGridTable() {
-      $("#gbox_jqGrid").remove();
-  }
 
 
-   function past_apply(userCareer_no, user_no) {
-
+   function past_apply(userCareer_no,user_no) {
         console.log(user_no);
         console.log(userCareer_no);
-
         $.ajax({
             url : "/api/completion/afterService_details",
             type : "get",
-            data : {"userCareer_no" : userCareer_no,
-                "user_no" : user_no},
+            data : {"user_no" : user_no,
+            		"userCareer_no": userCareer_no},
             dataType : "json",
             success : function(userCareerVo) {
                 console.log(userCareerVo)
@@ -522,7 +526,7 @@
                 $("input[name='companyAddress']").val(userCareerVo.companyAddress)
 
             },
-            error : function(request, status, error) {
+            error : function() {
                 alert("취업한 정보가 없습니다.");
             }
         });
@@ -531,10 +535,25 @@
 
     $("#afterServiceTable").on("click", "[class=past]", function() {
         console.log("들어왔음");
-        var afterService_no = $(this).attr("id");
+        var userCareer_no = $(this).attr("id");
         var user_no = $(this).attr("name");
-        past_apply(afterService_no, user_no);
+        past_apply(userCareer_no,user_no);
 
+        $("input[name='hidden_no']").val(user_no)
+        $("input[name='hidden_applyno']").val(userCareer_no)
+
+         $("#companyAdd").remove();
+    	 $("#company_btn").remove();
+    	 $("#company_cancle").remove();
+    	 $("#company_btnAdd").remove();
+
+        var strAdd = "";
+        strAdd += "<button type='button' class='btn btn-primary' id='companyAdd'>추가</button>";
+        $("#companyAdd_div").append(strAdd);
+
+        var str = "";
+        str += "<button type='button' class='btn btn-primary' id='company_btn'>수정</button>";
+        $("#company_btn_div").append(str);
     });
 
     //달력1
@@ -595,13 +614,13 @@
             role: $("#position").val(),
             department: $("#department").val(),
             companyAddress: $("#companyAddress").val(),
-            state:$("#state").selectValue()
+            state:$("#state option:selected").val()
         };
 
         $.ajax({
 
             url: "/api/completion/afterServiceUpdate",
-            type: "post",
+            type:"post",
             data : report,
             dataType: "json",
             success: function (result) {
@@ -620,22 +639,20 @@
 
     $("#company_btn_div").on("click","#company_btnAdd", function (user_no) {
 		console.log("저장버튼됨");
+		console.log(user_no);
         report = {
             user_no: $("#hidden_no").val(),
-            userCareer_no:$("#hidden_applyno").val(),
             compName: $("#compName").val(),
             telePhone: $("#telePhone").val(),
             startDate: $("#date1").val(),
             endDate: $("#date2").val(),
             role: $("#position").val(),
             department: $("#department").val(),
-            companyAddress: $("#companyAddress").val()
-
-        };
-
+            companyAddress: $("#companyAddress").val(),
+			state:$("#state option:selected").val()
+        	};
         console.log(report);
         $.ajax({
-
             url: "/api/completion/afterServiceAdd",
             type: "post",
             data : report,
@@ -643,17 +660,59 @@
             success: function (result) {
 
             	if(result==1){
-                alert("취업정보 저장 완료");}
-
-            	past_apply(userCareer_no, user_no)
-
+	                alert("취업정보 저장 완료");
+	                getUserCareerList(report.user_no);/*afterServiceList영역으로 보내야함*/
+            	}
             },
-            error: function (XHR, status, error) {
-                console.error(status + " : " + error);
+            error: function () {
+            	 alert("데이터를 모두 입력해주세요.");
             }
-        });
+        })
 
-    })
+        function getUserCareerList(user_no){
+
+        	$.ajax({
+                 url : "/api/completion/afterServiceList",
+                 type : "get",
+                 data : {"user_no" : user_no},
+                 dataType : "json",
+                 success : function(list) {
+                     console.log(list);
+
+                     $("#afterServiceTable").empty();
+
+                     for (var i = 0; i < list.length; i++) {
+                         renderApplied(list[i])
+                     }
+
+                     $("input[name='hidden_no']").val(userNo)
+                     $("input[name='hidden_applyno']").val(userCareer_no)
+
+                 },
+                 error : function(request, status, error) {
+                     alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);}
+
+             		 });
+
+        	function renderApplied(list) {
+                var str = "";
+                str += "<tr id='" + list.userCareer_no+ "' name='" + list.user_no + "' class='past'>";
+                str += "<td value='" + list.userCareer_no + "'>"
+                    + list.userCareer_no + "</td>";
+                str += "<td value='" + list.userCareer_no + "'>"
+                    + list.compName + "</td>";
+                str += "<td value='" + list.userCareer_no + "'>"
+                    + list.startDate + "</td>";
+                str += "<td value='" + list.userCareer_no + "'>"
+                    + list.endDate + "</td>";
+                str += "<td value='" + list.userCareer_no + "'>"
+                    + list.state + "</td>";
+                str += "</tr>";
+                $("#afterServiceTable").append(str);
+
+            };
+        }
+    });
 
 
     $("#company_btn_div").on("click","#company_cancle",function () {

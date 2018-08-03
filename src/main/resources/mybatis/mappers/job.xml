@@ -1,33 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="job">
 
-
-	<!-- 조회1 -->
-
-	<select id="selectList" parameterType="Map" resultType="com.bitacademy.vo.JobVo">
+	<!-- 검색 -->
+	<!--/*기업정보 리스트 가져오기*/-->
+	<select id="comSelectList" resultType="com.bitacademy.vo.JobSearchVo">
 	<![CDATA[
 			select * from JobRequest join Company using(Commpany_no)
 	]]>
 	</select>
 
-
-
 	<!-- 지원자 리스트 조회 -->
-
-	<select id="selectList2" parameterType="Map"
-		resultType="com.bitacademy.vo.GisuVo">
+	<select id="selectList2" parameterType="Map" resultType="com.bitacademy.vo.GisuVo">
 	<![CDATA[
 			select Users.NameHan nameHan, Gisu.GisuName gisuName
 			from Users join ApplyInfo using(User_no) join Curriculum using (Curriculum_no) join Gisu using (Curriculum_no)
 			where Users.NameHan=#{name} and Gisu.GisuName=#{gisu}
-			
-
 	]]>
 	</select>
-
 
 </mapper>

@@ -62,14 +62,43 @@
       join Interview as Interview on Users.User_no = Interview.User_no
       join Company as Company on Interview.Commpany_no = Company.Commpany_no 
 
-	  where UserCareer.UserCareer_no = #{userCareer_no} and UserCareer.User_no = #{user_no};
+	  where UserCareer.UserCareer_no=#{userCareer_no} and UserCareer.User_no = #{user_no};
 	
 	]]>
 
 </select><!-- 클릭된 취업내용 상세내역 가져가기 -->
 
 <update id="afterServiceUpdate" parameterType="com.bitacademy.vo.UserCareerVo">
+	 <choose>
+	 <when test="startDate.equals('')">
+		<![CDATA[
 
+				update UserCareer
+								set CompName=#{compName},
+									EndDate=#{endDate},
+									Role=#{role},
+									TelePhone=#{telePhone},
+									State=#{state},
+									Department=#{department}
+						where User_no=#{user_no};
+
+		]]>
+	</when>
+	<when test="endDate.equals('')">
+		<![CDATA[
+
+				update UserCareer
+								set CompName=#{compName},
+									StartDate=#{startDate},
+									Role=#{role},
+									TelePhone=#{telePhone},
+									State=#{state},
+									Department=#{department}
+						where User_no=#{user_no};
+
+		]]>
+	</when>
+	<otherwise>
 		<![CDATA[
 
 				update UserCareer
@@ -83,24 +112,57 @@
 						where User_no=#{user_no};
 
 		]]>
-
+	</otherwise>
+	</choose>
 </update><!-- 수정버튼 클릭 후 취업상세내용 업데이트하기 -->
 
 <insert id="afterServiceAdd" parameterType="com.bitacademy.vo.UserCareerVo">
-	<![CDATA[
-
-	insert into UserCareer(User_no,StartDate,EndDate,CompName,Role,TelePhone,CompanyAddress,State,Department)
-	values(	#{user_no},
-			#{startDate},
-			#{endDate},
-			#{compName},
-			#{role},
-			#{telePhone},
-			#{companyAddress},
-			#{state},
-			#{department}
-			);
+	<choose>
+	<when test="startDate.equals('')">
+		<![CDATA[
+		insert into UserCareer(User_no,EndDate,CompName,Role,TelePhone,CompanyAddress,State,Department)
+		values(	#{user_no},
+				#{endDate},
+				#{compName},
+				#{role},
+				#{telePhone},
+				#{companyAddress},
+				#{state},
+				#{department}
+				)
+		]]>
+	</when>
+	<when test="endDate.equals('')">
+		<![CDATA[
+		insert into UserCareer(User_no,StartDate,CompName,Role,TelePhone,CompanyAddress,State,Department)
+		values(	#{user_no},
+				#{startDate},
+				#{compName},
+				#{role},
+				#{telePhone},
+				#{companyAddress},
+				#{state},
+				#{department}
+				)
+		]]>
+	</when>
+	<otherwise>
+		<![CDATA[
+		insert into UserCareer(User_no,StartDate,EndDate,CompName,Role,TelePhone,CompanyAddress,State,Department)
+		values(	#{user_no},
+				#{startDate},
+				#{endDate},
+				#{compName},
+				#{role},
+				#{telePhone},
+				#{companyAddress},
+				#{state},
+				#{department}
+				)
 	]]>
+
+	</otherwise>
+	</choose>
 </insert><!-- 저장 버튼 클릭 후 취업내용 추가하기 -->
 
 </mapper>

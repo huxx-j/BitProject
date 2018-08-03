@@ -75,9 +75,11 @@
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th>교육과정명&nbsp;&nbsp;&nbsp;&nbsp;
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="전체">전체</label>
-													<label class="form-controll-static"><input class="" type="radio" name="state" value="모집중">모집중</label>
+												<th>교육과정명
+													<div style = "float:right;padding-right:30px;">
+														<label class="form-controll-static"><input class="" type="radio" name="testResult" value="전체">전체</label>
+														<label class="form-controll-static"><input class="" type="radio" name="testResult" value="모집중">모집중</label>
+													</div>
 												</th>
 											</tr>
 											</thead>
@@ -85,11 +87,11 @@
 											<tbody>
 											<tr>
 												<td><select name="workType"
-															class="form-control input-sm" id="workTypeSelect">
+															class="form-control input-sm" id="cateNameSelect">
 													<c:forEach items="${requestScope.curriList}"
 															   var="curriList">
-														<option value="${curriList.workType}"
-																id="${curriList.workType}">${curriList.workType}</option>
+														<option value="${curriList.cateName}"
+																id="${curriList.cateName}">${curriList.cateName}</option>
 													</c:forEach>
 												</select></td>
 												<td id="curriTd">
@@ -196,7 +198,7 @@
 											<tr>
 												<th>업무구분</th>
 												<td><input class="form-control input-sm"
-														   name="workType"></td>
+														   name="cateName"></td>
 											</tr>
 											<tr>
 												<th>교육과정명</th>
@@ -258,7 +260,7 @@
 														   name="testScore" id="testScore"></td>
 												<th>전형결과</th>
 												<td><select class="form-control input-sm"
-															name="state" id="state">
+															name="testResult" id="testResult">
 													<option>합격</option>
 													<option>불합격</option>
 												</select></td>
@@ -334,6 +336,7 @@
 										<!-- /.sub-body -->
 									</div>
 									<input type = "hidden" name="hidden_no">
+									<input type = "hidden" name="hidden_currino">
 								</div>
 								<!-- /.sub-box -->
 							</div>
@@ -383,14 +386,14 @@
 
     $(document).ready(function() {
 
-        var selectValue = $("#workTypeSelect option:selected").val();
+        var selectValue = $("#cateNameSelect option:selected").val();
         console.log("ajsdfhijashdfahdfuihsadijfb");
         console.log(selectValue);
 
         $.ajax({
             url : "${pageContext.request.contextPath }/api/apply/getcurri",
             type : "get",
-            data : {"workType" : selectValue},
+            data : {"cateName" : selectValue},
             dataType : "json",
             success : function(list) {
                 console.log("지원자 관리 들어갔다 왔어요");
@@ -409,13 +412,13 @@
         });
 
         //업무 구분별 과목 불러오는 스크립트
-        $("#workTypeSelect").change(function() {
-            var selectValue = $("#workTypeSelect option:selected").val();
+        $("#cateNameSelect").change(function() {
+            var selectValue = $("#cateNameSelect option:selected").val();
 
             $.ajax({
                 url : "/api/apply/getcurri",
                 type : "get",
-                data : {"workType" : selectValue},
+                data : {"cateName" : selectValue},
                 dataType : "json",
                 success : function(list) {
                     $("#curriSelect").remove();
@@ -446,6 +449,7 @@
     $(document).on("click","#applySearch",function() {
         var selectValue = $("#curriSelect option:selected").val();
         console.log("클릭됨" + selectValue);
+        $("#jqGrid").empty();
         $.ajax({
             url : "/api/apply/search",
             type : "get",
@@ -541,7 +545,7 @@
                         var str = "";
                         str += "<tr id='" + list.curriculum_no+ "' name='" + list.user_no + "' class='past'>";
                         str += "<td value='" + list.curriculum_no + "'>"
-                            + list.testDay + "</td>";
+                            + list.testDate + "</td>";
                         str += "<td value='" + list.curriculum_no + "'>"
                             + list.curriName + "</td>";
                         str += "</tr>";
@@ -571,7 +575,8 @@
             success : function(applyVo) {
                 console.log(applyVo.consult);
                 $("input[name='hidden_no']").val(applyVo.user_no)
-                $("input[name='workType']").val(applyVo.workType)
+                $("input[name='hidden_currino']").val(applyVo.curriculum_no)
+                $("input[name='cateName']").val(applyVo.cateName)
                 $("input[name='curriName']").val(applyVo.curriName)
                 $("input[name='applyType']").val(applyVo.applyType)
                 $("input[name='testLang']").val(applyVo.testLang)
@@ -580,9 +585,9 @@
                 $("[name=testLang]").append(str);
 
                 $("input[name='testScore']").val(applyVo.testScore)
-                $("input[name='state']").val(applyVo.state)
-                $("input[name='date1']").val(applyVo.depositDay)
-                $("input[name='date2']").val(applyVo.cardPayDay)
+                $("input[name='testResult']").val(applyVo.testResult)
+                $("input[name='date1']").val(applyVo.depositDate)
+                $("input[name='date2']").val(applyVo.cardPayDate)
                 $("input[name='depositAmount']").val(applyVo.depositAmount)
                 $("input[name='cardPayAmount']").val(applyVo.cardPayAmount)
                 $("input[name='deposit']").val(applyVo.deposit)
@@ -641,13 +646,14 @@
 
         report = {
             user_no: $("input[name='hidden_no']").val(),
+            curriculum_no:$("input[name='hidden_currino']").val(),
             applyType: $("#applyType").val(),
             testLang: $("#testLang").val(),
             testScore: $("#testScore").val(),
-            state: $("#state").val(),
-            depositDay: $("#date1").val(),
+            testResult: $("#testResult").val(),
+            depositDate: $("#date1").val(),
             depositAmount: $("#amountCalcul_1").val(),
-            cardPayDay: $("#date2").val(),
+            cardPayDate: $("#date2").val(),
             cardPayAmount: $("#amountCalcul_2").val(),
             deposit: $("#deposit").val(),
             totalPay: $("#amountResult").val(),
@@ -661,9 +667,11 @@
             contentType: "application/json",
             data: JSON.stringify(report),
             dataType: "json",
-            success: function () {
+            success: function (result) {
 
-                alert("항목 저장 완료");
+            	if(result==1){
+                	alert("항목 저장 완료");
+            	}
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);

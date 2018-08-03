@@ -22,9 +22,9 @@ public class ApplicantService {
 		return applicantDao.getWorkType();
 	}//맨윗줄 업무구분 가져가기
 
-	public List<CurriculumVo> getCurriList(String workType){
+	public List<CurriculumVo> getCurriList(String cateName){
 
-		return applicantDao.getCurriList(workType);
+		return applicantDao.getCurriList(cateName);
 	}//맨윗줄 업무구분관련된 수업이름 가져가기
 
 	public List<ApplyUserVo> search(int selectValue){
@@ -46,7 +46,7 @@ public class ApplicantService {
 		return applicantDao.apply_details(noMap);
 	}//선택된 과거 지원내역의 상세내용
 
-	public void applyUpdate(ApplyUserVo applyVo) {
+	public int applyUpdate(ApplyUserVo applyVo) {
 
 		String cardPayDay = applyVo.getCardPayDate();
 		String depositPayDay = applyVo.getDepositDate();
@@ -61,6 +61,8 @@ public class ApplicantService {
 		day = Integer.parseInt(depositPayDay.substring(8,10));
 		applyVo.setDepositDate(year+"/"+month+"/"+day);
 
-		applicantDao.applyUpdate(applyVo);
+		return applicantDao.applyUpdate(applyVo);
+
+
 	}//수정버튼 클릭 후 지원내역 수정
 }
