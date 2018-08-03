@@ -299,11 +299,11 @@
 
             rowheight: 20,
             height: 300,
+			width: 900,
             rowNum: 10,
             rowList: [10, 20, 30],
             pager: '#jqGridPager',
             rownumbers: true,
-            scroll: 1,
             ondblClickRow: function (rowId, iRow, iCol, e) {
 
                 if (iCol == 1) {
@@ -314,7 +314,7 @@
 			onGridClick: function(rowId, iRow, iCol, e){
               alert("afadfadf")
 			},
-            viewrecords: true,
+            // viewrecords: true,
             caption: "유저 정보"
 
 
@@ -449,5 +449,9 @@
             $("#jqGrid").jqGrid('addRowData', i+1, mydata[i]);
         }
     });
+
+    $(document).on("change","#input_jqGridPager",function () {
+		alert("sdf")
+    })
 </script>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>--%>

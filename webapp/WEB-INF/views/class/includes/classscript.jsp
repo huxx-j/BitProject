@@ -8,7 +8,7 @@
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
-            url: "${pageContext.request.contextPath }/api/cm/getCurri",
+            url: "${pageContext.request.contextPath }/class/getCurriList",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -34,7 +34,7 @@
         var selectValue = $("#workTypeSelect option:selected").val();
 
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getCurri",
+            url: "${pageContext.request.contextPath}/class/getCurriList",
             type: "post",
             data: {"workType": selectValue},
             dataType: "json",
@@ -75,7 +75,7 @@
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getCurriInfo",
+            url: "${pageContext.request.contextPath}/class/getCurriInfo",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -98,7 +98,7 @@
 
     function ajaxGetTeamList(currival) {
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getTeamList",
+            url: "${pageContext.request.contextPath}/class/getTeamList",
             type: "post",
             data: {"currival": currival},
             dataType: "json",
@@ -137,7 +137,7 @@
             };
 
             $.ajax({
-                url: "${pageContext.request.contextPath}/api/cm/getLectureReport",
+                url: "${pageContext.request.contextPath}/class/getLectureReportList",
                 type: "post",
                 contentType: "application/json",
                 data: JSON.stringify(lectureReportVo),
@@ -192,7 +192,7 @@
                 curriculum_no: $("#selectedCurri").val()
             };
             $.ajax({
-                url: "${pageContext.request.contextPath}/api/cm/saveLectureReport",
+                url: "${pageContext.request.contextPath}/class/addLectureReport",
                 type: "post",
                 contentType: "application/json",
                 async: false,
@@ -220,7 +220,7 @@
     //저장버튼 생성 스크립트
     function renderSaveBtn() {
         str = "";
-        str += "<button id='lectureReportSaveBtn' type='button' class='btn btn-primary'>저장</button>"
+        str += "<button id='lectureReportSaveBtn' type='button' class='btn btn-primary'>저장</button>";
 
         $("#saveBtnToolbox").append(str);
     }
@@ -247,7 +247,7 @@
 
     function callMemberTable(curriNo) {
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getMemberName",
+            url: "${pageContext.request.contextPath}/class/getMemberNameList",
             type: "post",
             data: {"curriNo": curriNo},
             dataType: "json",
@@ -313,7 +313,7 @@
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
-            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
+            "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
@@ -405,7 +405,7 @@
 
     function ajaxTeamDetail(project_no, curriNo) {
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getProjectDetail",
+            url: "${pageContext.request.contextPath}/class/getProjectDetail",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -433,7 +433,7 @@
             "                </div>" +
             "                <!-- /.box-header -->" +
             "                <div class='box-body'>" +
-            "                 <form id='projectFileForm' method='post' action='/api/cm/saveProjectDetail' enctype='multipart/form-data'>" +
+            "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px'>프로젝트명</th>" +
@@ -510,7 +510,7 @@
         } else {
 
             $.ajax({
-                url: "${pageContext.request.contextPath}/api/cm/saveProjectDetail",
+                url: "${pageContext.request.contextPath}/class/addProjectDetail",
                 type: "post",
                 processData: false,
                 contentType: false,
@@ -539,7 +539,7 @@
     //이론평가 탭
     function ajaxRenderSubjectList(currival) {
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getSubjectList",
+            url: "${pageContext.request.contextPath}/class/getSubjectList",
             type: "post",
             // contentType: "application/json",
             // async: false,
@@ -588,13 +588,13 @@
 
         ajaxGetSisInfo(sisNo);
 
-        ajaxGetSutudentInScore(sisNo,curriNo);
+        ajaxGetStudentInScoreList(sisNo,curriNo);
     });
 
     //과목명과 과목별 시험지 파일 정보를 가져오는 스크립트
     function ajaxGetSisInfo(sisNo){
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getSisInfo",
+            url: "${pageContext.request.contextPath}/class/getSisInfo",
             type: "post",
             // contentType: "application/json",
             async: false,
@@ -610,14 +610,14 @@
     }
 
     //과목을 수강하는 학생들의 이론평가 점수와 파일 정보를 가져오는 스크립트
-    function ajaxGetSutudentInScore(sisNo, curriNo){
+    function ajaxGetStudentInScoreList(sisNo, curriNo){
         scoreVo = {
             "subInStep_no": sisNo,
             "curriculum_no": curriNo
         };
 
         $.ajax({
-            url: "${pageContext.request.contextPath}/api/cm/getSutudentInScore",
+            url: "${pageContext.request.contextPath}/class/getStudentInScoreList",
             type: "post",
             contentType: "application/json",
             async: false,
@@ -642,7 +642,7 @@
     function renderTestUploadTd(sisNo, fileVo) {
         str = "";
         str += "<td class='testFileUploadTd'>" +
-            "   <form id='testForm' class='file-form' method='post' action='/api/cm/saveTest' enctype='multipart/form-data'>" +
+            "   <form id='testForm' class='file-form' method='post' action='/class/addTest' enctype='multipart/form-data'>" +
             "       <input type='file' name='testFile' id='testFile' class='inputfile inputfile-6' onchange='pushTestFileName()'>" +
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
@@ -685,7 +685,7 @@
             "       <td class='a_c' style='padding-top: 10px'>" + ScoreVo.nameHan + "</td>" +
             "       <td><input id='iScore" + i + "' class='form-control' name='iScore' style='width: 100%' type='text' value='" + ScoreVo.score + "' onchange='chgScore(" + i + ")'></td>" +
             "       <td>" +
-            "       <form id='scoreForm" + i + "' class='file-form' method='post' action='/api/cm/saveScore' enctype='multipart/form-data'>" +
+            "       <form id='scoreForm" + i + "' class='file-form' method='post' action='/class/addScore' enctype='multipart/form-data'>" +
             "       <input type='file' name='studTestFile' id='studTestFile" + i + "' class='inputfile inputfile-6' onchange='pushStudTestFileName(" + i + ")'>" +
             "       <label for='studTestFile" + i + "'><span id='studTestFileName" + i + "'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='hScore" + i + "' name='hScore' type='hidden' value='" + ScoreVo.score + "'>" +
@@ -731,13 +731,13 @@
     $(document).on("click", "button[name=scoreSaveBtn]", function () {
         var studNo = $("#iSutdNo").val();
         var formData = new FormData($("#testForm")[0]);
-        var url = "${pageContext.request.contextPath}/api/cm/saveTest";
-        ajaxSaveScore(url,formData);
+        var url = "${pageContext.request.contextPath}/class/addTest";
+        ajaxAddScore(url,formData);
 
         for (var i = 1; i <= studNo; i++) {
             formData = new FormData($("#scoreForm" + i)[0]);
-            url = "${pageContext.request.contextPath}/api/cm/saveScore";
-            ajaxSaveScore(url,formData);
+            url = "${pageContext.request.contextPath}/class/addScore";
+            ajaxAddScore(url,formData);
         }
 
         /*저장버튼 누르면 점수 테이블 새로고침하는 스크립트*/
@@ -747,11 +747,11 @@
         renderScoreTableTh();
         removeTestUploadTd();
         ajaxGetSisInfo(sisNo);
-        ajaxGetSutudentInScore(sisNo,curriNo);
+        ajaxGetStudentInScoreList(sisNo,curriNo);
 
     });
 
-    function ajaxSaveScore(url,formData) {
+    function ajaxAddScore(url,formData) {
         $.ajax({
             url: url,
             type: "post",
@@ -815,13 +815,14 @@
         /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
         $(function () {
             $.ajax({
-                url: "${pageContext.request.contextPath}/api/cm/getUserInfo",
+                url: "${pageContext.request.contextPath}/class/getUserInfoList",
                 type: "post",
                 // contentType: "application/json",
                 // async: false,
                 data: {"curriNo": currival},
                 dataType: "json",
                 success: function (result) {
+                    console.log(result)
                     for (var i = 0; i < result.length; i++)
                         $("#jqGrid").jqGrid('addRowData', i + 1, result[i]);
                 },

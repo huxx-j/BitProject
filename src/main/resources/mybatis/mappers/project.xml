@@ -4,7 +4,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="project">
 
-    <select id="getMemberName" parameterType="Int" resultType="UsersVo">
+    <select id="getMemberNameList" parameterType="Int" resultType="UsersVo">
         <![CDATA[
                 select u.User_no, u.NameHan,
                         substring(u.StudResNum,1,6) StudResNum,
@@ -71,7 +71,7 @@
     </update>
 
 
-    <insert id="saveProjectDetail" parameterType="ProjectVo">
+    <insert id="addProjectDetail" parameterType="ProjectVo">
         <selectKey keyProperty="project_no" resultType="Int" order="AFTER">
             select LAST_INSERT_ID() from dual
         </selectKey>

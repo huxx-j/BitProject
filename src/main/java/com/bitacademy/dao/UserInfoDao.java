@@ -12,8 +12,8 @@ public class UserInfoDao {
     @Autowired
     SqlSession sqlSession;
 
-    public List<UserInfoVo> getUserInfo(int currino) {
-        return sqlSession.selectList("userinfo.getUserInfo", currino);
+    public List<UserInfoVo> getUserInfoList(int currino) {
+        return sqlSession.selectList("userinfo.getUserInfoList", currino);
 
     }
 }

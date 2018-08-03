@@ -20,8 +20,8 @@ public class CurriculumDao {
         return sqlSession.selectList("curriculum.getCateName");
     }
 
-    public List<CurriculumVo> getCurri(String workType) {
-        return sqlSession.selectList("curriculum.getCurri", workType);
+    public List<CurriculumVo> getCurriList(String workType) {
+        return sqlSession.selectList("curriculum.getCurriList", workType);
     }
 
     public CurriculumVo getCurriInfo(int curriculum_no) {

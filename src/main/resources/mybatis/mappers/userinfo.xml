@@ -4,7 +4,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userinfo">
 <!-- 성우 -->
-<select id="getUserInfo" parameterType="Int" resultType="UserInfoVo">
+<select id="getUserInfoList" parameterType="Int" resultType="UserInfoVo">
     <![CDATA[
     select u.User_no, u.NameHan,
             substring(u.StudResNum,1,6) StudResNum,
