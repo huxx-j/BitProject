@@ -24,4 +24,5 @@ public class ClassManagementDao {
         return sqlSession.selectOne("class.getDate");
     }
 
+    
 }
