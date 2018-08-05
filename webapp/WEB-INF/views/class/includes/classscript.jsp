@@ -411,6 +411,12 @@
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
+            },
+            beforeSend:function () {
+                $("#div_ajax_load_image").show();
+            },
+            complete:function () {
+                $("#div_ajax_load_image").hide();
             }
         });
         removeMemberTable();

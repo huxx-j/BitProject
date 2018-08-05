@@ -133,9 +133,11 @@
                     </div> <%--/.box--%>
                 </div> <%--/.col-xs-12--%>
             </div> <%--/.row--%>
+            <div id="div_ajax_load_image" style="display:none;">
+                <img src="/assets/image/loading-1.gif" style="width:30%;"/>
+            </div>
         </section> <%--/.content--%>
-    </div>
-    <!-- /.content-wrapper -->
+    </div><!-- /.content-wrapper -->
 
     <c:import url="/WEB-INF/views/includes/footer.jsp"/>
 
