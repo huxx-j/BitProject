@@ -102,11 +102,11 @@
 							<div class="col-xs-9">
 								<div class="sub-box">
 									<div class="sub-toolbox clearfix">
-										<button  id="btnAddsubject" class="btn btn-default pull-right" type="button">과목 추가</button>
+										<button  id="btnAddsubject" class="btn btn-default btn-sm pull-right" type="button">과목 추가</button>
 									</div>
 
 									<div class="sub-body">
-										<form id="subject" name="subject" method="get" action="${pageContext.request.contextPath}/subject/add">
+										<form id="subject" name="subject" method="get" action="${pageContext.request.contextPath}/subject/addSubject">
 											<table class="table table-condensed">
 												<colgroup>
 													<col width="120px" />
@@ -491,9 +491,10 @@
             cateName : name,
             subjectCate_no :id,
             parentCode : pId
+
         }
         $.ajax({
-            url : "${pageContext.request.contextPath }/subject/UpdateCate",
+            url : "${pageContext.request.contextPath }/subject/updateCate",
             type : "post",
             contentType : "application/json",
             data : JSON.stringify(subjectCateVo),
@@ -513,7 +514,7 @@
         var str ="";
         console.log(no);
         $.ajax({
-            url : "${pageContext.request.contextPath }/subject/subajax",
+            url : "${pageContext.request.contextPath }/subject/getSubjectaVo",
             type : "POST",
             //contentType : "application/json",
             data : {"no": no},
@@ -563,13 +564,14 @@
         console.log(SubjectCate_no);
         console.log(CateName);
         $.ajax({
-            url : "${pageContext.request.contextPath }/subject/addcate",
+            url : "${pageContext.request.contextPath }/subject/addSubjectCate",
             type : "post",
             async: false,
             // contentType : "application/json",
             data : {"SubjectCate_no": SubjectCate_no, "CateName": CateName},
             dataType : "json",
             success : function() {
+
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);

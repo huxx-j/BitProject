@@ -14,12 +14,22 @@ public class PackageService {
     @Autowired
     private PackageDao packageDao;
 
+    public List<StepInPackVo> getsublist(List<StepInPackVo> steplist) {
+        for (int i = 0; i < steplist.size(); i++) {
+             steplist.get(i).setSublist(packageDao.getsublist((steplist.get(i).getStep_no())));
+        }
+
+        return steplist;
+    }
+
+
+
 
     public List<PackageCateVo> getcatelist() {
         return packageDao.selectcatelist();
     }
 
-    public int add(PackageVo packageVo) {
+    public int addPackage(PackageVo packageVo) {
         return packageDao.insert(packageVo);
     }
 
@@ -50,7 +60,6 @@ public class PackageService {
             stepInPackVo.setSublist(sublist1);
         }
         allStepVo.setSteplist(steplist3);
-        //System.out.println(allStepVo);
     }
 
     public List<PackageVo> getpacklist() {
@@ -66,7 +75,7 @@ public class PackageService {
     }
 
     public List<StepInPackVo> getstep(int no) {
-        return packageDao.getstep(no);
+        return  packageDao.getstep(no);
     }
 
     public void UpdateCate(SubjectCateVo subjectCateVo) {

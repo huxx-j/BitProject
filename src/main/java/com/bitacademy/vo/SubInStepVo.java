@@ -7,16 +7,26 @@ public class SubInStepVo {
     private String Content;
     private int SubHour;
     private int file_no;
-
+    private String SubjectName;
     public SubInStepVo() {
     }
 
-    public SubInStepVo(int subInStep_no, int step_no, int subject_no, String content, int subHour) {
+    public SubInStepVo(int subInStep_no, int step_no, int subject_no, String content, int subHour, int file_no, String subjectName) {
         SubInStep_no = subInStep_no;
         Step_no = step_no;
         Subject_no = subject_no;
         Content = content;
         SubHour = subHour;
+        this.file_no = file_no;
+        SubjectName = subjectName;
+    }
+
+    public String getSubjectName() {
+        return SubjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        SubjectName = subjectName;
     }
 
     public int getFile_no() {
@@ -76,6 +86,7 @@ public class SubInStepVo {
                 ", Content='" + Content + '\'' +
                 ", SubHour=" + SubHour +
                 ", file_no=" + file_no +
+                ", SubjectName='" + SubjectName + '\'' +
                 '}';
     }
 }

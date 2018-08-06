@@ -33,7 +33,7 @@
     </select>
 
     <!--패키지 NO값을 받아서 해당하는 패키지 정보를 받아오는 SQL문-->
-    <select id="selectonepack" parameterType="int" resultType="PackageVo">
+    <select id="selectonepack" parameterType="Int" resultType="PackageVo">
     <![CDATA[
         select
         Package_no,
@@ -49,6 +49,39 @@
         ]]>
     </select>
 
+    <!--패키지 NO를 토대로 단계를 불러오는 SQL문-->
+    <select id="getstep" parameterType="Int" resultType="StepInPackVo">
+        <![CDATA[
+        select
+        Step_no,
+        Package_no,
+        StepName,
+        Level
+        from StepInPack
+        where
+        Package_no=#{Package_no}
+        ]]>
+    </select>
+
+    <!--step_no값을 받아서 해당하는 단계안의 과목 받아오는 SQL문-->
+    <select id="sublist" parameterType="Int" resultType="SubInStepVo">
+    <![CDATA[
+        select
+        s.Step_no,
+        s.SubInStep_no,
+        s.Subject_no,
+        s.Content,
+        s.SubHour,
+        s.File_no,
+        (Select SubjectName
+        from Subject su
+        Where su.Subject_no=s.Subject_no) SubjectName
+        from SubInStep s
+        where Step_no =#{no}
+        ]]>
+    </select>
+
+
     <!--패키지를 삽입하는 SQL문( 다음페이지에 이름과 총시간을 넘기기 위해 no값을 돌려받는다. )-->
     <insert id="insert" parameterType="PackageVo" >
     <selectKey keyProperty="Package_no" resultType="Int" order="AFTER">
@@ -59,7 +92,7 @@
     </selectKey>
         <![CDATA[
         insert into Package
-        (Package_no,
+        (
         PackageCate_no,
         UseStatus,
         PackageName,
@@ -68,7 +101,6 @@
         Qualification,
         TotalTime)
         values (
-        #{Package_no},
         #{PackageCate_no},
         #{UseStatus},
         #{PackageName},
@@ -130,12 +162,6 @@
         ]]>
     </insert>
 
-    <!--패키지 NO를 토대로 단계를 불러오는 SQL문-->
-    <select id="getstep" parameterType="int">
-        <![CDATA[
-        select * from StepInPack value ()
-        ]]>
-    </select>
 
     <update id="CateUpdate" parameterType="PackageCateVo">
         <![CDATA[

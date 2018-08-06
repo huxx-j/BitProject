@@ -15,7 +15,6 @@ public class SubjectService {
 
 
     public void add(SubjectVo subjectVo){
-        System.out.println(subjectVo.toString());
         subjectDao.insert(subjectVo);
     }
 
@@ -27,11 +26,9 @@ public class SubjectService {
 
     public void UpdateCate(SubjectCateVo subjectCateVo) {
         if(subjectCateVo.getSubjectCate_no()>1000) {
-            System.out.println(subjectCateVo.toString()+"ser");
             subjectDao.UpdateCate(subjectCateVo);
         }
         else if(subjectCateVo.getSubjectCate_no()<=1000){
-            System.out.println(subjectCateVo.toString()+"ser");
             subjectDao.UpdateSubject(subjectCateVo);
         }
 
