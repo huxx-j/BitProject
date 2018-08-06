@@ -16,23 +16,23 @@ public class ApplicantApiController {
 	@Autowired
     ApplicantService applicantService;
 	
+	//선택된 업무구분과 관련된 수업이름 가져가기
 	@ResponseBody
-	@RequestMapping(value="/getcurri", method=RequestMethod.GET)
-	public List<CurriculumVo> getcurri(@RequestParam("cateName") String cateName) {
-		/*System.out.println("ajax-list :" + workType);*/
-		List<CurriculumVo> list = applicantService.getCurriList(cateName);
+	@RequestMapping(value="/getCurriList", method=RequestMethod.POST)
+	public List<CurriculumVo> getCurriList(@RequestParam("curriculumCate_no") String curriculumCate_no) {
+		System.out.println("ajax-list :" + curriculumCate_no);
+		List<CurriculumVo> list = applicantService.getCurriList(curriculumCate_no);
 		/*System.out.println(list.toString());*/
 		return list;
-	}//맨윗줄 업무구분관련된 수업이름 가져가기
+	}
 	
 	@ResponseBody
-	@RequestMapping(value="/search",method=RequestMethod.GET)
-	public List<ApplyUserVo> search(@RequestParam int selectValue ) {
+	@RequestMapping(value="/getStudentList",method=RequestMethod.GET)
+	public List<ApplyUserVo> getStudentList(@RequestParam int curriculum_no ) {
 		
-		/*System.out.println("dkdjfk321321");
-		System.out.println(selectValue);*/
+		System.out.println(curriculum_no);
 		
-		List<ApplyUserVo> applyUserlist = applicantService.search(selectValue);
+		List<ApplyUserVo> applyUserlist = applicantService.search(curriculum_no);
 		
 		/*System.out.println(applyUserlist.toString());*/
 		return applyUserlist ;
