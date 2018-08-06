@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bitacademy.vo.ApplyUserVo;
+import com.bitacademy.vo.CurriculumCateVo;
 import com.bitacademy.vo.CurriculumVo;
 
 @Repository
@@ -16,15 +17,16 @@ public class ApplicantDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	public List<CurriculumVo> getWorkType(){
+	//업무구분(커리큘럼카테고리) 리스트가져오기
+	public List<CurriculumCateVo> getCurriCateList(){
 
-		return sqlSession.selectList("applicant.getWorkType");
-	}//맨윗줄 업무구분 가져가기
+		return sqlSession.selectList("applicant.getCurriCateList");
+	}
+	//선택된 업무구분과 관련된 수업이름 가져가기
+	public List<CurriculumVo> getCurriList(String curriculumCate_no){
 
-	public List<CurriculumVo> getCurriList(String cateName){
-
-		return sqlSession.selectList("applicant.getCurriList",cateName);
-	}//맨윗줄 업무구분관련된 수업이름 가져가기
+		return sqlSession.selectList("applicant.getCurriList",curriculumCate_no);
+	}
 
 	public List<ApplyUserVo> search(int selectValue){
 

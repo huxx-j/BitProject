@@ -23,48 +23,50 @@ public class CompletionApiController {
 	@Autowired
     CompletionService completionService;
 	
-	@ResponseBody
-	@RequestMapping(value="/getcurri", method=RequestMethod.GET)
-	public List<CurriculumVo> getcurri(@RequestParam("cateName") String cateName) {
-		System.out.println("ajax-list :" + cateName);
-		List<CurriculumVo> list = completionService.getCurriList(cateName);
-		System.out.println(list.toString());
-		return list;
-	}//선택된 업무구분과 관련된 수업이름 가져가기
 	
+	//선택된 업무구분과 관련된 수업이름 가져가기
 	@ResponseBody
-	@RequestMapping(value="/search",method=RequestMethod.GET)
-	public List<ApplyUserVo> search(@RequestParam int selectValue ) {
+	@RequestMapping(value="/getCurriList", method=RequestMethod.POST)
+	public List<CurriculumVo> getCurriList(@RequestParam("curriculumCate_no") int curriculumCate_no) {
+		System.out.println("ajax-list :" + curriculumCate_no);
+		List<CurriculumVo> curriList = completionService.getCurriList(curriculumCate_no);
+		System.out.println(curriList.toString());
+		return curriList;
+	}
+	
+	//조회버튼 클릭 후 그리드영역 학생(수료생)리스트 가져가기
+	@ResponseBody
+	@RequestMapping(value="/getStudentList",method=RequestMethod.GET)
+	public List<ApplyUserVo> getStudentList(@RequestParam int curriculum_no ) {
 		
-		System.out.println("dkdjfk321321");
-		System.out.println(selectValue);
+		System.out.println(curriculum_no);
 		
-		List<ApplyUserVo> applyUserlist = completionService.search(selectValue);
+		List<ApplyUserVo> studentList = completionService.getStudentList(curriculum_no);
 		
 		/*System.out.println(applyUserlist.toString());*/
-		
-		return applyUserlist ;
-	}//조회버튼 클릭 후 그리드영역 학생리스트 가져가기
+		return studentList ;
+	}
 	
+	//선택된 학생의 취업정보 가져가기
 	@ResponseBody
-	@RequestMapping(value="/afterServiceList",method=RequestMethod.GET)
-	public List<UserCareerVo> userCareerList(@RequestParam int user_no){
+	@RequestMapping(value="/getUserCareerList",method=RequestMethod.GET)
+	public List<UserCareerVo> getUserCareerList(@RequestParam int user_no){
 		
 		System.out.println(user_no);
-		List<UserCareerVo> userCareerList = completionService.afterServiceList(user_no);
+		List<UserCareerVo> userCareerList = completionService.getUserCareerList(user_no);
 		System.out.println(userCareerList.toString());
 		
 		return userCareerList;
-	}//선택된 학생의 취업정보 가져가기
+	}
 	
 	@ResponseBody
-	@RequestMapping(value="/afterService_details", method=RequestMethod.GET)
-	public UserCareerVo afterService_details(@RequestParam int user_no,@RequestParam int userCareer_no) {
+	@RequestMapping(value="/getUserCareer", method=RequestMethod.POST)
+	public UserCareerVo getUserCareer(@RequestParam int user_no,@RequestParam int userCareer_no) {
 		
 		System.out.println("지원커리 상세내용");
 		System.out.println(user_no);
 		System.out.println(userCareer_no);
-		UserCareerVo userCareerVo = completionService.afterService_details(user_no,userCareer_no);
+		UserCareerVo userCareerVo = completionService.getUserCareer(user_no,userCareer_no);
 		System.out.println(userCareerVo.toString());
 		
 		return userCareerVo;

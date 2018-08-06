@@ -17,13 +17,13 @@ public class CurriculumService {
 	
 	//커리큘럼 조회(curriculum_no값으로)
 	public CurriculumVo viewCurriculum(String curriculum_no){
- 		
- 		
 		return curriDao.viewCurriculum(curriculum_no);
  	}
+	
 	//교육과정 수정
 	public int edit(CurriculumVo curriVo) {
 //		System.out.println("수정 서비스 와따");
+		
 //		return curriDao.edit(curriVo);
 		//두 테이블 update할 떄,
 		//1. DAO 두개 성공해야 반영되도록 트랜젝션 해줘야함
@@ -31,9 +31,9 @@ public class CurriculumService {
 
 		int editCurriResult = curriDao.editCurri(curriVo);
 		int editCurriCateResult = curriDao.editCurriCate(curriVo);
-		int editPackageResult = curriDao.editPackage(curriVo);
+//		int editPackageResult = curriDao.editPackage(curriVo);
 
-		if (editCurriResult == 1 && editCurriCateResult == 1 && editPackageResult ==1) {
+		if (editCurriResult == 1 && editCurriCateResult == 1) {
 			int result = 1;
 			return result;
 		}else {
@@ -61,6 +61,11 @@ public class CurriculumService {
 	public List<ApplicantVo> viewApplicantList(String curriculum_no){
 //		System.out.println("viewApplicantList" + curriculum_no);
 		return curriDao.viewApplicantList(curriculum_no);
+	}
+	
+	//패키지 보기 모달창
+	public CurriculumVo viewPackageAjax(String package_no) {
+		return curriDao.viewPackageAjax(package_no);
 	}
 //	
 //	public List<ApplicantVo> studentManagement(String curriculum_no){

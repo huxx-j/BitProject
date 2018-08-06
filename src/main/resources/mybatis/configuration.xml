@@ -31,6 +31,7 @@
         <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
         <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
+        <typeAlias alias="TestVo" type="com.bitacademy.vo.TestVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/afterservice.xml"/>
@@ -51,5 +52,6 @@
         <mapper resource="mybatis/mappers/users.xml"/>
         <mapper resource="mybatis/mappers/userscholarship.xml"/>
         <mapper resource="mybatis/mappers/usertraining.xml"/>
+        <mapper resource="mybatis/mappers/Test.xml"/>
     </mappers>
 </configuration>

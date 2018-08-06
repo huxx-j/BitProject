@@ -18,7 +18,7 @@
 				<div class = "row" style = "padding: 10px 0 0 0;">
 					<div class = "col-xs-12" >
 						<div class = "sub-box">
-							<div class = "sub-title" style = "padding : 10px 0 0 0;">
+							<div class = "sub-title" >
 								기수부여
 							</div>
 							<div class = "row">
@@ -116,3 +116,9 @@
 		</div><!-- /.sub-body -->
 	</div><!-- /.sub-box -->
 </div><!-- /.tab_3 -->
+
+
+
+
+
+

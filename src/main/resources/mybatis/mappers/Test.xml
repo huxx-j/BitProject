@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+
+    <!-- 각 페이지 데이터 불러오는 쿼리 -->
+    <!-- 3개의 쿼리가 다 사용되니 필요없을거 같다고 지우지 말것 -->
+    <!-- 예를 들어논 쿼리는 가장 기본되는 구조이니 복잡한 구조를 가진 쿼리는 알아서 -->
+    <!-- 컴럼명하고 테이블 명만 바꾸고 order by 절, limit 절과 #{}, ${}은 건드리지 말것 -->
+    <!-- id 나 resultType은 각자 필요에 따라 변경가능 -->
+    <select id="getInfoList" resultType="TestVo">
+        <!-- 정렬조건 없이 페이지 변경시 사용되는 쿼리 -->
+        <if test="sidx==''">
+            <![CDATA[
+                    select username, gender, cellphone
+                       from jqgrid_test
+                       order by username asc
+                       limit #{startNum}, #{rows}
+            ]]>
+        </if>
+        <!-- 정렬조건이 있을때 사용되는 쿼리 -->
+        <if test="sidx!=''">
+            <choose>
+                <!-- 오름차순 정렬일때 사용되는 쿼리 -->
+                <when test="sord=='asc'">
+                    <![CDATA[
+                            select username, gender, cellphone
+                               from jqgrid_test
+                                order by ${sidx} asc,
+                                         username asc
+                               limit #{startNum}, #{rows}
+                    ]]>
+                </when>
+                <!-- 내림차순 정렬일때 사용되는쿼리 -->
+                <otherwise>
+                    <![CDATA[
+                            select username, gender, cellphone
+                                from jqgrid_test
+                                order by ${sidx} desc,
+                                          username asc
+                                limit #{startNum}, #{rows}
+                    ]]>
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+
+    <!-- 데이터의 총 개수를 구하는 쿼리 -->
+    <!-- count() 괄호안에 프라이머리키를 넣는걸 추천함 -->
+    <select id="getRecords" resultType="Int">
+        <![CDATA[
+                select count(username)
+                    from jqgrid_test
+        ]]>
+    </select>
+
+</mapper>

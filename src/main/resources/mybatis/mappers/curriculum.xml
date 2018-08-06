@@ -4,29 +4,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="curriculum">
 
-    <!--성우-->
-    <select id="getCateName" resultType="String">
-        <![CDATA[
-        SELECT CateName from CurriculumCate group by CateName
-        ]]>
-    </select>
-
-    <select id="getCurri" parameterType="String" resultType="CurriculumVo">
-        <![CDATA[
-         select Curriculum_no, CurriName from Curriculum C
-  			join CurriculumCate C2 on C.CurriculumCate_no = C2.CurriculumCate_no and C2.CateName=#{workType}
-        ]]>
-    </select>
-
-    <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
-        <![CDATA[
-        select CurriName, StartDate, EndDate from Curriculum where Curriculum_no=#{curriculum_no};
-        ]]>
-    </select>
-    <!--성우-->
-
-
-
     <!--희준-->
     <!-- 커리큘럼 조회 -->
      <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >
@@ -68,18 +45,9 @@
  			UPDATE CurriculumCate
  			SET
  			cateName = #{cateName}
- 			WHERE curriculum_no = #{curriculum_no}
+ 			WHERE curriculumCate_no = #{curriculumCate_no}
  		]]>
  	</update>
- 	<!--
-    <update id = "editPackage" parameterType = "com.bitacademy.vo.CurriculumCateVo">
- 		<![CDATA[
- 			UPDATE Package
- 			SET
- 			WHERE curriculum_no = #{curriculum_no}
- 		]]>
- 	</update>
- -->
 	<!-- 커리큘럼 추가 -->
 	<!--
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
@@ -132,19 +100,18 @@
 	
 	</select>
 
+<!-- 패키지 보기 모달창 -->
+	<select id = "viewPackageAjax" parameterType = "String" resultType = "com.bitacademy.vo.CurriculumVo">
+		<![CDATA[
+			SELECT packageName, package_no  
+			FROM Package
+			WHERE package_no = #{package_no}
+		
+		
+		]]>
+	
+	</select>
 
-    <!--
-    <select id = "studentManagement" parameterType = "String" resultType = "com.bitacademy.vo.ApplicantVo">
-        <![CDATA[
-
-            select  u.User_no, u.NameHan, u.BirthDate, a.TestResult
-            from Users as u, ApplyInfo as a
-            where u.User_no = a.User_no
-
-        ]]>
-
-    </select>
-     -->
 <!--희준-->
 
 </mapper>

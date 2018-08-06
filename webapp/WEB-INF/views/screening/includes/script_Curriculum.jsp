@@ -228,7 +228,6 @@
                 $("#renderApplicantList").empty();
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
-					console.log(curriAllVo.applicantList);
 			     	str += "<tr>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
@@ -265,12 +264,16 @@
 		var endDate = $("input[name=endDate]").val();
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
-		var maxCnt = $("input[name=price]").val();
+		var price = $("input[name=price]").val();
 		var support = $("input[name=support]").val();
 		var managerInfo = $("input[name=managerInfo]").val();
 		var state = $("input[type=radio]:checked").val();
 		var gisuName = $("input[name=gisuName]").val();
-		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no);
+		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
+					"packageName="+packageName, "curriculum_no="+curriculum_no, "curriName="+curriName,
+					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, 
+					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
+					"state="+state, "gisuName="+gisuName);
 /*  			 
 		curriVo = 	{ cateName : $("input[name='cateName']").val(),
 					 package_no : $("input[name='package_no']").val(),
@@ -295,7 +298,7 @@
 		
  			data : {cateName : cateName, curriculumCate_no : curriculumCate_no, package_no : package_no, packageName : packageName,
 					curriculum_no : curriculum_no, curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt,
+					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
 					
  			dataType : "json",
@@ -315,8 +318,58 @@
 	});// onClick function
    
     
+    ////////////////////////////////////////////////////////////////////
+	 //패키지 보기 모달창
+    var settingModal = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeClick: subject
+        }
+    };
+    var zNodesModal= [
+    	  <c:forEach items="${cateList}" var="vo">
+          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+          </c:forEach>
+          <c:forEach items="${list}" var="vo">
+          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
+          </c:forEach>
+    ];
+    $(document).ready(function(){
+        $.fn.zTree.init($("#modalTree"), settingModal, zNodesModal);
+    });
+
+    function subject(treeId, treeNode, clickFlag) {
+        var package_no=treeNode.web;
+//         var locate=$("#locate").val();
+//         var str ="";
+        console.log(package_no);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"package_no": package_no},
+            dataType : "json",
+            success : function(packageVo) {
+            	
+            	$("input[name='packageName']").val(packageVo.packageName),
+            	$("input[name='package_no']").val(packageVo.package_no)
+            	
+//             	$("#packageViewModal").modal("hide");
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
     
-    
+    $("#modalSelectBtn").on("click", function(){
+        $("#packageViewModal").modal("hide"); // 모달창 감추기
+    });
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     
     
 
