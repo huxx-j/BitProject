@@ -31,16 +31,4 @@ public class CompletionController {
 		return"graduate/completionmanagement";
 	}
 
-	@RequestMapping("/p")
-	public String p() {
-
-		return"ex/packmain";
-	}
-
-	@RequestMapping("/s")
-	public String s() {
-
-		return"ex/subject";
-	}
-
 }

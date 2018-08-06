@@ -22,11 +22,12 @@ public class CompletionDao {
 
         return sqlSession.selectList("applicant.getCurriCateList");
     }
-
+    
+    //선택된 업무구분과 관련된 수업이름 가져가기
     public List<CurriculumVo> getCurriList(int curriculumCate_no){
 
         return sqlSession.selectList("applicant.getCurriList",curriculumCate_no);
-    }//선택된 업무구분과 관련된 수업이름 가져가기
+    }
 
     public List<ApplyUserVo> getStudentList(int curriculum_no){
     	System.out.println("서치 다오");

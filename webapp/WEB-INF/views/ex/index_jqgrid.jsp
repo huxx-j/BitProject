@@ -13,7 +13,6 @@
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
 	<%--<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datepicker.css">--%>
 
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -51,7 +50,9 @@
                     <div class="sub-body">
 						<table id="jqGrid"></table>
 
-						<div id="jqGridPager"></div>
+						<div id="jqGridPager"></div><br/>
+						<%--<div id="paginate"></div>--%>
+						<button type="button" id="btn">asd</button>
 					</div>
 
 				</div><!-- /.box -->
@@ -85,85 +86,37 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        var cnames = ['번호', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자', '전형일자', '학교', '전공', '입금여부'];
+        var cnames = ['이름', '성별', '핸드폰'];
 
         $("#jqGrid").jqGrid({
-            url: "/api/cm/getUserInfo?curriNo=1",
+            url: "/jqtest",
             datatype: "json",
 			mtype:"POST",
             colNames: cnames,
             colModel: [
-                {name: 'user_no', index: 'user_no', width: 10, hidden: true},
-                {name: 'gisuName', index: 'gisuName', width: 150, align: "center"},
-                {name: 'nameHan', index: 'nameHan', width: 100, align: "center"},
-                {name: 'studResNum', index: 'studResNum', width: 100, align: "center"},
-                {name: 'gender', index: 'gender', width: 60, align: "center"},
-                {name: 'testResult', index: 'testResult', width: 95, align: "center"},
-                {name: 'cellphone', index: 'cellphone', width: 150, align: "center"},
-                {name: 'applyDate', index: 'applyDate', width: 100, align: "center"},
-                {name: 'testDate', index: 'testDate', width: 100, align: "center"},
-                {name: 'school', index: 'school', width: 140, align: "center"},
-                {name: 'major', index: 'major', width: 140, align: "center"},
-                {name: 'deposit', index: 'deposit', width: 60, align: "center"}
+                {name: 'username', index: 'username', width: 100, align:"center"},
+                {name: 'gender', index: 'gender', width: 100, align: "center"},
+                {name: 'cellphone', index: 'cellphone', width: 200, align: "center"}
             ],
             rowheight: 20,
             height: 300,
-			width: 1200,
-            rowNum: 10,
-            rowList: [5, 10, 15],
+			// width: 1200,
+            // rowNum: 10,
+            rowList: [10, 20, 30],
             pager: '#jqGridPager',
             rownumbers: true,
-            ondblClickRow: function (rowId, iRow, iCol, e) {
-
-                if (iCol == 1) {
-
-                    alert(rowId + " 째줄 입니다.");
-                }
-            },
-
-            // viewrecords: true,
-            caption: "유저 정보"
-
-
+			onSelectRow: function(){
+                alert("123");
+                console.log("asd");
+			}
         });
-
-
-        /* ajax로 DB에서 정보 긁어서 뿌려주는 코드 */
-
-        // $(function () {
-        //
-        //     $.ajax({
-        //         url: "/api/getuserinfo",
-        //         type: "post",
-        //         dataType: "json",
-        //         success: function (result) {
-        //             console.log(result);
-        //
-        //             for (var i = 0; i<result.length; i++)
-        //                 $("#jqGrid").jqGrid('addRowData', i+1, result[i]);
-        //         },
-        //         error: function (XHR, status, error) {
-        //             console.error(status + " : " + error);
-        //         }
-        //     });
-        //
-        // });
-
-
     });
 
 
-    $(function () {
-        var mydata = [
-            {seq:"1",gisu:"dsfjkf",name:"ㅇㄹㄴ",birth:'2018-05-05',gender:"남",result:"탈락",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서을대학교",major:"콤퓨타",yn:"미납"},
-            {seq:"1",gisu:"dsfjkf",name:"ㅇㄹㄴ",birth:'2018-05-05',gender:"남",result:"탈락",phone:"010-6565-5644",appdate:"2018-06-50",exdate:"2018-21-56",school:"서을대학교",major:"콤퓨타",yn:"미납"}
-
-
-        ];
-
-        for (var i=0; i<=mydata.length; i++) {
-            $("#jqGrid").jqGrid('addRowData', i+1, mydata[i]);
-        }
+	$("#btn").on("click",function () {
+        var asd = $(".ui-pg-input").val();
+        console.log(asd);
     });
 </script>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>--%>
+

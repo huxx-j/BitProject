@@ -5,6 +5,10 @@
 })(document, window, 0);</script>
 
 <script type="text/javascript">
+    jQuery.fn.center = function () { this.css("position","absolute"); this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px"); this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px"); return this; }
+</script>
+
+<script type="text/javascript">
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
         $.ajax({
@@ -414,6 +418,7 @@
             },
             beforeSend:function () {
                 $("#div_ajax_load_image").show();
+                $("#div_ajax_load_image").center();
             },
             complete:function () {
                 $("#div_ajax_load_image").hide();

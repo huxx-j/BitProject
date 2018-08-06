@@ -1,9 +1,15 @@
 package com.bitacademy.controller;
 
+import com.bitacademy.service.TestService;
+import com.bitacademy.vo.PagerRequestVo;
+import com.bitacademy.vo.PagerResponseVo;
+import com.bitacademy.vo.TestVo;
 import jdk.nashorn.internal.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -28,7 +34,7 @@ public class MainController {
 	@RequestMapping("/12")
 	public String index1(){
 		System.out.println("/index4");
-		return "ex/index1";
+		return "ex/index_jqgrid2";
 	}
 	
 	@RequestMapping("/test1")
@@ -43,13 +49,20 @@ public class MainController {
 		return "ex/index_jqgrid";
 	}
 
-	@ResponseBody
-	@RequestMapping("/jqtest")
-	public String jqtest(){
-		System.out.println("sdfgsdf");
-		String a = "{gisu: 'Kuka18', name: '하...', birth: '2018-08-05', gender: '남', result: '합격', phone: '010-958-9562'}";
+	@Autowired
+	TestService testService;
 
-			return a;
+	@ResponseBody
+	@RequestMapping(value = "/jqtest", method = RequestMethod.POST)
+	public PagerResponseVo jqtest(@RequestParam("page") int page, @RequestParam("rows") int rows, @RequestParam("sidx") String sidx, @RequestParam("sord") String sord){
+//	public List<TestVo> jqtest(@RequestBody PagerRequestVo pagerRequestVo){
+//		System.out.println(pagerRequestVo.toString());
+		System.out.println("page > " + page);
+		System.out.println("rows > " + rows);
+		System.out.println("sidx > " + sidx);
+		System.out.println("sord > " + sord);
+
+		return testService.getInfoList(page, rows, sidx, sord);
 	}
 
 
