@@ -4,29 +4,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="curriculum">
 
-    <!--성우-->
-    <select id="getCateName" resultType="String">
-        <![CDATA[
-        SELECT CateName from CurriculumCate group by CateName
-        ]]>
-    </select>
-
-    <select id="getCurriList" parameterType="String" resultType="CurriculumVo">
-        <![CDATA[
-         select Curriculum_no, CurriName from Curriculum C
-  			join CurriculumCate C2 on C.CurriculumCate_no = C2.CurriculumCate_no and C2.CateName=#{workType}
-        ]]>
-    </select>
-
-    <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
-        <![CDATA[
-        select CurriName, StartDate, EndDate from Curriculum where Curriculum_no=#{curriculum_no};
-        ]]>
-    </select>
-    <!--성우-->
-
-
-
     <!--희준-->
     <!-- 커리큘럼 조회 -->
      <select id="viewCurriculum" parameterType="String" resultType="com.bitacademy.vo.CurriculumVo" >

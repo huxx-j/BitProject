@@ -4,6 +4,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gisu">
 
+    <!--기수이름만 불러오는 쿼리-->
     <select id="getGisu" parameterType="Int" resultType="String">
         <![CDATA[
         SELECT GisuName

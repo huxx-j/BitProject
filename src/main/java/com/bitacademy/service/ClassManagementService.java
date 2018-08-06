@@ -30,28 +30,32 @@ public class ClassManagementService {
 
     //페이지 로딩할때 업무구분 불러오는 코드
     public List<String> getCateName() {
-        return curriculumDao.getCateName();
+        return classManagementDao.getCateName();
     }
 
+    //페이지 로딩시 오늘 날짜를 불러오는 코드 (강의일자 디폴트)
+    public String getDate() {
+        return classManagementDao.getDate();
+    }
+    //업무구분에 따라 커리큘럼 리스트 불러오는 코드
     public List<CurriculumVo> getCurriList(String workType) {
-        return curriculumDao.getCurriList(workType);
+        return classManagementDao.getCurriList(workType);
     }
 
+    //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
     public Map<String, Object> getCurriInfo(int curriculum_no) {
         Map<String, Object> map = new HashMap<>();
-        map.put("vo", curriculumDao.getCurriInfo(curriculum_no));
+        map.put("vo", classManagementDao.getCurriInfo(curriculum_no));
         map.put("gisu", gisuDao.getGisu(curriculum_no));
         return map;
     }
 
+    //날짜와 커리큘럼에 따라 수업일지 불러오는 코드
     public List<LectureReportVo> getLetureReportList(LectureReportVo lectureReportVo) {
         return lectureReportDao.getLetureReportList(lectureReportVo);
     }
 
-    public String getDate() {
-        return classManagementDao.getDate();
-    }
-
+    //수업일지를 저장이나 업데이트 하는 코드
     public int addLectureReport(LectureReportVo lectureReportVo) {
         String lectureReport_no = lectureReportVo.getClassDate().replace("-", "") + "-" + lectureReportVo.getCurriculum_no() + "-" + lectureReportVo.getPeriod();
         lectureReportVo.setLectureReport_no(lectureReport_no);
@@ -62,10 +66,12 @@ public class ClassManagementService {
         }
     }
 
+    //팀원선택 모달에 팀원 리스트를 불러오는 코드
     public List<UsersVo> getMemberNameList(int curriNo) {
         return projectDao.getMemberNameList(curriNo);
     }
 
+    //커리큘럼에 따라 팀리스트를 불러오는 코드
     public List<ProjectVo> getTeamList(int currival) {
         List<ProjectVo> teamList;
         List<String> memberList;
@@ -80,6 +86,7 @@ public class ClassManagementService {
         return teamList;
     }
 
+    //프로젝트 상세정보를 불러오는 코드
     public ProjectVo getProjectDetail(int project_no) {
         List<String> memberList;
         List<String> memberNoList;
@@ -96,10 +103,12 @@ public class ClassManagementService {
         return projectVo;
     }
 
+    //이론평가탭 과정에 따라 과목리스트를 가져오는 코드
     public List<ScoreVo> getSubjectList(int curriNo) {
         return scoreDao.getSubjectList(curriNo);
     }
 
+    //과목별 점수 리스트를 불러오는 코드
     public List<ScoreVo> getStudentInScoreList(ScoreVo scoreVo) {
         List<Integer> list = scoreDao.chkSisNo(scoreVo.getSubInStep_no());
         if (list.isEmpty()) {
@@ -110,18 +119,15 @@ public class ClassManagementService {
             }
             return scoreVoList;
         }
-//        List<ScoreVo> scoreList = scoreDao.getSutudentInScore(scoreVo);
-//        for (ScoreVo score : scoreList) {
-//
-//        }
-//        return scoreList;
         return scoreDao.getStudentInScoreList(scoreVo);
     }
 
+    //학생관리 탭 학생정보를 불러오는 코드
     public List<UserInfoVo> getUserInfoList(int currino) {
         return userInfoDao.getUserInfoList(currino);
     }
 
+    //프로젝트 상세정보를 저장 업데이트 하는 코드 파일업로드도 포함
     @Transactional
     public int addProjectDetail(MultipartHttpServletRequest multipartFile) {
         FileUpload fileUpload = new FileUpload();
@@ -182,6 +188,7 @@ public class ClassManagementService {
         return projectNo;
     }
 
+    //이론평가 점수와 파일을 저장하는 코드
     @Transactional
     public int addScore(MultipartHttpServletRequest multipartFile) {
         ScoreVo scoreVo = new ScoreVo();
@@ -220,6 +227,7 @@ public class ClassManagementService {
         }
     }
 
+    //이론평가 시험지를 저장하는 코드
     @Transactional
     public int addTest(MultipartHttpServletRequest multipartFile) {
         SubInStepVo subInStepVo = new SubInStepVo();
@@ -250,6 +258,7 @@ public class ClassManagementService {
         }
     }
 
+    //이론평가탭에 학생별 파일이 있는지 찾는 코드
     public FileVo getSisInfo(int sisNo) {
         List<FileVo> list = scoreDao.getSisInfo(sisNo);
         FileVo fileVo = new FileVo();

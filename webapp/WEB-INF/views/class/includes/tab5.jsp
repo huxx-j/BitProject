@@ -4,11 +4,10 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"> 학생 리스트</h3>
-            </div>
-            <!-- /.box-header -->
+            </div> <%--/.box-header with-border--%>
             <div name="jqgrid" class="box-body">
                 <%--JqGrid 들어오는 자리--%>
-            </div>
-        </div>
-    </div>
-</div>
+            </div> <%--/.box--%>
+        </div> <%--/.box--%>
+    </div> <%--/.col-xs-12--%>
+</div> <%--/.row--%>

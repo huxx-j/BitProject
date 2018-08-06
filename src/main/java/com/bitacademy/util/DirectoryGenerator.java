@@ -24,7 +24,7 @@ public class DirectoryGenerator {
             return saveDir;
         } else if (param.equals("score")) {
             int scoreSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("iSisNo"));
-            Map<String, Object> map = sqlSession.selectOne("subject.getSubjectNoForDirGen",scoreSisNo);
+            Map<String, Object> map = sqlSession.selectOne("class.getSubjectNoForDirGen",scoreSisNo);
             String gisu = String.valueOf(map.get("GisuName"));
             String subNo = String.valueOf(map.get("Subject_no"));
             saveDir = "D:\\bit_file\\"+gisu+"\\score\\"+subNo;
@@ -32,7 +32,7 @@ public class DirectoryGenerator {
             return saveDir;
         } else {
             int testSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("testSisNo"));
-            Map<String, Object> map = sqlSession.selectOne("subject.getSubjectNoForDirGen",testSisNo);
+            Map<String, Object> map = sqlSession.selectOne("class.getSubjectNoForDirGen",testSisNo);
             String gisu = String.valueOf(map.get("GisuName"));
             String subNo = String.valueOf(map.get("Subject_no"));
             saveDir = "D:\\bit_file\\"+gisu+"\\score\\"+subNo;
