@@ -45,7 +45,6 @@
 
 		<!-- Main content -->
 		<section class = "content">
-		
 			<div class = "row">
 				<div class = "col-xs-12">
 					<div class = "box box-body">
@@ -54,147 +53,40 @@
 							<div class="col-xs-3">
 								<div class="sub-box">
 									<div class="cate-title">
-										과목카테고리
+										교육과정카테고리
 									</div><!-- cate-title -->
-
-									<div class="cate-outter bordered">
-										<div class="cate-toolbox">
+									
+									
+									<div class = "bordered">
+										<div class = "cate-toolbox-top clearfix">
 											<button type="button" id="addcate" class="btn btn-default btn-cate">추가</button>
 											<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
-										</div><!-- /.cate-toolbox -->
-										<div class="scroll">
-
-											<div class="tab-content-custom" style="height: 500px;">
-												<div class="tab-pane active" id="tab_1">
-
-													<ul id="treeDemo" class="ztree"></ul>
-
-													<%--<ul id="cate-tree" class="side-bar test" data-widget="tree">--%>
-
-
-														<%--<!-- 최하단 카테고리 조건(ajax구현 고려)--%>
-													<%--<c:forEach items="${sublist}" var="sub">--%>
-														<%--<ul class="treeview-menu">--%>
-															<%--<li><a href="#"><i class="fa fa-circle-o"></i> ${sub.subjectName}</a></li>--%>
-														<%--</ul>--%>
-													<%--</c:forEach>-->--%>
-
-														<%--<li class="treeview">--%>
-															<%--<a href="#"> <i class="fa fa-circle-o"></i>C<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-															<%--<ul class="treeview-menu">--%>
-																	<%--<li class="treeview">--%>
-																				<%--<a href="#"><i class="fa fa-circle-o"></i> C <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																				<%--<ul class="treeview-menu">--%>
-																					<%--<li class="treeview">--%>
-																					<%--</li>--%>
-																				<%--</ul>--%>
-																				<%--<a href="#"><i class="fa fa-circle-o"></i> C++ <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																				<%--<ul class="treeview-menu">--%>
-																					<%--<li class="treeview">--%>
-																					<%--</li>--%>
-																				<%--</ul>--%>
-																	<%--</li>--%>
-															<%--</ul>--%>
-														<%--</li>--%>
-														<%--<li class="treeview">--%>
-															<%--<a href="#"> <i class="fa fa-circle-o"></i>JAVA<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-															<%--<ul class="treeview-menu">--%>
-																<%--<li class="treeview">--%>
-																	<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																	<%--<ul class="treeview-menu">--%>
-																		<%--<li class="treeview">--%>
-																			<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA1 <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																			<%--<ul class="treeview-menu">--%>
-																				<%--<li class="treeview">--%>
-																				<%--</li>--%>
-																			<%--</ul>--%>
-																		<%--</li>--%>
-																	<%--</ul>--%>
-																	<%--<a href="#"><i class="fa fa-circle-o"></i> JAVA WEB <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																	<%--<ul class="treeview-menu">--%>
-																		<%--<li class="treeview">--%>
-																			<%--<a href="#"><i class="fa fa-circle-o"></i> SPRING <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--%>
-																			<%--<ul class="treeview-menu">--%>
-																				<%--<li class="treeview">--%>
-																				<%--</li>--%>
-																			<%--</ul>--%>
-																		<%--</li>--%>
-																	<%--</ul>--%>
-																<%--</li>--%>
-															<%--</ul>--%>
-														<%--</li>--%>
-
-													<%--</ul>--%>
-													</ul>
-												</div>
-
-												<!-- /.tab-pane -->
-											</div>
-										</div><!-- /.sub-body -->
-
-									</div><!-- /.cate-outter -->
-
-									<div class="cate-toolbox">
-										<div class="input-group input-group-sm">
-											<input class="form-control" type="text">
-											<span class="input-group-btn">
-	                     							<button class="btn btn-info btn-flat" type="button">Go!</button>
-	                   						</span>
-										</div>
-									</div><!-- /.cate-toolbox -->
-								</div><!-- /.sub-box -->
-							</div><!-- /.col-xs-3 -->
-							<!-- /.카테고리영역 -->
-
-						<!--
-							카테고리 영역 시작
-							<div class = "col-xs-3">
-								네비 바 시작
-								<div class = "sub-box">
-									<div class = "cate-title">
-										교육과정카테고리
-									</div>
-									<div class = "cate-outter bordered">
-										<div class = "cate-toolbox">
-											<button type = "button" class = "btn btn-default btn-cate">추가</button>
-											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
-										</div>/.cate-toolbox
+										</div><!-- /.cate-toolbox-top clearfix -->
+										
 										<div class = "scroll">
-
-
-											<div class = "tab-content-custom" style = "height:500px;">
-												<div class = "row">
-													<ul id = "treeDemo" class = "ztree"></ul>
-												</div>
-											</div>/.tab-content-custom
-
-
-
-											카테고리 메인영역
+											<!-- 카테고리 메인영역 -->
 											<div class="cate-box">
 												<div class="" id="">
 													<ul id="treeDemo" class="ztree">
 													</ul>
 												</div>
-											</div>
-											/.카테고리 메인영역
-
-										</div>/.scroll
-									</div>/.cate-outter bordered
-									<div class = "cate-toolbox">
-										<div class = "input-group input-group-sm">
-											<input class = "form-control" type = "text">
-											<span class = "input-group-btn">
-												<button class = "btn btn-info btn-flat" type = "button">Go!</button>
-											</span>/.input-group-btn
-										</div>/.input-group input-group-sm
-									</div>/.cate-toolbox
-								</div>/.sub-box
-								/.네비 바 끝
-							</div>/.col-xs-3
-							/.카테고리영역 끝
-							 -->
-							
+											</div><!--/.cate-box -->
+											<!-- /.카테고리 메인영역 -->
+										</div><!-- /.scroll -->
+										
+										<div class = "cate-toolbox-bottom">
+											<div class = "input-group input-group-sm">
+												<input class = "form-control cate-search-input" type = "text">
+												<span class = "input-group-btn">
+													<button class = "btn btn-default btn-cate-search" type = "button">검색</button>
+												</span>
+											</div><!-- /.input-group input-group-sm -->
+										</div><!-- cate-toolbox-bottom -->
+										
+									</div><!-- /.bordered -->
+								</div><!-- /.sub-box -->
+							</div><!-- /.col-xs-3 -->
+							<!-- /.카테고리영역 -->
 							<!-- 교육과정 정보 영역 시작-->
 							<div class = "col-xs-9">
 								<!-- 탭박스 외곽  -->
@@ -212,6 +104,8 @@
 									</ul><!-- /.nav nav-tabs -->
 									<!-- /.상단 탭 영역 끝 -->
 									<!-- 탭 내용 박스 -->
+									
+									
 									<div class = "tab-content">
 										<!-- 1번 탭 내용 -->
 										<c:import url="/WEB-INF/views/screening/includes/tab_CurriInfo.jsp"></c:import>

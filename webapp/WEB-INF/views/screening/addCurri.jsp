@@ -1,31 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<title>TCOMS ver2</title>
 	<!-- Tell the browser to be responsive to screen width -->
-	<meta
-			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-			name="viewport">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	
+	<!-- 공통css -->
 	<c:import url="/WEB-INF/views/includes/link.jsp"></c:import>
-	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
-	<%--jqgrid 사용하는 페이지용 스크립트 임포트 태그(마지막에 스크립트 임포트 태그는 삭제할것--%>
-
+	
+	<!-- 자신의 css사용시 --> 
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
+	<!-- 그리드 사용시 주석풀어 사용 -->
+	<%-- <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import> --%>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-
 <div class="wrapper">
+
 	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 	<c:import url="/WEB-INF/views/includes/aside.jsp"></c:import>
+
 	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper"><!-- Content Header (Page header) -->
+	<div class="content-wrapper">
+	
+	<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
 				교육과정관리 <small>it all starts here</small>
@@ -43,39 +49,42 @@
 				<div class = "col-xs-12">
 					<div class = "box box-body">
 						<div class = "row">
-							<!-- 카테고리 영역 시작 -->
-							<div class = "col-xs-3">
-								<!-- 네비 바 시작 -->
-								<div class = "sub-box">
-									<div class = "cate-title">
+							<!-- 카테고리영역 -->
+							<div class="col-xs-3">
+								<div class="sub-box">
+									<div class="cate-title">
 										교육과정카테고리
-									</div>
-									<div class = "cate-outter bordered">
-										<div class = "cate-toolbox">
-											<button type = "button" class = "btn btn-default btn-cate">추가</button>
+									</div><!-- cate-title -->
+									
+									
+									<div class = "bordered">
+										<div class = "cate-toolbox-top clearfix">
+											<button type = "button" id = "addcate" class = "btn btn-default btn-cate">추가</button>
 											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
 										</div><!-- /.cate-toolbox -->
+										
 										<div class = "scroll">
-											<div class = "tab-content-custom" style = "height:500px;">
-												<div class = "row">
-													<ul id = "treeDemo2" class = "ztree"></ul>
+											<!-- 카테고리 메인영역 -->
+											<div class = "cate-box">
+												<div class = "" id = "">
+													<ul id = "treeDemo_addCurri" class = "ztree"></ul>
 												</div>
-											</div><!-- /.tab-content-custom -->
+											</div><!-- /.cate-box -->
+											<!-- /.카테고리 메인영역 -->
 										</div><!-- /.scroll -->
+										<div class = "cate-toolbox-bottom">
+											<div class = "input-group input-group-sm">
+												<input class = "form-control cate-search-input" type = "text">
+												<span class = "input-group-btn">
+													<button class = "btn btn-default btn-cate-search" type = "button">검색</button>
+												</span>
+											</div><!-- /.input-group input-group-sm -->
+										</div><!-- /.cate-toolbox-bottom -->
 									</div><!-- /.cate-outter bordered -->
-									<div class = "cate-toolbox">
-										<div class = "input-group input-group-sm">
-											<input class = "form-control" type = "text">
-											<span class = "input-group-btn">
-												<button class = "btn btn-info btn-flat" type = "button">Go!</button>
-											</span><!-- /.input-group-btn -->
-										</div><!-- /.input-group input-group-sm -->
-									</div><!-- /.cate-toolbox -->
 								</div><!-- /.sub-box -->
 								<!-- /.네비 바 끝 -->
 							</div><!-- /.col-xs-3 -->
 							<!-- /.카테고리영역 끝 -->
-							
 							
 							<!-- 교육과정 정보 영역 시작-->
 							<div class = "col-xs-9">
@@ -87,201 +96,153 @@
 									</ul><!-- /.nav nav-tabs -->
 									<!-- /.상단 탭 영역 끝 -->
 									<!-- 탭 내용 박스 -->
+									
 									<div class = "tab-content">
 										<!-- 1번 탭 내용 -->
-										<div class = "tab-pane active" id = "tab_1">
-											<form action = "${pageContext.request.contextPath }/curri/addCurri" method = "post">
-												<!-- 1번탭 상단 -->
-												<div class = "row"><!-- tab_1 row1 -->
-													<div class = "col-xs-12">
-														<div class = "sub-box">
-															<table class = "table table-condensed">
-																<colgroup>
-																	<col class = "col-xs-2"/>
-																	<col class = "col-xs-3"/>
-																	<col class = "col-xs-2"/>
-																	<col class = "col-xs-5"/>
-																</colgroup>
-																<tbody>
-																	<tr>
-																		<th>업무구분</th>
-																		<td>
-																			<select class = "form-control input-sm" id = "workType" name = "workType">
-																				<option value = "국가기간">국가기간</option>
-																				<option value = "핵심역량">핵심역량</option>
-																				<option value = "방학단기">방학단기</option>
-																			</select>
-																		</td>
-																		<th>선택패키지</th>
-																		<td>
-																			<input type = "hidden" name = "package_no" style = "border:none;">
-																			<input type = "form-control input-sm" readonly name = "packageName" style = "border:none; width : 60%;" >
-																			<button type = "button" class = "btn btn-default btn-cate btn-lg pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
+										<div class = "tab-pane active" id = "tab_1_addCurri">
+											<div class = "sub-box">
+												<div class = "sub-body" id = "addCurriForm">
+													<div class = "innerBox">
+														<div class = "addCurriDiv">
+															<!-- 탭 상단 -->
+															<div class = "row">
+																<div class = "col-xs-12">
+																	<div class = "sub-box">
+																		<table class = "table table-condensed">
+																			<colgroup>
+																				<col class = "col-xs-2"/>
+																				<col class = "col-xs-3"/>
+																				<col class = "col-xs-2"/>
+																				<col class = "col-xs-5"/>
+																			</colgroup>
+																			<tbody>
+																				<tr>
+																					<th>업무구분</th>
+																					<td>
+																						<input type = "hidden" name = "curriculumCate_no"  style = "border:none;">
+																						<select class = "form-control " id = "cateName" name = "cateName">
+																							<option value = "국가기간">국가기간</option>
+																							<option value = "핵심역량">핵심역량</option>
+																							<option value = "방학단기">방학단기</option>
+																						</select>
+																					</td>
+																					<th>선택패키지</th>
+																					<td>
+																						<input type = "hidden" name = "package_no"  style = "border:none;">
+																						<input type = "form-control " readonly name = "packageName" style = "border : none; width : 60%;" >
+																						<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div><!-- /.sub-box -->
+																</div><!-- /.col-xs-12 -->
+															</div><!--/.row --><!-- /.탭 상단 -->
 															
-															<!-- 모달 시작! -->
-															<div class = "modal fade" id = "packageViewModal" tabindex = "-1" role = "dialog" aria-labelledby ="packageViewModalLabel" aria-hidden = "true" style = "overflow-y : scroll; overflow-x : hidden;">
-																<div class = " modal-dialog">
-																	<div class = "modal-content">
-																		<div class = "modal-header">
-																			<button type = "button" class = "close" data-dismiss = "modal">
-																				<span aria-hidden = "true">x</span>
-																				<span class = "sr-only">Close</span>
-																			</button>
-																			<h4 class = "modal-title" id = "packageViewModalLabel">패키지선택</h4>
-																		</div><!-- /.modal-header -->
-																		<div class = "modal-body">
-																			<div class = "scroll">
-																				<div class = "tab-content-custom" style = "height : 500px;">
-																					<div class= "row">
-																						<ul id = "treeDemo2" class = "ztree"></ul>
-																					</div><!-- /.row -->
-																				</div><!-- /.tab-content-custom -->
-																			</div><!-- /.modal scroll -->
-																		</div><!-- /.modal-body -->
-																		<div class = "modal-footer">
-																			<button type = "button" class = "btn btn-default" style = "padding: 2px 5px; margin : auto;">선택</button>
-																			<button type = "button" class = "btn btn-default " data-dismiss = "modal" style = "padding : 2px 5px;">취소</button>
-																		</div><!-- /.modal-footer -->
-																	</div><!-- /.modal-content -->
-																</div><!-- /.modal-dialog -->
-															</div><!-- /.modal-fade -->
-															<!-- /.모달 끝 --> 
-														</div><!-- /.sub-box -->
-													</div><!-- /.col-xs-12 -->	
-												</div><!-- /.tab_1 row1(1번탭 상단) -->
-												
-												<div class = "row">
-													<div class = "col-xs-12">
-														<div class = "sub-box">
-															<div class = "sub-title" style = "padding : 10px 0 0 0;">
-																기본정보
-															</div><!-- /.sub-title -->
-															<div class = "sub-box">
-																<table class = "table table-condensed">
-																	<tr>
-																		<th>교육과정명</th>
-																		<td colspan = "3">
-																			<input type = "hidden" type = "text" name = "curriculum_no">
-																			<input class = "form-control input-sm" type = "text" style = "width : 98%;" name = "curriName">
-																		</td>
-																		<th>과목별명</th>
-																		<td>
-																			<input type = "text" class = "form-control input-sm" style = "width : 98%;" name = "curriNickname">
-																		</td>
-																	</tr>
-																	<tr>
-																		<th>시작일</th>
-																		<td>
-																			<div class="input-group" class = "form-control input-sm" style="border: 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="startDate" id="date2"  data-select="datepicker" style="border: none; ">
-				                                                                <span class="input-group-btn">
-				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
-				                                                                   		<label for="date2"><i class="fa fa-calendar"></i></label>
-			                                                                   		</button>
-				                                                                </span>
-	
-																			</div>
-																		</td>
-																		<th>종료일</th>
-																		<td>
-																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="endDate" id="date1"  data-select="datepicker" style="border: none; ">
-																				<span class="input-group-btn">
-				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
-				                                                                    	<label for="date1"><i class="fa fa-calendar"></i></label>
-			                                                                   		</button>
-				                                                                </span>
-	
-																			</div>
-																		</td>
-																		<th>전형일</th>
-																		<td>
-																			<div class="input-group" class = "form-control input-sm" style = "border : 1px solid #d2d6de">
-																				<input type="text" class="form-control input-sm " name="testDate" id="date3"  data-select="datepicker" style="border: none; ">
-																				<span class="input-group-btn">
-				                                                                    <button type="button" class="btn" data-toggle="datepicker" style="border: none;  background-color: rgba(255,255,255,0)"  id="testDatepicker">
-				                                                                    	<label for="date3"><i class="fa fa-calendar"></i></label>
-			                                                                   		</button>
-				                                                                </span>
-	
-																			</div>
-																		</td>
-																	</tr>
-																	<tr>
-																		<th>강의시간</th>
-																		<td colspan="3">
-																			<input type="text" class="form-control input-sm " style="width: 98%;" name = "time" <%-- value="${curri.time }" --%>>
-																		</td>
-																		<th>정원</th>
-																		<td>
-																			<input type="text" class="form-control input-sm " style = "float:left; width : 150px;"name = "maxCnt"<%--  value="${curri.num }" --%>>명
-																		</td>
-																	</tr>
-																	<tr>
-																		<th>교육비용</th>
-																		<td>
-																			<input type="text" class="form-control input-sm" name = "price"<%--  value="${curri.money }" --%>>
-																		</td>
-																		<th>교육비지원</th>
-																		<td>
-																			<input type="text" class="form-control input-sm" name = "support" <%-- value="${curri.support }" --%>>
-																		</td>
-																		<th>문의</th>
-																		<td>
-																			<input type="text" class="form-control input-sm" name = "managerInfo" <%-- value="${curri.inquiry }" --%>>
-																		</td>
-																	</tr>
-																	<tr>
-																		<th>상태</th>
-																		<td colspan="3"><label class="form-controll-static"><input class="" type="radio" name="state" value="준비중" <%-- ${curri.state == '준비중'?'checked':'' } --%>>준비중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="모집중" <%-- ${curri.state == '모집중'?'checked':'' } --%>>모집중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="모집마감" <%-- ${curri.state == '모집마감'?'checked':'' } --%>>모집마감</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="수업중" <%-- ${curri.state == '수업중'?'checked':'' } --%>>수업중</label>
-																			<label class="form-controll-static"><input class="" type="radio" name="state" value="종료" <%-- ${curri.state == '종료'?'checked':'' } --%>>종료</label>
-																		</td>
-																		<th>기수</th>
-																		<td><input type="text" class="form-control input-sm" name = "gisuName"></td>
-																	</tr>
-																</table>
-															</div><!-- /.sub-box -->
-														</div><!-- /.sub-box -->
-													</div><!-- /.col-xs-12 -->
-												</div><!-- /.tab_1 row2(1번탭 하단) -->
-															<div class = "sub-toolbox text-center">
-																<input type = "submit" class = "btn btn-primary" value = "저장" >
-																<a href = "${pageContext.request.contextPath }/curri">
-																	<button type = "button" class = "btn btn-default pull-right" >취소</button>
-																</a>
-															</div><!-- /.sub-toolbox text-center -->
-											</form><!-- /.tab_1 form -->
+															<div class = "space"></div>
+															<div class = "row">
+																<div class = "col-xs-12">
+																	<div class = "sub-box">
+																		<div class = "sub-title">
+																			기본정보
+																		</div><!-- /.sub-title -->
+																		<div class = "sub-body">
+																			<table class = "table table-condensed">
+																				<tr>
+																					<th>교육과정명</th>
+																					<td colspan = "3">
+																						<input type = "hidden"  name = "curriculum_no">
+																						<input class = "form-control" type = "text"  name = "curriName">
+																					</td>
+																					<th>과목별명</th>
+																					<td>
+																						<input type = "text" class = "form-control" name = "curriNickname">
+																					</td>
+																				</tr>
+																				<tr>
+																					<th>시작일</th>
+																					<td>
+																						 <div class="input-group border-inputcolor ">
+																					        <input type="text" class=" form-control border-none" name="startDate" id="startDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																					        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+																				        </div>
+																					</td>
+																					<th>종료일</th>
+																					<td>
+																						 <div class="input-group border-inputcolor ">
+																					        <input type="text" class=" form-control border-none" name="endDate" id="endDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																					        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+																				        </div>
+																					</td>
+																				</tr>
+																				<tr>
+																					<th>강의시간</th>
+																					<td colspan="3">
+																						<input type="text" class="form-control" name = "time">
+																					</td>
+																					<th>정원</th>
+																					<td>
+																						<input type="text" class="form-control w140 pull-left" name = "maxCnt">명
+																					</td>
+																				</tr>
+																				<tr>
+																					<th>교육비용</th>
+																					<td>
+																						<input type="text" class="form-control" name = "price">
+																					</td>
+																					<th>교육비지원</th>
+																					<td>
+																						<input type="text" class="form-control" name = "support">
+																					</td>
+																					<th>문의</th>
+																					<td>
+																						<input type="text" class="form-control" name = "managerInfo">
+																					</td>
+																				</tr>
+																				<tr>
+																					<th>상태</th>
+																					<td colspan="3">
+																						<div class="radio-group">
+																							<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="0">준비중</label>
+																							<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="1">모집중</label>
+																							<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="2">모집마감</label>
+																							<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="3">수업중</label>
+																							<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="4">종료</label>
+																						</div>
+																					</td>
+																					<th>기수</th>
+																					<td><input type="text" class="form-control " name = "gisuName"></td>
+																				</tr>
+																			</table>
+																		</div><!-- /.sub-box -->
+																		<div class = "sub-toolbox clearfix text-center">
+																			<input type = "submit" class = "btn btn-primary" value = "저장" >
+																			<a href = "${pageContext.request.contextPath }/curri">
+																				<button type = "button" class = "btn btn-default pull-right" >취소</button>
+																			</a>
+																		</div><!-- /.sub-toolbox text-center -->
+																	</div><!-- /.sub-box -->
+																</div><!-- /.col-xs-12 -->
+															</div><!-- /.tab_1 row2(1번탭 하단) -->
+														</div><!-- /.addCurriDiv -->
+													</div><!-- /.innerBox -->
+												</div><!-- /.sub-body -->
+											</div><!-- /.sub-box -->
 										</div><!-- /.tab_1 -->
 										<!-- /.1번탭 -->
-										
-										
-										
 									</div><!-- /.tab-content -->
 									<!-- /.탭 내용 박스 끝 -->
 								</div><!-- /.nav-tabs-custom -->
 								<!-- 탭 박스 외곽 끝 -->
 							</div><!-- col-xs-9 -->
 							<!-- /.교육과정 정보 영역 끝 -->
-							
-							
 						</div><!-- /.row -->
 					</div>
 				</div>
-			
 			</div>
-		
 		</section>
-		
-		
-		
 	</div><!-- content-wrapper -->
+
 
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	<div class="control-sidebar-bg"></div>
@@ -293,29 +254,187 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
 <script type="text/javascript">
-    var setting = {
-        data: {
-            simpleData: {
-                enable: true,
-            }
-        },
-        callback: {
-            beforeClick: package  // 마우스 클릭 콜백함수 지정
-        }
-    };
+//화면 로딩
+	$(document).ready(function(){
+	    var treeObj = $.fn.zTree.init($("#treeDemo_addCurri"), setting_addCurri, zNodes_addCurri);
+	    console.log(treeObj);
+	});
+		
+	//교육과정 카테고리 탭
+	var setting_addCurri = {
+		edit:{
+			drag:{
+				autoExpandTrigger:true,
+				prev:dropPrev,
+				inner:dropInner,
+				next:dropNext
+			},
+			enable:true
+		},
+	    data: {
+	        simpleData: {
+	            enable: true,
+	        }
+	    },
+	    callback: {
+	        beforeClick: package,  // 마우스 클릭 콜백함수 지정
+	        beforeDrag: beforeDrag,
+	        beforeDrop: beforeDrop,
+	        beforeDragOpen: beforeDragOpen,
+	        onDrag: onDrag,
+	        onDrop: onDrop,
+	        onExpand: onExpand
+	    },
+	};
+	
+	var zNodes_addCurri= [
+		  <c:forEach items="${cateList}" var="vo">
+	      {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+	      </c:forEach>
+	      <c:forEach items="${list}" var="vo">
+	      {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
+	      </c:forEach>
+	];
+	
+	function dropPrev(treeId, nodes, targetNode) {
+	    var pNode = targetNode.getParentNode();
+	    if (pNode && pNode.dropInner === false) {
+	    return false;
+	}
+	else {
+	    for (var i=0,l=curDragNodes.length; i<l; i++) {
+	        var curPNode = curDragNodes[i].getParentNode();
+	        if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+	            return false;
+	        }
+	    }
+	}
+	    return true;
+	}
+	
+	function dropInner(treeId, nodes, targetNode) {
+	    if (targetNode && targetNode.dropInner === false) {
+	        return false;
+	    } else {
+	        for (var i=0,l=curDragNodes.length; i<l; i++) {
+	            if (!targetNode && curDragNodes[i].dropRoot === false) {
+	                return false;
+	            } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+	
+	function dropNext(treeId, nodes, targetNode) {
+	    var pNode = targetNode.getParentNode();
+	    if (pNode && pNode.dropInner === false) {
+	        return false;
+	    } else {
+	        for (var i=0,l=curDragNodes.length; i<l; i++) {
+	            var curPNode = curDragNodes[i].getParentNode();
+	            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+	
+	var log, className = "dark", curDragNodes, autoExpandNode;
+	
+	function beforeDrag(treeId, treeNodes) {
+	    className = (className === "dark" ? "":"dark");
+	    showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+	    for (var i=0,l=treeNodes.length; i<l; i++) {
+	        if (treeNodes[i].drag === false) {
+	            curDragNodes = null;
+	            return false;
+	        } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
+	            curDragNodes = null;
+	            return false;
+	        }
+	    }
+	    curDragNodes = treeNodes;
+	    return true;
+	}
+	
+	function beforeDragOpen(treeId, treeNode) {
+	    autoExpandNode = treeNode;
+	    return true;
+	}
+	
+	function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
+	    className = (className === "dark" ? "":"dark");
+	    showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
+	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
+	    return true;
+	}
+	
+	function onDrag(event, treeId, treeNodes) {
+	    className = (className === "dark" ? "":"dark");
+	    showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+	}
+	
+	function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
+	    className = (className === "dark" ? "":"dark");
+	    showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
+	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+	}
+	
+	function onExpand(event, treeId, treeNode) {
+	    if (treeNode === autoExpandNode) {
+	        className = (className === "dark" ? "":"dark");
+	        showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+	    }
+	}
+	
+	function showLog(str) {
+	    if (!log) log = $("#log");
+	    log.append("<li class='"+className+"'>"+str+"</li>");
+	    if(log.children("li").length > 8) {
+	        log.get(0).removeChild(log.children("li")[0]);
+	    }
+	}
+	
+	function getTime() {
+	    var now= new Date(),
+	        h=now.getHours(),
+	        m=now.getMinutes(),
+	        s=now.getSeconds(),
+	        ms=now.getMilliseconds();
+	    return (h+":"+m+":"+s+ " " +ms);
+	}
+	function setTrigger() {
+	    var zTree_addCurri = $.fn.zTree.getZTreeObj("treeDemo_addCurri");
+	    zTree_addCurri.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
+	}
+	
+	<!--이름수정, 삭제용-->
+	function setEdit() {
+	    var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+	        remove = $("#remove").attr("checked"),
+	        rename = $("#rename").attr("checked"),
+	        removeTitle = $.trim($("#removeTitle").get(0).value),
+	        renameTitle = $.trim($("#renameTitle").get(0).value);
+	    zTree.setting.edit.showRemoveBtn = remove;
+	    zTree.setting.edit.showRenameBtn = rename;
+	    zTree.setting.edit.removeTitle = removeTitle;
+	    zTree.setting.edit.renameTitle = renameTitle;
+	    console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
+	        'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
+	}
+	
+	<!--이름수정, 삭제용-->
+	function showCode(str) {
+	    var code = $("#code");
+	    code.empty();
+	    for (var i=0, l=str.length; i<l; i++) {
+	        code.append("<li>"+str[i]+"</li>");
+	    }
+	}
 
-    var zNodes= [
-        <c:forEach items="${cateList}" var="vo">
-        {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-        </c:forEach>
-        <c:forEach items="${list}" var="vo">
-        {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
-        </c:forEach>
-    ];
-
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
-    });
 
     function package(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
@@ -429,45 +548,12 @@
     // }
     //////////////////////////////////////////////////////////////////////////
 
-    //****************************************
-    //**			현재 탭 유지					**
-    //****************************************
-    if (location.hash) {
-        $('a[href=\'' + location.hash + '\']').tab('show');
-    }
-    var activeTab = localStorage.getItem('activeTab');
-    if (activeTab) {
-        $('a[href="' + activeTab + '"]').tab('show');
-    }
-
-    $('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
-        e.preventDefault()
-        var tab_name = this.getAttribute('href')
-        if (history.pushState) {
-            history.pushState(null, null, tab_name)
-        }
-        else {
-            location.hash = tab_name
-        }
-        localStorage.setItem('activeTab', tab_name)
-
-        $(this).tab('show');
-        return false;
-    });
-
-    $(window).on('popstate', function () {
-        var anchor = location.hash ||
-            $('a[data-toggle=\'tab\']').first().attr('href');
-        $('a[href=\'' + anchor + '\']').tab('show');
-    });
-    //****************************************
-
 
     //달력1
-    $("#date1").datepicker();
+    $("#startDate").datepicker();
     //달력2
-    $("#date2").datepicker();
-    $("#date3").datepicker();
+    $("#endDate").datepicker();
+    $("#testDate").datepicker();
 
     $.datepicker.setDefaults({
         prevText : '이전 달',
