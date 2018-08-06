@@ -38,10 +38,10 @@ public class CurriculumDao {
     public int editCurriCate(CurriculumVo curriVo) {
     	return sqlSession.update("curriculum.editCurriCate", curriVo);
     }
-
-    public int editPackage(CurriculumVo curriVo) {
-    	return sqlSession.update("curriculum.editPackage", curriVo);
-    }
+//
+//    public int editPackage(CurriculumVo curriVo) {
+//    	return sqlSession.update("curriculum.editPackage", curriVo);
+//    }
 
     //교육과정 추가
     public int addCurri(CurriculumVo curriVo) {
@@ -53,6 +53,11 @@ public class CurriculumDao {
     public List<ApplicantVo> viewApplicantList(String curriculum_no) {
     	System.out.println(curriculum_no);
     	return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
+    }
+    
+    public CurriculumVo viewPackageAjax(String package_no) {
+    	
+    	return sqlSession.selectOne("curriculum.viewPackageAjax", package_no);
     }
 //    public List<ApplicantVo> studentManagement(String curriculum_no){
 //        System.out.println("[curriDao] studentManagement");

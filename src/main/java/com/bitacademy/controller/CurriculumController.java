@@ -61,6 +61,15 @@ public class CurriculumController {
 		return curriAllVo;
 	}
 	
+	//CurriInfo 페이지에서 패키지보기 모달창
+	@ResponseBody
+	@RequestMapping(value = "/viewPackageAjax")
+	public CurriculumVo viewPackageAjax(@RequestParam ("package_no") String package_no) {
+		
+		CurriculumVo packageVo = curriService.viewPackageAjax(package_no);
+		
+		return packageVo;
+	}
 //	//지원자관리탭 (curriculum_no값으로 지원자 조회)
 //	@ResponseBody
 //	@RequestMapping(value = "viewApplicantList/{curriculum_no}")

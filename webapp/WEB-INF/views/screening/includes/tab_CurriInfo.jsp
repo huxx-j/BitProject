@@ -118,11 +118,9 @@
 										</tr>
 									</table>
 								</div><!-- /.sub-box -->
-								
-								<div class="sub-toolbox clearfix text-center">
+								<div class="sub-toolbox clearfix text-center"> 
 									<button class="btn btn-primary" id = "editCurriBtn">수정</button>
 								</div><!-- sub-toolbox -->
-								
 							</div><!-- /.sub-box -->
 						</div><!-- /.col-xs-12 -->
 					</div><!-- /.tab_1 row2(1번탭 하단) -->
@@ -130,7 +128,6 @@
 			</div><!-- /.innerBox -->
 		</div><!-- /.sub-body -->
 	</div><!-- sub-box -->
-	
 </div><!-- /.tab_1 -->
 
 
@@ -148,19 +145,24 @@
 				<h4 class = "modal-title" id = "packageViewModalLabel">패키지선택</h4>
 			</div><!-- /.modal-header -->
 			<div class = "modal-body">
-				<div class = "scroll">
-					<div class = "tab-content-custom" style = "height : 500px;">
-						<div class = "row">
-							<ul id = "treeDemo" class = "ztree"></ul>
-						</div><!-- /.row -->
-					</div><!-- /.tab-content-custom -->
-				</div><!-- /.modal scroll -->
+				<div class = "sub-box">
+					<div class = "cate-outter bordered">
+						<div class = "scroll">
+							<div class = "tab-content-custom" style = "height : 500px;">
+								<div class = "row"> 
+									<ul id = "modalTree" class = "ztree"></ul>
+								</div><!-- /.row -->
+							</div><!-- /.tab-content-custom -->
+						</div><!-- /.modal scroll -->
+					</div><!-- /.cate-outter bordered -->
+				</div><!-- /.sub-box -->
 			</div><!-- /.modal-body -->
 			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-default" style = "padding: 2px 5px; margin : auto;">선택</button>
+				<button type = "button" class = "btn btn-default" id = "modalSelectBtn" style = "padding: 2px 5px; margin : auto;">선택</button>
 				<button type = "button" class = "btn btn-default " data-dismiss = "modal" style = "padding : 2px 5px;">취소</button>
 			</div><!-- /.modal-footer -->
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal-fade -->
 <!-- /.모달 끝 --> 
+

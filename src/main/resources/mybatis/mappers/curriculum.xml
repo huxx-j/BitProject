@@ -45,18 +45,9 @@
  			UPDATE CurriculumCate
  			SET
  			cateName = #{cateName}
- 			WHERE curriculum_no = #{curriculum_no}
+ 			WHERE curriculumCate_no = #{curriculumCate_no}
  		]]>
  	</update>
- 	<!--
-    <update id = "editPackage" parameterType = "com.bitacademy.vo.CurriculumCateVo">
- 		<![CDATA[
- 			UPDATE Package
- 			SET
- 			WHERE curriculum_no = #{curriculum_no}
- 		]]>
- 	</update>
- -->
 	<!-- 커리큘럼 추가 -->
 	<!--
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
@@ -109,19 +100,18 @@
 	
 	</select>
 
+<!-- 패키지 보기 모달창 -->
+	<select id = "viewPackageAjax" parameterType = "String" resultType = "com.bitacademy.vo.CurriculumVo">
+		<![CDATA[
+			SELECT packageName, package_no  
+			FROM Package
+			WHERE package_no = #{package_no}
+		
+		
+		]]>
+	
+	</select>
 
-    <!--
-    <select id = "studentManagement" parameterType = "String" resultType = "com.bitacademy.vo.ApplicantVo">
-        <![CDATA[
-
-            select  u.User_no, u.NameHan, u.BirthDate, a.TestResult
-            from Users as u, ApplyInfo as a
-            where u.User_no = a.User_no
-
-        ]]>
-
-    </select>
-     -->
 <!--희준-->
 
 </mapper>
