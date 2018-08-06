@@ -38,16 +38,19 @@ public class ClassManagementService {
         return classManagementDao.getDate();
     }
     //업무구분에 따라 커리큘럼 리스트 불러오는 코드
-    public List<CurriculumVo> getCurriList(String workType) {
-        return classManagementDao.getCurriList(workType);
+    public List<CurriculumVo> getCurriList(String cateName, String radioStat) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cateName", cateName);
+        map.put("radioStat", radioStat);
+        return classManagementDao.getCurriList(map);
     }
 
     //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
     public Map<String, Object> getCurriInfo(int curriculum_no) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("vo", classManagementDao.getCurriInfo(curriculum_no));
-        map.put("gisu", gisuDao.getGisu(curriculum_no));
-        return map;
+        Map<String, Object> returnMap = new HashMap<>();
+        returnMap.put("vo", classManagementDao.getCurriInfo(curriculum_no));
+        returnMap.put("gisu", gisuDao.getGisu(curriculum_no));
+        return returnMap;
     }
 
     //날짜와 커리큘럼에 따라 수업일지 불러오는 코드

@@ -64,8 +64,7 @@
                                 <td class="table-text" style="border-right: none !important; width: 130px;">
                                     <div class="radio-group w100 disp-inline">
                                         <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
-                                        <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing"
-                                                                       checked>수업중</label>
+                                        <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
                                     </div> <%--/.radio-group w100 disp-inline--%>
                                 </td>
                                 <td id="curriTd" style="border-left: none !important;">

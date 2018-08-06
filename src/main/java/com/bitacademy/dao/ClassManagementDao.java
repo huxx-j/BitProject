@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ClassManagementDao {
@@ -19,8 +20,8 @@ public class ClassManagementDao {
     }
 
     //업무구분에 따라 커리큘럼 리스트를 불러오는 코드
-    public List<CurriculumVo> getCurriList(String workType) {
-        return sqlSession.selectList("class.getCurriList", workType);
+    public List<CurriculumVo> getCurriList(Map<String, Object> map) {
+        return sqlSession.selectList("class.getCurriList", map);
     }
 
     //교육과정검색에 조회버튼을 누르면 커리큘럼 정보는 불러오는 코드

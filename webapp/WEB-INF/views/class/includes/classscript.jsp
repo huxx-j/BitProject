@@ -11,10 +11,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
+        var radioStat = $("input[name=ra_sel]:checked").val();
         $.ajax({
             url: "${pageContext.request.contextPath }/class/getCurriList",
             type: "post",
-            data: {"workType": selectValue},
+            data: {"cateName": selectValue,
+                   "radioStat": radioStat},
             dataType: "json",
             success: function (list) {
                 $("#curriSelect").remove();
@@ -34,13 +36,15 @@
     });
 
     //업무 구분별 과목 불러오는 스크립트
-    $("#workTypeSelect").change(function () {
+    $("#workTypeSelect, input[name=ra_sel]").change(function () {
         var selectValue = $("#workTypeSelect option:selected").val();
+        var radioStat = $("input[name=ra_sel]:checked").val();
 
         $.ajax({
             url: "${pageContext.request.contextPath}/class/getCurriList",
             type: "post",
-            data: {"workType": selectValue},
+            data: {"cateName": selectValue,
+                   "radioStat": radioStat},
             dataType: "json",
             success: function (list) {
                 $("#curriSelect").remove();
@@ -50,7 +54,6 @@
                 $("#curriTd").append(str);
 
                 for (var i = 0; i < list.length; i++) {
-                    console.log(list[i])
                     renderCurri(list[i])
                 }
             },
@@ -74,7 +77,7 @@
         removeReport();
         removeSaveBtn();
         removeTeamList();
-        removePjtDetail()
+        removePjtDetail();
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax

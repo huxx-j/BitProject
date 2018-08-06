@@ -12,11 +12,25 @@
     </select>
 
     <!--업무구분에 따라 커리큘럼 리스트를 불러오는 쿼리-->
-    <select id="getCurriList" parameterType="String" resultType="CurriculumVo">
-        <![CDATA[
-         select Curriculum_no, CurriName from Curriculum C
-  			join CurriculumCate C2 on C.CurriculumCate_no = C2.CurriculumCate_no and C2.CateName=#{workType}
+    <select id="getCurriList" parameterType="Map" resultType="CurriculumVo">
+        <if test="radioStat=='ongoing'">
+            <![CDATA[
+                 select Curriculum_no, CurriName
+                        from Curriculum c, CurriculumCate cc
+                        where c.CurriculumCate_no=cc.CurriculumCate_no
+                        and c.StartDate<=current_date
+                        and current_date<=c.EndDate
+                        and cc.CateName=#{cateName}
+            ]]>
+        </if>
+        <if test="radioStat=='all'">
+            <![CDATA[
+                 select Curriculum_no, CurriName
+                        from Curriculum c, CurriculumCate cc
+                        where c.CurriculumCate_no=cc.CurriculumCate_no
+                        and cc.CateName=#{cateName}
         ]]>
+        </if>
     </select>
 
     <!--교육과정검색에 조회버튼을 누르면 커리큘럼 정보는 불러오는 쿼리-->

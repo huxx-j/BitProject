@@ -31,15 +31,17 @@ public class ClassManagementController {
     //교육과정 셀렉트박스에 커리큘럼불러오는 코드
     @ResponseBody
     @RequestMapping(value = "/getCurriList", method = RequestMethod.POST)
-    public List<CurriculumVo> getCurriList(@RequestParam("workType") String workType) {
-        return classManagementService.getCurriList(workType);
+    public List<CurriculumVo> getCurriList(@RequestParam("cateName") String cateName, @RequestParam("radioStat") String radioStat) {
+        System.out.println(cateName);
+        System.out.println(radioStat);
+        return classManagementService.getCurriList(cateName, radioStat);
     }
 
     //교육과정검색에서 조회버튼 누르면 수업관리에 과정정보 불러오는 코드
     @ResponseBody
     @RequestMapping(value = "/getCurriInfo", method = RequestMethod.POST)
-    public Map<String, Object> getCurriInfo(@RequestParam("currival") int curriculum_no) {
-        return classManagementService.getCurriInfo(curriculum_no);
+    public Map<String, Object> getCurriInfo(@RequestParam("currival") int currival) {
+        return classManagementService.getCurriInfo(currival);
     }
 
     //수업일지에서 불러오기 버튼을 누르면 날짜에 맞는 수업일지를 불러오는 코드
