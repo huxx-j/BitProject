@@ -41,6 +41,9 @@
         </section> <%--/.content-header--%>
 
         <section class="content">
+            <div id="div_ajax_load_image" style="display:none;z-index: 9999">
+                <img src="/assets/image/loading-1.gif"/>
+            </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box box-body" style="padding-right: 36px">
@@ -133,9 +136,6 @@
                     </div> <%--/.box--%>
                 </div> <%--/.col-xs-12--%>
             </div> <%--/.row--%>
-            <div id="div_ajax_load_image" style="display:none;">
-                <img src="/assets/image/loading-1.gif" style="width:30%;"/>
-            </div>
         </section> <%--/.content--%>
     </div><!-- /.content-wrapper -->
 
