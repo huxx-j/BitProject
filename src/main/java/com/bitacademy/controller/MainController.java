@@ -49,20 +49,18 @@ public class MainController {
 		return "ex/index_jqgrid";
 	}
 
+
+	//jqgrid 페이징 예제
 	@Autowired
 	TestService testService;
 
 	@ResponseBody
 	@RequestMapping(value = "/jqtest", method = RequestMethod.POST)
 	public PagerResponseVo jqtest(@RequestParam("page") int page, @RequestParam("rows") int rows, @RequestParam("sidx") String sidx, @RequestParam("sord") String sord){
-//	public List<TestVo> jqtest(@RequestBody PagerRequestVo pagerRequestVo){
-//		System.out.println(pagerRequestVo.toString());
-		System.out.println("page > " + page);
-		System.out.println("rows > " + rows);
-		System.out.println("sidx > " + sidx);
-		System.out.println("sord > " + sord);
-
-		return testService.getInfoList(page, rows, sidx, sord);
+		//우리가 설정하지 않아도 jqgrid에서 자동으로 파라미터 4개를 보내줌
+		//파라미터 부분은 그대로 쓸것, Vo로 받아보려 시도 했으나 안됨
+		System.out.println("page : " + page + ", rows : " + rows + ", sidx : " + sidx + ",sord : " + sord);
+		return testService.getInfoList(page, rows, sidx, sord); //service로 보냄
 	}
 
 

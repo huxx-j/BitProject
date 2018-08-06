@@ -49,10 +49,7 @@
                     </div>
                     <div class="sub-body">
 						<table id="jqGrid"></table>
-
 						<div id="jqGridPager"></div><br/>
-						<%--<div id="paginate"></div>--%>
-						<button type="button" id="btn">asd</button>
 					</div>
 
 				</div><!-- /.box -->
@@ -89,8 +86,8 @@
         var cnames = ['이름', '성별', '핸드폰'];
 
         $("#jqGrid").jqGrid({
-            url: "/jqtest",
-            datatype: "json",
+            url: "/jqtest", //ajax와 비슷한 방식으로 컨트롤러 mapping 주소를 입력 (지금은 MainController로 연결)
+            datatype: "json", //데이터를 json형태로 리턴받아 올거니 바꾸지 말것
 			mtype:"POST",
             colNames: cnames,
             colModel: [
@@ -101,22 +98,18 @@
             rowheight: 20,
             height: 300,
 			// width: 1200,
-            // rowNum: 10,
-            rowList: [10, 20, 30],
-            pager: '#jqGridPager',
-            rownumbers: true,
+            // rowNum: 10, //처음 로딩시 뿌릴 데이터의 개수
+            rowList: [10, 20, 30], //데이터의 정렬 개수
+            pager: '#jqGridPager', //페이지가 들어갈 div의 아이디
+            rownumbers: true, //jqgrid 기본 인덱스
 			onSelectRow: function(){
+                //한번 클릭했을때 이벤트 발생
                 alert("123");
                 console.log("asd");
 			}
         });
     });
 
-
-	$("#btn").on("click",function () {
-        var asd = $(".ui-pg-input").val();
-        console.log(asd);
-    });
 </script>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>--%>
 

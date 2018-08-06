@@ -12,11 +12,11 @@ public class TestDao {
     @Autowired
     SqlSession sqlSession;
 
-    public List<Object> getInfoList(PagerRequestVo pagerRequestVo) {
+    public List<Object> getInfoList(PagerRequestVo pagerRequestVo) { //테이블에 들어갈 데이터를 리스트로 가져옴
         return sqlSession.selectList("test.getInfoList", pagerRequestVo);
     }
 
     public int getRecords(){
-        return sqlSession.selectOne("test.getRecords");
+        return sqlSession.selectOne("test.getRecords"); //가져올 데이터의 총 개수를 가져옴
     }
 }
