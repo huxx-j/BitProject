@@ -1,7 +1,7 @@
 package com.bitacademy.vo;
 
 public class ApplyUserVo {
-	
+
 	private int user_no;
 	private int curriculum_no;
 	private String cateName;
@@ -10,8 +10,9 @@ public class ApplyUserVo {
 	private String nameHan;
 	private String applyType;
 	private String birthDate;
-	private String testScore;
-	private String gender;
+	private int testScore;
+	private int gender;
+	private String c_gender;
 	private String testResult;
 	private String cellphone;
 	private String testLang;
@@ -21,17 +22,18 @@ public class ApplyUserVo {
 	private String major;
 	private String deposit;
 	private String depositDate;
-	private String depositAmount;
+	private int depositAmount;
 	private String cardPayDate;
-	private String cardPayAmount;
-	private String totalPay;
+	private int cardPayAmount;
+	private int totalPay;
 	private String consult;
-
+	private String CurriState;
+	
 	public ApplyUserVo(int user_no, int curriculum_no, String cateName, String gisuName, String curriName,
-			String nameHan, String applyType, String birthDate, String testScore, String gender, String testResult,
+			String nameHan, String applyType, String birthDate, int testScore, int gender,String c_gender, String testResult,
 			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
-			String deposit, String depositDate, String depositAmount, String cardPayDate, String cardPayAmount,
-			String totalPay, String consult) {
+			String deposit, String depositDate, int depositAmount, String cardPayDate, int cardPayAmount, int totalPay,
+			String consult, String curriState) {
 		
 		this.user_no = user_no;
 		this.curriculum_no = curriculum_no;
@@ -43,6 +45,7 @@ public class ApplyUserVo {
 		this.birthDate = birthDate;
 		this.testScore = testScore;
 		this.gender = gender;
+		this.c_gender = c_gender;
 		this.testResult = testResult;
 		this.cellphone = cellphone;
 		this.testLang = testLang;
@@ -57,6 +60,7 @@ public class ApplyUserVo {
 		this.cardPayAmount = cardPayAmount;
 		this.totalPay = totalPay;
 		this.consult = consult;
+		CurriState = curriState;
 	}
 
 	public ApplyUserVo() {
@@ -127,22 +131,34 @@ public class ApplyUserVo {
 		this.birthDate = birthDate;
 	}
 
-	public String getTestScore() {
+	public int getTestScore() {
 		return testScore;
 	}
 
-	public void setTestScore(String testScore) {
+	public void setTestScore(int testScore) {
 		this.testScore = testScore;
 	}
 
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setGender(int gender) {
+			this.gender = gender;
 	}
-
+	
+	public String getC_gender() {
+		
+		if(this.gender == 1){
+			return "남자";
+		} else {
+			return "여자";
+		}
+	}
+	
+	public void setC_gender(String c_gender) {
+		this.c_gender = c_gender;
+	}
 	public String getTestResult() {
 		return testResult;
 	}
@@ -212,14 +228,19 @@ public class ApplyUserVo {
 	}
 
 	public void setDepositDate(String depositDate) {
-		this.depositDate = depositDate;
+		
+		if(depositDate.equals("")) {
+			depositDate=null;
+		}else {
+			this.depositDate = depositDate;
+		}
 	}
 
-	public String getDepositAmount() {
+	public int getDepositAmount() {
 		return depositAmount;
 	}
 
-	public void setDepositAmount(String depositAmount) {
+	public void setDepositAmount(int depositAmount) {
 		this.depositAmount = depositAmount;
 	}
 
@@ -228,22 +249,27 @@ public class ApplyUserVo {
 	}
 
 	public void setCardPayDate(String cardPayDate) {
-		this.cardPayDate = cardPayDate;
+		
+		if(cardPayDate.equals("")) {
+			cardPayDate=null;
+		}else {
+			this.cardPayDate = cardPayDate;
+		}
 	}
 
-	public String getCardPayAmount() {
+	public int getCardPayAmount() {
 		return cardPayAmount;
 	}
 
-	public void setCardPayAmount(String cardPayAmount) {
+	public void setCardPayAmount(int cardPayAmount) {
 		this.cardPayAmount = cardPayAmount;
 	}
 
-	public String getTotalPay() {
+	public int getTotalPay() {
 		return totalPay;
 	}
 
-	public void setTotalPay(String totalPay) {
+	public void setTotalPay(int totalPay) {
 		this.totalPay = totalPay;
 	}
 
@@ -255,17 +281,26 @@ public class ApplyUserVo {
 		this.consult = consult;
 	}
 
+	public String getCurriState() {
+		return CurriState;
+	}
+
+	public void setCurriState(String curriState) {
+		CurriState = curriState;
+	}
+
 	@Override
 	public String toString() {
 		return "ApplyUserVo [user_no=" + user_no + ", curriculum_no=" + curriculum_no + ", cateName=" + cateName
 				+ ", gisuName=" + gisuName + ", curriName=" + curriName + ", nameHan=" + nameHan + ", applyType="
 				+ applyType + ", birthDate=" + birthDate + ", testScore=" + testScore + ", gender=" + gender
-				+ ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="
+				+ ", c_gender=" + c_gender + ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="
 				+ applyDate + ", testDate=" + testDate + ", school=" + school + ", major=" + major + ", deposit="
 				+ deposit + ", depositDate=" + depositDate + ", depositAmount=" + depositAmount + ", cardPayDate="
 				+ cardPayDate + ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consult=" + consult
-				+ "]";
+				+ ", CurriState=" + CurriState + "]";
 	}
+
 	
-	
+
 }

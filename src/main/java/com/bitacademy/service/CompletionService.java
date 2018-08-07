@@ -23,23 +23,26 @@ public class CompletionService {
 
         return completionDao.getCurriCateList();
     }
-
+    
+    //선택된 업무구분과 관련된 수업이름 가져가기
     public List<CurriculumVo> getCurriList(int curriculumCate_no){
 
         return completionDao.getCurriList(curriculumCate_no);
-    }//선택된 업무구분과 관련된 수업이름 가져가기
-
+    }
+    
+    //조회버튼 클릭 후 그리드영역 학생리스트 가져가기
     public List<ApplyUserVo> getStudentList(int curriculum_no){
     	System.out.println("서치 서비스");
-        return completionDao.getStudentList(curriculum_no);
+    	List<ApplyUserVo> studentList = completionDao.getStudentList(curriculum_no);
+    	
+        return studentList;
+    }
 
-    }//조회버튼 클릭 후 그리드영역 학생리스트 가져가기
-
+    //선택된 학생의 취업정보 가져가기
     public List<UserCareerVo> getUserCareerList(int user_no){
 
         return completionDao.getUserCareerList(user_no);
-
-    }//선택된 학생의 취업정보 가져가기
+    }
 
     public UserCareerVo getUserCareer(int user_no,int userCareer_no) {
 
