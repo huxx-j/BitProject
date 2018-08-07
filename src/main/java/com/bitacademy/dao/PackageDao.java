@@ -11,12 +11,22 @@ import java.util.List;
 public class PackageDao {
     @Autowired
     private SqlSession sqlSession;
+
+    public List<SubInStepVo> getsublist(int no) {
+
+        List<SubInStepVo> sublist=sqlSession.selectList("package.sublist", no);
+
+        return sublist;
+
+    }
+
     public List<PackageCateVo> selectcatelist(){
         return sqlSession.selectList("package.select");
     }
+
     public int insert(PackageVo packageVo){
         sqlSession.insert("package.insert",packageVo);
-        System.out.println(packageVo.getPackage_no());
+
         return packageVo.getPackage_no();
     }
 
