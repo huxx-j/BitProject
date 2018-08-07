@@ -47,7 +47,7 @@
 
 .box-subjectlist {
     border-top-color: rgb(255, 189, 151);
-    margin-top: 10px; !important;
+    margin-top: 24px; !important;
     margin-bottom: 0; !important;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .subList {
-    height: 60px; !important;
+    height: 30px; !important;
 }
 
 .a_c {
@@ -201,6 +201,7 @@ textarea {
     resize: none !important;
 }
 
-.processing {
-
+.pjt-box {
+    padding: 5px 10px;
+    vertical-align: middle;
 }

@@ -47,57 +47,71 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box box-body" style="padding-right: 36px">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"> 교육과정검색</h3>
-                        </div> <%--/.box-header with-border--%>
-                        <table class="table table-condensed"> <%--교육과정검색 테이블--%>
-                            <tr>
-                                <th style="width: 20%">업무구분</th>
-                                <th colspan="2">교육과정(반) 명</th>
-                            </tr>
-                            <tr>
-                                <td><select class="form-control" id="workTypeSelect" style="width:100%">
-                                    <c:forEach items="${cateName}" var="cateName"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
-                                        <option id="${cateName}" value="${cateName}">${cateName}</option>
-                                    </c:forEach>
-                                </select></td>
-                                <td class="table-text" style="border-right: none !important; width: 130px;">
-                                    <div class="radio-group w100 disp-inline">
-                                        <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
-                                        <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
-                                    </div> <%--/.radio-group w100 disp-inline--%>
-                                </td>
-                                <td id="curriTd" style="border-left: none !important;">
-                                    <select class="form-control" id="curriSelect" style="width: 100%">
-                                    </select>
-                                </td>
-                            </tr>
-                        </table> <%--/.교육과정검색 테이블--%>
-                        <div class="sub-toolbox text-center">
-                            <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
-                        </div> <%--/.sub-toolbox text-center--%>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="sub-box">
+                                    <div class="sub-title">교육과정검색</div>
+                                    <%--<div class="box-header with-border">--%>
+                                        <%--<h3 class="box-title"> 교육과정검색</h3>--%>
+                                    <%--</div> &lt;%&ndash;/.box-header with-border&ndash;%&gt;--%>
+                                    <div class="sub-body">
+                                    <table class="table table-condensed"> <%--교육과정검색 테이블--%>
+                                        <tr>
+                                            <th style="width: 20%">업무구분</th>
+                                            <th colspan="2">교육과정(반) 명</th>
+                                        </tr>
+                                        <tr>
+                                            <td><select class="form-control" id="workTypeSelect" style="width:100%">
+                                                <c:forEach items="${cateName}" var="cateName"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
+                                                    <option id="${cateName}" value="${cateName}">${cateName}</option>
+                                                </c:forEach>
+                                            </select></td>
+                                            <td class="table-text" style="border-right: none !important; width: 130px;">
+                                                <div class="radio-group w100 disp-inline">
+                                                    <label class="radiobox"><input type="radio" name="ra_sel" value="all">전체</label>
+                                                    <label class="radiobox"><input type="radio" name="ra_sel" value="ongoing" checked>수업중</label>
+                                                </div> <%--/.radio-group w100 disp-inline--%>
+                                            </td>
+                                            <td id="curriTd" style="border-left: none !important;">
+                                                <select class="form-control" id="curriSelect" style="width: 100%">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table> <%--/.교육과정검색 테이블--%>
+                                    </div> <%--/.sub-body--%>
+                                    <div class="sub-toolbox clearfix text-center">
+                                        <button type="button" class="btn btn-primary" id="curriSearchBtn">조회</button>
+                                    </div> <%--/.sub-toolbox text-center--%>
+                                </div> <%--/.sub-box--%>
+                            </div> <%--/.col-xs-12--%>
+                        </div> <%--/.row--%>
                     </div> <%--/.box box-body--%>
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"> 수업관리</h3>
-                            <input id="selectedCurri" type="hidden">
-                        </div> <%--/.box-header with-border--%>
-                        <div class="box-body" style="padding-right: 36px">
-                            <table class="table table-condensed"> <%--수업관리 테이블--%>
-                                <tr>
-                                    <th style="width: 8%; text-align: center">과정구분</th>
-                                    <td id="curriNameInfo" class="table-text" style="width: 42%"></td>
-                                    <th style="width: 8%; text-align: center">기수</th>
-                                    <td id="gisuInfo" class="table-text" style="width: 42%"></td>
-                                </tr>
-                                <tr>
-                                    <th style="width: 8%; text-align: center">개강일</th>
-                                    <td id="periodFrInfo" class="table-text" style="width: 42%"></td>
-                                    <th style="width: 8%; text-align: center">종강일</th>
-                                    <td id="periodToInfo" class="table-text" style="width: 42%"></td>
-                                </tr>
-                            </table> <%--/.수업관리 테이블--%>
-                        </div> <%--/.box-body--%>
+                    <div class="box box-body">
+                        <div class="sub-box">
+                            <div class="sub-title">수업관리
+                                <input id="selectedCurri" type="hidden">
+                            </div>
+                        <%--<div class="box-header with-border">--%>
+                            <%--<h3 class="box-title"> 수업관리</h3>--%>
+                            <%--<input id="selectedCurri" type="hidden">--%>
+                        <%--</div> &lt;%&ndash;/.box-header with-border&ndash;%&gt;--%>
+                            <div class="sub-body" style="padding-right: 36px">
+                                <table class="table table-condensed"> <%--수업관리 테이블--%>
+                                    <tr>
+                                        <th style="width: 8%; text-align: center">과정구분</th>
+                                        <td id="curriNameInfo" class="table-text" style="width: 42%"></td>
+                                        <th style="width: 8%; text-align: center">기수</th>
+                                        <td id="gisuInfo" class="table-text" style="width: 42%"></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 8%; text-align: center">개강일</th>
+                                        <td id="periodFrInfo" class="table-text" style="width: 42%"></td>
+                                        <th style="width: 8%; text-align: center">종강일</th>
+                                        <td id="periodToInfo" class="table-text" style="width: 42%"></td>
+                                    </tr>
+                                </table> <%--/.수업관리 테이블--%>
+                            </div> <%--/.sub-body--%>
+                        </div class="sub-box">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box-body">
@@ -132,7 +146,7 @@
                                 </div> <%--/.box-body--%>
                             </div><!-- /.col-xs-12 -->
                         </div> <%--/.row--%>
-                    </div> <%--/.box--%>
+                    </div> <%--/.box box-body--%>
                 </div> <%--/.col-xs-12--%>
             </div> <%--/.row--%>
         </section> <%--/.content--%>

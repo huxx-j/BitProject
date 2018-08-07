@@ -40,6 +40,7 @@
  			WHERE curriculum_no = #{curriculum_no}
  		]]>
  	</update>
+ 	
     <update id = "editCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
  		<![CDATA[
  			UPDATE CurriculumCate
@@ -48,14 +49,14 @@
  			WHERE curriculumCate_no = #{curriculumCate_no}
  		]]>
  	</update>
+ 	
 	<!-- 커리큘럼 추가 -->
-	<!--
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
- 			INSERT INTO Curriculum (curriculumCate_no, workType, curriName, curriNickname, startDate, endDate, time, num, money, support, inquiry, state, package_no)
+ 			INSERT INTO Curriculum ( curriculumCate_no, package_no, curriName, curriNickname, startDate, endDate, time, maxCnt, price, support, managerInfo, state)
 			VALUES(
-				(SELECT curriculumCate_no FROM CurriculumCate WHERE curriculumCate_no = #{curriculumCate_no}),
-				#{workType},
+				#{curriculumCate_no},
+				#{package_no},
 				#{curriName},
 				#{curriNickname},
 				#{startDate},
@@ -65,12 +66,10 @@
 				#{price},
 				#{support},
 				#{managerInfo},
-				#{state},
-			    (SELECT package_no from Package WHERE package_no = #{package_no})
-			    );
+				#{state}
+			    )
  		]]>
  	</insert>
- 	 -->
 	
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
@@ -91,7 +90,7 @@
 <!-- 	//전체지원자리스트 조회 -->
 	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no
+			SELECT u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no
 			FROM ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE a.User_no = u.User_no
 			AND c.curriculum_no = a.curriculum_no

@@ -134,7 +134,7 @@
 
 
 <!-- 모달 시작! -->
-<div class = "modal fade" id = "packageViewModal" tabindex = "-1" role = "dialog" aria-labelledby ="packageViewModalLabel" aria-hidden = "true" style = "overflow-y : scroll; overflow-x : hidden;">
+<div class = "modal fade" id = "packageViewModal" >
 	<div class = " modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header">

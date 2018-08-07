@@ -187,6 +187,7 @@
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	<div class="control-sidebar-bg"></div>
 </div>
+
 <!-- ./wrapper -->
 </body>
 
@@ -201,7 +202,6 @@
 <script type="text/javascript">
 
 </script>
-<%--jqgrid사용시 삭제할것--%>
 	<c:import url="/WEB-INF/views/screening/includes/script_Curriculum.jsp"></c:import>
 
 
