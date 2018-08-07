@@ -171,7 +171,7 @@ public class ClassManagementService {
         if (file_no != 0) {
             projectVo.setFile_no(file_no);
         }
-
+        System.out.println(projectVo.toString());
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
 
         if (projectVo.getProject_no() == 0) {
