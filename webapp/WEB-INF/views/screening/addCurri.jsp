@@ -34,7 +34,7 @@
 	<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				교육과정관리 <small>it all starts here</small>
+				교육과정추가 <small>it all starts here</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -67,7 +67,7 @@
 											<!-- 카테고리 메인영역 -->
 											<div class = "cate-box">
 												<div class = "" id = "">
-													<ul id = "treeDemo_addCurri" class = "ztree"></ul>
+													<ul id = "treeDemo" class = "ztree"></ul>
 												</div>
 											</div><!-- /.cate-box -->
 											<!-- /.카테고리 메인영역 -->
@@ -91,7 +91,7 @@
 								<!-- 탭박스 외곽  -->
 								<div class = "nav-tabs-custom">
 									<!-- 상단 탭 영역 -->
-									<ul class = "nav nav-tabs" id = "curri-nav-tab">
+									<ul class = "nav nav-tabs" >
 										<li class = "active"><a href = "#tab_1" data-toggle = "tab">교육과정정보</a></li>
 									</ul><!-- /.nav nav-tabs -->
 									<!-- /.상단 탭 영역 끝 -->
@@ -119,18 +119,18 @@
 																				<tr>
 																					<th>업무구분</th>
 																					<td>
-																						<input type = "hidden" name = "curriculumCate_no"  style = "border:none;">
-																						<select class = "form-control " id = "cateName" name = "cateName">
-																							<option value = "국가기간">국가기간</option>
-																							<option value = "핵심역량">핵심역량</option>
-																							<option value = "방학단기">방학단기</option>
+<!-- 																						<input type = "text" name = "curriculumCate_no"  style = "border:none;"> -->
+																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no">
+																							<option value = "994">국가기간</option>
+																							<option value = "995">핵심역량</option>
+																							<option value = "998">방학단기</option>
 																						</select>
 																					</td>
 																					<th>선택패키지</th>
 																					<td>
 																						<input type = "hidden" name = "package_no"  style = "border:none;">
 																						<input type = "form-control " readonly name = "packageName" style = "border : none; width : 60%;" >
-																						<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
+																						<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal2">패키지보기</button>
 																					</td>
 																				</tr>
 																			</tbody>
@@ -140,6 +140,7 @@
 															</div><!--/.row --><!-- /.탭 상단 -->
 															
 															<div class = "space"></div>
+															
 															<div class = "row">
 																<div class = "col-xs-12">
 																	<div class = "sub-box">
@@ -216,7 +217,7 @@
 																			</table>
 																		</div><!-- /.sub-box -->
 																		<div class = "sub-toolbox clearfix text-center">
-																			<input type = "submit" class = "btn btn-primary" value = "저장" >
+																			<button type = "button" class = "btn btn-primary" id = "addCurriBtn" >저장</button>
 																			<a href = "${pageContext.request.contextPath }/curri">
 																				<button type = "button" class = "btn btn-default pull-right" >취소</button>
 																			</a>
@@ -237,342 +238,64 @@
 							</div><!-- col-xs-9 -->
 							<!-- /.교육과정 정보 영역 끝 -->
 						</div><!-- /.row -->
-					</div>
-				</div>
-			</div>
+					</div><!-- /.box box-body -->
+				</div><!-- /.col-xs-12 -->
+			</div><!-- /.row -->
 		</section>
 	</div><!-- content-wrapper -->
+
+
+
+<!-- 모달 시작! -->
+<div class = "modal fade" id = "packageViewModal2" >
+	<div class = " modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<button type = "button" class = "close" data-dismiss = "modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span aria-hidden = "true">x</span>
+					<span class = "sr-only">Close</span>
+				</button>
+				<h4 class = "modal-title" id = "packageViewModalLabel2">패키지선택</h4>
+			</div><!-- /.modal-header -->
+			<div class = "modal-body">
+				<div class = "sub-box">
+					<div class = "cate-outter bordered">
+						<div class = "scroll">
+							<div class = "tab-content-custom" >
+								<div class = "row"> 
+									<ul id = "modalTree2" class = "ztree"></ul>
+								</div><!-- /.row -->
+							</div><!-- /.tab-content-custom -->
+						</div><!-- /.modal scroll -->
+					</div><!-- /.cate-outter bordered -->
+				</div><!-- /.sub-box -->
+			</div><!-- /.modal-body -->
+			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-default" id = "modalSelectBtn2" style = "padding: 2px 5px; margin : auto;">선택</button>
+				<button type = "button" class = "btn btn-default " data-dismiss = "modal" style = "padding : 2px 5px;">취소</button>
+			</div><!-- /.modal-footer -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal-fade -->
+<!-- /.모달 끝 --> 
+
+
 
 
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	<div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
+
 </body>
-</html>
-<%-- <c:import url="/WEB-INF/views/includes/script.jsp"></c:import> --%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
+<c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
-<script type="text/javascript">
-//화면 로딩
-	$(document).ready(function(){
-	    var treeObj = $.fn.zTree.init($("#treeDemo_addCurri"), setting_addCurri, zNodes_addCurri);
-	    console.log(treeObj);
-	});
-		
-	//교육과정 카테고리 탭
-	var setting_addCurri = {
-		edit:{
-			drag:{
-				autoExpandTrigger:true,
-				prev:dropPrev,
-				inner:dropInner,
-				next:dropNext
-			},
-			enable:true
-		},
-	    data: {
-	        simpleData: {
-	            enable: true,
-	        }
-	    },
-	    callback: {
-	        beforeClick: package,  // 마우스 클릭 콜백함수 지정
-	        beforeDrag: beforeDrag,
-	        beforeDrop: beforeDrop,
-	        beforeDragOpen: beforeDragOpen,
-	        onDrag: onDrag,
-	        onDrop: onDrop,
-	        onExpand: onExpand
-	    },
-	};
-	
-	var zNodes_addCurri= [
-		  <c:forEach items="${cateList}" var="vo">
-	      {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-	      </c:forEach>
-	      <c:forEach items="${list}" var="vo">
-	      {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
-	      </c:forEach>
-	];
-	
-	function dropPrev(treeId, nodes, targetNode) {
-	    var pNode = targetNode.getParentNode();
-	    if (pNode && pNode.dropInner === false) {
-	    return false;
-	}
-	else {
-	    for (var i=0,l=curDragNodes.length; i<l; i++) {
-	        var curPNode = curDragNodes[i].getParentNode();
-	        if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-	            return false;
-	        }
-	    }
-	}
-	    return true;
-	}
-	
-	function dropInner(treeId, nodes, targetNode) {
-	    if (targetNode && targetNode.dropInner === false) {
-	        return false;
-	    } else {
-	        for (var i=0,l=curDragNodes.length; i<l; i++) {
-	            if (!targetNode && curDragNodes[i].dropRoot === false) {
-	                return false;
-	            } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
-	}
-	
-	function dropNext(treeId, nodes, targetNode) {
-	    var pNode = targetNode.getParentNode();
-	    if (pNode && pNode.dropInner === false) {
-	        return false;
-	    } else {
-	        for (var i=0,l=curDragNodes.length; i<l; i++) {
-	            var curPNode = curDragNodes[i].getParentNode();
-	            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
-	}
-	
-	var log, className = "dark", curDragNodes, autoExpandNode;
-	
-	function beforeDrag(treeId, treeNodes) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
-	    for (var i=0,l=treeNodes.length; i<l; i++) {
-	        if (treeNodes[i].drag === false) {
-	            curDragNodes = null;
-	            return false;
-	        } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
-	            curDragNodes = null;
-	            return false;
-	        }
-	    }
-	    curDragNodes = treeNodes;
-	    return true;
-	}
-	
-	function beforeDragOpen(treeId, treeNode) {
-	    autoExpandNode = treeNode;
-	    return true;
-	}
-	
-	function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
-	    return true;
-	}
-	
-	function onDrag(event, treeId, treeNodes) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
-	}
-	
-	function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
-	}
-	
-	function onExpand(event, treeId, treeNode) {
-	    if (treeNode === autoExpandNode) {
-	        className = (className === "dark" ? "":"dark");
-	        showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
-	    }
-	}
-	
-	function showLog(str) {
-	    if (!log) log = $("#log");
-	    log.append("<li class='"+className+"'>"+str+"</li>");
-	    if(log.children("li").length > 8) {
-	        log.get(0).removeChild(log.children("li")[0]);
-	    }
-	}
-	
-	function getTime() {
-	    var now= new Date(),
-	        h=now.getHours(),
-	        m=now.getMinutes(),
-	        s=now.getSeconds(),
-	        ms=now.getMilliseconds();
-	    return (h+":"+m+":"+s+ " " +ms);
-	}
-	function setTrigger() {
-	    var zTree_addCurri = $.fn.zTree.getZTreeObj("treeDemo_addCurri");
-	    zTree_addCurri.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
-	}
-	
-	<!--이름수정, 삭제용-->
-	function setEdit() {
-	    var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-	        remove = $("#remove").attr("checked"),
-	        rename = $("#rename").attr("checked"),
-	        removeTitle = $.trim($("#removeTitle").get(0).value),
-	        renameTitle = $.trim($("#renameTitle").get(0).value);
-	    zTree.setting.edit.showRemoveBtn = remove;
-	    zTree.setting.edit.showRenameBtn = rename;
-	    zTree.setting.edit.removeTitle = removeTitle;
-	    zTree.setting.edit.renameTitle = renameTitle;
-	    console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
-	        'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
-	}
-	
-	<!--이름수정, 삭제용-->
-	function showCode(str) {
-	    var code = $("#code");
-	    code.empty();
-	    for (var i=0, l=str.length; i<l; i++) {
-	        code.append("<li>"+str[i]+"</li>");
-	    }
-	}
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.exedit.js"></script>
 
 
-    function package(treeId, treeNode, clickFlag) {
-        var curriculum_no=treeNode.web;
-        console.log(curriculum_no);
-        $.ajax({
-            url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
-            type : "POST",
-            data : {"curriculum_no": curriculum_no},
-            dataType : "json",
-            success : function(CurriculumVo) {
-                console.log(CurriculumVo);
-                $("#workType").val(CurriculumVo.workType).prop("selected",true),
-                $("input[name='package_no']").val(CurriculumVo.package_no),
-                $("input[name='packageName']").val(CurriculumVo.packageName),
-                $("input[name='curriculum_no']").val(CurriculumVo.curriculum_no),
-				$("input[name='curriName']").val(CurriculumVo.curriName),
-				$("input[name='curriNickname']").val(CurriculumVo.curriNickname),
-				$("input[name='startDate']").val(CurriculumVo.startDate),
-				$("input[name='endDate']").val(CurriculumVo.endDate),
-				$("input[name='testDate']").val(CurriculumVo.testDate),
-				$("input[name='time']").val(CurriculumVo.time),
-				$("input[name='maxCnt']").val(CurriculumVo.maxCnt),
-				$("input[name='price']").val(CurriculumVo.price),
-				$("input[name='support']").val(CurriculumVo.support),
-				$("input[name='managerInfo']").val(CurriculumVo.managerInfo),
-				$("input[name='gisuName']").val(CurriculumVo.gisuName),
-				$("input[name='state'][value="+CurriculumVo.state+"]").attr("checked",true)
-            },
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-    }
-    // 	$("#viewCurriInfo").on("click", function(){
-    // 		console.log("[viewCurriInfo] IN");
+	<c:import url="/WEB-INF/views/screening/includes/script_addCurri.jsp"></c:import>
 
-    // 		/* 데이터 모으기 */
-    // 		var curriculum_no = $("[name = curriculum_no]").val();
-    // 		console.log(curriculum_no);
-    // 		/* 리스트 요청 ajax */
-    // 		$.ajax({
+</html>
 
-    // 			url : "${pageContext.request.contextPath }/WEB-INF/views/screening/includes/nav_bar.jsp",
-    // 			type : "get",
-    // 			/* contentType : "application/json" */
-    // 	 		data : {curriculum_no : curriculum_no},
-    // 			/* data : JSON.stringify(guestbookVo), */
-    // 			dataType : "json",
-    // // 			cache : false,
-    // 			success : function(data){ //guestbookList가 apiGuestbookController의 guestbookList랑 같은 애는 아님.
-    // 				/*성공시 처리해야될 코드 작성*/
-    // 				console.log(data);
-    // 			},
-    // 			error : function(XHR, status, error) {
-    // 				console.error(status + " : " + error);
-    // 			}
-    // 		});
-    // 	});
-    // });
-
-
-    // // 체크박스//
-    // function selectDelRow() {
-
-    // 	var chk = document.getElementsByName("del_unit[]"); // 체크박스객체를 담는다
-    // 	var len = chk.length;    //체크박스의 전체 개수
-    // 	var checkRow = '';      //체크된 체크박스의 value를 담기위한 변수
-    // 	var checkCnt = 0;        //체크된 체크박스의 개수
-    // 	var checkLast = '';      //체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
-    // 	var rowid = '';             //체크된 체크박스의 모든 value 값을 담는다
-    // 	var cnt = 0;
-
-    // 	for(var i=0; i<len; i++){
-    // 		if(chk[i].checked == true){
-    // 			checkCnt++;        //체크된 체크박스의 개수
-    // 			checkLast = i;     //체크된 체크박스의 인덱스
-    // 		}
-    // 	}
-
-    // 	for(var i=0; i<len; i++){
-
-    // 		if(chk[i].checked == true){  //체크가 되어있는 값 구분
-
-    // 			checkRow = chk[i].value;
-
-
-
-    // 			if(checkCnt == 1){                            //체크된 체크박스의 개수가 한 개 일때,
-
-    // 			rowid += "'"+checkRow+"'";        //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-
-    // 			}else{                                            //체크된 체크박스의 개수가 여러 개 일때,
-
-    // 			if(i == checkLast){                     //체크된 체크박스 중 마지막 체크박스일 때,
-
-    // 			rowid += "'"+checkRow+"'";  //'value'의 형태 (뒤에 ,(콤마)가 붙지않게)
-
-    // 			}else{
-
-    // 			rowid += "'"+checkRow+"',";	 //'value',의 형태 (뒤에 ,(콤마)가 붙게)
-
-    // 			}
-    // 		}
-    // 		cnt++;
-
-    // 		checkRow = '';    //checkRow초기화.
-
-    // 	}
-    // 	alert(rowid);    //'value1', 'value2', 'value3' 의 형태로 출력된다.
-
-    // }
-    //////////////////////////////////////////////////////////////////////////
-
-
-    //달력1
-    $("#startDate").datepicker();
-    //달력2
-    $("#endDate").datepicker();
-    $("#testDate").datepicker();
-
-    $.datepicker.setDefaults({
-        prevText : '이전 달',
-        nextText : '다음 달',
-        monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-            '8월', '9월', '10월', '11월', '12월' ], //월 이름
-        monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-            '7월', '8월', '9월', '10월', '11월', '12월' ], //
-        dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-        showMonthAfterYear : true,
-        yearSuffix : '년',
-        changeMonth : true,
-        changeYear : true,
-        dateFormat : "yy-mm-dd"
-    });
-
-
-
-</script>
-<%--jqgrid사용시 삭제할것--%>
