@@ -128,5 +128,12 @@ public class ClassManagementController {
     public FileVo getSisInfo(@RequestParam("sisNo") int sisNo) {
         return classManagementService.getSisInfo(sisNo);
     }
+
+    //프로젝트 상세정보를 삭제하는 코드(실제 삭제는 안되고 state만 변경)
+    @ResponseBody
+    @RequestMapping(value = "/delProjectDetail", method = RequestMethod.POST)
+    public int delProjectDetail(@RequestParam("pjtNo") int pjtNo) {
+        return classManagementService.delProjectDetail(pjtNo);
+    }
 }
 

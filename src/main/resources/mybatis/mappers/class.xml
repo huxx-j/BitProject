@@ -7,7 +7,8 @@
     <!--업무구분에 카테코리 이름을 불러오는 쿼리-->
     <select id="getCateName" resultType="String">
         <![CDATA[
-        SELECT CateName from CurriculumCate group by CateName
+--         SELECT CateName from CurriculumCate group by CateName
+            select CateName from CurriculumCate where CurriculumCate_no not in (10000)
         ]]>
     </select>
 
