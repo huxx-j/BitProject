@@ -54,7 +54,12 @@ public class PackageService {
             for (int k = 0; k < sublist.size(); k++) {
                 if (sublist.get(k).getSubHour() != 0) {
                     sublist.get(k).setStep_no(step);
-                    packageDao.insertsub(sublist.get(k));
+                    if(sublist.get(k).getStep_no()==0) {
+                        packageDao.insertsub(sublist.get(k));
+                    }
+                    else{
+                        packageDao.updateSub(sublist.get(k));
+                    }
                 }
             }
             stepInPackVo.setSublist(sublist1);

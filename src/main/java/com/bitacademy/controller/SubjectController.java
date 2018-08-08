@@ -35,8 +35,8 @@ public class SubjectController {
         subjectService.UpdateCate(subjectCateVo);
     }
     @ResponseBody
-    @RequestMapping(value = "/getSubjectaVo", method = {RequestMethod.POST,RequestMethod.GET})
-    public SubjectVo getSubjectaVo(@RequestParam("no") int no ){
+    @RequestMapping(value = "/getSubjecteVo", method = {RequestMethod.POST,RequestMethod.GET})
+    public SubjectVo getSubjecteVo(@RequestParam("no") int no ){
         SubjectVo subjectVo = subjectService.getsub(no);
         return subjectVo;
    }
