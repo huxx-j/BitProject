@@ -409,7 +409,7 @@ $("#jqGrid").jqGrid({
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
 	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
-	    {name : 'gender',index : 'gender',width : 50,align : "center"},
+	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
 	    {name : 'applyDate',index : 'applyDate',width : 100,align : "center"},

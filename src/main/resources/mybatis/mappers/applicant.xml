@@ -43,8 +43,10 @@
 				c.CurriName
 		from Curriculum c 
 		where c.CurriculumCate_no = #{curriculumCate_no}
-		and c.State = #{curriState}
 	]]>
+		<if test="curriState!=0">
+			and c.State = #{curriState}
+		</if>
 
 </select>
 
@@ -92,15 +94,14 @@
 	<choose>
     	<when test="sord=='asc'">
         	<![CDATA[
-            	select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+            	select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
 			    a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 			    s.School, s.Major,a.Deposit
 					  
-				from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
-				and g.Curriculum_no = c.Curriculum_no
 				and c.Curriculum_no = #{param}  
 				order by ]]>
 				<if test="!sidx.equals('sidx0')">
@@ -112,15 +113,14 @@
                 </when>
                 <otherwise>
                     <![CDATA[
-                    	select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+                    	select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
 					    a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 					    s.School, s.Major,a.Deposit
 					  
-						from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+						from Users u, ApplyInfo a, UserScholarship s, Curriculum c
 						where u.User_no = a.User_no
 						and s.User_no = u.User_no 
 						and a.Curriculum_no = c.Curriculum_no
-						and g.Curriculum_no = c.Curriculum_no
 						and c.Curriculum_no = #{param}
                         order by ${sidx} desc,
                         u.NameHan asc
