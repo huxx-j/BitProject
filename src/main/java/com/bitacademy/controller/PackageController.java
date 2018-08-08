@@ -83,6 +83,6 @@ public class PackageController {
     public String addStep(@ModelAttribute AllStepVo steplist){
         System.out.println(steplist);
       packageService.stepadd(steplist);
-     return "curridesign/packmain";
+     return "redirect:/package/";
     }
 }

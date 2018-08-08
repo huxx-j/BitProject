@@ -60,4 +60,7 @@ public class PackageDao {
     }
 
 
+    public void updateSub(SubInStepVo subInStepVo) {
+        sqlSession.update("package.updatesub",subInStepVo);
+    }
 }
