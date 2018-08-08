@@ -74,12 +74,12 @@
 												<th class="">
 													교육과정명
 													<div class="radio-group pull-right">
-														<label class="radiobox"><input class="" type="radio" name="state" value="">전체</label>
-														<label class="radiobox"><input class="" type="radio" name="state" value="">준비중</label>
-														<label class="radiobox"><input class="" type="radio" name="state" value="">모집중</label>
-														<label class="radiobox"><input class="" type="radio" name="state" value="">모집마감</label>
-														<label class="radiobox"><input class="" type="radio" name="state" value="">수업중</label>
-														<label class="radiobox"><input class="" type="radio" name="state" value="">종료</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="0">전체</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="1">준비중</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="2">모집중</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="3">모집마감</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="4">수업중</label>
+														<label class="radiobox"><input class="" type="radio" name="curriState" value="5">종료</label>
 													</div>
 												</th>
 											</tr>
@@ -88,7 +88,7 @@
 											<tbody>
 											<tr>
 												<td>
-													<select name="workType" class="form-control" id="cateNameSelect">
+													<select name="cateNameSelect" class="form-control" id="cateNameSelect">
 														<c:forEach items="${requestScope.curriCateList}" var="curriCateList">
 															<option value="${curriCateList.curriculumCate_no}">${curriCateList.cateName}</option>
 														</c:forEach>
@@ -126,10 +126,10 @@
 									<div class="sub-title">
 										수강생리스트
 									</div><!-- sub_title -->
-									<div class="sub-body" style="height:300px;">
-										<table id="jqGrid" style="text-align:center;"></table>
+									<div class="sub-body" id="jqGridDiv" style="height:300px;">
+										<!-- <table id="jqGrid" style="text-align:center;"></table>
 
-										<div id="jqGridPager"></div>
+										<div id="jqGridPager"></div> -->
 									</div><!-- /.sub-body -->
 
 								</div><!-- /.sub-box -->
@@ -330,13 +330,55 @@ $("#cateNameSelect").change(function() {
 	getCurriList(curriculumCate_no);
 });
 
+//상단 교육과정명의 radio 선택할때
+$("input[name=curriState]").change(function() {
+	
+	var curriculumCate_no = $("#cateNameSelect option:selected").val();
+	var curriState = $("input[name=curriState]:checked").val();
+	console.log(curriculumCate_no);
+	console.log(curriState);
+
+	$.ajax({
+        url : "/api/completion/getCurriList_state",
+        type : "post",
+        data : {"curriculumCate_no" : curriculumCate_no,
+        		"curriState" : curriState},
+        dataType : "json",
+        success : function(list) {
+
+            console.log("radio선택하고 돌아옴");
+
+            $("#curriSelect").remove();
+            var str = "";
+            str += "<select name='strcurriName' class='form-control' id='curriSelect'></select>";
+            $("#curriTd").append(str);
+            for (var i = 0; i < list.length; i++) {
+                
+           	 var tmp = "";
+           	 tmp += "<option value='" + list[i].curriculum_no + "'>"
+                    + list[i].curriName + "</option>";
+
+             $("#curriSelect").append(tmp);
+        	}
+        },	
+        error : function(request, status, error) {
+            alert("code:" + request.status + "\n" + "message:"
+                + request.responseText + "\n" + "error:"
+                + error);
+        }
+	
+	});
+});
+
 /* 검색버튼 클릭할때 수료생리스트 가져옴 */
 $("#btn_applySearch").on("click", function() {
-	 var curriculum_no = $("#curriSelect option:selected").val();
-     console.log("클릭됨" + curriculum_no);
-     $("#jqGrid").clearGridData();
+	
+	/* $("#jqGrid").clearGridData(); */
+	jqGridFrame();
+    var curriculum_no = $("#curriSelect option:selected").val();
+    console.log("클릭됨" + curriculum_no);
 
-     $.ajax({
+  /*    $.ajax({
          url : "/api/completion/getStudentList",
          type : "get",
          data : {"curriculum_no" : curriculum_no},
@@ -353,22 +395,21 @@ $("#btn_applySearch").on("click", function() {
                  + request.responseText + "\n" + "error:"
                  + error);
          }
-     });
-});
+     }); */
 
 //그리드영역 그리기
 var cnames = [ 'j', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자','전형일자', '학교', '전공', '입금여부' ];
 
 $("#jqGrid").jqGrid({
     
-	url : "jqgridStartMain.do",
-	datatype : "local",
+	url : "/api/completion/getStudentList?curriculum_no="+curriculum_no,//jqgridStartMain.do,
+	datatype : "json",
 	colNames : cnames,
 	colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
 	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
-	    {name : 'gender',index : 'gender',width : 50,align : "center"},
+	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
 	    {name : 'applyDate',index : 'applyDate',width : 100,align : "center"},
@@ -380,8 +421,8 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 15,
-	rowList : [ 10, 20, 30 ],
+	rowNum : 5,
+	rowList : [ 2, 5, 10 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
@@ -438,7 +479,17 @@ $("#jqGrid").jqGrid({
     viewrecords : true
     /* caption: "유저 정보" */
 
+  });
 });
+
+function jqGridFrame() {
+	$("#gbox_jqGrid").remove();
+	str="";
+	str="<table id='jqGrid' style='text-align: center;'></table>" +
+		"<div id='jqGridPager'></div>";
+		
+	$("#jqGridDiv").append(str);
+}
 
 
 /* 취업정보에서 회사클릭할때 */

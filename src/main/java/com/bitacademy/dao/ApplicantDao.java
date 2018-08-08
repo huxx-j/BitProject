@@ -35,6 +35,11 @@ public class ApplicantDao {
 		return sqlSession.selectList("applicant.getCurriList",curriculumCate_no);
 	}
 	
+	//데이터의 총 개수를 가져오기
+	public int getRecords(int curriculum_no) {
+		return sqlSession.selectOne("applicant.getRecords",curriculum_no);
+	}
+	
 	//조회하기 버튼 후 그리드영역 지원자 리스트 가져오기
 	public List<Object> getStudentList(PagerRequestVo pagerRequestVo) {
 		return sqlSession.selectList("applicant.getStudentList", pagerRequestVo);
@@ -66,8 +71,5 @@ public class ApplicantDao {
 		return result;
 	}//수정버튼 클릭 후 지원내역 수정
 	
-	public int getRecords(int curriculum_no) {
-		return sqlSession.selectOne("applicant.getRecords",curriculum_no);
-	}//데이터의 총 개수를 가져오기
 	
 }
