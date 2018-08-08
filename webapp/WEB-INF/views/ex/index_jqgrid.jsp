@@ -47,11 +47,11 @@
                     <div class="sub-title">
                         DatePicker 사용법
                     </div>
-                    <div class="sub-body">
-						<table id="jqGrid"></table>
-						<div id="jqGridPager"></div><br/>
+                    <div class="sub-body" id="jqGridDiv">
+
 					</div>
 
+					<button type="button" id="btn">asdf</button>
 				</div><!-- /.box -->
 
 			</div><!-- /.col-xs-12 -->
@@ -81,8 +81,10 @@
 <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-
+    // $(document).ready(function() {
+	$(document).on("click","#btn", function () {
+	    jqframe()
+		console.log("ddddd")
         var cnames = ['이름', '성별', '핸드폰'];
 
         $("#jqGrid").jqGrid({
@@ -110,6 +112,14 @@
         });
     });
 
+	function jqframe() {
+	    $("#gbox_jqGrid").remove();
+		str = "";
+		str = "<table id='jqGrid'></table>" +
+			  "<div id='jqGridPager'></div>";
+
+		$("#jqGridDiv").append(str);
+    }
 </script>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.datepicker.js"></script>--%>
 

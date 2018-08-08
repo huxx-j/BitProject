@@ -371,30 +371,8 @@
     });
     //////////////////////////////////////////////////////////////////////////////////////////////////
     
-    
+    /* 
 
-    //달력1
-    $("#startDate").datepicker();
-    //달력2
-    $("#endDate").datepicker();
-
-    $.datepicker.setDefaults({
-        prevText : '이전 달',
-        nextText : '다음 달',
-        monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-            '8월', '9월', '10월', '11월', '12월' ], //월 이름
-        monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-            '7월', '8월', '9월', '10월', '11월', '12월' ], //
-        dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-        showMonthAfterYear : true,
-        yearSuffix : '년',
-        changeMonth : true,
-        changeYear : true,
-        dateFormat : "yy-mm-dd"
-    });
-  
     function gisuGrant(){
 //     	str = "";
     	id = "";
@@ -404,10 +382,30 @@
     	});
     	id = id.slice(0, -1);
     	console.log(id);
+    	$("#")
     	
     }
     
+    function renderGisuGrant(){
+    	
+    	 $("#renderApplicantList").empty();
+   		var str = ""; //append 하려면 for문 안에 넣어야함.
+   		for (var i = 0; i < curriAllVo.applicantList.length; i++){
+   	     	str += "<tr>";
+   			str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
+   	    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
+   	    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
+   	    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
+   	    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' id = '" + curriAllVo.applicantList.applicant_no + "'></label></td>";
+   	 		str += "</tr>";
+//    		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
+   		}
+   			$("#renderApplicantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+    }
     
+    
+     */
+   
   
     
   </script>

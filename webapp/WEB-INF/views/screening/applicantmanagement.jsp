@@ -72,8 +72,8 @@
 												<th>업무구분</th>
 												<th>교육과정명
 													<div class="radio-group pull-right">
-														<label class="radiobox"><input class="" type="radio" name="testResult" value="전체">전체</label>
-														<label class="radiobox"><input class="" type="radio" name="testResult" value="모집중">모집중</label>
+														<label class="radiobox" ><input class="" type="radio" name="curriState" value="0">전체</label>
+														<label class="radiobox" ><input class="" type="radio" name="curriState" value="1">모집중</label>
 													</div>
 												</th>
 											</tr>
@@ -124,10 +124,10 @@
 								<div class="sub-box">
 									<div class="sub-title">지원자리스트</div>
 									<!-- sub_title -->
-									<div class="sub-body" style="height: 300px;">
-										<table id="jqGrid" style="text-align: center;"></table>
+									<div class="sub-body" id="jqGridDiv" style="height: 300px;">
+										<!-- <table id="jqGrid" style="text-align: center;"></table>
 
-										<div id="jqGridPager"></div>
+										<div id="jqGridPager"></div> -->
 									</div>
 									<!-- /.sub-body -->
 
@@ -280,7 +280,7 @@
 														<th>계좌 입금일</th>
 														<td>
 															<div class="input-group border-inputcolor">
-			                                                 	<input class="input-datepicker form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+			                                                 	<input class="input-datepicker form-control border-none" name="date1" id="date1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD" value="">
 																<span class="input-group-btn">
 																	<button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i>
 																	</button>
@@ -296,7 +296,7 @@
 														<th>카드결제일</th>
 														<td>
 															<div class="input-group border-inputcolor">
-																<input class="input-datepicker form-control border-none" name="date2" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<input class="input-datepicker form-control border-none" name="date2" id="date2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD" value="">
 																<span class="input-group-btn">
 																	<button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i>
 																	</button>
@@ -405,13 +405,53 @@ $("#cateNameSelect").change(function() {
 
 });
 
+$("input[name=curriState]").change(function() {
+	
+	var curriculumCate_no = $("#cateNameSelect option:selected").val();
+	var curriState = $("input[name=curriState]:checked").val();
+	console.log(curriculumCate_no);
+	console.log(curriState);
+
+	$.ajax({
+        url : "/api/apply/getCurriList_state",
+        type : "post",
+        data : {"curriculumCate_no" : curriculumCate_no,
+        		"curriState" : curriState},
+        dataType : "json",
+        success : function(list) {
+
+            console.log("radio선택하고 돌아옴");
+
+            $("#curriSelect").remove();
+            var str = "";
+            str += "<select name='strcurriName' class='form-control' id='curriSelect'></select>";
+            $("#curriTd").append(str);
+            for (var i = 0; i < list.length; i++) {
+                
+           	 var tmp = "";
+           	 tmp += "<option value='" + list[i].curriculum_no + "'>"
+                    + list[i].curriName + "</option>";
+
+             $("#curriSelect").append(tmp);
+        	}
+        },	
+        error : function(request, status, error) {
+            alert("code:" + request.status + "\n" + "message:"
+                + request.responseText + "\n" + "error:"
+                + error);
+        }
+	
+	});
+});
+
 /* 검색버튼 클릭할때 지원자리스트 가져옴 */
 $("#applySearch").on("click",function() {
+	/* $("#jqGrid").clearGridData(); */
+	jqGridFrame();
     var curriculum_no = $("#curriSelect option:selected").val();
     console.log("클릭됨" + curriculum_no);
-    $("#jqGrid").empty();
     
-    $.ajax({
+    /* $.ajax({
         url : "/api/apply/getStudentList",
         type : "get",
         data : {"curriculum_no" : curriculum_no},
@@ -421,31 +461,29 @@ $("#applySearch").on("click",function() {
             console.log("search 잘 들어갔다 나옴");
 
             for (var i = 0; i < list.length; i++)
-                $("#jqGrid").jqGrid('addRowData', i + 1,
-                    list[i]);
+                $("#jqGrid").jqGrid('addRowData', i + 1, list[i]);
         },
         error : function(request, status, error) {
             alert("code:" + request.status + "\n" + "message:"
                 + request.responseText + "\n" + "error:"
                 + error);
         }
-    });
+    }); */
 
-});
 
 var cnames = [ 'j', '과정', '이름', '생년월일', '성별', '전형결과', '핸드폰', '지원일자',
     '전형일자', '학교', '전공', '입금여부' ];
 
 $("#jqGrid").jqGrid({
         
-	url : "jqgridStartMain.do",
-	datatype : "local",
+	url : "/api/apply/getStudentList?curriculum_no="+curriculum_no,
+	datatype : "json",
 	colNames : cnames,
 	colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
 	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
-	    {name : 'gender',index : 'gender',width : 50,align : "center"},
+	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
 	    {name : 'applyDate',index : 'applyDate',width : 100,align : "center"},
@@ -457,8 +495,8 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 15,
-	rowList : [ 10, 20, 30 ],
+	rowNum : 5,
+	rowList : [ 2, 5, 10 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
@@ -501,13 +539,23 @@ $("#jqGrid").jqGrid({
 	
 	};
 
-    },
+    }
 
-    viewrecords : true
+    /* viewrecords : true */
     /* caption: "유저 정보" */
 
+	});
 });
-    
+
+function jqGridFrame() {
+	$("#gbox_jqGrid").remove();
+	str="";
+	str="<table id='jqGrid' style='text-align: center;'></table>" +
+		"<div id='jqGridPager'></div>";
+		
+	$("#jqGridDiv").append(str);
+}
+
 /* 카테고리번호로 커리큘럼 리스트 가져오기 */
 function getCurriList(curriculumCate_no){
 	
@@ -617,7 +665,7 @@ $("#update").on("click", function () {
         consult: $("#consult").val()
 
     };
-
+	console.log(report);
     $.ajax({
         url: "/api/apply/applyUpdate",
         type: "post",

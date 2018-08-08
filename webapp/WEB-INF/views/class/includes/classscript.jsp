@@ -270,7 +270,7 @@
 
     function renderTable() {
         str = "";
-        str += "<table id='memberTable' class='table table-bordered'>";
+        str += "<table id='memberTable' class='table table-condensed'>";
         str += "<tr><th class='a_c' style='width:100px;'>이름</th>";
         str += "<th class='a_c' style='width:130px;'>생년월일</th>";
         str += "<th class='a_c' style='width:90px;'>성별</th>";
@@ -282,10 +282,10 @@
 
     function renderMemberTable(userVo) {
         str = "";
-        str += "<tr><td class='a_c'>" + userVo.nameHan + "</td>";
-        str += "<td class='a_c'>" + userVo.studResNum + "</td>";
-        str += "<td class='a_c'>" + userVo.gender + "</td>";
-        str += "<td class='a_c'><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
+        str += "<tr><td>" + userVo.nameHan + "</td>";
+        str += "<td>" + userVo.studResNum + "</td>";
+        str += "<td>" + userVo.gender + "</td>";
+        str += "<td><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
 
         $("#memberTable").append(str);
     }
@@ -310,14 +310,13 @@
     }
 
     function renderAddTeam(curriNo) {
-        str = "";
-        str += "<div id='pjtDetail' class='pjt_detail'>" +
-            "                <div class='box-header with-border'>" +
-            "                    <h1 class='box-title'> 프로젝트 팀 추가</h1>" +
-            "                </div>" +
-            "                <!-- /.box-header -->" +
-            "                <div class='box-body'>" +
-            "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
+        var str = "";
+        str = "" +
+            "<div id='pjtDetail' class='box-body pjt_detail'>" +
+            "    <div class='sub-box'>" +
+            "        <div class='sub-title'>프로젝트 팀 추가</div><br/>" +
+            "            <div class='sub-body'>" +
+            "                <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
             "                        <tr>" +
             "                            <th class='a_c' style='width:150px;'>프로젝트명</th>" +
@@ -327,9 +326,7 @@
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'></td>" +
             "                            <td class='w100'>" +
-            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
-            "                                        data-target='#selectTeamMember'>팀원선택" +
-            "                                </button>" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal' data-target='#selectTeamMember'>팀원선택</button>" +
             "                                <input id='membersId' name='membersId' type='hidden'>" +
             "                                <input id='detailPjtNo' name='detailPjtNo' type='hidden' value='0'>" +
             "                                <input id='detailCurriNo' name='detailCurriNo' type='hidden' value='" + curriNo + "'>" +
@@ -337,34 +334,40 @@
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>파일</th>" +
-            "                            <td colspan='2'><input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
+            "                            <td colspan='2'>" +
+            "                                <input type='file' name='projectFile' id='projectFile' class='inputfile inputfile-6' onchange='pushProjectFileName()' />" +
             "                                <label for='projectFile'><span id='projectFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>개요</th>" +
-            "                            <td colspan='2'><textarea id='outline' class='form-control' name='outline' rows='4'></textarea></td>" +
+            "                            <td colspan='2'>" +
+            "                                <textarea id='outline' class='form-control' name='outline' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c'>설계의<br>" +
-            "                                주안점" +
+            "                            <th class='a_c'>설계의<br>주안점" +
             "                            </th>" +
-            "                            <td colspan='2''><textarea id='focus' class='form-control' name='focus' rows='4'></textarea></td>" +
+            "                            <td colspan='2'>" +
+            "                                <textarea id='focus' class='form-control' name='focus' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' class='form-control' name='applyField' rows='4'></textarea></td>" +
+            "                            <td colspan='2'>" +
+            "                                <textarea id='applyField' class='form-control' name='applyField' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' class='form-control' name='useTechnique' rows='4'></textarea></td>" +
+            "                            <td colspan='2'>" +
+            "                                <textarea id='useTechnique' class='form-control' name='useTechnique' rows='4'></textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
-            "                </div>" +
-            "                <div class='sub-toolbox text-center'>" +
-            "                    <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
-            "                </div>" +
-            "        </form>" +
-            "        </div>";
+            "                </form>" +
+            "            </div>" +
+            "            <div class='sub-toolbox text-center'>" +
+            "                <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
+            "            </div>" +
+            "        </div>" +
+            "    </div>";
+
 
         $("#pjtDetailDiv").append(str);
     }
@@ -377,10 +380,10 @@
         str = "";
         str += "<div class='teamList' data='" + projectVo.project_no + "'>" +
             "                <div class='box box-success cursor-pointer' name='pjtDetail'>" +
-            "                    <div class='box-header with-border'>" +
-            "                        <h3 id='projectName' class='box-title'>" + projectVo.projectName + "</h3>" +
+            "                    <div class='box-header with-border pjt-box'>" +
+            "                        <h3 id='projectName' class='sub-title'>" + projectVo.projectName + "</h3>" +
             "                    </div>" +
-            "                    <div id='teamMembers' class='box-body teamList-box'>" + projectVo.membersName + "</div>" +
+            "                    <div id='teamMembers' class='box-body teamList-box pjt-box'>" + projectVo.membersName + "</div>" +
             "                    <div class='small-box'>" +
             "                        <a href='#' class='small-box-footer cursor-pointer' name='pjtDetail'>" +
             "                            상세보기 <i class='fa fa-arrow-circle-right'></i>" +
@@ -390,7 +393,6 @@
             "                    </div>" +
             "                </div>" +
             "            </div>";
-
 
         $("#teamListDiv").append(str);
     }
@@ -434,13 +436,12 @@
 
 
     function renderTeamDetail(projectVo) {
-
         str = "";
-        str += "<div id='pjtDetail' class='pjt_detail'>" +
-            "                <div class='box-header with-border'>" +
-            "                    <h1 class='box-title'> 프로젝트 상세정보 </h1>" +
-            "                </div>" +
-            "                <div class='box-body'>" +
+        str += "" +
+            "<div id='pjtDetail' class='box-body pjt_detail'>" +
+            "       <div class='sub-box'>" +
+            "           <div class='sub-title'>프로젝트 상세보기</div><br/>" +
+            "               <div class='sub-body'>" +
             "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
             "                        <tr>" +
@@ -451,8 +452,7 @@
             "                            <th class='a_c'>조원</th>" +
             "                            <td id='membersName'>" + projectVo.membersName + "</td>" +
             "                            <td class='w100'>" +
-            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal'" +
-            "                                        data-target='#selectTeamMember'>팀원수정" +
+            "                                <button class='btn btn-default btn-cate-search w80' type='button' data-toggle='modal' data-target='#selectTeamMember'>팀원수정" +
             "                                </button>" +
             "                                <input id='file_no' name='file_no' type='hidden' value='" + projectVo.file_no + "'> " +
             "                                <input id='membersId' name='membersId' type='hidden' value='" + projectVo.membersNo + "'>" +
@@ -472,26 +472,27 @@
             "                            <td colspan='2'><textarea id='outline' class='form-control textarea-sm' name='outline' rows='4' style='resize: none'>" + projectVo.outline + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
-            "                            <th class='a_c'>설계의<br>" +
-            "                                주안점" +
+            "                            <th class='a_c'>설계의<br>주안점" +
             "                            </th>" +
-            "                            <td colspan='2'><textarea id='focus' class='form-control textarea-sm' name='focus' style='width: 100%; height: 70px; resize: none'>" + projectVo.focus + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='focus' class='form-control textarea-sm' name='focus' rows='4' style='resize: none'>" + projectVo.focus + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>응용분야</th>" +
-            "                            <td colspan='2'><textarea id='applyField' class='form-control textarea-sm' name='applyField' style='width: 100%; height: 70px; resize: none'>" + projectVo.applyField + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='applyField' class='form-control textarea-sm' name='applyField' rows='4' style='resize: none'>" + projectVo.applyField + "</textarea></td>" +
             "                        </tr>" +
             "                        <tr>" +
             "                            <th class='a_c'>사용기술</th>" +
-            "                            <td colspan='2'><textarea id='useTechnique' class='form-control textarea-sm' name='useTechnique' style='width: 100%; height: 70px; resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
+            "                            <td colspan='2'><textarea id='useTechnique' class='form-control textarea-sm' name='useTechnique' rows='4' style='resize: none'>" + projectVo.useTechnique + "</textarea></td>" +
             "                        </tr>" +
             "                    </table>" +
-            "                </div>" +
-            "                <div class='sub-toolbox text-center'>" +
-            "                    <input id='detailSaveBtn' type='button' class='btn btn-primary' value='수정'>" +
-            "                </div>" +
-            "        </form>" +
-            "        </div>";
+            "               </form>" +
+            "           </div>" +
+            "           <div class='sub-toolbox text-center'>" +
+            "               <input id='detailSaveBtn' type='button' class='btn btn-primary' value='수정'" +
+            "           </div>" +
+            "       </div>" +
+            "   </div>";
+
 
         $("#pjtDetailDiv").append(str);
     }
@@ -547,7 +548,7 @@
             data: {"currival": currival},
             dataType: "json",
             success: function (result) {
-                removeSubjectList()
+                removeSubjectList();
                 for (var i = 0; i < result.length; i++) {
                     renderSubjectList(result[i])
                 }
@@ -560,7 +561,7 @@
 
     function renderSubjectList(scoreVo) {
         str = "";
-        str += "<div name='subList' class='col-md-12 subList' data='" + scoreVo.subInStep_no + "' data-subname='" + scoreVo.subjectName + "'>" +
+        str += "<div name='subList' class='subList' data='" + scoreVo.subInStep_no + "' data-subname='" + scoreVo.subjectName + "'>" +
             "                        <div class='box box-subjectlist'>" +
             "                            <div class='small-box'>" +
             "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +

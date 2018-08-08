@@ -34,6 +34,20 @@
 
 </select>
 
+<!-- 업무구분(radio조건 반영된 커리큘럼카테고리) 리스트가져오기 -->	
+<select id="getCurriList_state" parameterType="map" resultType="com.bitacademy.vo.CurriculumVo">
+
+	<![CDATA[
+		select  c.CurriculumCate_no,
+				c.Curriculum_no,
+				c.CurriName
+		from Curriculum c 
+		where c.CurriculumCate_no = #{curriculumCate_no}
+		and c.State = #{curriState}
+	]]>
+
+</select>
+
 <!-- 업무구분(커리큘럼카테고리) 리스트가져오기 -->	
 <select id="getCurriCateList" resultType="com.bitacademy.vo.CurriculumCateVo">
 
@@ -50,7 +64,67 @@
 </select>
 
 <!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
-<select id="getApplyStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
+<select id="getStudentList" parameterType="PagerRequestVo" resultType="com.bitacademy.vo.ApplyUserVo">
+		<!-- <if test="sidx.equals('sidx0')">
+            <![CDATA[
+                    select u.User_no, g.GisuName, u.NameHan, u.BirthDate, u.Gender,
+					    a.TestResult, u.Cellphone, a.ApplyDate, a.TestDate,
+					    s.School, s.Major, a.Deposit
+					  
+					from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+					where u.User_no = a.User_no
+					and s.User_no = u.User_no 
+					and a.Curriculum_no = c.Curriculum_no
+					and g.Curriculum_no = c.Curriculum_no
+					and c.Curriculum_no = #{param}
+                    order by u.NameHan asc
+                    limit #{startNum}, #{rows}
+            ]]>
+        </if>
+        <if test="sidx!=''"> -->
+            <choose>
+                <when test="sord=='asc'">
+                    <![CDATA[
+                            select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+				   a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
+				   s.School, s.Major,a.Deposit
+					  
+					from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+					where u.User_no = a.User_no
+					and s.User_no = u.User_no 
+					and a.Curriculum_no = c.Curriculum_no
+					and g.Curriculum_no = c.Curriculum_no
+					and c.Curriculum_no = #{param}  
+					order by ]]>
+					<if test="!sidx.equals('sidx0')">
+                                ${sidx} asc,
+                    </if>
+                               <![CDATA[ u.NameHan asc
+                               limit #{startNum}, #{rows}
+                    ]]>
+                </when>
+                <otherwise>
+                    <![CDATA[
+                            select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+				   a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
+				   s.School, s.Major,a.Deposit
+					  
+					from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
+					where u.User_no = a.User_no
+					and s.User_no = u.User_no 
+					and a.Curriculum_no = c.Curriculum_no
+					and g.Curriculum_no = c.Curriculum_no
+					and c.Curriculum_no = #{param}
+                                order by ${sidx} desc,
+                                u.NameHan asc
+                                limit #{startNum}, #{rows}
+                    ]]>
+                </otherwise>
+            </choose>
+        <!-- </if> -->
+</select>
+
+<!-- <select id="getStudentList" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
 
 	<![CDATA[
 		select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
@@ -62,10 +136,10 @@
 			and s.User_no = u.User_no 
 			and a.Curriculum_no = c.Curriculum_no
 			and g.Curriculum_no = c.Curriculum_no
-			and c.Curriculum_no = #{curriculum_no};
+			and c.Curriculum_no = #{curriculum_no}
 	]]>
 
-</select>
+</select> -->
 
 <!-- 선택된 사람의 과거 지원내역 가져가는 쿼리  -->
 <select id="getAppliedList" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
@@ -101,24 +175,32 @@
 
 <!-- 지원내역 수정 쿼리  -->
 <update id="applyUpdate" parameterType="com.bitacademy.vo.ApplyUserVo">
-
-	<![CDATA[
+		
+		<![CDATA[
 			update ApplyInfo
-							set ApplyType=#{applyType},
-								TestLang=#{testLang},
-								TestScore=#{testScore},
-								TestResult=#{testResult},
-								Deposit=#{deposit},
-								DepositAmount=#{depositAmount},
-								CardPayDate=#{cardPayDate},
-								CardPayAmount=#{cardPayAmount},
-								DepositDate=#{depositDate},
-								TotalPay=#{totalPay},
-								Consult=#{consult}
+			set ApplyType=#{applyType},
+				TestLang=#{testLang},
+				TestScore=#{testScore},
+				TestResult=#{testResult},
+				Deposit=#{deposit},
+				DepositAmount=#{depositAmount},
+				CardPayDate=#{cardPayDate},
+				CardPayAmount=#{cardPayAmount},
+				DepositDate=#{depositDate},
+				TotalPay=#{totalPay},
+				Consult=#{consult}
+		
+			where User_no=#{user_no} 
+			and Curriculum_no=#{curriculum_no};
+		]]>
 	
-			where User_no=#{user_no} and Curriculum_no=#{curriculum_no};
-	]]>
-
 </update>
+
+<select id="getRecords" parameterType="Int" resultType="Int">
+	<![CDATA[
+		select count(u.User_no) from Users u, ApplyInfo a
+		where u.User_no = a.User_no and a.Curriculum_no = #{curriculum_no}
+	]]>
+</select>
 
 </mapper>

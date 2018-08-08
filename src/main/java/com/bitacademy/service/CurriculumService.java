@@ -44,7 +44,6 @@ public class CurriculumService {
 	
 	//교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
-		
 		return curriDao.addCurri(curriVo);
 	}
 	
