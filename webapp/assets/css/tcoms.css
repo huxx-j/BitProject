@@ -349,5 +349,8 @@ input[type=radio] {
 	white-space: nowrap;
 }
 
+.mouse{
+	cursor: pointer;
+}
 
 

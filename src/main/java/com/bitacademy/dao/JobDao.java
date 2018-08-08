@@ -1,6 +1,7 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.GisuVo;
+import com.bitacademy.vo.GisuTableVo;
+
 import com.bitacademy.vo.JobSearchVo;
 import com.bitacademy.vo.JobVo;
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class JobDao {
@@ -19,24 +19,23 @@ public class JobDao {
 	
 	//지원자 리스트 조회
 
-	public List<GisuVo> getGisu(Map<String, String> map) {
+	public List<GisuTableVo> getGisu(GisuTableVo gisuTableVo) {
 
-		return sqlSession.selectList("job.selectList2", map);
-
+		List<GisuTableVo> list = sqlSession.selectList("job.selectList",gisuTableVo );
+		return list;
 	}
 
-	public List<JobVo> comSelectList(JobSearchVo jobSearchVo) {
+	//기업정보 리스트 가져오기
+	public List<JobVo> jobRequestList(JobSearchVo jobSearchVo) {
 
-		List<JobVo> list = sqlSession.selectList("job.getSeachStudent",jobSearchVo);
-		System.out.println(list.toString());
-
+		List<JobVo> list = sqlSession.selectList("job.jobRequestList",jobSearchVo);
 		return list;
 
 	}
 
-	public List<JobVo> getSearchList(int commpany_no) {
+	public List<JobVo> getInterviewList(int request_no) {
 
-		return sqlSession.selectList("job.getSeachStudent",commpany_no);
+		return sqlSession.selectList("job.getInterviewList",request_no);
 
 	}
 }
