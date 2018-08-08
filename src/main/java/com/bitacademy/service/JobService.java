@@ -1,15 +1,16 @@
 package com.bitacademy.service;
 
 import com.bitacademy.dao.JobDao;
-import com.bitacademy.vo.GisuVo;
+import com.bitacademy.vo.GisuTableVo;
+
 import com.bitacademy.vo.JobSearchVo;
 import com.bitacademy.vo.JobVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class JobService {
@@ -18,25 +19,21 @@ public class JobService {
 	JobDao jobDao;
 
 	//지원자 리스트 조회
-	public List<GisuVo> getGisu(String gisu, String name) {
+	public List<GisuTableVo> getGisu(GisuTableVo gisuTableVo) {
 
-		Map<String, String> map = new HashMap<>();
-		map.put("gisu", gisu);
-		map.put("name", name);
-
-		return jobDao.getGisu(map);
+		return jobDao.getGisu(gisuTableVo);
 	}
 
 
 	/*기업정보 리스트 가져오기*/
-	public List<JobVo> comSearch(JobSearchVo jobSearchVo) {
+	public List<JobVo> jobRequestList(JobSearchVo jobSearchVo) {
 
-		return jobDao.comSelectList(jobSearchVo);
+		return jobDao.jobRequestList(jobSearchVo);
 	}
 
-	public List<JobVo> getSearchList(int commpany_no) {
+	public List<JobVo> getInterviewList(int request_no) {
 
-		return jobDao.getSearchList(commpany_no);
+		return jobDao.getInterviewList(request_no);
 	}
 
 }

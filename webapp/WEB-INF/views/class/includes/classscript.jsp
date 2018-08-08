@@ -364,12 +364,21 @@
             "            </div>" +
             "            <div class='sub-toolbox text-center'>" +
             "                <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
+            "                <button id='btn_cancel' type='button' class='btn btn-default btn-sub pull-right' onclick='cancelPjtDetail()'>취소</button>" +
             "            </div>" +
             "        </div>" +
             "    </div>";
 
 
         $("#pjtDetailDiv").append(str);
+    }
+
+    function cancelPjtDetail() {
+        if (confirm("작성을 취소하시겠습니까?") == true){
+            $("#pjtDetail").remove();
+        }else{
+            return;
+        }
     }
 
     function removePjtDetail() {
@@ -488,13 +497,40 @@
             "               </form>" +
             "           </div>" +
             "           <div class='sub-toolbox text-center'>" +
-            "               <input id='detailSaveBtn' type='button' class='btn btn-primary' value='수정'" +
+            "               <button id='detailSaveBtn' type='button' class='btn btn-primary'>수정</button>" +
+            "               <button id='btn_del' type='button' class='btn btn-default btn-sub pull-right' onclick='delPjtDetail()'>삭제</button>" +
             "           </div>" +
             "       </div>" +
             "   </div>";
 
 
         $("#pjtDetailDiv").append(str);
+    }
+
+    function delPjtDetail() {
+        if (confirm("정말 삭제하시겠습니까?") == true){
+            var pjtNo = $("#detailPjtNo").val();
+            var curriNo = $("#selectedCurri").val();
+            $.ajax({
+                url: "${pageContext.request.contextPath}/class/delProjectDetail",
+                type: "post",
+                data: {"pjtNo": pjtNo},
+                dataType: "json",
+                success: function (result) {
+                    if(result!=0){
+                        alert("삭제되었습니다.")
+                    }
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+            removeTeamList();
+            ajaxGetTeamList(curriNo);
+            removePjtDetail();
+        }else{
+            return;
+        }
     }
 
     //프로젝트 첨부파일 이름 span에 넣어주는 태그
