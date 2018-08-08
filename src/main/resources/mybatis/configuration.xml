@@ -32,6 +32,7 @@
         <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
         <typeAlias alias="TestVo" type="com.bitacademy.vo.TestVo"/>
+        <typeAlias alias="PagerRequestVo" type="com.bitacademy.vo.PagerRequestVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/afterservice.xml"/>

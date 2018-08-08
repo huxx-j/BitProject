@@ -25,6 +25,7 @@ public class ApplicantController {
 		List<CurriculumCateVo> curriCateList = applicantService.getCurriCateList();
 		model.addAttribute("curriCateList",curriCateList);
 
+		
 		return "screening/applicantmanagement";
 	}
 

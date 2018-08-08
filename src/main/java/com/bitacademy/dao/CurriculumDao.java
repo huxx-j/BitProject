@@ -18,7 +18,6 @@ public class CurriculumDao {
     //희준
     //교육과정 메인
     public CurriculumVo viewCurriculum(String curriculum_no ){
-
         return sqlSession.selectOne("curriculum.viewCurriculum",curriculum_no);
     }
     public List<CurriculumVo> currilist(){
@@ -48,7 +47,6 @@ public class CurriculumDao {
 
         return sqlSession.insert("curriculum.addCurri", curriVo);
     }
-    
     //전체지원자 리스트 조회
     public List<ApplicantVo> viewApplicantList(String curriculum_no) {
     	System.out.println(curriculum_no);

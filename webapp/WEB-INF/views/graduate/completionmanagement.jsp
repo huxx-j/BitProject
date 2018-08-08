@@ -334,7 +334,7 @@ $("#cateNameSelect").change(function() {
 $("#btn_applySearch").on("click", function() {
 	 var curriculum_no = $("#curriSelect option:selected").val();
      console.log("클릭됨" + curriculum_no);
-     $("#jqGrid").empty();
+     $("#jqGrid").clearGridData();
 
      $.ajax({
          url : "/api/completion/getStudentList",

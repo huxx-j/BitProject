@@ -6,16 +6,28 @@ public class PagerRequestVo {
     private String sidx;
     private String sord;
     private int startNum;
+    private Object param; {
+		
+	}
 
     public PagerRequestVo() {
     }
 
-    public PagerRequestVo(int page, int rows, String sidx, String sord, int startNum) {
+    public PagerRequestVo(int page, int rows, String sidx, String sord, int startNum, Object param) {
         this.page = page;
         this.rows = rows;
         this.sidx = sidx;
         this.sord = sord;
         this.startNum = startNum;
+        this.param = param;
+    }
+    
+    public Object getParam() {
+    	return param;
+    }
+    
+    public void setParam(Object param) {
+    	this.param= param;
     }
 
     public int getRows() {
@@ -65,6 +77,7 @@ public class PagerRequestVo {
                 ", page=" + page +
                 ", sidx='" + sidx + '\'' +
                 ", sord='" + sord + '\'' +
+                ", param='" + param + '\'' +
                 '}';
     }
 }
