@@ -39,7 +39,6 @@
                 <div id="memberDiv" class="sub-body">
                     <%--테이블 들어가는 자리--%>
                 </div> <%--/.sub-body--%>
-
                 <div class="sub-toolbox clearfix text-center">
                     <button id="memeberAddBtn" type="button" class="btn btn-primary" onclick="chk()">추가</button>
                     <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">닫기</button>

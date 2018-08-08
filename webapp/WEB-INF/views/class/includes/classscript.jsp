@@ -270,7 +270,7 @@
 
     function renderTable() {
         str = "";
-        str += "<table id='memberTable' class='table table-bordered'>";
+        str += "<table id='memberTable' class='table table-condensed'>";
         str += "<tr><th class='a_c' style='width:100px;'>이름</th>";
         str += "<th class='a_c' style='width:130px;'>생년월일</th>";
         str += "<th class='a_c' style='width:90px;'>성별</th>";
@@ -282,10 +282,10 @@
 
     function renderMemberTable(userVo) {
         str = "";
-        str += "<tr><td class='a_c'>" + userVo.nameHan + "</td>";
-        str += "<td class='a_c'>" + userVo.studResNum + "</td>";
-        str += "<td class='a_c'>" + userVo.gender + "</td>";
-        str += "<td class='a_c'><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
+        str += "<tr><td>" + userVo.nameHan + "</td>";
+        str += "<td>" + userVo.studResNum + "</td>";
+        str += "<td>" + userVo.gender + "</td>";
+        str += "<td><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
 
         $("#memberTable").append(str);
     }
@@ -394,7 +394,6 @@
             "                </div>" +
             "            </div>";
 
-
         $("#teamListDiv").append(str);
     }
 
@@ -437,7 +436,6 @@
 
 
     function renderTeamDetail(projectVo) {
-
         str = "";
         str += "" +
             "<div id='pjtDetail' class='box-body pjt_detail'>" +
@@ -550,7 +548,7 @@
             data: {"currival": currival},
             dataType: "json",
             success: function (result) {
-                removeSubjectList()
+                removeSubjectList();
                 for (var i = 0; i < result.length; i++) {
                     renderSubjectList(result[i])
                 }
