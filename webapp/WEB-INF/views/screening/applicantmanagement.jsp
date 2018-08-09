@@ -491,12 +491,12 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 5,
-	rowList : [ 2, 5, 10 ],
+	rowNum : 10,
+	rowList : [ 10, 20, 30 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
-	ondblClickRow : function(rowId, iRow, iCol, e) {
+	onSelectRow : function(rowId, iRow, iCol, e) {
 	
 	    var rowId = $("#jqGrid").getGridParam("selrow");
 	    var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
