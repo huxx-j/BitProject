@@ -10,7 +10,7 @@
             <br/>
             <div id="teamListDiv" class="sub-body">
                 <div id="teamListGuide" class="blank-div" style="margin-top: 0">
-                    교육과정 조회 버튼을 눌러주세요
+                    <h5>교육과정 조회 버튼을 눌러주세요</h5>
                 </div>
             <%--팀 리스트 뿌려질 자리--%>
             </div> <%--/.sub-body--%>
@@ -23,7 +23,7 @@
                     <div class="sub-title">팀 상세정보</div>
                     <div class="sub-body">
                         <div class="blank-div">
-                            팀 리스트에서 상세보기 버튼을 눌러주세요
+                            <h5>팀 리스트에서 상세보기 버튼을 눌러주세요</h5>
                         </div> <%--/.blank-div--%>
                     </div> <%--/.sub-body--%>
                 </div> <%--/.sub-box--%>

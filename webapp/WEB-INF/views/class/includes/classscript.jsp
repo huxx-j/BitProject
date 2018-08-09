@@ -885,7 +885,7 @@
             ondblClickRow: function () {
                 var rowId = $("#jqGrid").getGridParam("selrow");
                 var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
-                console.log(userNo)
+                console.log(userNo);
                 alert("나중에 " + userNo + "")
             },
             viewrecords: true
