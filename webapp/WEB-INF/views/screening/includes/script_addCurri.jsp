@@ -20,7 +20,7 @@
 	        }
 	    },
 	    callback: {
-	        beforeClick: package,  // 마우스 클릭 콜백함수 지정
+	        beforeClick: curriculum,  // 마우스 클릭 콜백함수 지정
 	        beforeDrag: beforeDrag,
 	        beforeDrop: beforeDrop,
 	        beforeDragOpen: beforeDragOpen,
@@ -187,7 +187,7 @@
 	}
 	
 	//교육과정 클릭 시 정보 뿌려줌
-	function package(treeId, treeNode, clickFlag) {
+	function curriculum(treeId, treeNode, clickFlag) {
 	    var curriculum_no=treeNode.web;
 	    console.log(curriculum_no);
 	    $.ajax({
@@ -221,7 +221,7 @@
 				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
-				
+				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
 	        error : function(XHR, status, error) {
 	            console.error(status + " : " + error);
@@ -240,47 +240,48 @@
 	       }
 	   },
 	   callback: {
-	       beforeClick: subject
+	       beforeClick: package2
 	   }
 	};
 	var zNodesModal2= [
-		  <c:forEach items="${cateList}" var="vo">
-	     {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-	     </c:forEach>
-	     <c:forEach items="${list}" var="vo">
-	     {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
-	     </c:forEach>
+		 <c:forEach items="${packageCateList}" var="vo">
+         {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+         </c:forEach>
+         <c:forEach items="${packageList}" var="vo">
+         {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
+         </c:forEach>
 	];
 	$(document).ready(function(){
 	   $.fn.zTree.init($("#modalTree2"), settingModal2, zNodesModal2);
 	});
 	
-	function subject(treeId, treeNode, clickFlag) {
-	   var package_no=treeNode.web;
-	//    var locate=$("#locate").val();
-	//    var str ="";
-	   console.log(package_no);
-	   $.ajax({
-	       url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
-	       type : "POST",
-	       //contentType : "application/json",
-	       data : {"package_no": package_no},
-	       dataType : "json",
-	       success : function(packageVo) {
-	       	
-	       	$("input[name='packageName']").val(packageVo.packageName),
-	       	$("input[name='package_no']").val(packageVo.package_no)
-	       	
-	//        	$("#packageViewModal").modal("hide");
-	       },
-	       error : function(XHR, status, error) {
-	           console.error(status + " : " + error);
-	       }
-	   });
+	function package2(treeId, treeNode, clickFlag) {
+		$("#modalSelectBtn2").on("click", function(){
+			var package_no=treeNode.web;
+		//    var locate=$("#locate").val();
+		//    var str ="";
+			console.log(package_no);
+			$.ajax({
+				url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
+				type : "POST",
+				//contentType : "application/json",
+				data : {"package_no": package_no},
+				dataType : "json",
+				success : function(packageVo) {
+      	
+					$("input[name='packageName']").val(packageVo.packageName),
+					$("input[name='package_no']").val(packageVo.package_no)
+					$("#packageViewModal2").modal("hide");
+				},
+				error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+				}
+			});
+		});
 	}
 	
-	$("#modalSelectBtn2").on("click", function(){
-	   $("#packageViewModal2").modal("hide"); // 모달창 감추기
+	$("#modalCancelBtn2").on("click", function(){
+	   $("#packageViewModal2").modal("close"); // 모달창 감추기
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -322,6 +323,7 @@
 			success : function(result){
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
+						location.reload();
 					}else{
 						alert("다시 시도해주세요.");
 					}

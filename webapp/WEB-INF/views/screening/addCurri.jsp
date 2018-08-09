@@ -52,14 +52,14 @@
 							<!-- 카테고리영역 -->
 							<div class="col-xs-3">
 								<div class="sub-box">
-									<div class="cate-title">
-										교육과정카테고리
-									</div><!-- cate-title -->
+<!-- 									<div class="cate-title"> -->
+<!-- 										교육과정카테고리 -->
+<!-- 									</div>cate-title -->
 									
 									
 									<div class = "bordered">
 										<div class = "cate-toolbox-top clearfix">
-											<button type = "button" id = "addcate" class = "btn btn-default btn-cate">추가</button>
+											<button type = "button" id = "addcate" class = "btn btn-default btn-cate pull-right">추가</button>
 											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
 										</div><!-- /.cate-toolbox -->
 										
@@ -121,9 +121,9 @@
 																					<td>
 <!-- 																						<input type = "text" name = "curriculumCate_no"  style = "border:none;"> -->
 																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no">
-																							<option value = "994">국가기간</option>
-																							<option value = "995">핵심역량</option>
-																							<option value = "998">방학단기</option>
+																							<c:forEach items = "${workType }" var = "workType">
+																								<option id = "${workType.curriculumCate_no }" name = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
+																							</c:forEach>
 																						</select>
 																					</td>
 																					<th>선택패키지</th>
@@ -218,7 +218,7 @@
 																		</div><!-- /.sub-box -->
 																		<div class = "sub-toolbox clearfix text-center">
 																			<button type = "button" class = "btn btn-primary" id = "addCurriBtn" >저장</button>
-																			<a href = "${pageContext.request.contextPath }/curri">
+																			<a href = "${pageContext.request.contextPath }/curri/">
 																				<button type = "button" class = "btn btn-default pull-right" >취소</button>
 																			</a>
 																		</div><!-- /.sub-toolbox text-center -->
@@ -251,28 +251,23 @@
 	<div class = " modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header">
-				<button type = "button" class = "close" data-dismiss = "modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<span aria-hidden = "true">x</span>
-					<span class = "sr-only">Close</span>
-				</button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class = "modal-title" id = "packageViewModalLabel2">패키지선택</h4>
 			</div><!-- /.modal-header -->
 			<div class = "modal-body">
 				<div class = "sub-box">
 					<div class = "cate-outter bordered">
 						<div class = "scroll">
-							<div class = "tab-content-custom" >
-								<div class = "row"> 
-									<ul id = "modalTree2" class = "ztree"></ul>
-								</div><!-- /.row -->
+							<div class = "tab-content-custom" style = "height : 500px;" >
+								<ul id = "modalTree2" class = "ztree"></ul>
 							</div><!-- /.tab-content-custom -->
 						</div><!-- /.modal scroll -->
 					</div><!-- /.cate-outter bordered -->
 				</div><!-- /.sub-box -->
 			</div><!-- /.modal-body -->
 			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-default" id = "modalSelectBtn2" style = "padding: 2px 5px; margin : auto;">선택</button>
-				<button type = "button" class = "btn btn-default " data-dismiss = "modal" style = "padding : 2px 5px;">취소</button>
+				<button type = "button" class = "btn btn-default" id = "modalSelectBtn2" >선택</button>
+				<button type = "button" class = "btn btn-default " id = "modalCancelBtn2" data-dismiss = "modal">취소</button>
 			</div><!-- /.modal-footer -->
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -293,9 +288,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.exedit.js"></script>
-
-
+<script type="text/javascript">
+</script>
 	<c:import url="/WEB-INF/views/screening/includes/script_addCurri.jsp"></c:import>
+
 
 </html>
 
