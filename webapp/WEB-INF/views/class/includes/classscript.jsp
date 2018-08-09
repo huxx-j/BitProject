@@ -78,6 +78,7 @@
         removeSaveBtn();
         removeTeamList();
         removePjtDetail();
+        removeListGuide();
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
@@ -125,6 +126,12 @@
         $("#gisuInfo").text(curriculumVo.gisuName);
         $("#periodFrInfo").text(curriculumVo.startDate);
         $("#periodToInfo").text(curriculumVo.endDate);
+    }
+
+    function removeListGuide(){
+        $("#teamListGuide").remove();
+        $("#subListGuide").remove();
+        $("#studListGuide").remove();
     }
 
     //수업일지 불러오는 스크립트
@@ -254,6 +261,7 @@
             alert("조회 버튼을 눌러주세요")
         } else {
             var curriNo = $("#selectedCurri").val();
+            removeDetailGuide();
             removeMemberTable();
             renderTable();
             removePjtDetail();
@@ -388,9 +396,25 @@
     function cancelPjtDetail() {
         if (confirm("작성을 취소하시겠습니까?") == true){
             $("#pjtDetail").remove();
+            renderPjtDetailGuide();
         }else{
             return;
         }
+    }
+
+    function renderPjtDetailGuide() {
+        str="";
+        str+="<div id='pjtDetailGuide' class='box-body'>" +
+             "    <div class='sub-box'>" +
+             "        <div class='sub-title'>팀 상세정보</div>" +
+             "        <div class='sub-body'>" +
+             "            <div class='blank-div'>" +
+             "                팀 리스트에서 상세보기 버튼을 눌러주세요" +
+             "            </div>" +
+             "        </div>" +
+             "    </div>" +
+             "</div>";
+        $("#pjtDetailDiv").append(str);
     }
 
     function removePjtDetail() {
@@ -424,6 +448,7 @@
 
     $(document).on("click", ".teamList", function () {
         removePjtDetail();
+        removeDetailGuide();
         var project_no = $(this).attr("data");
         var curriNo = $("#selectedCurri").val();
 
@@ -455,6 +480,9 @@
         callMemberTable(curriNo);
     }
 
+    function removeDetailGuide() {
+        $("#pjtDetailGuide").remove();
+    }
 
     function renderTeamDetail(projectVo) {
         str = "";
@@ -559,7 +587,7 @@
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
         var projectNo = 0;
         var membersId = $("#membersId").val();
-        if (membersId == "") {
+        if (membersId =="") {
             alert("팀원을 선택해주세요")
         } else {
 

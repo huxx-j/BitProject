@@ -205,3 +205,9 @@ textarea {
     padding: 5px 10px;
     vertical-align: middle;
 }
+
+.blank-div {
+    margin-top:25px;
+    height: 137px;
+    border: 1px solid #a2a5ab
+}
