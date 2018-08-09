@@ -39,6 +39,7 @@ public class ApplicantApiController {
 		return list;
 	}
 	
+	//조회버튼 클릭 후 그리드영역 학생(수료생)리스트 가져가기
 	@ResponseBody
 	@RequestMapping(value = "/getStudentList", method = RequestMethod.GET)
 	public PagerResponseVo getStudentList(@RequestParam("curriculum_no") int curriculum_no, @RequestParam("page") int page, @RequestParam("rows") int rows, @RequestParam("sidx") String sidx, @RequestParam("sord") String sord){
@@ -58,7 +59,7 @@ public class ApplicantApiController {
 		
 		System.out.println(applyUserlist.toString());
 		return applyUserlist ;
-	}//조회하기 버튼 후 그리드영역 지원자 리스트 가져오기
+	}
 */	
 	@ResponseBody
 	@RequestMapping(value="/getAppliedList",method=RequestMethod.GET)

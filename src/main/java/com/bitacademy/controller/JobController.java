@@ -1,6 +1,6 @@
 package com.bitacademy.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.service.JobService;
-import com.bitacademy.vo.GisuVo;
+import com.bitacademy.vo.GisuTableVo;
+
 import com.bitacademy.vo.JobSearchVo;
 import com.bitacademy.vo.JobVo;
 
@@ -34,48 +35,39 @@ public class JobController {
 	}
 
 
+	/*기업정보 리스트 가져오기*/
 	@ResponseBody
-	@RequestMapping(value="/comSearch",method=RequestMethod.POST)
-	public List<JobVo> comSearch(@ModelAttribute JobSearchVo jobSearchVo) {
-
+	@RequestMapping(value="/jobRequestList",method=RequestMethod.POST)
+	public List<JobVo> jobRequestList(@ModelAttribute JobSearchVo jobSearchVo) {
+		
 		System.out.println(jobSearchVo.toString());
-
-		List<JobVo> searchUserlist = jobService.comSearch(jobSearchVo);
-
-		/*System.out.println(searchUserlist.toString());*/
-
-		return null;
+		List<JobVo> jobRequestList = jobService.jobRequestList(jobSearchVo);
+		System.out.println(jobRequestList.toString());
+		
+		return jobRequestList;
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/getSearchList",method=RequestMethod.POST)
-	public List<JobVo> getSearchList(@RequestParam int commpany_no){
+	@RequestMapping(value="/getInterviewList",method=RequestMethod.POST)
+	public List<JobVo> getInterviewList(@RequestParam int request_no){
 
-		System.out.println(commpany_no);
-		List<JobVo> searchList = jobService.getSearchList(commpany_no);
+		System.out.println(request_no);
+		List<JobVo> searchList = jobService.getInterviewList(request_no);
 		System.out.println(searchList.toString());
 
 		return searchList;
 	}
 
 
-
-
-
-
-
-
-
 	/*modal*/
 	@ResponseBody
 	@RequestMapping(value = "/choice" , method=RequestMethod.POST)
-	public List<GisuVo> testsubmit(@RequestParam("gisu") String gisu ,@RequestParam("name") String name) {
+	public List<GisuTableVo> getGisu(@ModelAttribute GisuTableVo gisuTableVo) {
 
-		System.out.println(gisu +"/"+ name);
-
-		List<GisuVo> getGisu = new ArrayList<GisuVo>();
-		getGisu = jobService.getGisu(gisu, name);
-
+		System.out.println(gisuTableVo.toString());
+		List<GisuTableVo> getGisu = jobService.getGisu(gisuTableVo);
+		System.out.println(getGisu.toString());
+		
 		return getGisu;
 	}
 

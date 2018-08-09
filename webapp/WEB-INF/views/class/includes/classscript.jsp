@@ -78,6 +78,7 @@
         removeSaveBtn();
         removeTeamList();
         removePjtDetail();
+        removeListGuide();
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
@@ -86,8 +87,8 @@
             type: "post",
             data: {"currival": currival},
             dataType: "json",
-            success: function (map) {
-                rederInfo(map);
+            success: function (curriculumVo) {
+                rederInfo(curriculumVo);
                 $("#selectedCurri").val($("#curriSelect option:selected").val())
 
             },
@@ -120,11 +121,17 @@
         });
     }
 
-    function rederInfo(map) {
-        $("#curriNameInfo").text(map.vo.curriName);
-        $("#gisuInfo").text(map.gisu);
-        $("#periodFrInfo").text(map.vo.startDate);
-        $("#periodToInfo").text(map.vo.endDate);
+    function rederInfo(curriculumVo) {
+        $("#curriNameInfo").text(curriculumVo.curriName);
+        $("#gisuInfo").text(curriculumVo.gisuName);
+        $("#periodFrInfo").text(curriculumVo.startDate);
+        $("#periodToInfo").text(curriculumVo.endDate);
+    }
+
+    function removeListGuide(){
+        $("#teamListGuide").remove();
+        $("#subListGuide").remove();
+        $("#studListGuide").remove();
     }
 
     //수업일지 불러오는 스크립트
@@ -234,6 +241,18 @@
         $("#lectureReportSaveBtn").remove();
     }
 
+    //체크박스 선택시 세션에있는 강사이름 가져오는 코드(아직 미구현)
+    $("input[name=t_box]").change(function () {
+        var id = $(this).attr("id");
+        id ="t"+id.slice(5);
+
+        if ($(this).is(":checked")) {
+            $("#"+id).val("김미정");
+        } else {
+            $("#"+id).val("");
+        }
+    })
+
     //프로젝트
     //수업을 듣는 학생들명단 불러오는 스크립트
     $("#addTeam").on("click", function () {
@@ -242,6 +261,7 @@
             alert("조회 버튼을 눌러주세요")
         } else {
             var curriNo = $("#selectedCurri").val();
+            removeDetailGuide();
             removeMemberTable();
             renderTable();
             removePjtDetail();
@@ -270,7 +290,7 @@
 
     function renderTable() {
         str = "";
-        str += "<table id='memberTable' class='table table-bordered'>";
+        str += "<table id='memberTable' class='table table-condensed'>";
         str += "<tr><th class='a_c' style='width:100px;'>이름</th>";
         str += "<th class='a_c' style='width:130px;'>생년월일</th>";
         str += "<th class='a_c' style='width:90px;'>성별</th>";
@@ -282,10 +302,10 @@
 
     function renderMemberTable(userVo) {
         str = "";
-        str += "<tr><td class='a_c'>" + userVo.nameHan + "</td>";
-        str += "<td class='a_c'>" + userVo.studResNum + "</td>";
-        str += "<td class='a_c'>" + userVo.gender + "</td>";
-        str += "<td class='a_c'><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
+        str += "<tr><td>" + userVo.nameHan + "</td>";
+        str += "<td>" + userVo.studResNum + "</td>";
+        str += "<td>" + userVo.gender + "</td>";
+        str += "<td><input name='memberChk' id='" + userVo.user_no + "' type='checkbox' value='" + userVo.nameHan + "'></td></tr>";
 
         $("#memberTable").append(str);
     }
@@ -364,11 +384,36 @@
             "            </div>" +
             "            <div class='sub-toolbox text-center'>" +
             "                <button id='detailSaveBtn' type='button' class='btn btn-primary'>저장</button>" +
+            "                <button id='btn_cancel' type='button' class='btn btn-default btn-sub pull-right' onclick='cancelPjtDetail()'>취소</button>" +
             "            </div>" +
             "        </div>" +
             "    </div>";
 
 
+        $("#pjtDetailDiv").append(str);
+    }
+
+    function cancelPjtDetail() {
+        if (confirm("작성을 취소하시겠습니까?") == true){
+            $("#pjtDetail").remove();
+            renderPjtDetailGuide();
+        }else{
+            return;
+        }
+    }
+
+    function renderPjtDetailGuide() {
+        str="";
+        str+="<div id='pjtDetailGuide' class='box-body'>" +
+             "    <div class='sub-box'>" +
+             "        <div class='sub-title'>팀 상세정보</div>" +
+             "        <div class='sub-body'>" +
+             "            <div class='blank-div'>" +
+             "                팀 리스트에서 상세보기 버튼을 눌러주세요" +
+             "            </div>" +
+             "        </div>" +
+             "    </div>" +
+             "</div>";
         $("#pjtDetailDiv").append(str);
     }
 
@@ -394,7 +439,6 @@
             "                </div>" +
             "            </div>";
 
-
         $("#teamListDiv").append(str);
     }
 
@@ -404,6 +448,7 @@
 
     $(document).on("click", ".teamList", function () {
         removePjtDetail();
+        removeDetailGuide();
         var project_no = $(this).attr("data");
         var curriNo = $("#selectedCurri").val();
 
@@ -435,9 +480,11 @@
         callMemberTable(curriNo);
     }
 
+    function removeDetailGuide() {
+        $("#pjtDetailGuide").remove();
+    }
 
     function renderTeamDetail(projectVo) {
-
         str = "";
         str += "" +
             "<div id='pjtDetail' class='box-body pjt_detail'>" +
@@ -490,13 +537,40 @@
             "               </form>" +
             "           </div>" +
             "           <div class='sub-toolbox text-center'>" +
-            "               <input id='detailSaveBtn' type='button' class='btn btn-primary' value='수정'" +
+            "               <button id='detailSaveBtn' type='button' class='btn btn-primary'>수정</button>" +
+            "               <button id='btn_del' type='button' class='btn btn-default btn-sub pull-right' onclick='delPjtDetail()'>삭제</button>" +
             "           </div>" +
             "       </div>" +
             "   </div>";
 
 
         $("#pjtDetailDiv").append(str);
+    }
+
+    function delPjtDetail() {
+        if (confirm("정말 삭제하시겠습니까?") == true){
+            var pjtNo = $("#detailPjtNo").val();
+            var curriNo = $("#selectedCurri").val();
+            $.ajax({
+                url: "${pageContext.request.contextPath}/class/delProjectDetail",
+                type: "post",
+                data: {"pjtNo": pjtNo},
+                dataType: "json",
+                success: function (result) {
+                    if(result!=0){
+                        alert("삭제되었습니다.")
+                    }
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+            removeTeamList();
+            ajaxGetTeamList(curriNo);
+            removePjtDetail();
+        }else{
+            return;
+        }
     }
 
     //프로젝트 첨부파일 이름 span에 넣어주는 태그
@@ -513,7 +587,7 @@
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
         var projectNo = 0;
         var membersId = $("#membersId").val();
-        if (membersId == "") {
+        if (membersId =="") {
             alert("팀원을 선택해주세요")
         } else {
 
@@ -550,7 +624,7 @@
             data: {"currival": currival},
             dataType: "json",
             success: function (result) {
-                removeSubjectList()
+                removeSubjectList();
                 for (var i = 0; i < result.length; i++) {
                     renderSubjectList(result[i])
                 }
@@ -811,7 +885,7 @@
             ondblClickRow: function () {
                 var rowId = $("#jqGrid").getGridParam("selrow");
                 var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
-                console.log(userNo)
+                console.log(userNo);
                 alert("나중에 " + userNo + "")
             },
             viewrecords: true

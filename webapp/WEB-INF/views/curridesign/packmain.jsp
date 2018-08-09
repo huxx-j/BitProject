@@ -215,7 +215,7 @@
 													</table>
 
 													<br>
-													<button  id="btnAddstep" style="margin-bottom:5px; float: right" class="btn btn-default pull-right" type="button">단계 추가</button>
+													<button  id="btnAddstep" name="btnaddstep" style="margin-bottom:5px; float: right" class="btn btn-default pull-right" type="button" value="">단계 추가</button>
 													<li id="step-list">
 
 														<table class="table table-condensed">
@@ -227,8 +227,8 @@
 																<col width="60px" />
 															</colgroup>
 															<tbody id='subject-list0'>
-															<input type="text" name ="steplist[0].Package_no">
-															<input type='text' name="steplist[0].Level" value="1">
+															<input type="hidden" name ="steplist[0].Package_no">
+															<input type='hidden' name="steplist[0].Level" value="1">
 															<tr >
 																<td style="text-align: center">1단계</td>
 																<td colspan="3" >
@@ -242,12 +242,12 @@
 																<td></td>
 																<td>
 																	<input type="text" name="SubjectName00" style="border: none" readonly>
-																	<input type="text" name="steplist[0].sublist[0].Subject_no">
-																	<button style=" float: right;" id="selectsub" class="btn btn-default pull-right" data-val="00" type="button">과목선택</button>
+																	<input type="hidden" name="steplist[0].sublist[0].Subject_no">
+																	<button style=" float: right;" id="selectsub" class="btn btn-default pull-right" data-step="0" data-sub="0" type="button">과목선택</button>
 																</td>
 																<td>
-												<textarea name="steplist[0].sublist[0].Content" style="width: 490px; height: 135px;">
-												</textarea>
+															<textarea name="steplist[0].sublist[0].Content" style="width: 490px; height: 135px;">
+															</textarea>
 																</td>
 																<td>
 																	<input id='time' class='time' name="steplist[0].sublist[0].SubHour" style="width:30px; margin-right: 5px" type="text">시간
@@ -361,7 +361,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.exedit.js"></script>
 
 <script type="text/javascript">
-	var sub=0;
+
 	var step=0;
     // zTree 설정
     var setting = {
@@ -549,7 +549,7 @@
                 }
             }
         }
-        return true;
+    return true;
     }
 
     var log, className = "dark", curDragNodes, autoExpandNode;
@@ -665,15 +665,17 @@
         var step=$("#step").val();
         var str ="";
         console.log(no);
+        console.log(sub);
+        console.log(step);
         $.ajax({
-            url : "${pageContext.request.contextPath }/subject/getSubjectaVo",
+            url : "${pageContext.request.contextPath }/subject/getSubjecteVo",
             type : "POST",
             //contentType : "application/json",
             data : {"no": no},
             dataType : "json",
             success : function(SubjectVo) {
-                $("input[name='SubjectName"+sub+"']").val(SubjectVo.subjectName),
-                    $("input[name='steplist['"+step+"'].sublist['"+sub+"'].Subject_no']").val(SubjectVo.subject_no)
+                	$("input[name='SubjectName"+step+sub+"']").val(SubjectVo.subjectName),
+                    $("input[name='steplist["+step+"].sublist["+sub+"].Subject_no']").val(SubjectVo.subject_no)
                     $("#pop2").modal("hide");
             },
             error : function(XHR, status, error) {
@@ -744,6 +746,7 @@
             success : function(package_no) {
                 console.log(package_no);
                 $("input[name='steplist[0].Package_no']").val(package_no);
+                $("button[name='btnaddstep']").val(package_no);
 			}
         });
         $("#packageTab a:last").tab('show');
@@ -762,14 +765,14 @@
                 $("#inner-button").remove();
                 str+="<div id='inner-button'>";
                 str+="<input type='button' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
-                str+='<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">';
+                str+='<input type="button" value="삭제" class="btn btn-default btn-sub pull-right">';
                 str+="</div>";
                 $("#button").append(str);
 				str=" ";
                 $("#inner-button2").remove();
                 str+="<div id='inner-button2'>";
-                str+="<input type='button' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
-                str+='<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">';
+                str+="<input type='submit' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
+                str+='<input type="button" value="삭제" class="btn btn-default btn-sub pull-right">';
                 str+="</div>";
                 $("#button2").append(str);
                     $("input[name='steplist[0].StepName']").val(" ");
@@ -790,11 +793,16 @@
 
                            StepInPack(i,j,PackageVo.steplist[i].sublist[j],PackageVo.steplist[i]);
                         }
+                        else if(j==PackageVo.steplist[i].sublist.length-1){
+                            $("button[name='btnAddsubject"+i+"']").val(j);
+                            SubInStep(i,j,PackageVo.steplist[i].sublist[j]);
+						}
                         else {
                             console.log(i,j);
                             SubInStep(i,j,PackageVo.steplist[i].sublist[j]);
                            // console.log(PackageVo.steplist[i].sublist[j]);
                         }
+
                     }
                 }
                 //console.log(PackageVo);
@@ -809,6 +817,8 @@
                     $("select[name='UseStatus']").val(PackageVo.useStatus),
 					$("input[name='steplist[0].StepName']").val(PackageVo.steplist[0].stepName),
 				    $("input[name='SubjectName00']").val(PackageVo.steplist[0].sublist[0].subjectName),
+					$("input[name='steplist[0].sublist[0].Subject_no']").val(PackageVo.steplist[0].sublist[0].subject_no),
+                    $("input[name='steplist[0].Package_no']").val(PackageVo.steplist[0].package_no),
                     $("textarea[name='steplist[0].sublist[0].Content']").val(PackageVo.steplist[0].sublist[0].content),
                     $("input[name='steplist[0].sublist[0].SubHour']").val(PackageVo.steplist[0].sublist[0].subHour)
 					},
@@ -820,12 +830,21 @@
 
     $("#btnAddPackage").on("click",function () {
         str=" ";
+        $("input[name='PackageNameInStep']").val(" ");
+        $("input[name='TotalTimeInStep']").val(" ");
         $("input[name='PackageName']").val(" ");
             $("textarea[name='Goal']").val("");
             $("textarea[name='Content']").val("");
             $("textarea[name='Qualification']").val("");
             $("input[name='TotalTime']").val("");
             $("select[name='UseStatus']").val("");
+        $("input[name='steplist[0].StepName']").val(" ");
+        $("input[name='SubjectName00']").val(" ");
+        $("textarea[name='steplist[0].sublist[0].Content']").val(" ");
+        $("input[name='steplist[0].sublist[0].SubHour']").val(" ");
+        $("div[name='die']").remove();
+        $("tr[name='die']").remove();
+        $("table[name='die']").remove();
         $("#inner-button").remove();
         str+="<div id='inner-button'>";
         str+= '<input type="submit" value="저장" class="btn btn-primary">';
@@ -877,8 +896,11 @@
 
 
     $(document).on("click","#btnAddstep",function(){
+        var pack=$(this).val();
         step++;
-        sub++;
+        var sub=0;
+        console.log("step:"+step);
+        console.log("sub:"+sub);
         var str=" ";
         str+= "<br><br>";
         str+=  "<table id="+step+" class='table table-condensed'>";
@@ -890,23 +912,23 @@
         str+=  "<col width='60px' />";
         str+=  "</colgroup>";
         str+=  '<tbody id=subject-list'+step+'>';
-        str+=   "<input type='text' name='steplist.["+step+"].Package_no' value='+pack+' >";
-        str+=   "<input type='text' name='steplist.["+step+"].Level' value='+step+' >";
+        str+=   "<input type='hidden' name='steplist.["+step+"].Package_no' value='"+pack+"' >";
+        str+=   "<input type='text' name='steplist.["+step+"].Level' value='"+(step+1)+"' >";
         str+=  "<tr>";
         str+=	  "<td style='text-align: center'>"+(step+1)+"단계</td>";
         str+=    "<td colspan='3' >";
         str+=    "<input name='steplist["+step+"].StepName' type='text' style='width: 800px'>";
         str+=    "</td>";
         str+=    "<td style='width: 50px'>";
-        str+=    "<button  id='btnAddsubject' class='btn btn-default pull-right' type='button' data-val="+step+" >추가</button>";
+        str+=    "<button  id='btnAddsubject' name='btnAddsubject"+step+"' class='btn btn-default pull-right' type='button' data-step='"+step+"' data-sub='"+sub+"' value='"+sub+"'>추가</button>";
         str+=    "</td>";
         str+=    "</tr>";
         str+=    "<tr id=subject-item"+sub+" style='height: 150px'>";
         str+=    "<td></td>";
         str+=    "<td>";
         str+=	'<input type="text" name="SubjectName'+step+sub+'" style="border: none" readonly>';
-        str+=	'<input type="text" name="steplist['+step+'].sublist['+sub+'].Subject_no">';
-        str+=    "<button style=' float: right;' id='selectsub' data-val='"+step+sub+"' class='btn btn-default pull-right' type='button'>과목선택</button>";
+        str+=	'<input type="hidden" name="steplist['+step+'].sublist['+sub+'].Subject_no">';
+        str+=    "<button style='float: right;' id='selectsub' data-step='"+step+"' data-sub='"+sub+"' class='btn btn-default pull-right' type='button'>과목선택</button>";
         str+=    "</td>";
         str+=    "<td>";
         str+=    "<textarea name='steplist["+step+"].sublist["+sub+"].Content' style='width: 490px; height: 135px;'>";
@@ -922,10 +944,12 @@
         str+=  "</tbody>";
         str+=  "</table>";
         $("#step-list").append(str);
+
     });
 
     $(document).on("click","#btnAddsubject",function() {
-        var instep=$(this).data("val");
+        var instep=$(this).data("step");
+        sub=$(this).val();
         console.log(instep);
         sub++;
         var str=" ";
@@ -934,8 +958,8 @@
         str+=    "<td></td>";
         str+=    "<td>";
         str+=	'<input type="text" name="SubjectName'+instep+sub+'" style="border: none" readonly>';
-        str+=	'<input type="text" name="steplist['+instep+'].sublist['+sub+'].Subject_no">';
-        str+=    "<button style=' float: right;' id='selectsub' data-val='"+instep+sub+"'class='btn btn-default pull-right' type='button'>과목선택</button>";
+        str+=	'<input type="hidden" name="steplist['+instep+'].sublist['+sub+'].Subject_no">';
+        str+=    "<button style=' float: right;' id='selectsub' data-step='"+instep+"' data-sub='"+sub+"' class='btn btn-default pull-right' type='button'>과목선택</button>";
         str+=    "</td>";
         str+=    "<td>";
         str+=    "<textarea name='steplist["+instep+"].sublist["+sub+"].Content' style='width: 490px; height: 135px;'>";
@@ -950,6 +974,7 @@
         str+=   "</tr>";
         console.log(sub);
         $("#subject-list"+instep).append(str);
+        $("button[name='btnAddsubject"+instep+"']").val(sub);
     });
 
     $(document).on("change",".time",function(){
@@ -961,7 +986,7 @@
                 console.log(time);
             }
         });
-        $("input[name=Time]").val(time);
+        $("input[name='Time']").val(time);
     });
     $(document).on("click","#del-subject",function() {
         var sub=$(this).data("val");
@@ -982,6 +1007,7 @@
     function StepInPack(stepNo,subNo,sublist,stepvo) {
         console.log(sublist);
         console.log(stepvo);
+        var pack = stepvo.package_no;
         step=stepNo;
         sub=subNo;
         var str=" ";
@@ -995,15 +1021,15 @@
         str+=  "<col width='60px' />";
         str+=  "</colgroup>";
         str+=  '<tbody id=subject-list'+step+'>';
-        str+=   "<input type='hidden' name='steplist.["+step+"].Package_no'  >";
-        str+=   "<input type='hidden' name='steplist.["+step+"].Level' value='+step+' >";
+        str+=   "<input type='hidden' name='steplist.["+step+"].Package_no' value='"+pack+"' >";
+        str+=   "<input type='hidden' name='steplist.["+step+"].Level' value='"+(step+1)+"' >";
         str+=  "<tr>";
         str+=	  "<td style='text-align: center'>"+(step+1)+"단계</td>";
         str+=    "<td colspan='3' >";
         str+=    "<input type='text' name='steplist["+step+"].StepName' value='"+stepvo.stepName+"' style='width: 800px'  >";
         str+=    "</td>";
         str+=    "<td style='width: 50px'>";
-        str+=    "<button  id='btnAddsubject' class='btn btn-default pull-right' type='button' data-val="+step+" >추가</button>";
+        str+=    "<button  id='btnAddsubject' name='btnAddsubject"+step+"' class='btn btn-default pull-right' type='button' data-step='"+step+"' data-sub='"+sub+"' value='"+sub+"'>추가</button>";
         str+=    "</td>";
         str+=    "</tr>";
         str+=    "<tr id=subject-item"+sub+" style='height: 150px'>";
@@ -1011,7 +1037,7 @@
         str+=    "<td>";
         str+=	'<input type="text" name="SubjectName'+step+sub+'" style="border: none"  value="'+sublist.subjectName+'" readonly>';
         str+=	'<input type="hidden" name="steplist['+step+'].sublist['+sub+'].Subject_no">';
-        str+=    "<button style=' float: right;' id='selectsub' data-val='"+step+sub+"' class='btn btn-default pull-right' type='button'>과목선택</button>";
+        str+=    "<button style=' float: right;' id='selectsub'data-step='"+step+"' data-sub='"+sub+"'  class='btn btn-default pull-right' type='button'>과목선택</button>";
         str+=    "</td>";
         str+=    "<td>";
         str+=    "<textarea name='steplist["+step+"].sublist["+sub+"].Content' style='width: 490px; height: 135px;'>"+sublist.content+"";
@@ -1033,6 +1059,7 @@
         var instep=$(this).data("val");
         instep=instepNo;
         sub=SubNo;
+        //$(this).data("sub").val(sub);
         var str=" ";
         str+=    "<tr name='die' id=subject-item"+sub+" style='height:150px'>";
         str+=   "<input type='hidden' name='hide' data-val="+sub+">";
@@ -1040,7 +1067,7 @@
         str+=    "<td>";
         str+=	'<input type="text" name="SubjectName'+instep+sub+'" style="border: none"  value="'+sublist.subjectName+'"  readonly>';
         str+=	'<input type="hidden" name="steplist['+instep+'].sublist['+sub+'].Subject_no">';
-        str+=    "<button style=' float: right;' id='selectsub' data-val='"+instep+sub+"'class='btn btn-default pull-right' type='button'>과목선택</button>";
+        str+=    "<button style=' float: right;' id='selectsub' data-step='"+step+"' data-sub='"+sub+"'  class='btn btn-default pull-right' type='button'>과목선택</button>";
         str+=    "</td>";
         str+=    "<td>";
         str+=    "<textarea name='steplist["+instep+"].sublist["+sub+"].Content' style='width: 490px; height: 135px;'>"+sublist.content+"";

@@ -40,7 +40,7 @@ public class ClassManagementController {
     //교육과정검색에서 조회버튼 누르면 수업관리에 과정정보 불러오는 코드
     @ResponseBody
     @RequestMapping(value = "/getCurriInfo", method = RequestMethod.POST)
-    public Map<String, Object> getCurriInfo(@RequestParam("currival") int currival) {
+    public CurriculumVo getCurriInfo(@RequestParam("currival") int currival) {
         return classManagementService.getCurriInfo(currival);
     }
 
@@ -127,6 +127,13 @@ public class ClassManagementController {
     @RequestMapping(value = "/getSisInfo", method = RequestMethod.POST)
     public FileVo getSisInfo(@RequestParam("sisNo") int sisNo) {
         return classManagementService.getSisInfo(sisNo);
+    }
+
+    //프로젝트 상세정보를 삭제하는 코드(실제 삭제는 안되고 state만 변경)
+    @ResponseBody
+    @RequestMapping(value = "/delProjectDetail", method = RequestMethod.POST)
+    public int delProjectDetail(@RequestParam("pjtNo") int pjtNo) {
+        return classManagementService.delProjectDetail(pjtNo);
     }
 }
 
