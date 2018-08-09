@@ -51,6 +51,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 
+
 					<div class="box box-body">
 						<div class="row">
 							<div class="col-xs-12">
@@ -70,8 +71,9 @@
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th>교육과정명
-													<div class="radio-group pull-right">
+												<th class="radio-group">
+													<span>교육과정명</span>											
+													<div class="pull-right">
 														<label class="radiobox" ><input class="" type="radio" name="curriState" value="0">전체</label>
 														<label class="radiobox" ><input class="" type="radio" name="curriState" value="1">모집중</label>
 													</div>
