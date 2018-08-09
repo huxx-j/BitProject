@@ -2965,6 +2965,8 @@ table.text-center th {
  * Component: modal
  * ----------------
  */
+
+/* 
 .modal {
   background: rgba(0, 0, 0, 0.3);
 }
@@ -2986,6 +2988,8 @@ table.text-center th {
 .modal-footer {
   border-top-color: #f4f4f4;
 }
+ */
+/* 
 .modal-primary .modal-header,
 .modal-primary .modal-footer {
   border-color: #307095;
@@ -3005,11 +3009,16 @@ table.text-center th {
 .modal-danger .modal-header,
 .modal-danger .modal-footer {
   border-color: #c23321;
-}
+} */
+
+
 /*
  * Component: Social Widgets
  * -------------------------
  */
+ 
+
+ 
 .box-widget {
   border: none;
   position: relative;

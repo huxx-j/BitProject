@@ -27,13 +27,13 @@
 	
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>지원자관리
+			<h1>기업취업관리
 				<small>it all starts here</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="#">과정설계업무</a></li>
-				<li class="active">패키지관리</li>
+				<li><a href="#">출신업무관리</a></li>
+				<li class="active">기업취업관리</li>
 			</ol>
 		</section>
 		<!-- /.Content Header (Page header) -->
@@ -144,12 +144,16 @@
 								<div class="row">	
 									<div class="col-xs-12">
 										<div class="sub-box">
-											<div class="sub-toolbox clearfix">
-												<span class="sub-title">지원자리스트</span>
-												<button class="btn btn-default btn-sm pull-right" type="button" id="insertData">지원자 추가</button>
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="sub-title">지원자리스트</div>
+												</div>
+												<div class="col-xs-6">
+													<button class="sub-t btn btn-default btn-h25 pull-right" type="button" id="insertData">지원자 추가</button>
+												</div>
 											</div>
-											<!-- sub_title -->
-											
+										
+										
 										
 											<!-- sub_body -->
 											<div class="sub-body">
@@ -188,6 +192,7 @@
 									</div><!-- ./col-xs-12 -->
 								</div>
 								<div class="space"></div>
+				
 								<div class="space"></div>
 								
 								<!-- <div class="row">	
@@ -265,9 +270,11 @@
 					<div class="sub-body">
 						<table class="table table-condensed">
 							<colgroup>
-								<col width="80px" />
+								<col width="40px" />
 								<col width="" />
-								<col width="80px" />
+								<col width="40px" />
+								<col width="" />
+								<col width="40px" />
 							</colgroup>
 					
 							<tbody>
@@ -275,17 +282,12 @@
 									<th>기수</th>
 									<td><input class="form-control" type="text"name="gisu" value="">
 									<th>이름</th>
-									<td><input class="form-control" type="text" name="name" value="">
+									<td><input class="form-control" type="text" name="name" value=""></td>
+									<td><button type="button" class="btn btn-primary btn-h25" id="btn_search">검색</button></td>
 								</tr>
 							</tbody>
 						</table>
 					</div><!-- /.sub-body -->
-					
-					<!-- 검색버튼 -->
-					<div class="sub-toolbox text-center" id="company_btn_div">
-						<button type="button" class="btn btn-primary" id="company_btn">검색</button>
-					</div>
-					<!-- /.검색버튼 -->
 					
 				</div><!-- /.sub-box 검색영역 끝-->
 				
@@ -339,12 +341,14 @@
 			<!-- /.modal-body -->
 			
 			<div class="modal-footer">
-				<div class="col-xs-4"></div>
-				<div class="col-xs-4 text-center">
-					<button type="button" class="btn btn-primary">선택</button>
-				</div>
-				<div class="col-xs-4">
-					<button type="button" class="btn btn-default pull-right" data-dismiss="modal">취소</button>
+				<div class="row">
+					<div class="col-xs-4"></div>
+					<div class="col-xs-4 text-center">
+						<button type="button" class="btn btn-primary">선택</button>
+					</div>
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-default pull-right" data-dismiss="modal">취소</button>
+					</div>
 				</div>
       		</div>
 			
