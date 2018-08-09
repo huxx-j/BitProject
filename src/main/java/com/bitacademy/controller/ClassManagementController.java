@@ -40,7 +40,7 @@ public class ClassManagementController {
     //교육과정검색에서 조회버튼 누르면 수업관리에 과정정보 불러오는 코드
     @ResponseBody
     @RequestMapping(value = "/getCurriInfo", method = RequestMethod.POST)
-    public Map<String, Object> getCurriInfo(@RequestParam("currival") int currival) {
+    public CurriculumVo getCurriInfo(@RequestParam("currival") int currival) {
         return classManagementService.getCurriInfo(currival);
     }
 

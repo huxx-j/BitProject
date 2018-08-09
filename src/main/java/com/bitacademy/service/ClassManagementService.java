@@ -46,11 +46,12 @@ public class ClassManagementService {
     }
 
     //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
-    public Map<String, Object> getCurriInfo(int curriculum_no) {
-        Map<String, Object> returnMap = new HashMap<>();
-        returnMap.put("vo", classManagementDao.getCurriInfo(curriculum_no));
-        returnMap.put("gisu", gisuDao.getGisu(curriculum_no));
-        return returnMap;
+    public CurriculumVo getCurriInfo(int curriculum_no) {
+//        Map<String, Object> returnMap = new HashMap<>();
+//        returnMap.put("vo", classManagementDao.getCurriInfo(curriculum_no));
+//        returnMap.put("gisu", gisuDao.getGisu(curriculum_no));
+//        return returnMap;
+        return classManagementDao.getCurriInfo(curriculum_no);
     }
 
     //날짜와 커리큘럼에 따라 수업일지 불러오는 코드

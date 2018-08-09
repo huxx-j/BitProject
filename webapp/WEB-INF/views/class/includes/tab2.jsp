@@ -7,6 +7,9 @@
                 <div class="sub-box">
                     <div class="sub-title">과목리스트</div>
                     <div class="sub-body">
+                        <div id="subListGuide" class="blank-div">
+                            교육과정 조회 버튼을 눌러주세요
+                        </div>
                         <%--과목리스트 뿌려질 자리--%>
                     </div> <%--/.sub-body--%>
                 </div> <%--/.sub-box--%>

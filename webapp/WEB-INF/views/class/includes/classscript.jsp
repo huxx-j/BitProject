@@ -78,6 +78,7 @@
         removeSaveBtn();
         removeTeamList();
         removePjtDetail();
+        removeListGuide();
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
@@ -86,8 +87,8 @@
             type: "post",
             data: {"currival": currival},
             dataType: "json",
-            success: function (map) {
-                rederInfo(map);
+            success: function (curriculumVo) {
+                rederInfo(curriculumVo);
                 $("#selectedCurri").val($("#curriSelect option:selected").val())
 
             },
@@ -120,11 +121,17 @@
         });
     }
 
-    function rederInfo(map) {
-        $("#curriNameInfo").text(map.vo.curriName);
-        $("#gisuInfo").text(map.gisu);
-        $("#periodFrInfo").text(map.vo.startDate);
-        $("#periodToInfo").text(map.vo.endDate);
+    function rederInfo(curriculumVo) {
+        $("#curriNameInfo").text(curriculumVo.curriName);
+        $("#gisuInfo").text(curriculumVo.gisuName);
+        $("#periodFrInfo").text(curriculumVo.startDate);
+        $("#periodToInfo").text(curriculumVo.endDate);
+    }
+
+    function removeListGuide(){
+        $("#teamListGuide").remove();
+        $("#subListGuide").remove();
+        $("#studListGuide").remove();
     }
 
     //수업일지 불러오는 스크립트
@@ -234,6 +241,18 @@
         $("#lectureReportSaveBtn").remove();
     }
 
+    //체크박스 선택시 세션에있는 강사이름 가져오는 코드(아직 미구현)
+    $("input[name=t_box]").change(function () {
+        var id = $(this).attr("id");
+        id ="t"+id.slice(5);
+
+        if ($(this).is(":checked")) {
+            $("#"+id).val("김미정");
+        } else {
+            $("#"+id).val("");
+        }
+    })
+
     //프로젝트
     //수업을 듣는 학생들명단 불러오는 스크립트
     $("#addTeam").on("click", function () {
@@ -242,6 +261,7 @@
             alert("조회 버튼을 눌러주세요")
         } else {
             var curriNo = $("#selectedCurri").val();
+            removeDetailGuide();
             removeMemberTable();
             renderTable();
             removePjtDetail();
@@ -376,9 +396,25 @@
     function cancelPjtDetail() {
         if (confirm("작성을 취소하시겠습니까?") == true){
             $("#pjtDetail").remove();
+            renderPjtDetailGuide();
         }else{
             return;
         }
+    }
+
+    function renderPjtDetailGuide() {
+        str="";
+        str+="<div id='pjtDetailGuide' class='box-body'>" +
+             "    <div class='sub-box'>" +
+             "        <div class='sub-title'>팀 상세정보</div>" +
+             "        <div class='sub-body'>" +
+             "            <div class='blank-div'>" +
+             "                팀 리스트에서 상세보기 버튼을 눌러주세요" +
+             "            </div>" +
+             "        </div>" +
+             "    </div>" +
+             "</div>";
+        $("#pjtDetailDiv").append(str);
     }
 
     function removePjtDetail() {
@@ -412,6 +448,7 @@
 
     $(document).on("click", ".teamList", function () {
         removePjtDetail();
+        removeDetailGuide();
         var project_no = $(this).attr("data");
         var curriNo = $("#selectedCurri").val();
 
@@ -443,6 +480,9 @@
         callMemberTable(curriNo);
     }
 
+    function removeDetailGuide() {
+        $("#pjtDetailGuide").remove();
+    }
 
     function renderTeamDetail(projectVo) {
         str = "";
@@ -547,7 +587,7 @@
         var projectFileFormData = new FormData($("#projectFileForm")[0]);
         var projectNo = 0;
         var membersId = $("#membersId").val();
-        if (membersId == "") {
+        if (membersId =="") {
             alert("팀원을 선택해주세요")
         } else {
 
