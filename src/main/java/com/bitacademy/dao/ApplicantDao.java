@@ -63,13 +63,23 @@ public class ApplicantDao {
 		return sqlSession.selectOne("applicant.apply_details",noMap);
 	}//선택된 과거 지원내역의 상세내용
 
-	public int applyUpdate(ApplyUserVo applyVo) {
+	//수정버튼 클릭 후 지원내역 applyInfo 수정
+	public int applyUpdate_applyInfo(ApplyUserVo applyVo) {
 		
-		System.out.println("업데이트 다오");
-		int result = sqlSession.update("applicant.applyUpdate",applyVo);
+		System.out.println("업데이트 다오 어플라이 인포");
+		int result = sqlSession.update("applicant.applyUpdate_applyInfo",applyVo);
 		System.out.println("업데이트 다오 나옴");
 		return result;
-	}//수정버튼 클릭 후 지원내역 수정
+	}
+	
+	//수정버튼 클릭 후 지원내역 Users 수정
+		public int applyUpdate_users(ApplyUserVo applyVo) {
+			
+			System.out.println("업데이트 다오 유저즈");
+			int result = sqlSession.update("applicant.applyUpdate_users",applyVo);
+			System.out.println("업데이트 다오 나옴");
+			return result;
+		}
 	
 	
 }

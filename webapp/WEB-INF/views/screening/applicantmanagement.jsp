@@ -491,12 +491,12 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 5,
-	rowList : [ 2, 5, 10 ],
+	rowNum : 10,
+	rowList : [ 10, 20, 30 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
-	ondblClickRow : function(rowId, iRow, iCol, e) {
+	onSelectRow : function(rowId, iRow, iCol, e) {
 	
 	    var rowId = $("#jqGrid").getGridParam("selrow");
 	    var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
@@ -621,7 +621,7 @@ function past_apply(curriculum_no, user_no) {
             $("input[name='cardPayAmount']").val(applyVo.cardPayAmount)
             $("input[name='deposit']").val(applyVo.deposit)
             $("input[name='totalPay']").val(applyVo.totalPay)
-            $("[name='consult']").val(applyVo.consult)
+            $("[name='consult']").val(applyVo.consultContent)
 
         },
         error : function(request, status, error) {
@@ -658,7 +658,7 @@ $("#update").on("click", function () {
         cardPayAmount: $("#amountCalcul_2").val(),
         deposit: $("#deposit").val(),
         totalPay: $("#amountResult").val(),
-        consult: $("#consult").val()
+        consultContent: $("#consult").val()
 
     };
 	console.log(report);

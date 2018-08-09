@@ -115,8 +115,8 @@ public class ApplicantService {
 		day = Integer.parseInt(depositDate.substring(8,10));
 		System.out.println(day);
 		applyVo.setDepositDate(year+"/"+month+"/"+day);*/
-
-		return applicantDao.applyUpdate(applyVo);
+		applicantDao.applyUpdate_applyInfo(applyVo);
+		return applicantDao.applyUpdate_users(applyVo);
 
 	}
 

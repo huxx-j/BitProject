@@ -421,13 +421,13 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 5,
-	rowList : [ 2, 5, 10 ],
+	rowNum : 10,
+	rowList : [ 10, 20, 30 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
 	//리스트 클릭할때
-	ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
+	onSelectRow : function(rowId, iRow, iCol, e,user_no) {
 
         var rowId = $("#jqGrid").getGridParam("selrow");
         var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
@@ -551,7 +551,7 @@ $("#company_btn_div").on("click","#btn_companyUpdate", function () {
 });
 
 //저장버튼 누를때
-$("#company_btn_div").on("click","#company_btnAdd", function (user_no) {
+$("#company_btn_div").on("click","#btn_companyInsert", function (user_no) {
 	console.log("저장버튼됨");
 	console.log(user_no);
     report = {
@@ -586,7 +586,7 @@ $("#company_btn_div").on("click","#company_btnAdd", function (user_no) {
     function getUserCareerList(user_no){
 
     	$.ajax({
-             url : "/api/completion/afterServiceList",
+             url : "/api/completion/getUserCareerList",
              type : "get",
              data : {"user_no" : user_no},
              dataType : "json",
