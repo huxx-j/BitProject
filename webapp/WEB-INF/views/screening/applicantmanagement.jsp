@@ -621,7 +621,7 @@ function past_apply(curriculum_no, user_no) {
             $("input[name='cardPayAmount']").val(applyVo.cardPayAmount)
             $("input[name='deposit']").val(applyVo.deposit)
             $("input[name='totalPay']").val(applyVo.totalPay)
-            $("[name='consult']").val(applyVo.consult)
+            $("[name='consult']").val(applyVo.consultContent)
 
         },
         error : function(request, status, error) {
@@ -658,7 +658,7 @@ $("#update").on("click", function () {
         cardPayAmount: $("#amountCalcul_2").val(),
         deposit: $("#deposit").val(),
         totalPay: $("#amountResult").val(),
-        consult: $("#consult").val()
+        consultContent: $("#consult").val()
 
     };
 	console.log(report);

@@ -170,10 +170,11 @@
 		   select c.CurriName,c.Curriculum_no,cc.CateName,
 		   		  a.ApplyType,a.TestLang,a.TestScore,a.TestResult,
 		   		  a.DepositDate,a.DepositAmount,a.CardPayDate,a.CardPayAmount,
-		   		  a.Deposit,a.TotalPay,a.User_no,a.Consult
+		   		  a.Deposit,a.TotalPay,a.User_no,u.ConsultContent
 	
-		   from ApplyInfo a,Curriculum c,CurriculumCate cc
+		   from ApplyInfo a,Curriculum c,CurriculumCate cc,Users u
 		   where a.Curriculum_no=c.Curriculum_no
+		   and a.User_no=u.User_no
 		   and c.CurriculumCate_no=cc.CurriculumCate_no
 		   and c.Curriculum_no = #{curriculum_no} and a.User_no = #{user_no};
 	]]>
@@ -181,7 +182,7 @@
 </select>
 
 <!-- 지원내역 수정 쿼리  -->
-<update id="applyUpdate" parameterType="com.bitacademy.vo.ApplyUserVo">
+<update id="applyUpdate_applyInfo" parameterType="com.bitacademy.vo.ApplyUserVo">
 		
 		<![CDATA[
 			update ApplyInfo
@@ -194,11 +195,22 @@
 				CardPayDate=#{cardPayDate},
 				CardPayAmount=#{cardPayAmount},
 				DepositDate=#{depositDate},
-				TotalPay=#{totalPay},
-				Consult=#{consult}
+				TotalPay=#{totalPay}
 		
 			where User_no=#{user_no} 
 			and Curriculum_no=#{curriculum_no};
+		]]>
+	
+</update>
+
+<!-- 지원내역 수정 쿼리  -->
+<update id="applyUpdate_users" parameterType="com.bitacademy.vo.ApplyUserVo">
+		
+		<![CDATA[
+			update Users
+			set ConsultContent=#{consultContent}
+		
+			where User_no=#{user_no}; 
 		]]>
 	
 </update>
