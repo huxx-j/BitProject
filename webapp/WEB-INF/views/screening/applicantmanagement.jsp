@@ -51,7 +51,6 @@
 			<div class="row">
 				<div class="col-xs-12">
 
-
 					<div class="box box-body">
 						<div class="row">
 							<div class="col-xs-12">
@@ -71,9 +70,8 @@
 											<thead>
 											<tr>
 												<th>업무구분</th>
-												<th class="radio-group">
-													<span>교육과정명</span>											
-													<div class="pull-right">
+												<th>교육과정명
+													<div class="radio-group pull-right">
 														<label class="radiobox" ><input class="" type="radio" name="curriState" value="0">전체</label>
 														<label class="radiobox" ><input class="" type="radio" name="curriState" value="1">모집중</label>
 													</div>
@@ -83,7 +81,7 @@
 
 											<tbody>
 											<tr>
-												<td><select name="workType"class="form-control" id="cateNameSelect">
+												<td><select name="cateNameSelect"class="form-control" id="cateNameSelect">
 													<c:forEach items="${requestScope.curriCateList}" var="curriCateList">
 														<option value="${curriCateList.curriculumCate_no}">${curriCateList.cateName}</option>
 													</c:forEach>
@@ -219,31 +217,17 @@
 														<th>지원종류</th>
 														<td><select class="form-control"
 																name="applyType" id="applyType">
-															<c:if test="${applyVo.applyType eq '일반지원'}">
-																<option value="일반지원" selected>일반지원</option>
-															</c:if>
-															<c:if test="${applyVo.applyType ne '일반지원'}">
-																<option value="일반지원">일반지원</option>
-															</c:if>
-		
-															<c:if test="${applyVo.applyType eq '노동부지원'}">
-																<option value="노동부지원" selected>노동부지원</option>
-															</c:if>
-															<c:if test="${applyVo.applyType ne '노동부지원'}">
+																<option value="전체" selected>전체</option>
+																<option value="대학교" >근로자형</option>
+																<option value="대학교" >내일배움카드</option>
 																<option value="노동부지원">노동부지원</option>
-															</c:if>
-															<c:if test="${applyVo.applyType eq '개인지원'}">
-																<option value="개인지원" selected>개인지원</option>
-															</c:if>
-															<c:if test="${applyVo.applyType ne '개인지원'}">
-																<option value="개인지원">개인지원</option>
-															</c:if>
-															<c:if test="${applyVo.applyType eq '대학교'}">
-																<option value="대학교" selected>대학교</option>
-															</c:if>
-															<c:if test="${applyVo.applyType ne '대학교'}">
-																<option value="대학교">대학교</option>
-															</c:if>
+																<option value="대학교" >노동부지원(납입)</option>
+																<option value="노동부지원">노동부지원(미납입)</option>
+																<option value="개인지원">재직자 환급지원</option>
+																<option value="대학교" >정통부지원</option>
+																<option value="일반지원" >일반지원</option>
+																<option value="노동부지원">사업주훈</option>
+																<option value="노동부지원">위탁(유급휴직)</option>
 															</select>
 														</td>
 														<th>전형과목</th>
@@ -260,6 +244,14 @@
 															<select class="form-control" name="testResult" id="testResult">
 																<option>합격</option>
 																<option>불합격</option>
+																<option>보류</option>
+																<option>미정</option>
+																<option>전월합격</option>
+																<option>재시험</option>
+																<option>미전형</option>
+																<option>조건부(과제물)</option>
+																<option>불합격(과정이수)</option>
+																<option>불합격(포기자)</option>
 															</select>
 														</td>
 													</tr>
@@ -316,7 +308,8 @@
 															<select class="form-control" name="deposit" id="deposit">
 																<option>완납</option>
 																<option>미납</option>
-																<option>부분납</option>
+																<option>분납</option>
+																<option>환불</option>
 															</select>
 														</td>
 														<th>결제액 계</th>
@@ -407,6 +400,7 @@ $("#cateNameSelect").change(function() {
 
 });
 
+//상단 교육과정명의 radio 선택할때
 $("input[name=curriState]").change(function() {
 	
 	var curriculumCate_no = $("#cateNameSelect option:selected").val();
@@ -497,12 +491,12 @@ $("#jqGrid").jqGrid({
 	rowheight : 20,
 	height : 230,
 	width : 1265,
-	rowNum : 5,
-	rowList : [ 2, 5, 10 ],
+	rowNum : 10,
+	rowList : [ 10, 20, 30 ],
 	pager : '#jqGridPager',
 	rownumbers : true,
 	
-	ondblClickRow : function(rowId, iRow, iCol, e) {
+	onSelectRow : function(rowId, iRow, iCol, e) {
 	
 	    var rowId = $("#jqGrid").getGridParam("selrow");
 	    var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
