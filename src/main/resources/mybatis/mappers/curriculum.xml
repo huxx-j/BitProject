@@ -10,67 +10,78 @@
  		<![CDATA[
   			SELECT 	cc.cateName, cc.curriculumCate_no,
   					c.curriculum_no, c.package_no, c.curriName, c.startDate, c.endDate, c.time, c.maxCnt, c.price,
-  					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, c.mainViewFlag, c.detailViewFlag,
-  					p.packageName, p.package_no,
-  					g.gisuName
-			FROM Curriculum as c, Package as p, Gisu as g, CurriculumCate as cc
-			WHERE c.package_no = p.package_no
-			AND g.curriculum_no = c.curriculum_no
-			AND cc.curriculumCate_no = c.curriculumCate_no
-			AND c.curriculum_no = #{curriculum_no};
+  					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, c.mainViewFlag, c.detailViewFlag, c.gisuName,
+  					p.packageName, 
+  					p.package_no
+			FROM 	Curriculum as c, Package as p, CurriculumCate as cc
+			WHERE 	c.package_no = p.package_no
+			AND 	cc.curriculumCate_no = c.curriculumCate_no
+			AND 	c.curriculum_no = #{curriculum_no};
   		]]> 
   	</select>
+ 	
+ 	<!-- 교육과정 카테고리 추가 -->
+ 	<insert id="addCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
+ 		<![CDATA[
+			INSERT INTO CurriculumCate (parentCode, cateName)
+			VALUES (
+					#{curriculumCate_no},
+					#{cateName}
+					)
+ 		]]>
+ 	</insert>
  	
 	<!-- 커리큘럼 수정 -->
     <update id = "editCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
- 			UPDATE Curriculum
- 			SET
- 			curriName = #{curriName}
- 			, curriNickname = #{curriNickname}
- 			, startDate = #{startDate}
- 			, endDate = #{endDate}
- 			, time = #{time}
- 			, maxCnt = #{maxCnt}
- 			, price = #{price}
- 			, support = #{support}
- 			, managerInfo = #{managerInfo}
- 			, state = #{state}
- 			, package_no = #{package_no}
- 			WHERE curriculum_no = #{curriculum_no}
+ 			UPDATE 	Curriculum
+ 			SET		curriName = #{curriName}
+ 					, curriNickname = #{curriNickname}
+ 					, startDate = #{startDate}
+ 					, endDate = #{endDate}
+		 			, time = #{time}
+		 			, maxCnt = #{maxCnt}
+		 			, price = #{price}
+		 			, support = #{support}
+		 			, managerInfo = #{managerInfo}
+		 			, state = #{state}
+		 			, package_no = #{package_no}
+		 			, gisuName = #{gisuName}
+ 			WHERE 	curriculum_no = #{curriculum_no}
  		]]>
  	</update>
  	
     <update id = "editCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
  		<![CDATA[
- 			UPDATE CurriculumCate
- 			SET
- 			cateName = #{cateName}
- 			WHERE curriculumCate_no = #{curriculumCate_no}
+ 			UPDATE 	CurriculumCate
+ 			SET		cateName = #{cateName}
+ 			WHERE 	curriculumCate_no = #{curriculumCate_no}
  		]]>
  	</update>
+ 	
  	
 	<!-- 커리큘럼 추가 -->
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
- 			INSERT INTO Curriculum ( curriculumCate_no, package_no, curriName, curriNickname, startDate, endDate, time, maxCnt, price, support, managerInfo, state)
+ 			INSERT INTO Curriculum ( curriculumCate_no, package_no, curriName, curriNickname, startDate, endDate, time, maxCnt, price, support, managerInfo, state, gisuName)
 			VALUES(
-				#{curriculumCate_no},
-				#{package_no},
-				#{curriName},
-				#{curriNickname},
-				#{startDate},
-				#{endDate},
-				#{time},
-				#{maxCnt},
-				#{price},
-				#{support},
-				#{managerInfo},
-				#{state}
-			    )
+					#{curriculumCate_no},
+					#{package_no},
+					#{curriName},
+					#{curriNickname},
+					#{startDate},
+					#{endDate},
+					#{time},
+					#{maxCnt},
+					#{price},
+					#{support},
+					#{managerInfo},
+					#{state},
+					#{gisuName}
+			 	   )
  		]]>
  	</insert>
-	
+	<!-- 커리큘럼 카테고리 관련 -->
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
 			SELECT 	cc.cateName,
@@ -79,36 +90,92 @@
 			WHERE	c.curriculumCate_no = cc.curriculumCate_no
 		]]>
 	</select>
-
+	
+	<!-- 커리큘럼 카테고리 관련 -->
     <select id = "curriCateList" resultType = "com.bitacademy.vo.CurriculumCateVo">
 		<![CDATA[
-			SELECT curriculumCate_no, cateName, groupCode, parentCode, depth
-			FROM CurriculumCate;
+			SELECT 	curriculumCate_no, cateName, groupCode, parentCode, depth
+			FROM 	CurriculumCate;
 		]]>
 	</select>
 	
-<!-- 	//전체지원자리스트 조회 -->
+	<!-- 업무구분 select box ajax -->
+	<select id="getWorkType" resultType = "com.bitacademy.vo.CurriculumCateVo">
+		<![CDATA[
+			SELECT 	curriculumCate_no, cateName 
+			FROM 	CurriculumCate
+			GROUP BY cateName
+		]]>
+	</select>
+	
+	<!-- 전체지원자리스트 조회 -->
 	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no
-			FROM ApplyInfo as a, Users as u, Curriculum as c 
-			WHERE a.User_no = u.User_no
-			AND c.curriculum_no = a.curriculum_no
-			AND a.curriculum_no = #{curriculum_no}
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
+			WHERE 	a.User_no = u.User_no
+			AND 	c.curriculum_no = a.curriculum_no
+			AND 	a.curriculum_no = #{curriculum_no}
+			AND 	a.gisuFlag = 0
 		]]>
+	</select>
 	
+	<!-- 수강생 리스트 조회 -->
+	<select id = "viewStudentList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
+		<![CDATA[
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
+			WHERE 	a.User_no = u.User_no
+			AND 	c.curriculum_no = a.curriculum_no
+			AND 	a.curriculum_no = #{curriculum_no}
+			AND 	a.gisuFlag = 1
+		]]>
+	</select>
+	<!-- 기수부여 -->
+	<select id = "gisuGrant" parameterType = "int" resultType = "com.bitacademy.vo.ApplicantVo">
+		<![CDATA[
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no
+			FROM 	ApplyInfo as a, Users as u
+			WHERE 	a.User_no = u.User_no
+			AND 	a.applicant_no = #{applicant_no}
+		]]>
+	</select>
+	
+	<!-- 기수제거 -->
+	<select id="gisuRemove" parameterType = "int" resultType = "com.bitacademy.vo.ApplicantVo">
+		<![CDATA[
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no
+			FROM 	ApplyInfo as a, Users as u
+			WHERE 	a.User_no = u.User_no
+			AND 	a.applicant_no = #{applicant_no} 
+		]]>
 	</select>
 
-<!-- 패키지 보기 모달창 -->
+	<!-- 기수부여 저장 버튼(Flag = 1) -->
+	<update id="gisuGrantSave" parameterType = "int">
+		<![CDATA[
+			UPDATE	 ApplyInfo
+			SET 	gisuFlag = 1
+			WHERE 	applicant_no = #{applicant_no} 
+		]]>
+	</update>
+	
+	<!-- 기수부여 저장 버튼(Flag = 0) -->
+	<update id="gisuRemoveSave" parameterType = "int">
+		<![CDATA[
+			UPDATE 	ApplyInfo
+			SET 	gisuFlag = 0
+			WHERE 	applicant_no = #{applicant_no} 
+		]]>
+	</update>
+	
+	<!-- 패키지 보기 모달창 -->
 	<select id = "viewPackageAjax" parameterType = "String" resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
-			SELECT packageName, package_no  
-			FROM Package
-			WHERE package_no = #{package_no}
-		
-		
+			SELECT 	packageName, package_no  
+			FROM 	Package
+			WHERE 	package_no = #{package_no}
 		]]>
-	
 	</select>
 
 <!--희준-->

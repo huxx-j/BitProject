@@ -26,7 +26,7 @@
             }
         },
         callback: {
-            beforeClick: package,  // 마우스 클릭 콜백함수 지정
+            beforeClick: curriculum,  // 마우스 클릭 콜백함수 지정
             beforeDrag: beforeDrag,
             beforeDrop: beforeDrop,
             beforeDragOpen: beforeDragOpen,
@@ -185,7 +185,7 @@
     }
 
     //교육과정 클릭 시 정보 뿌려줌
-    function package(treeId, treeNode, clickFlag) {
+    function curriculum(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
         console.log(curriculum_no);
         $.ajax({
@@ -211,9 +211,9 @@
 				$("input[name='managerInfo']").val(curriAllVo.curriculumVo.managerInfo),
 				$("input[name='gisuName']").val(curriAllVo.curriculumVo.gisuName),
 				
+				
             	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='state'][value="+curriAllVo.curriculumVo.state+"]").attr("checked",true),
-				
 				$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
 				
@@ -228,16 +228,29 @@
                 $("#renderApplicantList").empty();
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
-			     	str += "<tr>";
+			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
+			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' id = '" + curriAllVo.applicantList.applicant_no + "'></label></td>";
 			 		str += "</tr>";
 // 			 		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
 				}
 					$("#renderApplicantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+					
+                $("#gisuGrantList").empty();
+				var str = ""; //append 하려면 for문 안에 넣어야함.
+				for (var i = 0; i < curriAllVo.studentList.length; i++){
+			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
+			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></td>";
+					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
+			    	str += "	<td>" + curriAllVo.studentList[i].birthDate +"</td>";
+			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";
+			    	str += "	<td>" + curriAllVo.studentList[i].testResult +"</td>";
+			 		str += "</tr>";
+				}
+					$("#gisuGrantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
@@ -315,6 +328,7 @@
  				console.error(status + " : " + error);
  			}
 		}); //ajax		
+		location.reload();
 	});// onClick function
    
     
@@ -327,85 +341,82 @@
             }
         },
         callback: {
-            beforeClick: subject
+            beforeClick: package
         }
     };
     var zNodesModal= [
-    	  <c:forEach items="${cateList}" var="vo">
-          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+    	  <c:forEach items="${packageCateList}" var="vo">
+          {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
           </c:forEach>
-          <c:forEach items="${list}" var="vo">
-          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
+          <c:forEach items="${packageList}" var="vo">
+          {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
           </c:forEach>
     ];
     $(document).ready(function(){
         $.fn.zTree.init($("#modalTree"), settingModal, zNodesModal);
     });
-
-    function subject(treeId, treeNode, clickFlag) {
-        var package_no=treeNode.web;
-//         var locate=$("#locate").val();
-//         var str ="";
-        console.log(package_no);
-        $.ajax({
-            url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
-            type : "POST",
-            //contentType : "application/json",
-            data : {"package_no": package_no},
-            dataType : "json",
-            success : function(packageVo) {
-            	
-            	$("input[name='packageName']").val(packageVo.packageName),
-            	$("input[name='package_no']").val(packageVo.package_no)
-            	
-//             	$("#packageViewModal").modal("hide");
-            },
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
+    
+    
+    function package(treeId, treeNode, clickFlag) {
+	    $("#modalSelectBtn").on("click", function(){
+	        var package_no=treeNode.web;
+	//         var locate=$("#locate").val();
+	//         var str ="";
+	        console.log(package_no);
+	        $.ajax({
+	            url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
+	            type : "POST",
+	            //contentType : "application/json",
+	            data : {"package_no": package_no},
+	            dataType : "json",
+	            success : function(packageVo) {
+	            	
+	            	$("input[name='packageName']").val(packageVo.packageName),
+	            	$("input[name='package_no']").val(packageVo.package_no)
+	            	$("#packageViewModal").modal("hide");
+	            },
+	            error : function(XHR, status, error) {
+	                console.error(status + " : " + error);
+	            }
+	        });
+	    });
     }
     
-    $("#modalSelectBtn").on("click", function(){
-        $("#packageViewModal").modal("hide"); // 모달창 감추기
+    $("#modalCancelBtn").on("click", function(){
+        $("#packageViewModal").modal("close"); // 모달창 감추기
     });
     //////////////////////////////////////////////////////////////////////////////////////////////////
     
-    /* 
+    //****************************************
+    //**			현재 탭 유지					**
+    //****************************************
+    if (location.hash) {
+        $('a[href=\'' + location.hash + '\']').tab('show');
+    }
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+        $('a[href="' + activeTab + '"]').tab('show');
+    }
 
-    function gisuGrant(){
-//     	str = "";
-    	id = "";
-    	$("input[name=gisuGrant]:checked").each(function(){
-//     		str += $(this).val() + ", ";
-    		id += $(this).attr("id") + ",";
-    	});
-    	id = id.slice(0, -1);
-    	console.log(id);
-    	$("#")
-    	
-    }
-    
-    function renderGisuGrant(){
-    	
-    	 $("#renderApplicantList").empty();
-   		var str = ""; //append 하려면 for문 안에 넣어야함.
-   		for (var i = 0; i < curriAllVo.applicantList.length; i++){
-   	     	str += "<tr>";
-   			str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
-   	    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
-   	    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
-   	    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
-   	    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' id = '" + curriAllVo.applicantList.applicant_no + "'></label></td>";
-   	 		str += "</tr>";
-//    		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
-   		}
-   			$("#renderApplicantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
-    }
-    
-    
-     */
-   
-  
-    
+    $('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+        e.preventDefault()
+        var tab_name = this.getAttribute('href')
+        if (history.pushState) {
+            history.pushState(null, null, tab_name)
+        }
+        else {
+            location.hash = tab_name
+        }
+        localStorage.setItem('activeTab', tab_name)
+
+        $(this).tab('show');
+        return false;
+    });
+
+    $(window).on('popstate', function () {
+        var anchor = location.hash ||
+            $('a[data-toggle=\'tab\']').first().attr('href');
+        $('a[href=\'' + anchor + '\']').tab('show');
+    });
+    //****************************************
   </script>
