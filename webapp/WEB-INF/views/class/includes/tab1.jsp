@@ -60,7 +60,7 @@
                         <td class="a_c"><input class="form-control" id="note3" type="text"></td>
                     </tr>
                     <tr>
-                        <td colspan="6" class="line-table"></td>
+                        <td colspan="6" class="line-table a_c">점심시간</td>
                     </tr>
                     <tr>
                         <td id="period4" class="a_c">4</td>
@@ -118,7 +118,7 @@
                         <td class="a_c"><input id="note8" class="form-control" type="text"></td>
                     </tr>
                     <tr>
-                        <td colspan="6" class="line-table"></td>
+                        <td colspan="6" class="line-table a_c">저녁시간</td>
                     </tr>
                     <tr>
                         <td id="period9" class="a_c">9</td>

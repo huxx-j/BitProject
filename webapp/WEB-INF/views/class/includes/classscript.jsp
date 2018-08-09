@@ -79,6 +79,8 @@
         removeTeamList();
         removePjtDetail();
         removeListGuide();
+        removeDetailGuide();
+        renderPjtDetailGuide();
 
         var currival = $("#curriSelect option:selected").val();
         //수업관리 정보 불러오는 ajax
@@ -334,7 +336,7 @@
         str = "" +
             "<div id='pjtDetail' class='box-body pjt_detail'>" +
             "    <div class='sub-box'>" +
-            "        <div class='sub-title'>프로젝트 팀 추가</div><br/>" +
+            "        <div class='sub-title'>프로젝트 팀 추가</div>" +
             "            <div class='sub-body'>" +
             "                <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
@@ -409,7 +411,7 @@
              "        <div class='sub-title'>팀 상세정보</div>" +
              "        <div class='sub-body'>" +
              "            <div class='blank-div'>" +
-             "                팀 리스트에서 상세보기 버튼을 눌러주세요" +
+             "                <h5>팀 리스트에서 상세보기 버튼을 눌러주세요</h5>" +
              "            </div>" +
              "        </div>" +
              "    </div>" +
@@ -489,7 +491,7 @@
         str += "" +
             "<div id='pjtDetail' class='box-body pjt_detail'>" +
             "       <div class='sub-box'>" +
-            "           <div class='sub-title'>프로젝트 상세보기</div><br/>" +
+            "           <div class='sub-title'>프로젝트 상세보기</div>" +
             "               <div class='sub-body'>" +
             "                 <form id='projectFileForm' method='post' action='/class/addProjectDetail' enctype='multipart/form-data'>" +
             "                    <table class='table table-condensed'>" +
@@ -645,7 +647,7 @@
             "                        </div>" +
             "                    </div>";
 
-        $(".sub_list").append(str);
+        $("#sub_list").append(str);
     }
 
     function removeSubjectList() {
