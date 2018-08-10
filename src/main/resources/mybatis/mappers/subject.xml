@@ -12,7 +12,7 @@
     </insert>
     <select id="listselect" resultType="SubjectCateVo">
         <![CDATA[
-        select SubjectCate_no,CateName,GroupCode,ParentCode,Depth,OrderCode from SubjectCate order by GroupCode,OrderCode
+        select SubjectCate_no,CateName,ParentCode from SubjectCate
         ]]>
     </select>
     <select id="subselect" resultType="SubjectVo">
