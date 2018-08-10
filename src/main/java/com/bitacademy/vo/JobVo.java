@@ -3,8 +3,8 @@ package com.bitacademy.vo;
 public class JobVo {
 
     private int request_no;
-	private int commpany_no;
-	private int hireNum;
+	private int company_no;
+	private int hireCnt;
 	private String useLang;
 	private String useOS;
 	private String useDB;
@@ -16,27 +16,24 @@ public class JobVo {
 	private String advantage;
 	private String contractType;
 	private String field;
-	private String welfare;
 	private String procedure;
 	private String reqDocument;
 	private String reqDetail;
 	private String telephone;
 	private String fax;
-	private String handPhone;
+	private String cellPhone;
 	private String email;
-	private String name;
+	private String mgrName;
 	private String department;
 	private String position;
 	private String etc;
 	private int post;
 	private int black;
-	private int receipt;
-	private String person;
-	private int recruitment;
+	private String receiptDate;
 	private int employment;
 	
-
 	private String compName;
+	private String welfare;
 	private int stockMarket;
 	private String address;
 	private String tel;
@@ -44,27 +41,26 @@ public class JobVo {
 	private String business;
 	private String capital;
 	private String yearSell;
-	private String staffNum;
+	private String StaffCnt;
 	private String homePage;
 	private String postCode;
-	private String introduct;
+	private String introduction;
+	private String compResNum;
 	
-	
-	
-	
-	
-	
-	public JobVo(int request_no, int commpany_no, int hireNum, String useLang, String useOS, String useDB,
-                 String interviewDate, String career, String requirement, String yearIncome, String major, String advantage,
-                 String contractType, String field, String welfare, String procedure, String reqDocument, String reqDetail,
-                 String telephone, String fax, String handPhone, String email, String name, String department,
-                 String position, String etc, int post, int black, int receipt, String person, int recruitment,
-                 int employment, String compName, int stockMarket, String address, String tel, int file_no, String business,
-                 String capital, String yearSell, String staffNum, String homePage, String postCode, String introduct) {
+	public JobVo() {
+	}
+
+	public JobVo(int request_no, int company_no, int hireCnt, String useLang, String useOS, String useDB,
+			String interviewDate, String career, String requirement, String yearIncome, String major, String advantage,
+			String contractType, String field, String procedure, String reqDocument, String reqDetail, String telephone,
+			String fax, String cellPhone, String email, String mgrName, String department, String position, String etc,
+			int post, int black, String receiptDate, int employment, String compName, String welfare, int stockMarket,
+			String address, String tel, int file_no, String business, String capital, String yearSell, String staffCnt,
+			String homePage, String postCode, String introduction, String compResNum) {
 		super();
 		this.request_no = request_no;
-		this.commpany_no = commpany_no;
-		this.hireNum = hireNum;
+		this.company_no = company_no;
+		this.hireCnt = hireCnt;
 		this.useLang = useLang;
 		this.useOS = useOS;
 		this.useDB = useDB;
@@ -76,25 +72,23 @@ public class JobVo {
 		this.advantage = advantage;
 		this.contractType = contractType;
 		this.field = field;
-		this.welfare = welfare;
 		this.procedure = procedure;
 		this.reqDocument = reqDocument;
 		this.reqDetail = reqDetail;
 		this.telephone = telephone;
 		this.fax = fax;
-		this.handPhone = handPhone;
+		this.cellPhone = cellPhone;
 		this.email = email;
-		this.name = name;
+		this.mgrName = mgrName;
 		this.department = department;
 		this.position = position;
 		this.etc = etc;
 		this.post = post;
 		this.black = black;
-		this.receipt = receipt;
-		this.person = person;
-		this.recruitment = recruitment;
+		this.receiptDate = receiptDate;
 		this.employment = employment;
 		this.compName = compName;
+		this.welfare = welfare;
 		this.stockMarket = stockMarket;
 		this.address = address;
 		this.tel = tel;
@@ -102,20 +96,12 @@ public class JobVo {
 		this.business = business;
 		this.capital = capital;
 		this.yearSell = yearSell;
-		this.staffNum = staffNum;
+		StaffCnt = staffCnt;
 		this.homePage = homePage;
 		this.postCode = postCode;
-		this.introduct = introduct;
+		this.introduction = introduction;
+		this.compResNum = compResNum;
 	}
-
-	public JobVo() {
-		super();
-	}
-
-
-
-
-
 
 	public int getRequest_no() {
 		return request_no;
@@ -125,20 +111,20 @@ public class JobVo {
 		this.request_no = request_no;
 	}
 
-	public int getCommpany_no() {
-		return commpany_no;
+	public int getCompany_no() {
+		return company_no;
 	}
 
-	public void setCommpany_no(int commpany_no) {
-		this.commpany_no = commpany_no;
+	public void setCompany_no(int company_no) {
+		this.company_no = company_no;
 	}
 
-	public int getHireNum() {
-		return hireNum;
+	public int getHireCnt() {
+		return hireCnt;
 	}
 
-	public void setHireNum(int hireNum) {
-		this.hireNum = hireNum;
+	public void setHireCnt(int hireCnt) {
+		this.hireCnt = hireCnt;
 	}
 
 	public String getUseLang() {
@@ -229,14 +215,6 @@ public class JobVo {
 		this.field = field;
 	}
 
-	public String getWelfare() {
-		return welfare;
-	}
-
-	public void setWelfare(String welfare) {
-		this.welfare = welfare;
-	}
-
 	public String getProcedure() {
 		return procedure;
 	}
@@ -277,12 +255,12 @@ public class JobVo {
 		this.fax = fax;
 	}
 
-	public String getHandPhone() {
-		return handPhone;
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setHandPhone(String handPhone) {
-		this.handPhone = handPhone;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public String getEmail() {
@@ -293,12 +271,12 @@ public class JobVo {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
+	public String getMgrName() {
+		return mgrName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMgrName(String mgrName) {
+		this.mgrName = mgrName;
 	}
 
 	public String getDepartment() {
@@ -341,28 +319,12 @@ public class JobVo {
 		this.black = black;
 	}
 
-	public int getReceipt() {
-		return receipt;
+	public String getReceiptDate() {
+		return receiptDate;
 	}
 
-	public void setReceipt(int receipt) {
-		this.receipt = receipt;
-	}
-
-	public String getPerson() {
-		return person;
-	}
-
-	public void setPerson(String person) {
-		this.person = person;
-	}
-
-	public int getRecruitment() {
-		return recruitment;
-	}
-
-	public void setRecruitment(int recruitment) {
-		this.recruitment = recruitment;
+	public void setReceiptDate(String receiptDate) {
+		this.receiptDate = receiptDate;
 	}
 
 	public int getEmployment() {
@@ -379,6 +341,14 @@ public class JobVo {
 
 	public void setCompName(String compName) {
 		this.compName = compName;
+	}
+
+	public String getWelfare() {
+		return welfare;
+	}
+
+	public void setWelfare(String welfare) {
+		this.welfare = welfare;
 	}
 
 	public int getStockMarket() {
@@ -437,12 +407,12 @@ public class JobVo {
 		this.yearSell = yearSell;
 	}
 
-	public String getStaffNum() {
-		return staffNum;
+	public String getStaffCnt() {
+		return StaffCnt;
 	}
 
-	public void setStaffNum(String staffNum) {
-		this.staffNum = staffNum;
+	public void setStaffCnt(String staffCnt) {
+		StaffCnt = staffCnt;
 	}
 
 	public String getHomePage() {
@@ -461,36 +431,42 @@ public class JobVo {
 		this.postCode = postCode;
 	}
 
-	public String getIntroduct() {
-		return introduct;
+	public String getIntroduction() {
+		return introduction;
 	}
 
-	public void setIntroduct(String introduct) {
-		this.introduct = introduct;
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
-	
-	
+	public String getCompResNum() {
+		return compResNum;
+	}
+
+	public void setCompResNum(String compResNum) {
+		this.compResNum = compResNum;
+	}
+
 	@Override
 	public String toString() {
-		return "JobVo [request_no=" + request_no + ", commpany_no=" + commpany_no + ", hireNum=" + hireNum
-				+ ", useLang=" + useLang + ", useOS=" + useOS + ", useDB=" + useDB + ", interviewDate=" + interviewDate
-				+ ", career=" + career + ", requirement=" + requirement + ", yearIncome=" + yearIncome + ", major="
-				+ major + ", advantage=" + advantage + ", contractType=" + contractType + ", field=" + field
-				+ ", welfare=" + welfare + ", procedure=" + procedure + ", reqDocument=" + reqDocument + ", reqDetail="
-				+ reqDetail + ", telephone=" + telephone + ", fax=" + fax + ", handPhone=" + handPhone + ", email="
-				+ email + ", name=" + name + ", department=" + department + ", position=" + position + ", etc=" + etc
-				+ ", post=" + post + ", black=" + black + ", receipt=" + receipt + ", person=" + person
-				+ ", recruitment=" + recruitment + ", employment=" + employment + ", compName=" + compName
-				+ ", stockMarket=" + stockMarket + ", address=" + address + ", tel=" + tel + ", file_no=" + file_no
-				+ ", business=" + business + ", capital=" + capital + ", yearSell=" + yearSell + ", staffNum="
-				+ staffNum + ", homePage=" + homePage + ", postCode=" + postCode + ", introduct=" + introduct + "]";
+		return "JobVo [request_no=" + request_no + ", company_no=" + company_no + ", hireCnt=" + hireCnt + ", useLang="
+				+ useLang + ", useOS=" + useOS + ", useDB=" + useDB + ", interviewDate=" + interviewDate + ", career="
+				+ career + ", requirement=" + requirement + ", yearIncome=" + yearIncome + ", major=" + major
+				+ ", advantage=" + advantage + ", contractType=" + contractType + ", field=" + field + ", procedure="
+				+ procedure + ", reqDocument=" + reqDocument + ", reqDetail=" + reqDetail + ", telephone=" + telephone
+				+ ", fax=" + fax + ", cellPhone=" + cellPhone + ", email=" + email + ", mgrName=" + mgrName
+				+ ", department=" + department + ", position=" + position + ", etc=" + etc + ", post=" + post
+				+ ", black=" + black + ", receiptDate=" + receiptDate + ", employment=" + employment + ", compName="
+				+ compName + ", welfare=" + welfare + ", stockMarket=" + stockMarket + ", address=" + address + ", tel="
+				+ tel + ", file_no=" + file_no + ", business=" + business + ", capital=" + capital + ", yearSell="
+				+ yearSell + ", StaffCnt=" + StaffCnt + ", homePage=" + homePage + ", postCode=" + postCode
+				+ ", introduction=" + introduction + ", compResNum=" + compResNum + "]";
 	}
 	
 	
 }
 	
 	
+
 	
-	
-		
+			

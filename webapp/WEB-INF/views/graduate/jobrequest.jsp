@@ -144,22 +144,25 @@
 								<div class="row">	
 									<div class="col-xs-12">
 										<div class="sub-box">
-											<div class="row">
-												<div class="col-xs-6">
-													<div class="sub-title">지원자리스트</div>
-												</div>
-												<div class="col-xs-6">
-													<button class="sub-t btn btn-default btn-h25 pull-right" type="button" id="insertData">지원자 추가</button>
-												</div>
+								
+											<div class="sub-toolbox">
+												<div class="row">
+													<div class="col-xs-6">
+														<span class="sub-title">지원자리스트</span>
+													</div>
+													<div class="col-xs-6">
+														<button class="btn btn-default btn-h25 pull-right" type="button" id="insertData">지원자 추가</button>
+													</div>
+												</div><!-- /.row -->
 											</div>
-										
-										
+											<!-- sub_title -->
+											
 										
 											<!-- sub_body -->
 											<div class="sub-body">
 											
 												<div class="bordered scroll innerBox" style="height: 500px;">
-													<table class="table table-hover table-condensed">
+													<table class="table table-hover table-condensed no-border">
 														<colgroup>
 															<col width="20px" />
 															<col width="82px" />
@@ -192,7 +195,6 @@
 									</div><!-- ./col-xs-12 -->
 								</div>
 								<div class="space"></div>
-				
 								<div class="space"></div>
 								
 								<!-- <div class="row">	
@@ -224,6 +226,8 @@
 								</div> -->
 								<!-- /.row-->
 							</div><!-- ./col-xs-3 -->
+						
+						
 						
 						</div>
 						<!-- /.row-->	
@@ -363,6 +367,7 @@
 
 
 
+
 </body>
 
 
@@ -439,15 +444,15 @@ $("#jqGrid").jqGrid(
 		url : "jqgridStartMain.do",
 		datatype : "local",
 		colNames : cnames,
-		colModel : [{name: 'commpany_no', index: 'commpany_no', width: 60, hidden: true},
+		colModel : [{name: 'company_no', index: 'company_no', width: 60, hidden: true},
 					{name: 'request_no', index: 'request_no', width: 60, hidden: true},
 					{name: 'post', index: 'post', width: 60, align: "center"},
 					{name: 'black', index: 'black', width: 60, align: "center"},
 					{name: 'receiptDate', index: 'receiptDate', width: 220, align: "center"},
 					{name: 'compName', index: 'compName', align: "center"},
-					{name: 'person', index: 'person', width: 90, align: "center"},
+					{name: 'mgrName', index: 'mgrName', width: 90, align: "center"},
 					{name: 'field', index: 'field', width: 200, align: "center"},
-					{name: 'recruitment', index: 'recruitment', width: 200, align: "center"},
+					{name: 'hireCnt', index: 'hireCnt', width: 200, align: "center"},
 					{name: 'email', index: 'email', width: 200, align: "center"},
 					{name: 'employment', index: 'employment', width: 60, align: "center"}],
 		rowheight : 20,
@@ -458,7 +463,7 @@ $("#jqGrid").jqGrid(
 		pager : '#jqGridPager',
 		rownumbers : true,
 	
-		/* 클릭했을때 */
+		/* 한번클릭했을때 */
 		onSelectRow : function(rowId, iRow, iCol, e) {
 
 			var rowId = $("#jqGrid").getGridParam("selrow");
@@ -482,8 +487,20 @@ $("#jqGrid").jqGrid(
                 		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
                 }
 			});
-		}
-    });
+		},
+		
+		/* 두번클릭했을때 */
+		ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
+			var rowId = $("#jqGrid").getGridParam("selrow");
+			var request_no = $("#jqGrid").getRowData(rowId).request_no; 
+		
+			console.log(url)
+			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestDetail?request_no="+request_no;
+			window.open(url, "_blank", "width=1000px, height=900px, scrollbars=yes"); 
+			
+			
+		}	
+ });
 
 
 /* 지원자리스트 테이블(리스트)그리기 */

@@ -63,7 +63,7 @@
 
 /* 테이블 기본값 재정의 */
 .table {
-	margin: 5px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 
 /* 테이블 라인(border) 정의*/
@@ -105,13 +105,11 @@ tfoot > tr > th{
 	vertical-align: middle !important;
 }
 
-th 의 텍스트가 다른것과 같이 사용될때
-.with_Radio{
-	position: absolute !important;
-    top: 50% !important;
-    height: 30px !important;
-    margin-top: -30px !important;
+.innerBox > table{
+	border: 2px solid #e2e6ef !important;
+	border-bottom: 1px solid #a2a5ab !important;
 }
+
 
 
 /***********************************/
@@ -176,8 +174,6 @@ input[type=radio] {
 	vertical-align: bottom;
 }
 
-
-
 /* 영역컨텐츠박스 */
 .sub-body{
 	padding: 0px 0px 0px 0px;
@@ -191,7 +187,7 @@ input[type=radio] {
 
 /* sub-box 안쪽에 작은 박스 */
 .innerBox {
-	padding: 0px 2px 2px 2px;
+	padding: 0px 0px 5px 0px;
 }
 
 
@@ -295,7 +291,7 @@ input[type=radio] {
 }
 
 
-/* 아주작은 사이즈 버튼*/
+/* 타이틀과 같이 사용되는 버튼*/
 .btn-h25 {
 	height:25px !important;
 	text-align: center !important;
@@ -380,6 +376,7 @@ input[type=radio] {
 .w380{width: 380px !important;}
 .w400{width: 400px !important;}
 
+
 .bordered{
 	border: 1px solid #a2a5ab !important;
 }
@@ -394,6 +391,19 @@ input[type=radio] {
 	cursor: pointer;
 }
 
+/* 팝업 새로운윈도우 */
+.popup_page{
+	background: #d2d6de;
+}
+
+#pop .wrapper{
+	width: 1000px;
+}
+
+#pop .content-wrapper {
+	margin-left: 0px;
+}
+
 
 /* 모달관련 */
 
@@ -401,8 +411,6 @@ input[type=radio] {
 	background-color: #ffffff !important;
 	font-size: 12px
 }
-
-
 
 
 /* .modal-content {
@@ -419,3 +427,4 @@ input[type=radio] {
   	background-color: #ecf0f5 !important;
 }
  */
+

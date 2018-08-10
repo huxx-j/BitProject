@@ -1,24 +1,19 @@
 package com.bitacademy.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.bitacademy.service.JobService;
 import com.bitacademy.vo.GisuTableVo;
-
 import com.bitacademy.vo.JobSearchVo;
 import com.bitacademy.vo.JobVo;
-
-
-
 
 @Controller
 @RequestMapping("/jobrequest")
@@ -27,30 +22,30 @@ public class JobController {
 	@Autowired
 	JobService jobService;
 
-	/*취업의뢰 메인*/
+	/* 취업의뢰 메인 */
 	@RequestMapping("/")
-	public String jobrequestMain(){
+	public String jobrequestMain() {
 		System.out.println("/취업의뢰 메인");
 		return "graduate/jobrequest";
 	}
 
-
-	/*기업정보 리스트 가져오기*/
+	/* 기업정보 리스트 가져오기 */
 	@ResponseBody
-	@RequestMapping(value="/jobRequestList",method=RequestMethod.POST)
+	@RequestMapping(value = "/jobRequestList", method = RequestMethod.POST)
 	public List<JobVo> jobRequestList(@ModelAttribute JobSearchVo jobSearchVo) {
-		
+
 		System.out.println(jobSearchVo.toString());
 		List<JobVo> jobRequestList = jobService.jobRequestList(jobSearchVo);
 		System.out.println(jobRequestList.toString());
-		
+
 		return jobRequestList;
 	}
 
+	/* 한번클릭했을때 */
+	/*취업지원자 리스트*/
 	@ResponseBody
-	@RequestMapping(value="/getInterviewList",method=RequestMethod.POST)
-	public List<JobVo> getInterviewList(@RequestParam int request_no){
-
+	@RequestMapping(value = "/getInterviewList", method = RequestMethod.POST)
+	public List<JobVo> getInterviewList(@RequestParam int request_no) {
 		System.out.println(request_no);
 		List<JobVo> searchList = jobService.getInterviewList(request_no);
 		System.out.println(searchList.toString());
@@ -58,26 +53,38 @@ public class JobController {
 		return searchList;
 	}
 
-
-	/*modal*/
+	/* modal */
 	@ResponseBody
-	@RequestMapping(value = "/choice" , method=RequestMethod.POST)
+	@RequestMapping(value = "/choice", method = RequestMethod.POST)
 	public List<GisuTableVo> getGisu(@ModelAttribute GisuTableVo gisuTableVo) {
 
 		System.out.println(gisuTableVo.toString());
 		List<GisuTableVo> getGisu = jobService.getGisu(gisuTableVo);
 		System.out.println(getGisu.toString());
-		
+
 		return getGisu;
 	}
 
-
-	@RequestMapping("/test2")
-	public String test2(){
-		System.out.println("/test2");
-		return "graduate/test2";
+	/* 두번클릭했을때 */
+	/*취업의뢰기업 상세정보 가져오기*/
+	@RequestMapping("/jobRequestDetail")
+	public String popJobRequestDetail(@RequestParam("request_no")int request_no, Model model) {
+		System.out.println("/pop_jobRequestDetail");
+		JobVo jobVo = jobService.getJobRequest(request_no);
+		System.out.println(jobVo.toString());
+		model.addAttribute("jobVo", jobVo);
+		return "graduate/pop_jobRequestDetail";
 	}
 
-	
+	/*
+	 * @RequestMapping(value="/jobdetails") public JobVo
+	 * jobdetails(@RequestParam("company_no")int company_no, Model model) {
+	 * 
+	 * System.out.println("company_no" + company_no);
+	 * model.addAttribute("company_no", company_no); JobVo jobdetails =
+	 * jobService.jobdetails(company_no);
+	 * 
+	 * return jobdetails; }
+	 */
 
 }
