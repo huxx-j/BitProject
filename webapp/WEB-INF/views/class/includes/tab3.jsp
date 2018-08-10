@@ -3,17 +3,23 @@
     <div class="col-xs-4">
         <div class="box-body">
             <div class="sub-box">
-                <div class="sub-title">팀 리스트
-                    <button id="addTeam" class="btn btn-default btn-sm w100" style="float: right" type="button">팀 추가</button>
-                </div> <%--/.sub-title--%>
-            </div> <%--/.sub-box--%>
-            <br/>
-            <div id="teamListDiv" class="sub-body">
-                <div id="teamListGuide" class="blank-div" style="margin-top: 0">
-                    <h5>교육과정 조회 버튼을 눌러주세요</h5>
+                <div class="sub-toobox">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <span class="sub-title">팀 리스트</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <button id="addTeam" class="btn btn-default btn-h25 w100 pull-right"  type="button">팀 추가</button>
+                        </div>
+                    </div>
                 </div>
-            <%--팀 리스트 뿌려질 자리--%>
-            </div> <%--/.sub-body--%>
+                <div id="teamListDiv" class="sub-body">
+                    <div id="teamListGuide" class="blank-div">
+                        <h5>교육과정 조회 버튼을 눌러주세요</h5>
+                    </div>
+                <%--팀 리스트 뿌려질 자리--%>
+                </div> <%--/.sub-body--%>
+            </div> <%--/.sub-box--%>
         </div> <%--/.box-body--%>
     </div> <%--/.col-xs-4--%>
     <div class="col-xs-8">
