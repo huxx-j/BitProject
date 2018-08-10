@@ -53,16 +53,18 @@ public class PackageService {
             stepInPackVo.setLevel(Level);
             Level++;
             stepInPackVo.setPackage_no(package_no);
-            steplist3.add(stepInPackVo);
+
             int step=packageDao.insertstep(stepInPackVo);
 
             for (int k = 0; k < sublist.size(); k++) {
                 if (sublist.get(k).getSubHour() != 0) {
                     sublist.get(k).setStep_no(step);
                     packageDao.insertsub(sublist.get(k));
+                    sublist1.add(sublist.get(k));
                 }
             }
             stepInPackVo.setSublist(sublist1);
+            steplist3.add(stepInPackVo);
         }
         allStepVo.setSteplist(steplist3);
         System.out.println(allStepVo);

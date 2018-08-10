@@ -82,7 +82,7 @@
 
     <select id = "curriCateList" resultType = "com.bitacademy.vo.CurriculumCateVo">
 		<![CDATA[
-			SELECT curriculumCate_no, cateName, groupCode, parentCode, depth
+			SELECT curriculumCate_no, cateName, parentCode
 			FROM CurriculumCate;
 		]]>
 	</select>
@@ -105,8 +105,6 @@
 			SELECT packageName, package_no  
 			FROM Package
 			WHERE package_no = #{package_no}
-		
-		
 		]]>
 	
 	</select>

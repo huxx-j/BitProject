@@ -189,8 +189,8 @@
 											<div class="sub-body">
 
 													<!-- 2번메뉴내용 -->
-												<%--<button id="all" onclick="javascript:insertStep()">tr 콘솔</button>--%>
-												<form id="stepadd2" name="stepadd" method="post" onsubmit="return check();" action="${pageContext.request.contextPath}/package/addStep">
+												<%--<button id="all" onclick="javascript:insertStep()">tr 콘솔</button>action="${pageContext.request.contextPath}/package/addStep"--%>
+
 
 													<table class="table table-condensed">
 														<colgroup>
@@ -221,6 +221,9 @@
 													<div id="step-list">
 
 														<table id ="steptable0" class="table table-condensed">
+															<caption><button type="button" id='deletestep' class='btn btn-default btn-sm' value='0' onclick='javascript_:deleteStep()'>단계 삭제</button></caption>
+																<form id="stepadd2" name="stepadd"  method="post"action="${pageContext.request.contextPath}/package/addStep"  onsubmit="return check();" >
+
 
 															<colgroup>
 																<col width="50px" />
@@ -230,7 +233,7 @@
 																<col width="60px" />
 															</colgroup>
 															<tbody id='subject-list0'>
-															<%--<button type="button" id='deletestep' class='btn btn-default btn-sm' value='0' onclick="return deletestep();" >단계 삭제</button>--%>
+
 															<input type="hidden" name ="steplist[0].Package_no">
 															<input type='hidden' name="steplist[0].Level" value="1">
 															<input type='hidden' name='steplist[0].Step_no' value="0">
@@ -768,6 +771,8 @@
         $("#packageTab a:last").tab('show');
     }
 
+
+	//패키지 클릭시 발동되는 함수
     function package(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
         $.ajax({
@@ -791,13 +796,7 @@
                 str+='<input type="button" value="삭제" class="btn btn-default btn-sub pull-right">';
                 str+="</div>";
                 $("#button2").append(str);
-                    $("input[name='steplist[0].StepName']").val(" ");
-                    $("input[name='SubjectName00']").val(" ");
-                    $("textarea[name='steplist[0].sublist[0].Content']").val(" ");
-                    $("input[name='steplist[0].sublist[0].SubHour']").val(" ");
-                $("div[name='die']").remove();
-				$("tr[name='die']").remove();
-                $("table[name='die']").remove();
+				clean();
 					console.log(PackageVo);
 				for(var i=0;i<PackageVo.steplist.length;i++) {
                     for (var j = 0; j < PackageVo.steplist[i].sublist.length; j++) {
@@ -845,6 +844,67 @@
         });
     }
 
+    //깨끗히 지우는 함수
+	function clean(){
+        $("input[name='steplist[0].StepName']").val(" ");
+        $("input[name='SubjectName00']").val(" ");
+        $("textarea[name='steplist[0].sublist[0].Content']").val(" ");
+        $("input[name='steplist[0].sublist[0].SubHour']").val(" ");
+        $("div[name='die']").remove();
+        $("tr[name='die']").remove();
+        $("table[name='die']").remove();
+	}
+    $(document).on("click", "#detailSaveBtn", function () {
+        var currival = $("#pjtcurriculum_no").val();
+        var projectFileFormData = new FormData($("#projectFileForm")[0]);
+        var projectNo = 0;
+        var membersId = $("#membersId").val();
+        if (membersId == "") {
+            alert("팀원을 선택해주세요")
+        } else {
+
+            $.ajax({
+                url: "${pageContext.request.contextPath}/class/addProjectDetail",
+                type: "post",
+                processData: false,
+                contentType: false,
+                // cache: false,
+                enctype: "multipart/form-data",
+                async: false,
+                data: projectFileFormData,
+                dataType: "json",
+                success: function (result) {
+                    projectNo = result;
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+            removeTeamList();
+            ajaxGetTeamList(currival);
+            removePjtDetail();
+            ajaxTeamDetail(projectNo, currival);
+        }
+    });
+
+	function deleteStep(){
+        var form = $("#stepadd2").serialize();
+        $.ajax({
+            async: false,
+            url : "${pageContext.request.contextPath }/package/deleteStep",
+            type : "POST",
+            processDate: false,
+			contentType: false,
+            data : form,
+            dataType : "json",
+            success : function() {
+				console.log("짜장");
+			},
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+	});
+	}
     $("#btnAddPackage").on("click",function () {
         str=" ";
         $("input[name='PackageNameInStep']").val(" ");
@@ -920,9 +980,9 @@
         console.log("step:"+step);
         console.log("sub:"+sub);
         var str=" ";
-        str+= "<br><br>";
+         str+= "<br><br>";
         str+=  "<table id='steptable"+step+"' class='table table-condensed'>";
-        // str+=  "<button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" >단계 삭제</button>";
+         str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" onclick='javascript_:deleteStep()' >단계 삭제</button></caption>";
         str+=  "<colgroup>";
         str+=  "<col width='50px' />";
         str+=   "<col width='250px' />";
@@ -1023,12 +1083,12 @@
         console.log("삭제");
         var sub=$(this).data("sub");
         var step=$(this).data("step");
-        var val=$(this).val();
+        var val=$("button[name='btnAddsubject"+step+"']").val();
         console.log(val);
         // if(val=="0") {
             console.log("#subject-item" + step + sub);
             $("#subject-item" + step + sub).remove();
-            $("button[name='btnAddsubject"+step+"']").val(sub);
+            $("button[name='btnAddsubject"+step+"']").val(val-1);
         <%--}--%>
         <%--else{--%>
             <%--$.ajax({--%>
@@ -1079,7 +1139,7 @@
         var str=" ";
         str+= "<div name='die'><br><br></div>";
         str+=  "<table id='steptable"+step+"' name = 'die'  class='table table-condensed'>";
-        // str+=  "<button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" >단계 삭제</button>";
+        str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" onclick= 'javascript_:deleteStep()'>단계 삭제</button></caption>";
         str+=  "<colgroup>";
         str+=  "<col width='50px' />";
         str+=   "<col width='250px' />";

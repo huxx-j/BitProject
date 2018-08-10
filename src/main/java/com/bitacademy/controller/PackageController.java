@@ -81,11 +81,19 @@ public class PackageController {
 
     @RequestMapping(value="/addStep" , method = {RequestMethod.GET,RequestMethod.POST})
     public String addStep(@ModelAttribute AllStepVo steplist){
-        System.out.println("HERE?");
         System.out.println(steplist);
       packageService.stepadd(steplist);
      return "redirect:/package/";
     }
+
+    @RequestMapping(value="/deleteStep" , method = {RequestMethod.GET,RequestMethod.POST})
+    public String deleteStep(@ModelAttribute AllStepVo steplist){
+        System.out.println("delete?");
+        System.out.println(steplist);
+        packageService.stepadd(steplist);
+        return "redirect:/package/";
+    }
+
 
 //    @ResponseBody
 //    @RequestMapping(value = "/deleteSubInPack", method = {RequestMethod.POST,RequestMethod.GET})
