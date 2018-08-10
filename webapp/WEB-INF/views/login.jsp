@@ -39,11 +39,11 @@
         <p class="login-box-msg"><strong>Login</strong></p>
         <form action="/user/login" method="post">
             <div class="form-group has-feedback">
-                <input type="text" name="id" class="form-control" placeholder="ID">
+                <input type="text" name="id" class="form-control" placeholder="ID" value="aa">
                 <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password" value="aa">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
