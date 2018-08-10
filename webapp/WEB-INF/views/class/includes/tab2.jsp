@@ -3,21 +3,22 @@
 <div class="row">
     <div class="col-xs-3">
         <div class="box-body">
-            <div class="sub_list">
-                <div class="sub-box">
-                    <div class="sub-title">과목리스트</div>
-                    <div class="sub-body">
-                        <%--과목리스트 뿌려질 자리--%>
-                    </div> <%--/.sub-body--%>
-                </div> <%--/.sub-box--%>
-            </div> <%--/.sub_list--%>
+            <div class="sub-box">
+                <div class="sub-title">과목리스트</div>
+                <div id="sub_list" class="sub-body">
+                    <div id="subListGuide" class="blank-div">
+                        <h5>교육과정 조회 버튼을 눌러주세요</h5>
+                    </div>
+                    <%--과목리스트 뿌려질 자리--%>
+                </div> <%--/.sub-body--%>
+            </div> <%--/.sub-box--%>
         </div> <%--/.box-body--%>
     </div> <%--/.col-xs-3--%>
     <div class="col-xs-9">
         <div class="eval_data">
             <div class="box-body">
                 <div class="sub-box">
-                    <div class="sub-title">과목별 평가 자료</div><br/>
+                    <div class="sub-title">과목별 평가 자료</div>
                         <div class="sub-body">
                             <table class="table table-condensed"> <%--시험지테이블--%>
                                 <tr>

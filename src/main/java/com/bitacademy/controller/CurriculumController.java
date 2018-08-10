@@ -15,32 +15,53 @@ import com.bitacademy.service.CurriculumService;
 import com.bitacademy.service.PackageService;
 import com.bitacademy.vo.ApplicantVo;
 import com.bitacademy.vo.CurriAllVo;
+import com.bitacademy.vo.CurriculumCateVo;
 import com.bitacademy.vo.CurriculumVo;
 
 @Controller
-@RequestMapping(value = "/curri")
+@RequestMapping(value = "/curri/")
 public class CurriculumController {
 
 	@Autowired
 	private CurriculumService curriService;
-//	private PackageService packageService;
 
 	// 교육과정관리 메인(카테고리 탭 포함)
 	@RequestMapping(value = "")
 	public String curriMain(Model model) {
+		// 교육과정 카테고리
 		model.addAttribute("list", curriService.currilist());
 		model.addAttribute("cateList", curriService.curriCateList());
+		// 패키지보기 모달창
+		model.addAttribute("packageCateList", curriService.packageCateList());
+		model.addAttribute("packageList", curriService.packageList());
 		System.out.println("curriMain");
+		// 업무구분 selectbox ajax
+		model.addAttribute("workType", curriService.getWorkType());
 		return "screening/mainCurri";
+	}
+
+	// 교육과정 카테고리 추가
+	@ResponseBody
+	@RequestMapping(value = "/addCurriCate")
+	public int addCurriCate(@ModelAttribute CurriculumCateVo curriCateVo) {
+
+		int result = curriService.addCurriCate(curriCateVo);
+		return result;
 	}
 
 	// 교육과정 추가 버튼
 	@RequestMapping(value = "/addCurriForm")
 	public String addCurriForm(Model model) {
 		System.out.println("form");
+		// 교육과정 카테고리
 		model.addAttribute("list", curriService.currilist());
 		model.addAttribute("cateList", curriService.curriCateList());
-		
+		// 패키지 보기 모달
+		model.addAttribute("packageCateList", curriService.packageCateList());
+		model.addAttribute("packageList", curriService.packageList());
+		// 업무구분 selectbox ajax
+		model.addAttribute("workType", curriService.getWorkType());
+
 		return "screening/addCurri";
 	}
 
@@ -50,19 +71,18 @@ public class CurriculumController {
 	public CurriAllVo viewCurriculum(@PathVariable String curriculum_no) {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
-
-		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList);
+		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
+		// System.out.println("studentList" + studentList.toString());
+		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
 		// System.out.println(curriAllVo.toString());
 		return curriAllVo;
 	}
 
-	// CurriInfo 페이지에서 패키지보기 모달창
+	// 패키지 보기 모달창-패키지 선택 시 패키지명 받아옴
 	@ResponseBody
 	@RequestMapping(value = "/viewPackageAjax")
 	public CurriculumVo viewPackageAjax(@RequestParam("package_no") String package_no, Model model) {
 		CurriculumVo packageVo = curriService.viewPackageAjax(package_no);
-//		model.addAttribute("packageCateList", packageService.getcatelist());
-//		model.addAttribute("packageList", packageService.getpacklist());
 		return packageVo;
 	}
 
@@ -70,19 +90,14 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/addCurri")
 	public int addCurri(@ModelAttribute CurriculumVo curriVo) {
-		System.out.println("curriVo=" + curriVo.toString());
 		int result = curriService.addCurri(curriVo);
 		return result;
 	}
-
-	// 커리큘럼 추가 페이지 패키지보기 모달창
 
 	// 교육과정 수정
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	public int edit(@ModelAttribute CurriculumVo curriVo) {
-		System.out.println("[curriController] edit IN");
-		System.out.println(curriVo.toString());
 		int result = curriService.edit(curriVo);
 		return result;
 	}
@@ -90,9 +105,34 @@ public class CurriculumController {
 	// 기수부여
 	@ResponseBody
 	@RequestMapping(value = "/gisuGrant")
-	public String gisuGrant(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
+	public ApplicantVo gisuGrant(@RequestParam("applicant_no") int applicant_no) {
+		ApplicantVo applicantVo = curriService.gisuGrant(applicant_no);
+		return applicantVo;
+	}
 
-		return "screening/mainCurri";
+	// 기수 제거
+	@ResponseBody
+	@RequestMapping(value = "/gisuRemove")
+	public ApplicantVo gisuRemove(@RequestParam("applicant_no") int applicant_no) {
+		ApplicantVo applicantVo = curriService.gisuRemove(applicant_no);
+		return applicantVo;
+	}
+
+	// 기수부여 저장 버튼(Flag = 1)
+	@ResponseBody
+	@RequestMapping(value = "/gisuGrantSave")
+	public int gisuGrantSave(@RequestParam("applicant_no") int applicant_no) {
+		int result = curriService.gisuGrantSave(applicant_no);
+		return result;
+	}
+
+	// 기수부여 저장 버튼(Flag = 0)
+	@ResponseBody
+	@RequestMapping(value = "/gisuRemoveSave")
+	public int gisuRemoveSave(@RequestParam("applicant_no") int applicant_no) {
+		System.out.println(applicant_no);
+		int result = curriService.gisuRemoveSave(applicant_no);
+		return result;
 	}
 
 	@RequestMapping(value = "p")
@@ -104,4 +144,5 @@ public class CurriculumController {
 	public String s() {
 		return "ex/subject";
 	}
+
 }

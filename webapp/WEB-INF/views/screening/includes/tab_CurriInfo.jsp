@@ -23,9 +23,16 @@
 											<td>
 												<input type = "hidden" name = "curriculumCate_no"  style = "border:none;">
 												<select class = "form-control " id = "cateName" name = "cateName">
-													<option value = "국가기간">국가기간</option>
-													<option value = "핵심역량">핵심역량</option>
-													<option value = "방학단기">방학단기</option>
+<!-- 													<option value = "국가기간">국가기간</option> -->
+<!-- 													<option value = "핵심역량">핵심역량</option> -->
+<!-- 													<option value = "방학단기">방학단기</option> -->
+													<c:forEach items="${workType}" var="vo">
+														<option id = "${vo.curriculumCate_no }" value="${vo.cateName}">${vo.cateName}</option>
+													</c:forEach>
+													
+<%-- 													 <c:forEach items="${cateName}" var="cateName"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 --> --%>
+<%--                                                     <option id="${cateName}" value="${cateName}">${cateName}</option> --%>
+<%--                                                		 </c:forEach> --%>
 												</select>
 											</td>
 											<th>선택패키지</th>
@@ -132,16 +139,13 @@
 
 
 
-
+<!-- 패키지 보기 모달 -->
 <!-- 모달 시작! -->
 <div class = "modal fade" id = "packageViewModal" >
 	<div class = " modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header">
-				<button type = "button" class = "close" data-dismiss = "modal">
-					<span aria-hidden = "true">x</span>
-					<span class = "sr-only">Close</span>
-				</button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class = "modal-title" id = "packageViewModalLabel">패키지선택</h4>
 			</div><!-- /.modal-header -->
 			<div class = "modal-body">
@@ -149,20 +153,59 @@
 					<div class = "cate-outter bordered">
 						<div class = "scroll">
 							<div class = "tab-content-custom" style = "height : 500px;">
-								<div class = "row"> 
-									<ul id = "modalTree" class = "ztree"></ul>
-								</div><!-- /.row -->
+								<ul id = "modalTree" class = "ztree"></ul>
 							</div><!-- /.tab-content-custom -->
 						</div><!-- /.modal scroll -->
 					</div><!-- /.cate-outter bordered -->
 				</div><!-- /.sub-box -->
 			</div><!-- /.modal-body -->
 			<div class = "modal-footer">
-				<button type = "button" class = "btn btn-default" id = "modalSelectBtn" style = "padding: 2px 5px; margin : auto;">선택</button>
-				<button type = "button" class = "btn btn-default " data-dismiss = "modal" style = "padding : 2px 5px;">취소</button>
+				<button type = "button" class = "btn btn-default" id = "modalSelectBtn" >선택</button>
+				<button type = "button" class = "btn btn-default" id = "modalCancelBtn" data-dismiss = "modal" >취소</button>
+			</div><!-- /.modal-footer -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal-fade -->
+<!-- /.모달 끝 --> 
+<!-- /.패키지보기 모달 -->
+
+
+<!-- 교육과정 카테고리 추가 버튼 모달창 -->
+<div class = "modal fade" id = "addCateModal" >
+	<div class = " modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class = "modal-title" id = "addCateModalLabel">패키지선택</h4>
+			</div><!-- /.modal-header -->
+			<div class = "modal-body">
+				<table class = "table table-condensed">
+					<tr>
+						<th>위치</th>
+						<td>
+							<select name = "curriCate" id = "curriculumCate_no" class = "form-control">
+								<c:forEach items = "${workType }" var = "workType">
+									<option id = "${workType.curriculumCate_no }" name = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>카테고리명</th>
+						<td>
+							<input type = "text" class = "form-control" name = "cateName" value = "" id = "cateName">
+						</td>
+					</tr>	
+				</table>
+			</div><!-- /.modal-body -->
+			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-primary " id = "addCateSaveBtn" >저장</button>
+				<button type = "button" class = "btn btn-default pull-right" id = "addCateCancelBtn" data-dismiss = "modal" >취소</button>
 			</div><!-- /.modal-footer -->
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal-fade -->
 <!-- /.모달 끝 --> 
 
+
+<!-- /.교육과정 카테고리 추가 버튼 모달창 -->

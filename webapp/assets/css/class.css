@@ -47,8 +47,8 @@
 
 .box-subjectlist {
     border-top-color: rgb(255, 189, 151);
-    margin-top: 24px; !important;
-    margin-bottom: 0; !important;
+    margin-top: 0px; !important;
+    margin-bottom: 0px; !important;
 }
 
 .teamList-box {
@@ -56,7 +56,8 @@
 }
 
 .subList {
-    height: 30px; !important;
+    height: 53px; !important;
+
 }
 
 .a_c {
@@ -172,6 +173,7 @@
 
 .line-table {
     background-color: #C2C2C2 ;
+    height: 6px; !important;
     padding: 2px !important;
 }
 
@@ -204,4 +206,9 @@ textarea {
 .pjt-box {
     padding: 5px 10px;
     vertical-align: middle;
+}
+
+.blank-div {
+    height: 137px;
+    border: 1px solid #a2a5ab
 }

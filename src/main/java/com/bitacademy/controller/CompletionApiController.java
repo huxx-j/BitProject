@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.service.CompletionService;
-import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.PagerResponseVo;
 import com.bitacademy.vo.UserCareerVo;
 
 @Controller
@@ -34,8 +34,27 @@ public class CompletionApiController {
 		return curriList;
 	}
 	
+	//선택된 업무구분과 radio조건반영된 관련된 수업이름 가져가기
+	@ResponseBody
+	@RequestMapping(value="/getCurriList_state", method=RequestMethod.POST)
+	public List<CurriculumVo> getCurriList_state(@RequestParam("curriculumCate_no") String curriculumCate_no,
+												@RequestParam("curriState") int curriState) {
+		System.out.println("ajax-list :" + curriculumCate_no+","+curriState);
+		List<CurriculumVo> list = completionService.getCurriList_state(curriculumCate_no,curriState);
+		System.out.println(list.toString());
+		return list;
+	}
+		
 	//조회버튼 클릭 후 그리드영역 학생(수료생)리스트 가져가기
 	@ResponseBody
+	@RequestMapping(value = "/getStudentList", method = RequestMethod.GET)
+	public PagerResponseVo getStudentList(@RequestParam("curriculum_no") int curriculum_no, @RequestParam("page") int page, @RequestParam("rows") int rows, @RequestParam("sidx") String sidx, @RequestParam("sord") String sord){
+		//우리가 설정하지 않아도 jqgrid에서 자동으로 파라미터 4개를 보내줌
+		//파라미터 부분은 그대로 쓸것, Vo로 받아보려 시도 했으나 안됨
+		System.out.println("page : " + page + ", rows : " + rows + ", sidx : " + sidx + ",sord : " + sord);
+		return completionService.getStudentList(curriculum_no, page, rows, sidx, sord); //service로 보냄
+	}
+	/*@ResponseBody
 	@RequestMapping(value="/getStudentList",method=RequestMethod.GET)
 	public List<ApplyUserVo> getStudentList(@RequestParam int curriculum_no ) {
 		
@@ -43,9 +62,9 @@ public class CompletionApiController {
 		
 		List<ApplyUserVo> studentList = completionService.getStudentList(curriculum_no);
 		
-		/*System.out.println(applyUserlist.toString());*/
+		System.out.println(applyUserlist.toString());
 		return studentList ;
-	}
+	}*/
 	
 	//선택된 학생의 취업정보 가져가기
 	@ResponseBody

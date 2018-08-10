@@ -14,21 +14,54 @@
 
 </select> -->
 
+<!-- 그리드에 반영될 데이터의 총 개수를 가져오기 -->
+<select id="getRecords" parameterType="Int" resultType="Int">
+	<![CDATA[
+		select count(u.User_no) from Users u, ApplyInfo a
+		where u.User_no = a.User_no and a.Curriculum_no = #{curriculum_no}
+	]]>
+</select>
+
 <!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
 <select id="getCompletionStudent" parameterType="int" resultType="com.bitacademy.vo.ApplyUserVo">
 
-	<![CDATA[
-		select u.User_no, g.GisuName,u.NameHan, u.BirthDate,u.Gender,
+	<choose>
+     	<when test="sord=='asc'">
+            <![CDATA[
+               select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
 			   a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 			   s.School, s.Major,a.Deposit
-				  
-		from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
-		where u.User_no = a.User_no
-		and s.User_no = u.User_no 
-		and a.Curriculum_no = c.Curriculum_no
-		and g.Curriculum_no = c.Curriculum_no
-		and c.Curriculum_no = #{curriculum_no};
-	]]>
+	  
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+				where u.User_no = a.User_no
+				and s.User_no = u.User_no 
+				and a.Curriculum_no = c.Curriculum_no
+				and c.Curriculum_no = #{param}  
+				order by ]]>
+				<if test="!sidx.equals('sidx0')">
+			            ${sidx} asc,
+			    </if>
+             <![CDATA[ u.NameHan asc
+             		   limit #{startNum}, #{rows}
+             ]]>
+        </when>
+   		<otherwise>
+             <![CDATA[
+                select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
+				a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
+				s.School, s.Major,a.Deposit
+	  
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+				where u.User_no = a.User_no
+				and s.User_no = u.User_no 
+				and a.Curriculum_no = c.Curriculum_no
+				and c.Curriculum_no = #{param}
+                order by ${sidx} desc,
+                u.NameHan asc
+                limit #{startNum}, #{rows}
+              ]]>
+        </otherwise>
+     </choose>
 </select>
 
 <!-- 선택된 학생의 취업정보 가져가기 -->

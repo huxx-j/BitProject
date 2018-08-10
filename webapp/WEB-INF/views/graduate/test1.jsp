@@ -29,7 +29,6 @@
 	<div class="content-wrapper">
 
 
-
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
@@ -1600,3 +1599,523 @@
         }
     });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 상단 -->
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-body">
+						<div class="row">
+							<!-- 위에테이블 왼쪽-->
+							<div class="col-xs-12">
+								<div class="sub-box">
+									<div class="sub-title">기업정보</div>
+									<div class="sub-body">
+										<table class="table table-condensed">
+											<colgroup>
+												<col width="80px" />
+												<col width="" />
+												<col width="80px" />
+												<col width="" />
+												<col width="80px" />
+												<col width="" />	
+												<col width="80px" />
+												<col width="" />			
+											</colgroup>
+																					
+											<tbody>
+												
+												<tr>
+													<th>자본금금금</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>연매출액</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+													<th>직원수</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>상장여부</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									
+										<table class="table table-condensed">
+											<colgroup>
+												<col width="111px" />
+												<col width="311px" />
+												<col width="111px" />
+												<col width="311px" />
+												<col width="111px" />
+												<col width="311px" />			
+											</colgroup>
+										
+											<tbody>
+												<tr>
+													<th>회사명</th>
+														<td>
+															<input class="form-control" type="text">
+														</td>
+													<th>홈페이지</th>
+														<td colspan="5">
+															<input class="form-control" type="text">
+														</td>
+												</tr>
+												<tr>
+													<th>설립년도</th>
+													<td>
+													<!-- 	<div class="input-group border-inputcolor">
+															<input class="form-control border-none" name="date" id="date" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																<span class="input-group-btn">
+																	<button type="button" class="btn- btn-date border-none" data-toggle="datepicker">
+																		<i class="fa fa-calender">::before</i>
+																	</button>
+																</span>
+														</div> -->
+													</td>
+													<th>사업자번호</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													
+													<th>직원수</th>
+													<td class="form-inline">
+														<input class="form-control w140" type="text">명
+													</td>
+												</tr>
+												<tr>
+													<th>자본금</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												
+													<th>연매출액</th>
+													<td
+														><input class="form-control" type="text">
+													</td>
+												
+													<th>상장여부</th>
+													<td>
+														<select class="form-control">
+															<option value="상장">상장</option>
+															<option value="비상장">비상장</option>
+														</select>
+													</td>
+												</tr>
+											
+												<tr>
+													<th rowspan="2">회사주소</th>
+													<td colspan="5">
+														<input class="w140" type="text">
+														<button class="btn btn-default btn-sm" type="button">찾기</button>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											
+												<!-- <tr>
+													<th>홈페이지</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr> -->
+												<tr>
+													<th>회사소개</th>
+													<td colspan="5">
+														<textarea class="form-control"></textarea>
+													</td>
+												</tr>
+												<tr>
+													<th>복지사항</th>
+													<td colspan="5">
+														<textarea class="form-control"></textarea>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!-- /.sub-box -->
+							</div>
+							<!-- /.col-xs-12 -->
+							
+						</div>
+						<!-- 위에테이블 -->
+					</div>
+					<!-- body -->
+				</div>
+				<!-- 12 -->	
+			</div>
+			<!-- row -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box box-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="sub-box">
+									<div class="sub-title">채용요청</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="" />
+												<col width="" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th>코드</th>
+													<th>신청일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="mouse">
+													<td>1</td>
+													<td>2018-07-08</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->
+							</div>
+							<!-- /.col-xs-3 -->
+	
+	
+							<div class="col-xs-6 right-nopadding">
+								<div class="sub-box">
+									<div class="sub-title">충원계획</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="" />
+												<col width="" />
+												<col width="" />
+												<col width="" />
+												<col width="" />
+												<col width="" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th>회사명</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>신청일</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>게시여부</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>모집인원</th>
+													<td><input class="form-control" type="text"></td>
+													<th>고용형태</th>
+													<td colspan="3">
+														<div class="radio-group pull-left">
+															<label class="radiobox">
+																<input type="radio">정규직
+															</label>
+															<label class="radiobox">
+																<input type="radio">계약직
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th>근무지</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>담당업무</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>개발환경</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+														<input class="form-control" type="text">
+														<input class="form-control" type="text">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>연봉</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>채용직급</th>
+													<td colspan="3">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->
+								
+								
+								<div class="sub-box">
+									<div class="sub-title">자격요건</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="60px" />
+												<col width="350px" />
+												<col width="60px" />
+												<col width="" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th>학력</th>
+													<td>
+														<div class="radio-group pull-left">
+															<label class="radiobox">
+																<input type="radio">석사
+															</label>
+															<label class="radiobox">
+																<input type="radio">대졸
+															</label>
+															<label class="radiobox">
+																<input type="radio">전문대졸
+															</label>
+															<label class="radiobox">
+																<input type="radio">불문
+															</label>
+														</div>
+													</td>
+													<th>학과</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>경력사항</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>우대사항</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>담당업무</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->
+								
+								
+								<div class="sub-box">
+									<div class="sub-title">전형방법</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="60px" />
+												<col width="" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th>전형절차</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>제출서류</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>요구사항</th>
+													<td colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->
+								
+								<div class="sub-box">
+									<div class="sub-title">담당자정보</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="60px" />
+												<col width="" />
+												<col width="60px" />
+												<col width="" />
+												<col width="60px" />
+												<col width="" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th>담당자</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>부서</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>직책</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>전화번호</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>휴대폰</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+													<th>팩스</th>
+													<td>
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+												<tr>
+													<th>이메일</th>
+													<td  colspan="5">
+														<input class="form-control" type="text">
+													</td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->		
+							</div>
+							<!-- /.col-xs-6 -->
+							
+							
+							<div class="col-xs-3">
+								<div class="sub-box">
+									<div class="row">
+										<div class="col-xs-6">
+											<span class="sub-title">지원자리스트</span>
+										</div>
+										<div class="col-xs-6">
+											<button class="btn btn-default btn-h25 pull-right" type="button" id="insertData">지원자 추가</button>
+										</div>
+									</div>
+									<div class="sub-body">
+										<table class="table table-hover table-condensed">
+											<colgroup>
+												<col width="20px" />
+												<col width="82px" />
+												<col width="44px" />
+												<col width="" />
+												<col width="38px" />
+												<col width="20px" />
+											</colgroup>			
+											<thead>
+												<tr>
+													<th>&nbsp;</th>
+													<th>기수</th>
+													<th>이름</th>
+													<th>지원일자</th>
+													<th>결과</th>
+													<th>X</th>
+												</tr>
+											</thead>
+											<tbody id="applicantList">
+												<!-- jquery로 출력 -->
+											</tbody>										
+										</table>
+									</div>
+									<!-- /.sub-body -->
+								</div>
+								<!--/.sub-box -->
+							</div>
+							<!-- /.col-xs-3 -->
+		
+						</div>
+						<!--/.row -->
+					</div>
+					<!-- /.box -->
+				</div>
+				<!--/.col-xs-12 -->
+			</div>
+			<!--/.row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
