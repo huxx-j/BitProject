@@ -56,9 +56,7 @@
 	<![CDATA[
 		select  cc.CurriculumCate_no,
 				cc.CateName,
-				cc.GroupCode,
-				cc.ParentCode,
-				cc.Depth
+				cc.ParentCode
 		from CurriculumCate cc
 		where DelStatus=0
 	]]>

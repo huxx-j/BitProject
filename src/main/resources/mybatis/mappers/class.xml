@@ -8,7 +8,7 @@
     <select id="getCateName" resultType="String">
         <![CDATA[
 --         SELECT CateName from CurriculumCate group by CateName
-            select CateName from CurriculumCate where CurriculumCate_no not in (10000)
+            select CateName from CurriculumCate where DelStatus = 0
         ]]>
     </select>
 
