@@ -75,4 +75,9 @@ public class ProjectDao {
     public int updateProjectFile(FileVo fileVo) {
         return sqlSession.update("project.updateProjectFile", fileVo);
     }
+
+    //프로젝트 상세정보를 삭제하는 코드(실제 삭제는 안되고 state만 변경)
+    public int delProjectDetail(int pjtNo) {
+        return sqlSession.update("project.delProjectDetail", pjtNo);
+    }
 }

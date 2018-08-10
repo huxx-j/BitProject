@@ -52,15 +52,15 @@
 							<!-- 카테고리영역 -->
 							<div class="col-xs-3">
 								<div class="sub-box">
-									<div class="cate-title">
-										교육과정카테고리
-									</div><!-- cate-title -->
+<!-- 									<div class="cate-title"> -->
+<!-- 										교육과정카테고리 -->
+<!-- 									</div>cate-title -->
 									
 									
 									<div class = "bordered">
 										<div class = "cate-toolbox-top clearfix">
-											<button type="button" id="addcate" class="btn btn-default btn-cate">추가</button>
-											<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
+											<button type="button" id="addCateBtn" class="btn btn-default btn-cate pull-right">추가</button>
+											<button type="button" id = "editCateBtn" class="btn btn-default btn-cate pull-right">편집</button>
 										</div><!-- /.cate-toolbox-top clearfix -->
 										
 										<div class = "scroll">
@@ -122,44 +122,14 @@
 										
 										
 										<!-- 4번탭 영역 시작 -->
-										<div class = "tab-pane" id = "tab_4">
-											<div class = "row">
-												<div class = "col-xs-12">
-													<table class = "table table-condensed">
-														<tr>
-															<th>교육과정명</th>
-															<td class = "col-xs-10"><input type = "text" class = "form-control " readonly name = "curriName"></td>
-														</tr>
-													</table>
-												</div><!-- /.col-xs-12" -->
-											</div><!-- /.row 4번탭 상단 -->
-											<div class = "row">
-												<div class = "col-xs-12">
-												
-												</div><!-- /.col-xs-12 -->
-											</div><!-- /.row 4번탭 하단 -->
-										</div><!-- /.tab_4 -->
+										<c:import url="/WEB-INF/views/screening/includes/tab_AssignInstructor.jsp"></c:import>
+										
 										<!-- /.4번탭 끝 -->
 										
 										
 										<!-- 5번탭 영역 시작 -->
-										<div class = "tab-pane" id = "tab_5">
-											<div class = "row">
-												<div class = "col-xs-12">
-													<table class = "table table-condensed">
-														<tr>
-															<th>교육과정명</th>
-															<td class = "col-xs-10"><input type = "text" class = "form-control " readonly name = "curriName"></td>
-														</tr>
-													</table>
-												</div><!-- /.col-xs-12" -->
-											</div><!-- /.row 5번탭 상단 -->
-											<div class = "row">
-												<div class = "col-xs-12">
-												
-												</div><!-- /.col-xs-12 -->
-											</div><!-- /.row 5번탭 하단 -->
-										</div><!-- /.tab_5 -->
+										<c:import url="/WEB-INF/views/screening/includes/tab_AssignClassroom.jsp"></c:import>
+										
 										<!-- /.5번탭 끝 -->
 
 
@@ -203,6 +173,8 @@
 
 </script>
 	<c:import url="/WEB-INF/views/screening/includes/script_Curriculum.jsp"></c:import>
+	<c:import url="/WEB-INF/views/screening/includes/script_ApplicantManagement.jsp"></c:import>
+	<c:import url="/WEB-INF/views/screening/includes/script_CurriInfo.jsp"></c:import>
 
 
 </html>

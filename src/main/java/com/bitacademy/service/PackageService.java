@@ -18,13 +18,8 @@ public class PackageService {
         for (int i = 0; i < steplist.size(); i++) {
              steplist.get(i).setSublist(packageDao.getsublist((steplist.get(i).getStep_no())));
         }
-
         return steplist;
     }
-
-
-
-
     public List<PackageCateVo> getcatelist() {
         return packageDao.selectcatelist();
     }

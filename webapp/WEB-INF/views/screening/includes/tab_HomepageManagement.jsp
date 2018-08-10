@@ -17,7 +17,10 @@
 						</table>
 					</div><!-- /.col-xs-12 -->
 				</div><!-- /.row 2번탭 상단-->
-				<div class = "row" style = "padding : 10px 0 0 0;">
+				
+				<div class = "space"></div>
+				
+				<div class = "row">
 					<div class = "col-xs-12">
 						<table class = "table table-condensed" >
 							<tr>

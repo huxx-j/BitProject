@@ -26,7 +26,7 @@
 	<header class="main-header">
     
     	<!-- Logo -->
-    	<a href="../../index2.html" class="logo">
+    	<a href="/" class="logo">
       		<!-- mini logo for sidebar mini 50x50 pixels -->
       		<span class="logo-mini"><b>B</b>it</span>
       
@@ -39,7 +39,7 @@
     	<nav class="navbar navbar-static-top">
 
 			<div>
-				<button type="button" class="btn btn-default pull-right btnLogout " style="margin-right: 50px">로그아웃</button>
+				<a href="/user/logout"><button type="button" class="btn btn-default pull-right btnLogout" style="margin-right: 50px">로그아웃</button></a>
 			</div>
       	
 	      	<!-- 왼쪽메뉴 토클버튼 -->

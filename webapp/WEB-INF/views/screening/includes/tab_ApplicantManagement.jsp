@@ -22,84 +22,72 @@
 								기수부여
 							</div>
 							<div class = "row">
-								<div class = "col-xs-12">
-									<div class = "col-xs-5">
-										<div class = "sub-box" style = "border : 1px solid; border-color: #d2d6de; padding: 10px;">
+								<div class = "col-xs-12" >
+									<div class = "col-xs-5" style = "border : 1px solid; border-color: #d2d6de; padding: 10px;">
+										<div class = "sub-box" style = "height : 500px;"  >
 											<div class = "sub-title">
 												전체지원자리스트
 											</div><!-- /.sub-title -->
 											<div class = "sub-box">
-												<table class = "table table-condensed" >
+												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-3">
-														<col class = "col-xs-3">
 														<col class = "col-xs-2">
+														<col class = "col-xs-3">
+														<col class = "col-xs-3">
 														<col class = "col-xs-2">
 														<col class = "col-xs-2">
 													</colgroup>
 													<thead>
 														<tr>
+															<th><input type = "checkbox" name = "gisuGrantCheckAll" id = "gisuGrantCheckAll"></th>
 															<th>이름</th>
 															<th>생년월일</th>
 															<th>성별</th>
 															<th>전형결과</th>
-															<th>선택</th>
 														</tr>
 													</thead>
 													<tbody id = "renderApplicantList">
-<!-- 													<tr> -->
-<!-- 														<td><input type = "text" class = "form-control " name = "nameHan" style = "border : none;"></td> -->
-<!-- 														<td><input type = "text" class = "form-control " name = "birthDate" style = "border : none;"></td> -->
-<!-- 														<td><input type = "text" class = "form-control " name = "gender" style = "border : none;"></td> -->
-<!-- 														<td><input type = "text" class = "form-control " name = "testResult" style = "border : none;"></td> -->
-<!-- 														<td> -->
-<!-- 															<label class = "form-control-static"><input type = "checkbox" class = "" name = "gisuGrant" value = ""></label> -->
-<!-- 														</td> -->
-<!-- 													</tr> -->
 													
 													</tbody>
 												</table>
 											</div><!-- /.sub-box -->
 										</div><!-- /.sub-box -->
 									</div><!-- /.col-xs-5 좌측-->
-									<div class = "col-xs-2">
-										<button type = "button" class = "btn btn-default" value = "gisuGrant" onClick = "gisuGrant()">></button>
-										<button type = "button" class = "btn btn-default" value = ""><</button>
+									<div class = "col-xs-2 text-center" style = "height : 500px; display: table;" >
+										<div class = "button_group" style = "vertical-align: middle; display: table-cell;">
+											<button type = "button" class = "btn btn-sub glyphicon glyphicon-chevron-right" value = "gisuGrant" onClick = "gisuGrant()"></button>
+											<br>
+											<br>
+											<button type = "button" class = "btn btn-sub glyphicon glyphicon-chevron-left" value = "gisuRemove" onClick = "gisuRemove()"></button>
+										</div>
 									</div><!-- /.col-xs-2 -->
 									<div class = "col-xs-5" style = "border : 1px solid; border-color: #d2d6de; padding: 10px;">
-										<div class = "sub-box">
+										<div class = "sub-box" style = "height : 500px;" >
 											<div class = "sub-title">
 												수강생리스트
 											</div><!-- /.sub-title -->
 											<div class = "sub-box" id = "">
-												<table class = "table table-condensed" >
+												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-3">
-														<col class = "col-xs-3">
 														<col class = "col-xs-2">
+														<col class = "col-xs-3">
+														<col class = "col-xs-3">
 														<col class = "col-xs-2">
 														<col class = "col-xs-2">
 													</colgroup>
-													<tr>
-														<th>이름</th>
-														<th>생년월일</th>
-														<th>성별</th>
-														<th>전형결과</th>
-														<th>선택</th>
-													</tr>
-													<!-- 
-													<tr id = "renderApplicantList">
+													<thead>
+														<tr>
+															<th><input type = "checkbox" name = "gisuRemoveCheckAll" id = "gisuRemoveCheckAll"></th>
+															<th>이름</th>
+															<th>생년월일</th>
+															<th>성별</th>
+															<th>전형결과</th>
+														</tr>
+													</thead>
+													<tbody id = "gisuGrantList">
 													
-														<td></td>
-														<td></td>
-														<td></td>
-														<td></td>
-														<td>
-															<label class = "form-control-static"><input type = "checkbox" class = "" name = "gisuGrant" value = ""></label>
-														</td>
-														
-													</tr>
-													 -->
+													</tbody>
+													
 												</table>
 											</div><!-- /.sub-box -->
 										</div><!-- /.sub-box -->
@@ -108,7 +96,7 @@
 							</div><!-- /.row  -->
 						</div><!-- /.sub-box -->
 						<div class = "sub-toolbox text-center">
-							<button type = "button" class = "btn btn-primary" >저장</button>
+							<button type = "button" class = "btn btn-primary" id = "gisuGrantSaveBtn" >저장</button>
 						</div><!-- /.sub-toolbox text-center -->
 					</div><!-- /.col-xs-12 -->
 				</div><!-- /.row 3번탭 하단 -->

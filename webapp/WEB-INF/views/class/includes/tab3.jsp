@@ -4,17 +4,30 @@
         <div class="box-body">
             <div class="sub-box">
                 <div class="sub-title">팀 리스트
-                    <button id="addTeam" class="btn btn-default btn-cate-search w100" style="float: right" type="button">팀 추가</button>
+                    <button id="addTeam" class="btn btn-default btn-sm w100" style="float: right" type="button">팀 추가</button>
                 </div> <%--/.sub-title--%>
             </div> <%--/.sub-box--%>
             <br/>
             <div id="teamListDiv" class="sub-body">
+                <div id="teamListGuide" class="blank-div" style="margin-top: 0">
+                    <h5>교육과정 조회 버튼을 눌러주세요</h5>
+                </div>
             <%--팀 리스트 뿌려질 자리--%>
             </div> <%--/.sub-body--%>
         </div> <%--/.box-body--%>
     </div> <%--/.col-xs-4--%>
     <div class="col-xs-8">
         <div id="pjtDetailDiv">
+            <div id="pjtDetailGuide" class="box-body"> <%--조회버튼 누르기 전 가이드 div--%>
+                <div class="sub-box">
+                    <div class="sub-title">팀 상세정보</div>
+                    <div class="sub-body">
+                        <div class="blank-div">
+                            <h5>팀 리스트에서 상세보기 버튼을 눌러주세요</h5>
+                        </div> <%--/.blank-div--%>
+                    </div> <%--/.sub-body--%>
+                </div> <%--/.sub-box--%>
+            </div> <%--/.pjtDetailGuide--%>
             <%--상세정보 뿌려질 자리--%>
         </div> <%--/.col-xs-8--%>
     </div> <%--/.row--%>

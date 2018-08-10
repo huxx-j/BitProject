@@ -27,13 +27,13 @@
 	
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>지원자관리
+			<h1>기업취업관리
 				<small>it all starts here</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-				<li><a href="#">과정설계업무</a></li>
-				<li class="active">패키지관리</li>
+				<li><a href="#">출신업무관리</a></li>
+				<li class="active">기업취업관리</li>
 			</ol>
 		</section>
 		<!-- /.Content Header (Page header) -->

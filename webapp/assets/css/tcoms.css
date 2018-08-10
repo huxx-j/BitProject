@@ -70,12 +70,19 @@
 thead > tr > th,
 thead > tr > td,
 tbody > tr > th,
-tbody > tr > td{
+tbody > tr > td,
+tfoot > tr > th,
+tfoot > tr > td{
 	border: 1px solid #a2a5ab !important;
 }
 
-/* 테이블 td 중간정렬 */
-.table > tbody > tr > td {
+/* 테이블 td 세로중간정렬 */
+tbody > tr > td,
+tbody > tr > th,
+tbody > tr > th,
+tbody > tr > td,
+tfoot > tr > th,
+tfoot > tr > td {
     vertical-align: middle !important;
 }
 
