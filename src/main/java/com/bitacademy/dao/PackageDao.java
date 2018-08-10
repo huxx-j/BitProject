@@ -59,8 +59,25 @@ public class PackageDao {
         sqlSession.update("package.CateUpdate",subjectCateVo);
     }
 
+//
+//    public void updateSub(SubInStepVo subInStepVo) {
+//        sqlSession.update("package.updateSub",subInStepVo);
+//    }
+//
+//    public int updateStep(StepInPackVo stepInPackVo) {
+//       return sqlSession.update("package.updateStep",stepInPackVo);
+//    }
+//
+//    public void deleteSubInPack(int no) {
+//        sqlSession.delete("package.deleteSubInPack",no);
+//    }
 
-    public void updateSub(SubInStepVo subInStepVo) {
-        sqlSession.update("package.updatesub",subInStepVo);
+    public void deleteStepInPack(int package_no) {
+        sqlSession.delete("package.deleteStepInPack",package_no);
+
+    }
+
+    public void deleteSubInStep(int step_no) {
+        sqlSession.delete("package.deleteSubInStep",step_no);
     }
 }

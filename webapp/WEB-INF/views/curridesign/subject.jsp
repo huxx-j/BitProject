@@ -249,7 +249,12 @@
 
     var zNodes= [
         <c:forEach items="${list}" var="vo">
+        <c:if test="${vo.subjectCate_no eq 10000}">
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true},
+        </c:if>
+        <c:if test="${vo.subjectCate_no ne 10000}">
         {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+        </c:if>
         </c:forEach>
         <c:forEach items="${sublist}" var="vo">
         {id:${vo.subject_no},pId:${vo.subjectCate_no},name:"${vo.subjectName}",web:"${vo.subject_no}"},
@@ -514,7 +519,7 @@
         var str ="";
         console.log(no);
         $.ajax({
-            url : "${pageContext.request.contextPath }/subject/getSubjectaVo",
+            url : "${pageContext.request.contextPath }/subject/getSubjectVo",
             type : "POST",
             //contentType : "application/json",
             data : {"no": no},

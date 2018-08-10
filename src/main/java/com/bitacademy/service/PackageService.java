@@ -3,6 +3,7 @@ package com.bitacademy.service;
 import com.bitacademy.dao.PackageDao;
 import com.bitacademy.vo.*;
 import org.apache.ibatis.jdbc.Null;
+import org.apache.taglibs.standard.extra.spath.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,11 @@ public class PackageService {
 
     public void stepadd(AllStepVo steplist) {
         List<StepInPackVo> steplist2 = steplist.getSteplist();
-        int package_no=steplist2.get(0).getPackage_no();
+        int package_no = steplist2.get(0).getPackage_no();
+        for (int k = 0; k < steplist2.size(); k++) {
+           packageDao.deleteSubInStep(steplist2.get(k).getStep_no());
+       }
+        packageDao.deleteStepInPack(package_no);
         int Level=steplist2.get(0).getLevel();
         AllStepVo allStepVo = new AllStepVo();
         List<StepInPackVo> steplist3 =new ArrayList<StepInPackVo>();
@@ -43,24 +48,51 @@ public class PackageService {
             stepInPackVo.setLevel(Level);
             Level++;
             stepInPackVo.setPackage_no(package_no);
-            steplist3.add(stepInPackVo);
+
             int step=packageDao.insertstep(stepInPackVo);
 
             for (int k = 0; k < sublist.size(); k++) {
                 if (sublist.get(k).getSubHour() != 0) {
                     sublist.get(k).setStep_no(step);
-                    if(sublist.get(k).getStep_no()==0) {
-                        packageDao.insertsub(sublist.get(k));
-                    }
-                    else{
-                        packageDao.updateSub(sublist.get(k));
-                    }
+                    packageDao.insertsub(sublist.get(k));
+                    sublist1.add(sublist.get(k));
                 }
             }
             stepInPackVo.setSublist(sublist1);
+            steplist3.add(stepInPackVo);
         }
         allStepVo.setSteplist(steplist3);
+        System.out.println(allStepVo);
     }
+
+//        List<StepInPackVo> test=new ArrayList<StepInPackVo>();
+//        List<StepInPackVo> steplist2 = steplist.getSteplist();
+//        int package_no = steplist2.get(0).getPackage_no();
+//        packageDao.deleteStepInPack(package_no);
+//        for (int k = 0; k < steplist2.size(); k++) {
+//            packageDao.deleteSubInStep(steplist2.get(k).getStep_no());
+//        }
+//
+//        int step = 0;
+//        for (int i = 0; i < steplist2.size(); i++) {
+//            List<SubInStepVo> sublist = steplist2.get(i).getSublist();
+//            steplist2.get(i).setPackage_no(package_no);
+//            if (steplist2.get(i).getStepName() != "") {//빈 step리스트 제약조건
+//                test.add(steplist2.get(i));
+//                step = packageDao.insertstep(steplist2.get(i));
+//                for (int j = 0; j < sublist.size(); j++) {
+//                    List<SubInStepVo> intest=new ArrayList<SubInStepVo>();
+//                    if (sublist.get(j).getSubHour() != 0) {                     //빈 sub리스트 제약조건
+//                        sublist.get(j).setStep_no(step);
+//                        intest.add(sublist.get(j));
+//                        packageDao.insertsub(sublist.get(j));
+//                    }
+//                }
+//                test.get.add(intest);
+//            }
+//        }
+//    }
+
 
     public List<PackageVo> getpacklist() {
         return packageDao.selectpacklist();
@@ -82,5 +114,9 @@ public class PackageService {
          packageDao.UpdateCate(subjectCateVo);
 
     }
+//
+//    public void deleteSubInPack(int no) {
+//        packageDao.deleteSubInPack(no);
+//    }
 }
 
