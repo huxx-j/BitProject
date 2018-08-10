@@ -549,26 +549,5 @@
                 "width = 700, height = 600, toolbar = no, menubar = no, scrollbars = no, resizable = yes")
 
     }
-    /*
-     $(function(){
-
-     $("#date1").datepicker();
-
-     });
-     */
-    /*
-    $('#addCurriBtn').click(function(){
-      $('#addCurriForm').reset();
-    });
-     */
-    /*
-    $('#addCurriBtn').click(function(){
-       $('input[type = text]').each(function(){
-            $(this).val("");
-       })
-
-    });
-
-     */
+  
 </script>
-<%--jqgrid사용시 삭제할것--%>

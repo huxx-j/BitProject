@@ -22,7 +22,7 @@
         <![CDATA[
                 select Project_no, ProjectName, Curriculum_no
                     from Project
-                    where Curriculum_no=#{curriculum_no}
+                    where Curriculum_no=#{curriculum_no} and Del=0
         ]]>
     </select>
 
@@ -143,6 +143,14 @@
         update File
             set FileSize=#{fileSize}, FilePath=#{filePath}, FileName=#{fileName}
             where File_no=#{file_no}
+        ]]>
+    </update>
+
+    <update id="delProjectDetail" parameterType="Int">
+        <![CDATA[
+            update Project
+                set Del=1
+                where Project_no=#{project_no}
         ]]>
     </update>
 </mapper>

@@ -46,14 +46,11 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="box box-body" style="padding-right: 36px">
+                    <div class="box box-body">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="sub-box">
                                     <div class="sub-title">교육과정검색</div>
-                                    <%--<div class="box-header with-border">--%>
-                                        <%--<h3 class="box-title"> 교육과정검색</h3>--%>
-                                    <%--</div> &lt;%&ndash;/.box-header with-border&ndash;%&gt;--%>
                                     <div class="sub-body">
                                     <table class="table table-condensed"> <%--교육과정검색 테이블--%>
                                         <tr>
@@ -61,7 +58,7 @@
                                             <th colspan="2">교육과정(반) 명</th>
                                         </tr>
                                         <tr>
-                                            <td><select class="form-control" id="workTypeSelect" style="width:100%">
+                                            <td><select class="form-control" id="workTypeSelect">
                                                 <c:forEach items="${cateName}" var="cateName"> <!-- 업무 구분 셀렉트박스안에 출력하는 코드 -->
                                                     <option id="${cateName}" value="${cateName}">${cateName}</option>
                                                 </c:forEach>
@@ -73,7 +70,7 @@
                                                 </div> <%--/.radio-group w100 disp-inline--%>
                                             </td>
                                             <td id="curriTd" style="border-left: none !important;">
-                                                <select class="form-control" id="curriSelect" style="width: 100%">
+                                                <select class="form-control" id="curriSelect">
                                                 </select>
                                             </td>
                                         </tr>
@@ -91,11 +88,7 @@
                             <div class="sub-title">수업관리
                                 <input id="selectedCurri" type="hidden">
                             </div>
-                        <%--<div class="box-header with-border">--%>
-                            <%--<h3 class="box-title"> 수업관리</h3>--%>
-                            <%--<input id="selectedCurri" type="hidden">--%>
-                        <%--</div> &lt;%&ndash;/.box-header with-border&ndash;%&gt;--%>
-                            <div class="sub-body" style="padding-right: 36px">
+                            <div class="sub-body">
                                 <table class="table table-condensed"> <%--수업관리 테이블--%>
                                     <tr>
                                         <th style="width: 8%; text-align: center">과정구분</th>
@@ -105,9 +98,9 @@
                                     </tr>
                                     <tr>
                                         <th style="width: 8%; text-align: center">개강일</th>
-                                        <td id="periodFrInfo" class="table-text" style="width: 42%"></td>
+                                        <td id="periodFrInfo" class="table-text"></td>
                                         <th style="width: 8%; text-align: center">종강일</th>
-                                        <td id="periodToInfo" class="table-text" style="width: 42%"></td>
+                                        <td id="periodToInfo" class="table-text"></td>
                                     </tr>
                                 </table> <%--/.수업관리 테이블--%>
                             </div> <%--/.sub-body--%>

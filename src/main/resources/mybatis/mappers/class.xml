@@ -7,7 +7,8 @@
     <!--업무구분에 카테코리 이름을 불러오는 쿼리-->
     <select id="getCateName" resultType="String">
         <![CDATA[
-        SELECT CateName from CurriculumCate group by CateName
+--         SELECT CateName from CurriculumCate group by CateName
+            select CateName from CurriculumCate where DelStatus = 0
         ]]>
     </select>
 
@@ -36,7 +37,7 @@
     <!--교육과정검색에 조회버튼을 누르면 커리큘럼 정보는 불러오는 쿼리-->
     <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
         <![CDATA[
-        select CurriName, StartDate, EndDate from Curriculum where Curriculum_no=#{curriculum_no};
+        select CurriName, StartDate, EndDate, GisuName from Curriculum where Curriculum_no=#{curriculum_no};
         ]]>
     </select>
 
@@ -51,13 +52,12 @@
     <!--파일이 저장되는 디렉토리 이름을 가져가는 쿼리-->
     <select id="getSubjectNoForDirGen" parameterType="Int" resultType="HashMap">
         <![CDATA[
-        select g.GisuName, sis.Subject_no
-            from SubInStep sis
-            join StepInPack sip on sis.Step_no = sip.Step_no
-            join Package p on sip.Package_no = p.Package_no
-            join Curriculum c on p.Package_no = c.Package_no
-            join Gisu g on c.Curriculum_no = g.Curriculum_no
-            where sis.SubInStep_no=#{sisNo}
+        select c.GisuName, sis.Subject_no
+                from SubInStep sis, StepInPack sip, Package p, Curriculum c
+                where sis.Step_no = sip.Step_no
+                      and sip.Package_no = p.Package_no
+                      and p.Package_no = c.Package_no
+                      and sis.SubInStep_no=#{sisNo}
         ]]>
     </select>
 

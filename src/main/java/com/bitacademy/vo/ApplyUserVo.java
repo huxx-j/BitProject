@@ -26,14 +26,14 @@ public class ApplyUserVo {
 	private String cardPayDate;
 	private int cardPayAmount;
 	private int totalPay;
-	private String consult;
+	private String consultContent;
 	private String CurriState;
 	
 	public ApplyUserVo(int user_no, int curriculum_no, String cateName, String gisuName, String curriName,
 			String nameHan, String applyType, String birthDate, int testScore, int gender,String c_gender, String testResult,
 			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
 			String deposit, String depositDate, int depositAmount, String cardPayDate, int cardPayAmount, int totalPay,
-			String consult, String curriState) {
+			String consultContent, String curriState) {
 		
 		this.user_no = user_no;
 		this.curriculum_no = curriculum_no;
@@ -59,7 +59,7 @@ public class ApplyUserVo {
 		this.cardPayDate = cardPayDate;
 		this.cardPayAmount = cardPayAmount;
 		this.totalPay = totalPay;
-		this.consult = consult;
+		this.consultContent = consultContent;
 		CurriState = curriState;
 	}
 
@@ -273,12 +273,12 @@ public class ApplyUserVo {
 		this.totalPay = totalPay;
 	}
 
-	public String getConsult() {
-		return consult;
+	public String getConsultContent() {
+		return consultContent;
 	}
 
-	public void setConsult(String consult) {
-		this.consult = consult;
+	public void setConsultContent(String consultContent) {
+		this.consultContent = consultContent;
 	}
 
 	public String getCurriState() {
@@ -297,7 +297,7 @@ public class ApplyUserVo {
 				+ ", c_gender=" + c_gender + ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="
 				+ applyDate + ", testDate=" + testDate + ", school=" + school + ", major=" + major + ", deposit="
 				+ deposit + ", depositDate=" + depositDate + ", depositAmount=" + depositAmount + ", cardPayDate="
-				+ cardPayDate + ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consult=" + consult
+				+ cardPayDate + ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consultContent=" + consultContent
 				+ ", CurriState=" + CurriState + "]";
 	}
 

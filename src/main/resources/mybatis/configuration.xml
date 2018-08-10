@@ -33,6 +33,7 @@
         <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>
         <typeAlias alias="TestVo" type="com.bitacademy.vo.TestVo"/>
         <typeAlias alias="PagerRequestVo" type="com.bitacademy.vo.PagerRequestVo"/>
+        <typeAlias alias="AuthVo" type="com.bitacademy.vo.AuthVo"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mappers/afterservice.xml"/>
@@ -40,7 +41,7 @@
         <mapper resource="mybatis/mappers/class.xml"/>
         <mapper resource="mybatis/mappers/completion.xml"/>
         <mapper resource="mybatis/mappers/curriculum.xml"/>
-        <mapper resource="mybatis/mappers/gisu.xml"/>
+        <!--<mapper resource="mybatis/mappers/gisu.xml"/>-->
         <mapper resource="mybatis/mappers/job.xml"/>
         <mapper resource="mybatis/mappers/lecturereport.xml"/>
         <mapper resource="mybatis/mappers/licence.xml"/>
@@ -54,5 +55,6 @@
         <mapper resource="mybatis/mappers/userscholarship.xml"/>
         <mapper resource="mybatis/mappers/usertraining.xml"/>
         <mapper resource="mybatis/mappers/Test.xml"/>
+        <mapper resource="mybatis/mappers/login.xml"/>
     </mappers>
 </configuration>

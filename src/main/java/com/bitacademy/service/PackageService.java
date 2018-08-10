@@ -19,13 +19,8 @@ public class PackageService {
         for (int i = 0; i < steplist.size(); i++) {
              steplist.get(i).setSublist(packageDao.getsublist((steplist.get(i).getStep_no())));
         }
-
         return steplist;
     }
-
-
-
-
     public List<PackageCateVo> getcatelist() {
         return packageDao.selectcatelist();
     }
@@ -46,25 +41,27 @@ public class PackageService {
         List<StepInPackVo> steplist3 =new ArrayList<StepInPackVo>();
 
         for (int i = 0; i < steplist2.size(); i++) {
-            List<SubInStepVo> sublist = steplist2.get(i).getSublist();
-            StepInPackVo stepInPackVo = new StepInPackVo();
-            List<SubInStepVo> sublist1 =new ArrayList<SubInStepVo>();
-            stepInPackVo.setStepName(steplist2.get(i).getStepName());
-            stepInPackVo.setLevel(Level);
-            Level++;
-            stepInPackVo.setPackage_no(package_no);
+            if (steplist2.get(i).getLevel() != 0) {
+                List<SubInStepVo> sublist = steplist2.get(i).getSublist();
+                StepInPackVo stepInPackVo = new StepInPackVo();
+                List<SubInStepVo> sublist1 = new ArrayList<SubInStepVo>();
+                stepInPackVo.setStepName(steplist2.get(i).getStepName());
+                stepInPackVo.setLevel(Level);
+                Level++;
+                stepInPackVo.setPackage_no(package_no);
 
-            int step=packageDao.insertstep(stepInPackVo);
+                int step = packageDao.insertstep(stepInPackVo);
 
-            for (int k = 0; k < sublist.size(); k++) {
-                if (sublist.get(k).getSubHour() != 0) {
-                    sublist.get(k).setStep_no(step);
-                    packageDao.insertsub(sublist.get(k));
-                    sublist1.add(sublist.get(k));
+                for (int k = 0; k < sublist.size(); k++) {
+                    if (sublist.get(k).getSubHour() != 0) {
+                        sublist.get(k).setStep_no(step);
+                        packageDao.insertsub(sublist.get(k));
+                        sublist1.add(sublist.get(k));
+                    }
                 }
+                stepInPackVo.setSublist(sublist1);
+                steplist3.add(stepInPackVo);
             }
-            stepInPackVo.setSublist(sublist1);
-            steplist3.add(stepInPackVo);
         }
         allStepVo.setSteplist(steplist3);
         System.out.println(allStepVo);

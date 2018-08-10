@@ -175,7 +175,7 @@
 												<div class="sub-toolbox clearfix text-center">
 													<div id="button">
 													<div id="inner-button">
-													<input type="button" value="저장" id="addpackage" class="btn btn-primary" onclick="javascript_:addPackage();">
+													<input type="button" value="저장" id="addpackage" class="btn btn-primary">
 													</div>
 													</div>
 												</div>
@@ -218,11 +218,12 @@
 
 													<br>
 													<button  id="btnAddstep" name="btnaddstep" style="margin-bottom:5px; float: right" class="btn btn-default pull-right" type="button" value="" >단계 추가</button>
+												<form id="stepadd2" name="stepadd2"  method="post"  onsubmit="return check();" action="${pageContext.request.contextPath}/package/addStep">
 													<div id="step-list">
 
 														<table id ="steptable0" class="table table-condensed">
-															<caption><button type="button" id='deletestep' class='btn btn-default btn-sm' value='0' onclick='javascript_:deleteStep()'>단계 삭제</button></caption>
-																<form id="stepadd2" name="stepadd"  method="post"action="${pageContext.request.contextPath}/package/addStep"  onsubmit="return check();" >
+
+															<caption><button type="button" id='deletestep' class='btn btn-default btn-sm' value='0'>단계 삭제</button></caption>
 
 
 															<colgroup>
@@ -238,7 +239,7 @@
 															<input type='hidden' name="steplist[0].Level" value="1">
 															<input type='hidden' name='steplist[0].Step_no' value="0">
 															<tr>
-																<td style="text-align: center">1단계</td>
+																<td style="text-align: center">단계명</td>
 																<td colspan="3" >
 																	<input type="text" name="steplist[0].StepName" style="width: 800px">
 																</td>
@@ -270,6 +271,7 @@
 														</table>
 
 													</div>
+
 												<div class="sub-toolbox clearfix text-center">
 													<div id="button2">
 														<div id="inner-button2">
@@ -743,7 +745,8 @@
 		}
 		});
     });
-    function addPackage(){
+
+    $(document).on("click","#addpackage",function() {
 		packageVo={
 		    PackageCate_no: $("select[name='strPackageCate_no']").val(),
 			UseStatus: $("select[name='UseStatus']").val(),
@@ -769,7 +772,7 @@
 			}
         });
         $("#packageTab a:last").tab('show');
-    }
+    });
 
 
 	//패키지 클릭시 발동되는 함수
@@ -854,57 +857,7 @@
         $("tr[name='die']").remove();
         $("table[name='die']").remove();
 	}
-    $(document).on("click", "#detailSaveBtn", function () {
-        var currival = $("#pjtcurriculum_no").val();
-        var projectFileFormData = new FormData($("#projectFileForm")[0]);
-        var projectNo = 0;
-        var membersId = $("#membersId").val();
-        if (membersId == "") {
-            alert("팀원을 선택해주세요")
-        } else {
 
-            $.ajax({
-                url: "${pageContext.request.contextPath}/class/addProjectDetail",
-                type: "post",
-                processData: false,
-                contentType: false,
-                // cache: false,
-                enctype: "multipart/form-data",
-                async: false,
-                data: projectFileFormData,
-                dataType: "json",
-                success: function (result) {
-                    projectNo = result;
-                },
-                error: function (XHR, status, error) {
-                    console.error(status + " : " + error);
-                }
-            });
-            removeTeamList();
-            ajaxGetTeamList(currival);
-            removePjtDetail();
-            ajaxTeamDetail(projectNo, currival);
-        }
-    });
-
-	function deleteStep(){
-        var form = $("#stepadd2").serialize();
-        $.ajax({
-            async: false,
-            url : "${pageContext.request.contextPath }/package/deleteStep",
-            type : "POST",
-            processDate: false,
-			contentType: false,
-            data : form,
-            dataType : "json",
-            success : function() {
-				console.log("짜장");
-			},
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-	});
-	}
     $("#btnAddPackage").on("click",function () {
         str=" ";
         $("input[name='PackageNameInStep']").val(" ");
@@ -924,7 +877,7 @@
         $("table[name='die']").remove();
         $("#inner-button").remove();
         str+="<div id='inner-button'>";
-        str+= '<input type="button" value="저장" id="addpackage" class="btn btn-primary" onclick="javascript_:addPackage();">';
+        str+= '<input type="button" value="저장" id="addpackage" class="btn btn-primary">';
         str+="</div>";
         $("#button").append(str);
 		str=" ";
@@ -982,7 +935,7 @@
         var str=" ";
          str+= "<br><br>";
         str+=  "<table id='steptable"+step+"' class='table table-condensed'>";
-         str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" onclick='javascript_:deleteStep()' >단계 삭제</button></caption>";
+          str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+">단계 삭제</button></caption>";
         str+=  "<colgroup>";
         str+=  "<col width='50px' />";
         str+=   "<col width='250px' />";
@@ -994,7 +947,7 @@
         //str+=   "<input type='text' name='steplist["+step+"].Package_no' value='"+pack+"' >";
         str+=   "<input type='hidden' name='steplist["+step+"].Level' value='"+(step+1)+"' >";
         str+=  "<tr>";
-        str+=	  "<td style='text-align: center'>"+(step+1)+"단계</td>";
+        str+=	  "<td style='text-align: center'>단계</td>";
         str+=    "<td colspan='3' >";
         str+=    "<input name='steplist["+step+"].StepName' type='text' style='width: 800px'>";
         str+=    "</td>";
@@ -1085,39 +1038,18 @@
         var step=$(this).data("step");
         var val=$("button[name='btnAddsubject"+step+"']").val();
         console.log(val);
-        // if(val=="0") {
             console.log("#subject-item" + step + sub);
             $("#subject-item" + step + sub).remove();
             $("button[name='btnAddsubject"+step+"']").val(val-1);
-        <%--}--%>
-        <%--else{--%>
-            <%--$.ajax({--%>
-                <%--url : "${pageContext.request.contextPath }/package/deleteSubInPack",--%>
-                <%--type : "POST",--%>
-                <%--//contentType : "application/json",--%>
-                <%--data : {"no": val},--%>
-                <%--dataType : "json",--%>
-                <%--success : function() {--%>
-                <%--},--%>
-                <%--error : function(XHR, status, error) {--%>
-                    <%--console.error(status + " : " + error);--%>
-                <%--}--%>
-			<%--});--%>
-            <%--$("#subject-item" + step + sub).remove();--%>
-		<%--}--%>
     });
 
-    // function deletestep() {
-    //     var val = $(this).val();
-    //     console.log("단계삭제");
-    //     $("#steptable" + val).remove();
-    //     if (check() == true) {
-    //         return true;
-    //     }
-    //     else{
-    //
-		// }
-    // }
+    $(document).on("click","#deletestep" ,function (){
+        var val = $(this).val();
+        console.log("단계삭제");
+        $("div[name='die']").remove();
+        $("#steptable" + val).remove();
+
+    });
 
 
     $(document).on("click","#selectsub",function(){
@@ -1139,7 +1071,7 @@
         var str=" ";
         str+= "<div name='die'><br><br></div>";
         str+=  "<table id='steptable"+step+"' name = 'die'  class='table table-condensed'>";
-        str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+" onclick= 'javascript_:deleteStep()'>단계 삭제</button></caption>";
+        str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+">단계 삭제</button></caption>";
         str+=  "<colgroup>";
         str+=  "<col width='50px' />";
         str+=   "<col width='250px' />";
@@ -1152,7 +1084,7 @@
         str+=   "<input type='hidden' name='steplist["+step+"].Level' value='"+(step+1)+"' >";
         str+=   "<input type='hidden' name='steplist["+step+"].Step_no' value='"+stepvo.step_no+"' >";
         str+=  "<tr>";
-        str+=	  "<td style='text-align: center'>"+(step+1)+"단계</td>";
+        str+=	  "<td style='text-align: center'>단계</td>";
         str+=    "<td colspan='3' >";
         str+=    "<input type='text' name='steplist["+step+"].StepName' value='"+stepvo.stepName+"' style='width: 800px'  >";
         str+=    "</td>";
@@ -1236,26 +1168,7 @@
             }
         }
     }
-            <%--$.ajax({--%>
-                <%--url : "${pageContext.request.contextPath }/subject/insertStep",--%>
-                <%--type : "POST",--%>
-                <%--//contentType : "application/json",--%>
-                <%--data : {"no": no},--%>
-                <%--dataType : "json",--%>
-                <%--success : function(SubjectVo) {--%>
-                    <%--$("input[name='SubjectName"+step+sub+"']").val(SubjectVo.subjectName),--%>
-                        <%--$("input[name='steplist["+step+"].sublist["+sub+"].Subject_no']").val(SubjectVo.subject_no)--%>
-                    <%--$("#pop2").modal("hide");--%>
-                <%--},--%>
-                <%--error : function(XHR, status, error) {--%>
-                    <%--console.error(status + " : " + error);--%>
-                <%--}--%>
-            <%--});--%>
 
-
-	function insertSub(Step_no){
-
-	}
 	function check() {
         for (var i = 0; i <= step; i++) {
             if ($("input[name='steplist[" + i + "].StepName']").val() == "") {
@@ -1278,6 +1191,7 @@
             }
         }
     }
+
 </script>
 
 

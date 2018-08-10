@@ -13,8 +13,15 @@ import java.util.List;
 
 @Controller
 public class MainController {
+	//로그인 메소드 (삭제하지마요)
+	@RequestMapping("/user/loginform")
+	public String login(){
+		return "login";
+	}
+
+
 	//기본값
-		@RequestMapping("/")
+	@RequestMapping("/")
 	public String mai1n(){
 		System.out.println("/index1");
 		return "ex/index_renew";
@@ -48,6 +55,8 @@ public class MainController {
 		System.out.println("/index6");
 		return "ex/index_jqgrid";
 	}
+
+
 
 
 	//jqgrid 페이징 예제
