@@ -400,6 +400,8 @@ $("[name=comCondition]").on("click", function(){
 
 
 
+
+
 /* 검색버튼 클릭했을때 */
 $("#btn_search").on("click", function(){
 	$("#jqGrid").clearGridData();   //해당 데이터 초기화 하기 !
