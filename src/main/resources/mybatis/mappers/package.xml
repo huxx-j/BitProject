@@ -9,9 +9,7 @@
         select
         PackageCate_no,
         CateName,
-        GroupCode,
-        ParentCode,
-        Depth
+        ParentCode
         from PackageCate
         ]]>
     </select>
