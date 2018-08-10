@@ -6,19 +6,19 @@
 	<!--/*기업정보 리스트 가져오기*/-->
 	<select id="jobRequestList" parameterType="com.bitacademy.vo.JobSearchVo" resultType="com.bitacademy.vo.JobVo">
 		<![CDATA[
-			select  j.Commpany_no, 
+			select  j.Company_no, 
 					j.Request_no,
 					j.Post,
 			        j.Black, 
 			        j.ReceiptDate,
-			        c.CompName, 
-			        j.Person,
+			        c.CompName,
+			        j.MgrName, 
 			        j.Field,
-			        j.Recruitment,
+			        j.HireCnt,
 			        j.Email,
 			        j.Employment 
 			from JobRequest j, Company c 
-			where j.Commpany_no = c.Commpany_no
+			where j.Company_no = c.Company_no
 		]]>
 		<if test="comCondition == 'post'">
 			and j.post = 1
@@ -46,5 +46,59 @@
 			and i.Request_no = #{request_no}
 		]]>
 	</select>
-
+	
+	<!-- 두번 클릭 -->
+	<!-- 취업의뢰기업 상세정보 가져오기 -->
+	<select id="getJobRequest" parameterType="Int" resultType="com.bitacademy.vo.JobVo">
+		<![CDATA[
+			SELECT 
+					j.Request_no,
+					j.HireCnt,
+					j.UseLang,
+					j.UseOS,
+					j.UseDB,
+					j.InterviewDate,
+					j.Career,
+					j.Requirement,
+					j.YearIncome,
+					j.Major,
+					j.Advantage,
+					j.ContractType,
+					j.Field,
+					j.Procedures,
+					j.ReqDocument,
+					j.ReqDetail,
+					j.Telephone,
+					j.Fax,
+					j.CellPhone,
+					j.Email,
+					j.MgrName,
+					j.Department,
+					j.Position,
+					j.Etc,
+					j.Post,
+					j.Black,
+					j.ReceiptDate,
+					j.Employment,
+				    
+				    c.Company_no,
+					c.Welfare,
+					c.CompName,
+					c.StockMarket,
+					c.Address,
+					c.Tel,
+					c.File_no,
+					c.Business,
+					c.Capital,
+					c.YearSell,
+					c.StaffCnt,
+					c.HomePage,
+					c.PostCode,
+					c.Introduction,
+					c.CompResNum
+			FROM JobRequest j, Company c
+			where j.Company_no = c.Company_no
+			and j.Request_no = #{Request_no}
+		]]>
+	</select>
 </mapper>

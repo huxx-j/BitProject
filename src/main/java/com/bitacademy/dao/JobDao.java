@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
@@ -33,9 +34,18 @@ public class JobDao {
 
 	}
 
+	/*한번클릭*/
 	public List<JobVo> getInterviewList(int request_no) {
 
 		return sqlSession.selectList("job.getInterviewList",request_no);
 
+	}
+
+	/*두번클릭*/
+	/*취업의뢰기업 상세정보 가져오기*/
+	public JobVo getJobRequest(int request_no) {
+		
+		return sqlSession.selectOne("job.getJobRequest",request_no);
+		
 	}
 }

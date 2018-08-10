@@ -63,7 +63,7 @@
 
 /* 테이블 기본값 재정의 */
 .table {
-	margin: 5px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 
 /* 테이블 라인(border) 정의*/
@@ -81,15 +81,28 @@ tbody > tr > td{
 
 /* 테이블 해더 부분 배경색  정의*/
 thead > tr > th,
-tbody > tr > th{
+tbody > tr > th,
+tfoot > tr > th{
 	background-color: #e2e6ef !important;
 }
 
+/* 좁은높이테이블 */
 .table-condensed > tbody > tr > td,
+.table-condensed > tbody > tr > th,
 .table-condensed > tfoot > tr > td,
-.table-condensed > thead > tr > td{
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > thead > tr > th{
 	padding: 2px 2px 2px 2px !important;
+	height: 28px !important;
+	vertical-align: middle !important;
 }
+
+.innerBox > table{
+	border: 2px solid #e2e6ef !important;
+	border-bottom: 1px solid #a2a5ab !important;
+}
+
 
 
 /***********************************/
@@ -148,7 +161,10 @@ input[type=radio] {
 	font-size: 14px;
 	font-weight :800;
 	margin:0px 0px 3px 0px;
-	height: 20px !important;
+	padding: 0px 0px 0px 0px; 
+	height: 25px !important;
+	display: table-cell;
+	vertical-align: bottom;
 }
 
 /* 영역컨텐츠박스 */
@@ -164,7 +180,7 @@ input[type=radio] {
 
 /* sub-box 안쪽에 작은 박스 */
 .innerBox {
-	padding: 0px 2px 2px 2px;
+	padding: 0px 0px 5px 0px;
 }
 
 
@@ -268,11 +284,12 @@ input[type=radio] {
 }
 
 
-/* 아주작은 사이즈 버튼*/
-.btn-ssm {
-	width: 60px !important;
-	height:10px !important;
+/* 타이틀과 같이 사용되는 버튼*/
+.btn-h25 {
+	height:25px !important;
 	text-align: center !important;
+	vertical-align: middle;
+	padding: 0px 5px 0px 5px !important;
 }
 
 
@@ -338,6 +355,20 @@ input[type=radio] {
 .w100{width: 100px !important;}
 .w120{width: 120px !important;}
 .w140{width: 140px !important;}
+.w160{width: 160px !important;}
+.w180{width: 180px !important;}
+.w200{width: 200px !important;}
+.w220{width: 220px !important;}
+.w240{width: 240px !important;}
+.w260{width: 260px !important;}
+.w280{width: 280px !important;}
+.w300{width: 300px !important;}
+.w320{width: 320px !important;}
+.w340{width: 340px !important;}
+.w360{width: 360px !important;}
+.w380{width: 380px !important;}
+.w400{width: 400px !important;}
+
 
 .bordered{
 	border: 1px solid #a2a5ab !important;
@@ -353,4 +384,40 @@ input[type=radio] {
 	cursor: pointer;
 }
 
+/* 팝업 새로운윈도우 */
+.popup_page{
+	background: #d2d6de;
+}
+
+#pop .wrapper{
+	width: 1000px;
+}
+
+#pop .content-wrapper {
+	margin-left: 0px;
+}
+
+
+/* 모달관련 */
+
+.modal-body {
+	background-color: #ffffff !important;
+	font-size: 12px
+}
+
+
+/* .modal-content {
+  	border-radius: 6px !important;	
+  	background-color: #d7dce2 !important;
+}
+ */
+ 
+/* 
+.modal-header {
+  	background-color: #ecf0f5 !important;
+}
+.modal-footer {
+  	background-color: #ecf0f5 !important;
+}
+ */
 

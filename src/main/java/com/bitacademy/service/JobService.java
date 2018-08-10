@@ -31,9 +31,17 @@ public class JobService {
 		return jobDao.jobRequestList(jobSearchVo);
 	}
 
+	/*한번클릭*/
 	public List<JobVo> getInterviewList(int request_no) {
 
 		return jobDao.getInterviewList(request_no);
+	}
+
+	/*두번클릭*/
+	/*취업의뢰기업 상세정보 가져오기*/
+	public JobVo getJobRequest(int request_no) {
+		
+		return jobDao.getJobRequest(request_no);
 	}
 
 }
