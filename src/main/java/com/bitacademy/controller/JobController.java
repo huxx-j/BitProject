@@ -41,6 +41,47 @@ public class JobController {
 		return jobRequestList;
 	}
 
+
+	/* 두번클릭했을때 팝업 */
+	/*취업의뢰기업 상세정보 가져오기*/
+	@RequestMapping("/jobRequestDetail")
+	public String popJobRequestDetail(@RequestParam("company_no")int company_no, Model model) {
+		
+		JobVo companyVo = jobService.getCompany(company_no);
+		List<JobVo> jobRequestList = jobService.getJobRequestListByComNo(company_no);
+		System.out.println("test: " + jobRequestList.toString());
+		
+		model.addAttribute("companyVo", companyVo);
+		model.addAttribute("jobRequestList", jobRequestList);
+		
+		return "graduate/pop_jobRequestDetail";
+	}
+
+	
+	
+
+	/*특정기업 취업의뢰 상세*/
+	@ResponseBody
+	@RequestMapping(value = "/jobRequest", method = RequestMethod.POST)
+	public JobVo getJobRequest(@RequestParam("request_no") int request_no) {
+
+		JobVo jobVo = jobService.getJobRequest(request_no);
+		System.out.println("jobVo: " + jobVo.toString());
+		return jobVo;
+	}
+	
+	
+	
+	/*
+	 * @RequestMapping(value="/jobdetails") public JobVo
+	 * jobdetails(@RequestParam("company_no")int company_no, Model model) {
+	 * 
+	 * System.out.println("company_no" + company_no);
+	 * model.addAttribute("company_no", company_no); JobVo jobdetails =
+	 * jobService.jobdetails(company_no);
+	 * 
+	 * return jobdetails; }
+	 */
 	/* 한번클릭했을때 */
 	/*취업지원자 리스트*/
 	@ResponseBody
@@ -52,7 +93,8 @@ public class JobController {
 
 		return searchList;
 	}
-
+	
+	
 	/* modal */
 	@ResponseBody
 	@RequestMapping(value = "/choice", method = RequestMethod.POST)
@@ -64,27 +106,4 @@ public class JobController {
 
 		return getGisu;
 	}
-
-	/* 두번클릭했을때 */
-	/*취업의뢰기업 상세정보 가져오기*/
-	@RequestMapping("/jobRequestDetail")
-	public String popJobRequestDetail(@RequestParam("request_no")int request_no, Model model) {
-		System.out.println("/pop_jobRequestDetail");
-		JobVo jobVo = jobService.getJobRequest(request_no);
-		System.out.println(jobVo.toString());
-		model.addAttribute("jobVo", jobVo);
-		return "graduate/pop_jobRequestDetail";
-	}
-
-	/*
-	 * @RequestMapping(value="/jobdetails") public JobVo
-	 * jobdetails(@RequestParam("company_no")int company_no, Model model) {
-	 * 
-	 * System.out.println("company_no" + company_no);
-	 * model.addAttribute("company_no", company_no); JobVo jobdetails =
-	 * jobService.jobdetails(company_no);
-	 * 
-	 * return jobdetails; }
-	 */
-
 }

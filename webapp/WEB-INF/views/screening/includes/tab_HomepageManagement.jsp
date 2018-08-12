@@ -24,16 +24,16 @@
 					<div class = "col-xs-12">
 						<table class = "table table-condensed" >
 							<tr>
-								<th class = "col-xs-1">메인페이지</th>
-								<td class = "col-xs-5">
+								<th class = "col-xs-2">메인페이지</th>
+								<td class = "col-xs-4">
 									<label class="radiobox"><input type="radio" name="mainViewFlag" value="0">노출</label>
 									<label class="radiobox"><input type="radio" name="mainViewFlag" value="1">숨김</label>
 <!-- 									<label class = "form-control-static"><input type = "radio" name = "mainViewFlag" value = "노출">노출</label> -->
 <!-- 									<label class = "form-control-static"><input type = "radio" name = "mainViewFlag" value = "숨김">숨김</label> -->
 									<button type = "button" class = "btn btn-default btn-sm pull-right" id = "myBtn">미리보기</button>
 								</td>
-								<th class = "col-xs-1">상세페이지</th>
-								<td class = "col-xs-5">
+								<th class = "col-xs-2">상세페이지</th>
+								<td class = "col-xs-4">
 									<label class="radiobox"><input type="radio" name="detailViewFlag" value="0">노출</label>
 									<label class="radiobox"><input type="radio" name="detailViewFlag" value="1">숨김</label>
 									

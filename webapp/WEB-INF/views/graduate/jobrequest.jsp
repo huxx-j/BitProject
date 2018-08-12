@@ -398,6 +398,10 @@ $("[name=comCondition]").on("click", function(){
 });
 
 
+
+
+
+
 /* 검색버튼 클릭했을때 */
 $("#btn_search").on("click", function(){
 	$("#jqGrid").clearGridData();   //해당 데이터 초기화 하기 !
@@ -492,10 +496,10 @@ $("#jqGrid").jqGrid(
 		/* 두번클릭했을때 */
 		ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
 			var rowId = $("#jqGrid").getGridParam("selrow");
-			var request_no = $("#jqGrid").getRowData(rowId).request_no; 
+			var company_no = $("#jqGrid").getRowData(rowId).company_no; 
 		
 			console.log(url)
-			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestDetail?request_no="+request_no;
+			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestDetail?company_no="+company_no;
 			window.open(url, "_blank", "width=1000px, height=900px, scrollbars=yes"); 
 			
 			

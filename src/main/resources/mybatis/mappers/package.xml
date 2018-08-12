@@ -168,4 +168,40 @@
         ParentCode=#{ParentCode}
         ]]>
     </update>
+    <!--<update id="updateSub" parameterType="SubInStepVo">-->
+        <!--<![CDATA[-->
+        <!--UPDATE SubInStep set-->
+        <!--Subject_no=#{Subject_no},-->
+        <!--Content=#{Content},-->
+        <!--SubHour=#{SubHour}-->
+        <!--WHERE-->
+        <!--SubInStep_no = #{SubInStep_no}-->
+        <!--]]>-->
+    <!--</update>-->
+
+    <delete id="deleteSubInStep" parameterType="Int">
+        <![CDATA[
+        DELETE from
+        SubInStep
+        WHERE
+        Step_no = #{step_no}
+        ]]>
+    </delete>
+
+    <delete id="deleteStepInPack" parameterType="Int">
+        <![CDATA[
+        DELETE from
+        StepInPack
+        WHERE
+        Package_no = #{package_no}
+        ]]>
+    </delete>
+    <!--<update id="updateStep" parameterType="StepInPackVo">-->
+        <!--<![CDATA[-->
+        <!--UPDATE StepInPack set-->
+        <!--StepName=#{StepName}-->
+        <!--WHERE-->
+        <!--Step_no=#{Step_no}-->
+        <!--]]>-->
+    <!--</update>-->
 </mapper>

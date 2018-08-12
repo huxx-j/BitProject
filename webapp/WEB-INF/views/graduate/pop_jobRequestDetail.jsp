@@ -51,68 +51,70 @@
 												<tr>
 													<th>회사명</th>
 													<td colspan="3">
-														<input class="form-control" type="text" value="${jobVo.compName}">
+														<input class="form-control" type="text" value="${companyVo.compName}">
 													</td>
 													<th>설립년도</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.openDate}">
 													</td>
 													<th>사업자번호</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.compResNum}">
 													</td>
 												</tr>
 												<tr>
 													<th>주력사업</th>
 													<td colspan="7">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.business}">
 													</td>
 												</tr>
 												<tr>
 													<th>자본금</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.capital}">
 													</td>
 													<th>연매출액</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.yearSell}">
 													</td>
 													<th>직원수</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.staffCnt}">
 													</td>
 													<th>상장여부</th>
 													<td>
-														<select class="form-control">
-															<option value="상장">상장</option>
-															<option value="비상장">비상장</option>
+														<select class="form-control" name="stockMarket">
+														
+															<option value="1"<c:if test="${companyVo.stockMarket eq 1}">selected</c:if>>상장</option> 
+															<option value="0"<c:if test="${companyVo.stockMarket eq 0}">selected</c:if>>비상장</option>
+															
 														</select>
 													</td>
 												</tr>
 												<tr>
 													<th>회사주소</th>
 													<td>
-														<input class="form-control w100 pull-left" type="text">
+														<input class="form-control w100 pull-left" type="text" value="${companyVo.postCode}">	<!-- 우편번호 -->
 														<button class="btn btn-default btn-h25 pull-left" type="button">찾기</button>
 													</td>
 													<td colspan="6">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.address}"> 
 													</td>
 												</tr>
 												<tr>
 													<th>홈페이지</th>
 													<td colspan="7">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" value="${companyVo.homePage}">
 													</td>
 												</tr>
 												<tr>
 													<th>회사소개</th>
 													<td colspan="3">
-														<textarea class="form-control"></textarea>
+														<textarea class="form-control">${companyVo.introduction}</textarea>
 													</td>
 													<th>복지제도</th>
 													<td colspan="3">
-														<textarea class="form-control"></textarea>
+														<textarea class="form-control">${companyVo.welfare}</textarea>
 													</td>
 												</tr>
 											</tbody>
@@ -146,14 +148,14 @@
 											<thead>
 												<tr>
 													<th>코드</th>
-													<th>신청일</th>
+													<th>접수일</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach begin="0" end="5">
-												<tr class="mouse">
-													<td>1</td>
-													<td>2018-07-08</td>
+												<c:forEach items="${jobRequestList}" var="jobRequestVo">
+												<tr class="mouse requestInfo" data-request_no="${jobRequestVo.request_no}">
+													<td>${jobRequestVo.company_no}/${jobRequestVo.request_no}</td>
+													<td>${jobRequestVo.receiptDate}</td>
 												</tr>
 												</c:forEach>
 											</tbody>
@@ -180,23 +182,23 @@
 												<tr>
 													<th>회사명</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="compName">
 													</td>
 													<th>신청일</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="receiptDate">		
 													</td>
 													<th>게시여부</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="post">
 													</td>
 												</tr>
 												<tr>
 													<th>모집인원</th>
-													<td><input class="form-control" type="text"></td>
+													<td><input class="form-control" type="text" id="recruitment"></td>
 													<th>고용형태</th>
 													<td colspan="3">
-														<div class="radio-group pull-left">
+														<div class="radio-group pull-left" id="contractType">
 															<label class="radiobox">
 																<input type="radio">정규직
 															</label>
@@ -209,13 +211,13 @@
 												<tr>
 													<th>근무지</th>
 													<td colspan="5">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="address">
 													</td>
 												</tr>
 												<tr>
 													<th>담당업무</th>
 													<td colspan="5">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="business">
 													</td>
 												</tr>
 												<tr>
@@ -230,11 +232,11 @@
 												<tr>
 													<th>연봉</th>
 													<td>
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="yearIncome">
 													</td>
 													<th>채용직급</th>
 													<td colspan="3">
-														<input class="form-control" type="text">
+														<input class="form-control" type="text" id="position">
 													</td>
 												</tr>
 											</thead>
@@ -455,6 +457,32 @@
 
 
 </body>
+
+<script type="text/javascript">
+
+$(".requestInfo").on("click", function(){
+	var request_no = $(this).data("request_no");
+	console.log(request_no);
+	
+	$.ajax({
+        url: "${pageContext.request.contextPath}/jobrequest/jobRequest",
+        type: "post",
+        data: {"request_no": request_no},
+
+        dataType: "json",
+        success: function (jobVo) {
+      		console.log(jobVo);
+      		
+        },
+        error: function (XHR, status, error) {
+            console.error(status + " : " + error);
+        }
+    });
+	
+	
+});
+
+</script>
 
 </html>
 
