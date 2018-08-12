@@ -641,7 +641,7 @@
         str = "";
         str += "<div name='subList' class='subList' data='" + scoreVo.subInStep_no + "' data-subname='" + scoreVo.subjectName + "'>" +
             "                        <div class='box box-subjectlist'>" +
-            "                            <div class='small-box'>" +
+            "                            <div class='small-box' style='margin-bottom: 10px'>" +
             "                                <a href='#' class='small-box-footer cursor-pointer'><h5>" + scoreVo.subjectName + "</h5></a>" +
             "                            </div>" +
             "                        </div>" +
@@ -726,6 +726,7 @@
             "       <label for='testFile'><span id='testFileName'>파일을 선택하세요</span> <h5> 파일선택 &hellip;</h5></label>" +
             "       <input id='testSisNo' name='testSisNo' type='hidden' value='"+sisNo+"'>" +
             "       <input id='testFileNo' name='testFileNo' type='hidden' value='"+fileVo.file_no+"'>" +
+            "       <input id='testCurriNo' name='testCurriNo' type='hidden' value='"+ $('#selectedCurri').val() + "'>" +
             "       <span>"+fileVo.fileName+"</span>" +
             "   </form>" +
             "</td>";
@@ -771,7 +772,7 @@
             "       <input id='iSisNo" + i + "' name='iSisNo' type='hidden' value='" + $("#iSisNo").val() + "'>" +
             "       <input id='iCurriNo" + i + "' name='iCurriNo' type='hidden' value='" + $("#iCurriNo").val() + "'>" +
             "       <input id='iScoreNo" + i + "' name='iScoreNo' type='hidden' value='" + ScoreVo.score_no + "' prefix='0'>" +
-            "       <input id='iFileNo"+i+"' name='iFileNo' type='hidden' value='"+ScoreVo.file_no+"' prefix='0'>" +
+            "       <input id='iFileNo" + i + "' name='iFileNo' type='hidden' value='"+ScoreVo.file_no+"' prefix='0'>" +
             "       <span>"+ScoreVo.fileName+"<span></form></td>" +
             "   </form>" +
             "   </tr>";
