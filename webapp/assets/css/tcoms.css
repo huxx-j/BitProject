@@ -183,6 +183,7 @@ input[type=radio] {
 /* 영역버튼박스 */
 .sub-toolbox{
 	margin: 0px 0px 0px 0px;
+	height: 25px !important;
 }
 
 /* sub-box 안쪽에 작은 박스 */

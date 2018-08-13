@@ -15,7 +15,12 @@ public class SubjectService {
 
 
     public void add(SubjectVo subjectVo){
-        subjectDao.insert(subjectVo);
+        if(subjectVo.getSubject_no()==0) {
+            subjectDao.insert(subjectVo);
+        }
+        else{
+            subjectDao.UpdateSubject(subjectVo);
+        }
     }
 
 
@@ -29,7 +34,7 @@ public class SubjectService {
             subjectDao.UpdateCate(subjectCateVo);
         }
         else if(subjectCateVo.getSubjectCate_no()<=1000){
-            subjectDao.UpdateSubject(subjectCateVo);
+            subjectDao.UpdateSubjectPid(subjectCateVo);
         }
 
         //subjectDao.UpdateCate(subjectCateVo);
@@ -50,5 +55,19 @@ public class SubjectService {
 
     public void addcate(SubjectCateVo subjectCateVo) {
         subjectDao.addcate(subjectCateVo);
+    }
+
+    public void delSubject(int no) {
+        subjectDao.delSubject(no);
+    }
+
+    public void delCate(int id) {
+        subjectDao.delCate(id);
+        subjectDao.delChildCate(id);
+        subjectDao.delChildSubject(id);
+    }
+
+    public SubjectCateVo getSubCate(int no) {
+        return subjectDao.getSubCate(no);
     }
 }
