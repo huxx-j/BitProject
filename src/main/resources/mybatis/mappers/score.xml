@@ -37,6 +37,7 @@
                         where a.User_no=u.User_no
                             and a.Curriculum_no=#{curriculum_no}
                             and a.State='비트생'
+                            order by u.NameHan
         ]]>
         </if>
 
