@@ -194,14 +194,14 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-
 				<button type="button" class="btn btn-primary" id="save">저장</button>
 				<button type="button" class="btn btn-primary" id="btn_cancel">취소</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!--과목선택 모달창-->
+<!--과목 선택 모달창-->
+<!--카테고리 선택 모달창-->
 <div class="modal fade" id="pop2">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -211,6 +211,8 @@
 			</div>
 			<div class="modal-body">
 				<ul id="treeDemo2" class="ztree"></ul>
+			</div>
+			<div class="modal-footer">
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

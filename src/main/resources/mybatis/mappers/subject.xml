@@ -71,12 +71,15 @@
         SubjectCate_no=#{no}
     </select>
     <select id="sub" parameterType="int" resultType="SubjectVo">
-        select Subject_no,
+       select Subject_no,
         SubjectCate_no,
         SubjectName,
-        Outline from
-        Subject where
-        Subject_no=#{no}
+        Outline,
+        (select CateName from SubjectCate sc, Subject s where sc.SubjectCate_no=s.SubjectCate_no and Subject_no=#{no}) CateName
+        from
+        Subject
+        where
+        Subject_no=#{no};
     </select>
 
     <insert id="addcate" parameterType="SubjectCateVo" >
@@ -114,6 +117,15 @@
         UPDATE Subject set
         SubjectName=#{SubjectName},
         SubjectCate_no=#{ParentCode},
+        Outline =#{Outline}
+         where
+         Subject_no=#{subject_no}
+        ]]>
+    </update>
+    <update id="updateSubject" parameterType="SubjectVo">
+        <![CDATA[
+        UPDATE Subject set
+        SubjectName=#{SubjectName},
         Outline =#{Outline}
          where
          Subject_no=#{subject_no}

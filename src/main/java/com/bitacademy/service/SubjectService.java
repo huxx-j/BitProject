@@ -1,6 +1,7 @@
 package com.bitacademy.service;
 
 import com.bitacademy.dao.SubjectDao;
+import com.bitacademy.vo.PackageCateVo;
 import com.bitacademy.vo.SubjectCateVo;
 import com.bitacademy.vo.SubjectVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class SubjectService {
 
 
     public void add(SubjectVo subjectVo){
+        System.out.println(subjectVo);
         if(subjectVo.getSubject_no()==0) {
             subjectDao.insert(subjectVo);
         }
@@ -70,4 +72,9 @@ public class SubjectService {
     public SubjectCateVo getSubCate(int no) {
         return subjectDao.getSubCate(no);
     }
+
+    public void updateSubject(SubjectVo subjectVo) {
+        subjectDao.updateSubject(subjectVo);
+    }
+
 }

@@ -189,6 +189,15 @@
         PackageCate_no=#{pacageCate_no}
         ]]>
     </update>
+    <select id="getPackCate" parameterType="int" resultType="PackageCateVo">
+        select
+        PackageCate_no,
+        CateName
+        from
+        PackageCate
+        where
+        PAckageCate_no=#{no}
+    </select>
     <!--<update id="updateSub" parameterType= "SubInStepVo">-->
     <!--<![CDATA[-->
     <!--UPDATE SubInStep set-->

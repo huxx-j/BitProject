@@ -149,6 +149,7 @@
             }
         });
     }
+
 function cleanButton() {
     //버튼없애기!
     for(var i=0;i<100;i++) {
@@ -217,6 +218,33 @@ function cleanButton() {
         $("#pop").modal("hide");
     });
 
+    $("#selectCate").on("click",function () {
+        $("#pop2").modal();
+    })
+    $("#selectCategory").on("click",function () {
+        $("#pop3").modal();
+    })
+
+    function packagecate(treeId, treeNode, clickFlag) {
+        var no=treeNode.web;
+        $.ajax({
+            url : "${pageContext.request.contextPath }/package/getPackageCate",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"no": no},
+            dataType : "json",
+            success : function(PackageCateVo) {
+                console.log(PackageCateVo.cateName);
+                console.log(PackageCateVo.subjectCate_no);
+                $("#category").val(PackageCateVo.cateName),
+                    $("#cate_no").val(PackageCateVo.subjectCate_no)
+                $("#pop3").modal("hide");
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
 
     $("#save").on("click", function() {
         event.preventDefault();
@@ -383,13 +411,13 @@ function cleanButton() {
         str+='    <input type="hidden"" name="steplist[0].Level" value="1">';
         str+='    <input type="hidden" name="steplist[0].Step_no" value="0">';
         str+='    <tr>';
-        str+='    <td style="text-align: center">단계명</td>';
-        str+='   <td colspan="3" >';
+        str+='    <th style="text-align: center">단계명</th>';
+        str+='   <th colspan="3" >';
         str+='    <input type="text" name="steplist[0].StepName" style="width: 800px">';
-        str+='   </td>';
-        str+='    <td style="width: 50px">';
+        str+='   </th>';
+        str+='    <th style="width: 50px">';
         str+='    <button  id="btnAddsubject" name="btnAddsubject0" class="btn btn-default pull-right" type="button" data-step="0" data-sub="0">추가</button>';
-        str+='    </td>';
+        str+='    </th>';
         str+='    </tr>';
         str+='   <tr id="subject-item00" name="die" style="height: 150px">';
         str+='   <td></td>';
@@ -439,13 +467,13 @@ function cleanButton() {
         //str+=   "<input type='text' name='steplist["+step+"].Package_no' value='"+pack+"' >";
         str+=   "<input type='hidden' name='steplist["+step+"].Level' value='"+(step+1)+"' >";
         str+=  "<tr>";
-        str+=	  "<td style='text-align: center'>단계명</td>";
-        str+=    "<td colspan='3' >";
+        str+=	  "<th style='text-align: center'>단계명</th>";
+        str+=    "<th colspan='3' >";
         str+=    "<input name='steplist["+step+"].StepName' type='text' style='width: 800px'>";
-        str+=    "</td>";
-        str+=    "<td style='width: 50px'>";
+        str+=    "</th>";
+        str+=    "<th style='width: 50px'>";
         str+=    "<button  id='btnAddsubject' name='btnAddsubject"+step+"' class='btn btn-default pull-right' type='button' data-step='"+step+"' data-sub='"+sub+"' value='"+sub+"'>추가</button>";
-        str+=    "</td>";
+        str+=    "</th>";
         str+=    "</tr>";
         str+=    "<tr id=subject-item"+step+sub+" style='height: 150px'>";
         str+=    "<td></td>";
@@ -526,13 +554,13 @@ function cleanButton() {
         str+=   "<input type='hidden' name='steplist["+step+"].Level' value='"+(step+1)+"' >";
         str+=   "<input type='hidden' name='steplist["+step+"].Step_no' value='"+stepvo.step_no+"' >";
         str+=  "<tr>";
-        str+=	  "<td style='text-align: center'>단계명</td>";
-        str+=    "<td colspan='3' >";
+        str+=	  "<th style='text-align: center'>단계명</th>";
+        str+=    "<th colspan='3' >";
         str+=    "<input type='text' name='steplist["+step+"].StepName' value='"+stepvo.stepName+"' style='width: 800px'  >";
-        str+=    "</td>";
-        str+=    "<td style='width: 50px'>";
+        str+=    "</th>";
+        str+=    "<th style='width: 50px'>";
         str+=    "<button  id='btnAddsubject' name='btnAddsubject"+step+"' class='btn btn-default pull-right' type='button' data-step='"+step+"' data-sub='"+sub+"' value='"+sub+"'>추가</button>";
-        str+=    "</td>";
+        str+=    "</th>";
         str+=    "</tr>";
         str+=    "<tr id=subject-item"+step+sub+" style='height: 150px'>";
         str+=    "<td></td>";
@@ -604,8 +632,8 @@ function cleanButton() {
             },
             enable:true,
             editNameSelectAll: true,
-            showRemoveBtn: true, //showRemoveBtn
-            showRenameBtn: true  //showRenameBtn
+            showRemoveBtn: showRemoveBtn, //showRemoveBtn
+            showRenameBtn: showRenameBtn  //showRenameBtn
         },
         data: {
             simpleData: {
@@ -630,14 +658,14 @@ function cleanButton() {
     var zNodes= [
         <c:forEach items="${packcatelist}" var="vo">
         <c:if test="${vo.packageCate_no eq 10000}">
-        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true},
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         <c:if test="${vo.packageCate_no ne 10000}">
-        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         </c:forEach>
         <c:forEach items="${packlist}" var="vo">
-        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
+        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}",icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
         </c:forEach>
     ];
 
@@ -691,13 +719,17 @@ function cleanButton() {
         UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
     <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
-    // function showRemoveBtn(treeId, treeNode) {
-    //     return !treeNode.isFirstNode;
-    // }
+     function showRemoveBtn(treeId, treeNode) {
+         var show=true;
+         if(treeNode.id<=10000){ show=false;}
+         return show;
+     }
     <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
-    // function showRenameBtn(treeId, treeNode) {
-    //     return !treeNode.isLastNode;
-    // }
+     function showRenameBtn(treeId, treeNode) {
+         var show=true;
+         if(treeNode.id<10000){ show=false;}
+         return show;
+     }
     <!--삭제 수정용-->
     function showLog(str) {
         if (!log) log = $("#log");
@@ -823,6 +855,7 @@ function cleanButton() {
     function onDrag(event, treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
         console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes[0].id+"/pId:"+treeNodes.pId+" nodes." );
+        UpdateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
     }
 
     <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
@@ -863,6 +896,7 @@ function cleanButton() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
     }
+
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         $("#callbackTrigger").bind("change", {}, setTrigger);
@@ -872,7 +906,6 @@ function cleanButton() {
 
 
     //과목 카테고리용 세팅
-
     var setting2 = {
         data: {
             simpleData: {
@@ -899,5 +932,31 @@ function cleanButton() {
     ];
     $(document).ready(function(){
         $.fn.zTree.init($("#treeDemo2"), setting2, zNodes2);
+    });
+
+    //카테고리 선택용 노드
+    var setting3 = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeClick: packagecate
+        }
+    };
+    //과목 카테고리용 노드
+    var zNodes3= [
+        <c:forEach items="${packcatelist}" var="vo">
+        <c:if test="${vo.packageCate_no eq 10000}">
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+        </c:if>
+        <c:if test="${vo.packageCate_no ne 10000}">
+        {id:${vo.packageCate_no} , pId:${vo.parentCode},name:"${vo.cateName}", web:"${vo.packageCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png"},
+        </c:if>
+        </c:forEach>
+    ];
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo3"), setting3, zNodes3);
     });
 </script>

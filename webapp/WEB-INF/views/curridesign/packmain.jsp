@@ -140,12 +140,16 @@
 															<tr>
 																<th>패키지카테고리</th>
 																<td colspan="3">
-																	<select name ="strPackageCate_no" class="form-control">
-																		<c:forEach items="${packcatelist}" var="vo">
-																			<option value='${vo.packageCate_no}'>${vo.cateName}</option>
-																		</c:forEach>
-																	</select>
-																</td>
+																<input id="category" name="CateName" value="카테고리를 선택" type="text" style="border:none" readonly>
+																	<input type="hidden" id="cate_no" name="packageCate_no" value="">
+																	<button type="button" id="selectCategory" class="btn btn-default btn-h25 pull-right" >카테고리 선택</button>
+																	</td>
+																	<%--<select name ="strPackageCate_no" class="form-control">--%>
+																		<%--<c:forEach items="${packcatelist}" var="vo">--%>
+																			<%--<option value='${vo.packageCate_no}'>${vo.cateName}</option>--%>
+																		<%--</c:forEach>--%>
+																	<%--</select>--%>
+
 															</tr>
 															<tr>
 																<th>패키지명</th>
@@ -172,11 +176,18 @@
 												</div><!-- /.sub-body -->
 
 												<div class="sub-toolbox clearfix text-center">
-													<div id="button">
-													<div id="inner-button">
-													<input type="button" value="저장" name="addpackage" class="btn btn-primary">
+													<div class="row">
+														<div class="col-xs-4">
+														</div>
+														<div id="primary" class="col-xs-4">
+															<input type="button" value="저장" name="addpackage" class="btn btn-primary">
+														</div>
+														<div id="default" class="col-xs-4">
+														</div>
 													</div>
-													</div>
+
+
+
 												</div>
 											</div><!-- /.sub-box -->
 
@@ -272,9 +283,13 @@
 													</div>
 
 												<div class="sub-toolbox clearfix text-center">
-													<div id="button2">
-														<div id="inner-button2">
+													<div class="row">
+														<div class="col-xs-4">
+														</div>
+														<div id="primary2" class="col-xs-4">
 															<input type="submit" value="저장" id="stepadd" class="btn btn-primary">
+														</div>
+														<div id="default2" class="col-xs-4">
 														</div>
 													</div>
 												</div>
@@ -353,6 +368,25 @@
 			</div>
 			<div class="modal-body">
 				<ul id="treeDemo2" class="ztree"></ul>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--카테고리 선택 모달창-->
+<div class="modal fade" id="pop3">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">패키지 카테고리 선택</h4>
+			</div>
+			<div class="modal-body">
+				<ul id="treeDemo3" class="ztree"></ul>
+			</div>
+			<div class="modal-footer">
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

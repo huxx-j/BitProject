@@ -74,8 +74,13 @@ public class SubjectController {
     }
     @ResponseBody
     @RequestMapping(value = "/addSubject",method = {RequestMethod.POST,RequestMethod.GET})
-    public String insert(@RequestBody SubjectVo subjectVo) {
+    public void insert(@ModelAttribute SubjectVo subjectVo) {
         subjectService.add(subjectVo);
-        return "redirect:/subject/";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateSubject",method = {RequestMethod.POST,RequestMethod.GET})
+    public void updateSubject(@ModelAttribute SubjectVo subjectVo) {
+        subjectService.updateSubject(subjectVo);
     }
 }
