@@ -12,11 +12,12 @@ public class PackageVo {
     private String Qualification;
     private int TotalTime;
     private List<StepInPackVo> steplist;
+    private int referenceCnt;
 
     public PackageVo() {
     }
 
-    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime, List<StepInPackVo> steplist) {
+    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime, List<StepInPackVo> steplist, int referencecnt) {
         Package_no = package_no;
         PackageCate_no = packageCate_no;
         UseStatus = useStatus;
@@ -26,8 +27,8 @@ public class PackageVo {
         Qualification = qualification;
         TotalTime = totalTime;
         this.steplist = steplist;
+        this.referenceCnt = referencecnt;
     }
-
 
     public int getPackage_no() {
         return Package_no;
@@ -101,6 +102,14 @@ public class PackageVo {
         this.steplist = steplist;
     }
 
+    public int getReferenceCnt() {
+        return referenceCnt;
+    }
+
+    public void setReferenceCnt(int referencecnt) {
+        this.referenceCnt = referencecnt;
+    }
+
     @Override
     public String toString() {
         return "PackageVo{" +
@@ -113,6 +122,7 @@ public class PackageVo {
                 ", Qualification='" + Qualification + '\'' +
                 ", TotalTime=" + TotalTime +
                 ", steplist=" + steplist +
+                ", referencecnt=" + referenceCnt +
                 '}';
     }
 }

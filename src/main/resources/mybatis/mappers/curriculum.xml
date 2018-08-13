@@ -189,5 +189,15 @@
 	</select>
 
 <!--희준-->
+<!--진현-->
 
+    <!-- 커리큘럼 조회 파라미터 package_no -->
+    <select id="getReferenceCnt" parameterType="int" resultType="int">
+        <![CDATA[
+           SELECT 	count(*)
+			FROM 	Curriculum
+			WHERE 	package_no = #{package_no}
+            ]]>
+    </select>
+<!--진현-->
 </mapper>

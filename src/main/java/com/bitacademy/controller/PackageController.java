@@ -33,8 +33,8 @@ public class PackageController {
     //카테고리 수정을 위한 함수 (제거, 드래그, 이름수정)
     @ResponseBody
     @RequestMapping(value = "/updateCate", method = {RequestMethod.POST,RequestMethod.GET})
-    public void updateCate(@RequestParam("subjectCateVo") SubjectCateVo subjectCateVo) {
-        packageService.UpdateCate(subjectCateVo);
+    public void updateCate(@RequestParam("packageCateVo") PackageCateVo packageCateVo) {
+        packageService.UpdateCate(packageCateVo);
     }
 
     @ResponseBody
@@ -43,8 +43,9 @@ public class PackageController {
         PackageVo packageVo = packageService.getpack(no);
         packageVo.setSteplist(packageService.getstep(packageVo.getPackage_no()));   //패키지 NO기준으로 단계 리스트 받아옴
         List<StepInPackVo> steplist=packageVo.getSteplist();
-        steplist=packageService.getsublist(steplist);                   //받아온 단계리스트의 과목리스트를 받아옴
-        packageVo.setSteplist(steplist);                                //과목리스트까지 담은 리스트를 PackageVo를 담아줌
+        steplist=packageService.getsublist(steplist);                               //받아온 단계리스트의 과목리스트를 받아옴
+        packageVo.setSteplist(steplist);                                            //과목리스트까지 담은 리스트를 PackageVo를 담아줌
+        System.out.println(packageVo);
         return packageVo;
 }
     @RequestMapping(value = "/addPackageCate", method = RequestMethod.POST)

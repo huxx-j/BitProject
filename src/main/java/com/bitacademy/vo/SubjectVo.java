@@ -5,15 +5,17 @@ public class SubjectVo {
     private int SubjectCate_no;
     private String SubjectName;
     private String Outline;
+    private String CateName;
 
     public SubjectVo() {
     }
 
-    public SubjectVo(int subject_no, int subjectCate_no, String subjectName, String outline) {
+    public SubjectVo(int subject_no, int subjectCate_no, String subjectName, String outline, String cateName) {
         Subject_no = subject_no;
         SubjectCate_no = subjectCate_no;
         SubjectName = subjectName;
         Outline = outline;
+        CateName = cateName;
     }
 
     public int getSubject_no() {
@@ -48,6 +50,14 @@ public class SubjectVo {
         Outline = outline;
     }
 
+    public String getCateName() {
+        return CateName;
+    }
+
+    public void setCateName(String cateName) {
+        CateName = cateName;
+    }
+
     @Override
     public String toString() {
         return "SubjectVo{" +
@@ -55,6 +65,7 @@ public class SubjectVo {
                 ", SubjectCate_no=" + SubjectCate_no +
                 ", SubjectName='" + SubjectName + '\'' +
                 ", Outline='" + Outline + '\'' +
+                ", CateName='" + CateName + '\'' +
                 '}';
     }
 }

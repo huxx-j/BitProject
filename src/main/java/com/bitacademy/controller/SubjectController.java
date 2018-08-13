@@ -40,7 +40,23 @@ public class SubjectController {
     public SubjectVo getSubjecteVo(@RequestParam("no") int no ){
         SubjectVo subjectVo = subjectService.getsub(no);
         return subjectVo;
-   }
+    }
+    @ResponseBody
+    @RequestMapping(value = "/getSubjectCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public SubjectCateVo getSubjectCate(@RequestParam("no") int no ){
+        SubjectCateVo subjectCateVo = subjectService.getSubCate(no);
+        return subjectCateVo;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/delSubject", method = {RequestMethod.POST,RequestMethod.GET})
+    public void delSubject(@RequestParam("no") int no ){
+        subjectService.delSubject(no);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/delCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public void delCate(@RequestParam("id") int id ){
+        subjectService.delCate(id);
+    }
 //    @ResponseBody
 //    @RequestMapping(value = "/addformat", method = {RequestMethod.POST,RequestMethod.GET})
 //    public void addformat(@RequestParam("formatflag") int formatflag ) {
@@ -56,9 +72,9 @@ public class SubjectController {
         subjectCateVo.setCateName(CateName);
         subjectService.addcate(subjectCateVo);
     }
-
-    @RequestMapping(value = "/addSubject", method = RequestMethod.GET)
-    public String insert(@ModelAttribute SubjectVo subjectVo) {
+    @ResponseBody
+    @RequestMapping(value = "/addSubject",method = {RequestMethod.POST,RequestMethod.GET})
+    public String insert(@RequestBody SubjectVo subjectVo) {
         subjectService.add(subjectVo);
         return "redirect:/subject/";
     }
