@@ -125,7 +125,6 @@
     });
 
     $(document).on("click","#btnAddsubject",function(){
-        var str=" ";
         CaseB();
         // str+="<br>";
         // $("#brzone").append(str);
@@ -144,26 +143,23 @@
     });
 
     $("#save").on("click", function() {
-        event.preventDefault();
         var SubjectCate_no = $("#SubjectCate_no").val();
         var CateName = $("#CateName").val();
         console.log(SubjectCate_no);
         console.log(CateName);
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/addSubjectCate",
-            type : "post",
-            async: false,
-            // contentType : "application/json",
-            data : {"SubjectCate_no": SubjectCate_no, "CateName": CateName},
+            type : "POST",
+            data : {"SubjectCate_no": SubjectCate_no , "CateName": CateName},
             dataType : "json",
-            success : function() {
-
+            success : function(c8) {
+                location.reload();
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
-        location.reload();
+
         $("#pop").modal("hide");
     });
 

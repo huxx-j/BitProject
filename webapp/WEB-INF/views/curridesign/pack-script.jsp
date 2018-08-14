@@ -85,21 +85,15 @@
             data : {"no": no},
             dataType : "json",
             success : function(PackageVo) {
-
                 var str=" ";
-                $("#inner-button").remove();
-                str+="<div id='inner-button'>";
                 str+="<input type='button' name='addpackage' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
-                str+='<input type="button" id="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
-                str+="</div>";
-                $("#button").append(str);
-                str=" ";
-                $("#inner-button2").remove();
-                str+="<div id='inner-button2'>";
-                str+="<input type='submit' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
-                str+='<input type="button" id="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
-                str+="</div>";
-                $("#button2").append(str);
+                $("#primary").append(str);
+                str='<input type="button" id="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
+                $("#default").append(str);
+                str="<input type='submit' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
+                $("#primary2").append(str);
+                str='<input type="button" id="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
+                $("#default2").append(str);
                 clean();
                 console.log(PackageVo);
                 for(var i=0;i<PackageVo.steplist.length;i++) {
@@ -194,18 +188,14 @@ function cleanButton() {
         $("div[name='die']").remove();
         $("tr[name='die']").remove();
         $("table[name='die']").remove();
-        $("#inner-button").remove();
-        str+="<div id='inner-button'>";
         str+= '<input type="button" value="저장" name="addpackage" class="btn btn-primary">';
-        str+="</div>";
-        $("#button").append(str);
-        str=" ";
-        $("#inner-button2").remove();
-        str+="<div id='inner-button2'>";
-        str+= '<input type="submit" value="저장" class="btn btn-primary">';
-        str+="</div>";
-        $("#button2").append(str);
-
+        $("#primary").append(str);
+        str='<input type="button" value="취소" name="cancel class="btn btn-default btn-sub pull-right">';
+        $("#default").append(str);
+        str= '<input type="submit" value="저장" class="btn btn-primary">';
+        $("#primary2").append(str);
+        str='<input type="button" value="취소" name="cancel class="btn btn-default btn-sub pull-right">';
+        $("#default2").append(str);
         $("#packageTab a:first").tab('show');
 
     });
@@ -247,7 +237,6 @@ function cleanButton() {
     }
 
     $("#save").on("click", function() {
-        event.preventDefault();
         var PackageCate_no = $("#PackageCate_no").val();
         var CateName = $("#CateName").val();
         console.log(PackageCate_no);

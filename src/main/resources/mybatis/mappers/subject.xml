@@ -87,9 +87,11 @@
         insert into
          SubjectCate
          (ParentCode,
-         CateName)
+         CateName,
+         DelStatus)
          values (#{SubjectCate_no},
-         #{CateName})
+         #{CateName},
+         0)
         ]]>
     </insert>
     <update id="CateUpdate" parameterType="SubjectCateVo">
