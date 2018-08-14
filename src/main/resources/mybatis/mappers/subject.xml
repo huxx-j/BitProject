@@ -162,10 +162,10 @@
 
     <update id="delChildCate" parameterType="int">
         <![CDATA[
-        UPDATE Subject set
+        UPDATE SubjectCate set
         Delstatus =1
         where
-        Parent=#{pid}
+        ParentCode=#{pid}
         ]]>
     </update>
     <!--진현-->

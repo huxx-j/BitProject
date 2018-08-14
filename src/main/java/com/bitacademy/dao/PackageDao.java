@@ -71,8 +71,14 @@ public class PackageDao {
 //    }
 //
 //    public void deleteSubInPack(int no) {
-//        sqlSession.delete("package.deleteSubInPack",no);
 //    }
+
+    public void delCate(int id) {
+        sqlSession.update("package.delCate",id);
+    }
+    public void delChildCate(int pid){
+        sqlSession.update("package.delChildCate",pid);
+    }
 
     public void deleteStepInPack(int package_no) {
         sqlSession.delete("package.deleteStepInPack",package_no);
@@ -85,5 +91,9 @@ public class PackageDao {
 
     public PackageCateVo getPackCate(int no) {
         return sqlSession.selectOne("package.getPackCate",no);
+    }
+
+    public void delPackage(int no) {
+        sqlSession.update("package.delPackage",no);
     }
 }

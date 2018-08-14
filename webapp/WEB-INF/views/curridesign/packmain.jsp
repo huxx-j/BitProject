@@ -172,7 +172,7 @@
 															</tr>
 															</tbody>
 														</table>
-
+													<input type="hidden" id="prevInfo" value="">
 												</div><!-- /.sub-body -->
 
 												<div class="sub-toolbox clearfix text-center">
@@ -180,7 +180,7 @@
 														<div class="col-xs-4">
 														</div>
 														<div id="primary" class="col-xs-4">
-															<input type="button" value="저장" name="addpackage" class="btn btn-primary">
+															<input type="button" value="저장" id="addpackage" name="addpackage" class="btn btn-primary">
 														</div>
 														<div id="default" class="col-xs-4">
 														</div>

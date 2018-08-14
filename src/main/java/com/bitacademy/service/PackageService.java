@@ -88,9 +88,15 @@ public class PackageService {
          packageDao.UpdateCate(packageCateVo);
 
     }
-
+    public void delCate(int id) {
+        packageDao.delCate(id);
+        packageDao.delChildCate(id);
+    }
     public PackageCateVo getPackCate(int no) {
         return packageDao.getPackCate(no);
+    }
+
+    public void delPackage(int no) { packageDao.delPackage(no);
     }
 //
 //    public void deleteSubInPack(int no) {
