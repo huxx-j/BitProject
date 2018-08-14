@@ -88,6 +88,10 @@ public class PackageService {
          packageDao.UpdateCate(packageCateVo);
 
     }
+
+    public PackageCateVo getPackCate(int no) {
+        return packageDao.getPackCate(no);
+    }
 //
 //    public void deleteSubInPack(int no) {
 //        packageDao.deleteSubInPack(no);

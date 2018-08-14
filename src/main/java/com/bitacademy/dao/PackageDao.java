@@ -82,4 +82,8 @@ public class PackageDao {
     public void deleteSubInStep(int step_no) {
         sqlSession.delete("package.deleteSubInStep",step_no);
     }
+
+    public PackageCateVo getPackCate(int no) {
+        return sqlSession.selectOne("package.getPackCate",no);
+    }
 }

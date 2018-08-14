@@ -10,6 +10,7 @@ public class ApplyUserVo {
 	private String nameHan;
 	private String applyType;
 	private String birthDate;
+	private String studResNum;
 	private int testScore;
 	private int gender;
 	private String c_gender;
@@ -30,7 +31,7 @@ public class ApplyUserVo {
 	private String CurriState;
 	
 	public ApplyUserVo(int user_no, int curriculum_no, String cateName, String gisuName, String curriName,
-			String nameHan, String applyType, String birthDate, int testScore, int gender,String c_gender, String testResult,
+			String nameHan, String applyType, String birthDate, String studResNum, int testScore, int gender,String c_gender, String testResult,
 			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
 			String deposit, String depositDate, int depositAmount, String cardPayDate, int cardPayAmount, int totalPay,
 			String consultContent, String curriState) {
@@ -43,6 +44,7 @@ public class ApplyUserVo {
 		this.nameHan = nameHan;
 		this.applyType = applyType;
 		this.birthDate = birthDate;
+		this.studResNum = studResNum;
 		this.testScore = testScore;
 		this.gender = gender;
 		this.c_gender = c_gender;
@@ -289,18 +291,26 @@ public class ApplyUserVo {
 		CurriState = curriState;
 	}
 
+	public String getStudResNum() {
+		return studResNum;
+	}
+
+	public void setStudResNum(String studResNum) {
+		this.studResNum = studResNum;
+	}
+
 	@Override
 	public String toString() {
 		return "ApplyUserVo [user_no=" + user_no + ", curriculum_no=" + curriculum_no + ", cateName=" + cateName
 				+ ", gisuName=" + gisuName + ", curriName=" + curriName + ", nameHan=" + nameHan + ", applyType="
-				+ applyType + ", birthDate=" + birthDate + ", testScore=" + testScore + ", gender=" + gender
-				+ ", c_gender=" + c_gender + ", testResult=" + testResult + ", cellphone=" + cellphone + ", testLang=" + testLang + ", applyDate="
-				+ applyDate + ", testDate=" + testDate + ", school=" + school + ", major=" + major + ", deposit="
-				+ deposit + ", depositDate=" + depositDate + ", depositAmount=" + depositAmount + ", cardPayDate="
-				+ cardPayDate + ", cardPayAmount=" + cardPayAmount + ", totalPay=" + totalPay + ", consultContent=" + consultContent
-				+ ", CurriState=" + CurriState + "]";
+				+ applyType + ", birthDate=" + birthDate + ", studResNum=" + studResNum + ", testScore=" + testScore
+				+ ", gender=" + gender + ", c_gender=" + c_gender + ", testResult=" + testResult + ", cellphone="
+				+ cellphone + ", testLang=" + testLang + ", applyDate=" + applyDate + ", testDate=" + testDate
+				+ ", school=" + school + ", major=" + major + ", deposit=" + deposit + ", depositDate=" + depositDate
+				+ ", depositAmount=" + depositAmount + ", cardPayDate=" + cardPayDate + ", cardPayAmount="
+				+ cardPayAmount + ", totalPay=" + totalPay + ", consultContent=" + consultContent + ", CurriState="
+				+ CurriState + "]";
 	}
 
-	
 
 }

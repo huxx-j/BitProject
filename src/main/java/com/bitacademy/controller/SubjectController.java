@@ -65,17 +65,25 @@ public class SubjectController {
 
 
     //너 이거 왜 아작스니
-    @RequestMapping(value = "/addSubjectCate", method = RequestMethod.POST)
-    public void addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
+    @ResponseBody
+    @RequestMapping(value = "/addSubjectCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public int addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
+        System.out.println(subjectCate_no+CateName);
         SubjectCateVo subjectCateVo=new SubjectCateVo();
         subjectCateVo.setSubjectCate_no(subjectCate_no);
         subjectCateVo.setCateName(CateName);
         subjectService.addcate(subjectCateVo);
+        return 1;
     }
     @ResponseBody
     @RequestMapping(value = "/addSubject",method = {RequestMethod.POST,RequestMethod.GET})
-    public String insert(@RequestBody SubjectVo subjectVo) {
+    public void insert(@ModelAttribute SubjectVo subjectVo) {
         subjectService.add(subjectVo);
-        return "redirect:/subject/";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateSubject",method = {RequestMethod.POST,RequestMethod.GET})
+    public void updateSubject(@ModelAttribute SubjectVo subjectVo) {
+        subjectService.updateSubject(subjectVo);
     }
 }

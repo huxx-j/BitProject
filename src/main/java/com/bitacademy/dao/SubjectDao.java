@@ -64,4 +64,8 @@ public class SubjectDao {
     public SubjectCateVo getSubCate(int no) {
         return sqlSession.selectOne("subject.getSubCate",no);
     }
+
+    public void updateSubject(SubjectVo subjectVo) {
+        sqlSession.update("subject.updateSubject",subjectVo);
+    }
 }

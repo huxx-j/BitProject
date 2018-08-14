@@ -41,6 +41,34 @@
         });
 
     }
+    //카테고리의 패키지 혹은 취소 누를시
+    function CaseA(){
+        $("#btnAddsubject").remove();
+        $("#update-subject").remove();
+        $("#del-subject").remove();
+        $("#save-subject").remove();
+        $("#cancel").remove();
+        var str=" ";
+        str+='<button  id="btnAddsubject" class="btn btn-default btn-h25 pull-right" type="button">과목 추가</button>';
+        $("#brzone").append(str);
+        str="<input type='button' id='update-subject' value='수정' class='btn btn-primary' >";
+        $("#primary").append(str);
+
+    }
+    //과목 추가 누를시
+    function CaseB() {
+        $("#btnAddsubject").remove();
+        $("#update-subject").remove();
+        $("#del-subject").remove();
+        $("#save-subject").remove();
+        $("#cancel").remove();
+        var str=" ";
+        str+= '<input type="button" id="save-subject" value="저장" class="btn btn-primary">';
+        $("#primary").append(str);
+        str='<button type="button" id="cancel" class="btn btn-default btn-sub pull-right">취소</button>';
+        $("#default").append(str);
+
+    }
     function subject(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
        selectsubject(no);
@@ -61,15 +89,12 @@
         success : function(SubjectVo) {
             var str=" ";
             console.log(SubjectVo);
-            $("#update-subject").remove();
-            $("#del-subject").remove();
-            $("#save-subject").remove();
-            $("#cancel").remove();
-            str+="<input type='button' id='update-subject' value='수정' class='btn btn-primary' >";
-            $("#primary").append(str);
+            CaseA();
+
             str='<button type="button" id="del-subject" value='+SubjectVo.subject_no+' class="btn btn-default btn-sub pull-right">삭제</button>';
             $("#default").append(str);
             $("#prevInfo").val(SubjectVo.subject_no),
+                $("input[name=CateName]").val(SubjectVo.cateName),
                 $("input[name='SubjectName']").val(SubjectVo.subjectName),
                 $("textarea[name='Outline']").val(SubjectVo.outline),
                 $("select[name='subjectCate_no']").val(SubjectVo.subjectCate_no).prop("selected",true),
@@ -100,22 +125,14 @@
     });
 
     $(document).on("click","#btnAddsubject",function(){
-        var str=" ";
-        $("#btnAddsubject").remove();
+        CaseB();
         // str+="<br>";
         // $("#brzone").append(str);
         // str=" ";
         $("input[name='SubjectName']").val("");
         $("textarea[name='Outline']").val("");
         $("select[name='subjectCate_no']").val("");
-        $("#update-subject").remove();
-        $("#del-subject").remove();
-        $("#save-subject").remove();
-        $("#cancel").remove();
-        str+= '<input type="button" id="save-subject" value="저장" class="btn btn-primary">';
-        $("#primary").append(str);
-        str='<button type="button" id="cancel" class="btn btn-default btn-sub pull-right">취소</button>';
-        $("#default").append(str);
+
     })
     $("#addcate").on("click",function(){
         $("#pop").modal();
@@ -126,26 +143,23 @@
     });
 
     $("#save").on("click", function() {
-        event.preventDefault();
         var SubjectCate_no = $("#SubjectCate_no").val();
         var CateName = $("#CateName").val();
         console.log(SubjectCate_no);
         console.log(CateName);
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/addSubjectCate",
-            type : "post",
-            async: false,
-            // contentType : "application/json",
-            data : {"SubjectCate_no": SubjectCate_no, "CateName": CateName},
+            type : "POST",
+            data : {"SubjectCate_no": SubjectCate_no , "CateName": CateName},
             dataType : "json",
-            success : function() {
-
+            success : function(c8) {
+                location.reload();
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
-        location.reload();
+
         $("#pop").modal("hide");
     });
 
@@ -172,22 +186,41 @@
             }
         });
     }
-    $(document).on("click","#save-subject",function() {
+    $(document).on("click","#update-subject",function() {
         subjectVo={
-            SubjectCate_no: $("input[name='subjectCate_no']").val(),
+            Subject_no:$("#prevInfo").val(),
             SubjectName: $("input[name='SubjectName']").val(),
-            Outline:$("textarea[name='SubjectName']").val(),
-            CateName:$("input[name='CateName']").val()
+            Outline:$("textarea[name='Outline']").val()
         }
+        console.log(subjectVo);
         $.ajax({
-            url : "${pageContext.request.contextPath }/package/addSubject",
+            url : "${pageContext.request.contextPath }/subject/updateSubject",
             type : "POST",
             //contentType : "application/json",
-            data : JSON.stringify(subjectVo),
+            data : subjectVo,
             dataType : "json",
             success : function() {
             }
         });
+        location.reload();
+    });
+    $(document).on("click","#save-subject",function() {
+        subjectVo={
+            SubjectCate_no:$("input[name='subjectCate_no']").val(),
+            SubjectName: $("input[name='SubjectName']").val(),
+            Outline:$("textarea[name='Outline']").val()
+        }
+        console.log(subjectVo);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/subject/addSubject",
+            type : "POST",
+            //contentType : "application/json",
+            data : subjectVo,
+            dataType : "json",
+            success : function() {
+            }
+        });
+        location.reload();
     });
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -503,3 +536,14 @@
         $.fn.zTree.init($("#treeDemo2"), setting2, zNodes2);
     });
 </script>
+<c:forEach items="${packcatelist}" var="vo">
+    <c:if test="${vo.packageCate_no eq 10000}">
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true},
+    </c:if>
+    <c:if test="${vo.packageCate_no ne 10000}">
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+    </c:if>
+</c:forEach>
+<c:forEach items="${packlist}" var="vo">
+    {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
+</c:forEach>

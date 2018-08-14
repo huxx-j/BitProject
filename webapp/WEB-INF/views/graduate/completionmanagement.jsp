@@ -176,7 +176,7 @@
 							<div class="col-xs-8">
 								<div class="sub-box">
 									<!-- sub_title -->
-									<div class="sub-title clearfix" id="companyAdd_div">
+									<div class="sub-toolbox clearfix" id="companyAdd_div">
 										<!-- <button type="button" class="btn btn-default btn-sm pull-right" id="companyAdd">&nbsp;&nbsp;&nbsp;&nbsp;취업기업 추가&nbsp;&nbsp;&nbsp;&nbsp;</button> -->
 									</div><!-- /sub_title -->
 									
@@ -189,7 +189,7 @@
 												<col width="300px" />
 											</colgroup>
 
-											<tbody>
+											<tbody id="userCareerTable">
 											<tr>
 												<th>회사명</th>
 												<td colspan="8">
@@ -408,7 +408,7 @@ $("#jqGrid").jqGrid({
 	colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
-	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
+	    {name : 'studResNum',index : 'studResNum',width : 100,align : "center"},
 	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
@@ -443,6 +443,7 @@ $("#jqGrid").jqGrid({
                 console.log(list);
 
                 $("#afterServiceTable").empty();
+                companyForm_Reset();
 
                 for (var i = 0; i < list.length; i++) {
                     renderApplied(list[i])
@@ -721,7 +722,7 @@ function addUpdate_btnSet(){
 	$("#btn_companyInsert").remove();
 
     var strAdd = "";
-    strAdd += "<button type='button' class='btn btn-default btn-sm pull-right' id='btn_companyAdd'>취업기업 추가</button>";
+    strAdd += "<button type='button' class='btn btn-default btn-h25 pull-right' id='btn_companyAdd'>취업기업 추가</button>";
     $("#companyAdd_div").append(strAdd);
 
     var str = "";

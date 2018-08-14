@@ -94,7 +94,12 @@ public class PackageController {
         packageService.stepadd(steplist);
         return "redirect:/package/";
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/getPackageCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public PackageCateVo getPackageCate(@RequestParam("no") int no ){
+        PackageCateVo packageCateVo = packageService.getPackCate(no);
+        return packageCateVo;
+    }
 
 //    @ResponseBody
 //    @RequestMapping(value = "/deleteSubInPack", method = {RequestMethod.POST,RequestMethod.GET})
