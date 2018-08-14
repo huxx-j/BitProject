@@ -35,6 +35,11 @@ public class CurriculumDao {
 	public int addCurriCate(CurriculumCateVo curriCateVo) {
 		return sqlSession.insert("curriculum.addCurriCate", curriCateVo);
 	}
+	
+	// 교육과정 카테고리 수정
+	public int updateCate(CurriculumCateVo curriCateVo) {
+		return sqlSession.update("curriculum.updateCate", curriCateVo);
+	}
 
 	// 업무구분 select box ajax
 	public List<CurriculumCateVo> getWorkType() {

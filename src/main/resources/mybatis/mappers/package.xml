@@ -11,6 +11,7 @@
         CateName,
         ParentCode
         from PackageCate
+        where DelStatus='0'
         ]]>
     </select>
 
@@ -166,17 +167,46 @@
         UPDATE PackageCate set
         CateName=#{CateName},
         ParentCode=#{ParentCode}
+        WHERE
+        PackageCate_no=#{pacageCate_no}
         ]]>
     </update>
-    <!--<update id="updateSub" parameterType="SubInStepVo">-->
-        <!--<![CDATA[-->
-        <!--UPDATE SubInStep set-->
-        <!--Subject_no=#{Subject_no},-->
-        <!--Content=#{Content},-->
-        <!--SubHour=#{SubHour}-->
-        <!--WHERE-->
-        <!--SubInStep_no = #{SubInStep_no}-->
-        <!--]]>-->
+
+    <update id="packageDel" parameterType="PackageVo">
+        <![CDATA[
+        UPDATE Package set
+        DelStatus=#{DelStatus}
+        WHERE
+        Package_no=#{Package_no}
+        ]]>
+    </update>
+
+    <update id="cateSetDelStatus" parameterType="PackageCateVo">
+    <![CDATA[
+        UPDATE PackageCate set
+        DelStatus=#{DelStatus}
+        WHERE
+        PackageCate_no=#{pacageCate_no}
+        ]]>
+    </update>
+    <select id="getPackCate" parameterType="int" resultType="PackageCateVo">
+        select
+        PackageCate_no,
+        CateName
+        from
+        PackageCate
+        where
+        PAckageCate_no=#{no}
+    </select>
+    <!--<update id="updateSub" parameterType= "SubInStepVo">-->
+    <!--<![CDATA[-->
+    <!--UPDATE SubInStep set-->
+    <!--Subject_no=#{Subject_no},-->
+    <!--Content=#{Content},-->
+    <!--SubHour=#{SubHour}-->
+    <!--WHERE-->
+    <!--SubInStep_no = #{SubInStep_no}-->
+    <!--]]>-->
     <!--</update>-->
 
     <delete id="deleteSubInStep" parameterType="Int">

@@ -28,6 +28,7 @@
         <typeAlias alias="SubInStepVo" type="com.bitacademy.vo.SubInStepVo"/>
         <typeAlias alias="SubjectVo" type="com.bitacademy.vo.SubjectVo"/>
         <typeAlias alias="SubjectCateVo" type="com.bitacademy.vo.SubjectCateVo"/>
+        <typeAlias alias="PackageCateVo" type="com.bitacademy.vo.PackageCateVo"/>
         <typeAlias alias="TrainingVo" type="com.bitacademy.vo.TrainingVo"/>
         <typeAlias alias="UserInfoVo" type="com.bitacademy.vo.UserInfoVo"/>
         <typeAlias alias="UsersVo" type="com.bitacademy.vo.UsersVo"/>

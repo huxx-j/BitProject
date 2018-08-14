@@ -52,6 +52,10 @@ public class CurriculumService {
 		return curriDao.addCurriCate(curriCateVo);
 	}
 
+	// 교육과정 카테고리 수정
+	public int updateCate(CurriculumCateVo curriCateVo) {
+		return curriDao.updateCate(curriCateVo);
+	}
 	// 교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
 		return curriDao.addCurri(curriVo);

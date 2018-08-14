@@ -40,7 +40,23 @@ public class SubjectController {
     public SubjectVo getSubjecteVo(@RequestParam("no") int no ){
         SubjectVo subjectVo = subjectService.getsub(no);
         return subjectVo;
-   }
+    }
+    @ResponseBody
+    @RequestMapping(value = "/getSubjectCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public SubjectCateVo getSubjectCate(@RequestParam("no") int no ){
+        SubjectCateVo subjectCateVo = subjectService.getSubCate(no);
+        return subjectCateVo;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/delSubject", method = {RequestMethod.POST,RequestMethod.GET})
+    public void delSubject(@RequestParam("no") int no ){
+        subjectService.delSubject(no);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/delCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public void delCate(@RequestParam("id") int id ){
+        subjectService.delCate(id);
+    }
 //    @ResponseBody
 //    @RequestMapping(value = "/addformat", method = {RequestMethod.POST,RequestMethod.GET})
 //    public void addformat(@RequestParam("formatflag") int formatflag ) {
@@ -49,17 +65,25 @@ public class SubjectController {
 
 
     //너 이거 왜 아작스니
-    @RequestMapping(value = "/addSubjectCate", method = RequestMethod.POST)
-    public void addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
+    @ResponseBody
+    @RequestMapping(value = "/addSubjectCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public int addcate(@RequestParam("SubjectCate_no") int subjectCate_no,@RequestParam("CateName") String CateName) {
+        System.out.println(subjectCate_no+CateName);
         SubjectCateVo subjectCateVo=new SubjectCateVo();
         subjectCateVo.setSubjectCate_no(subjectCate_no);
         subjectCateVo.setCateName(CateName);
         subjectService.addcate(subjectCateVo);
+        return 1;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/addSubject",method = {RequestMethod.POST,RequestMethod.GET})
+    public void insert(@ModelAttribute SubjectVo subjectVo) {
+        subjectService.add(subjectVo);
     }
 
-    @RequestMapping(value = "/addSubject", method = RequestMethod.GET)
-    public String insert(@ModelAttribute SubjectVo subjectVo) {
-        subjectService.add(subjectVo);
-        return "redirect:/subject/";
+    @ResponseBody
+    @RequestMapping(value = "/updateSubject",method = {RequestMethod.POST,RequestMethod.GET})
+    public void updateSubject(@ModelAttribute SubjectVo subjectVo) {
+        subjectService.updateSubject(subjectVo);
     }
 }

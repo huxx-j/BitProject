@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,6 +49,15 @@ public class CurriculumController {
 		int result = curriService.addCurriCate(curriCateVo);
 		return result;
 	}
+	
+	//교육과정 카테고리 수정
+	@ResponseBody
+	@RequestMapping(value = "/updateCate")
+	public int updateCate(@RequestParam("curriculumCateVo") CurriculumCateVo curriculumCateVo) {
+//		System.out.println("updateCate" + curriculumCateVo.toString());
+		int result = curriService.updateCate(curriculumCateVo);
+		return result;
+	}
 
 	// 교육과정 추가 버튼
 	@RequestMapping(value = "/addCurriForm")
@@ -72,9 +82,10 @@ public class CurriculumController {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
+//		System.out.println("applicantList" + applicantList.toString());
 		// System.out.println("studentList" + studentList.toString());
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
-		// System.out.println(curriAllVo.toString());
+		 System.out.println("curriAllVo"+curriAllVo.toString());
 		return curriAllVo;
 	}
 

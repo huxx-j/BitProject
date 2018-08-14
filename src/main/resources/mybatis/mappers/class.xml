@@ -50,7 +50,7 @@
     </select>
 
     <!--파일이 저장되는 디렉토리 이름을 가져가는 쿼리-->
-    <select id="getSubjectNoForDirGen" parameterType="Int" resultType="HashMap">
+    <select id="getSubjectNoForDirGen" parameterType="Map" resultType="HashMap">
         <![CDATA[
         select c.GisuName, sis.Subject_no
                 from SubInStep sis, StepInPack sip, Package p, Curriculum c
@@ -58,7 +58,13 @@
                       and sip.Package_no = p.Package_no
                       and p.Package_no = c.Package_no
                       and sis.SubInStep_no=#{sisNo}
+                      and c.Curriculum_no=#{curriNo}
         ]]>
     </select>
 
+    <select id="getGisu" parameterType="Int" resultType="String">
+        <![CDATA[
+                select GisuName from Curriculum where Curriculum_no=#{curriNo}
+        ]]>
+    </select>
 </mapper>

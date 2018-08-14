@@ -34,9 +34,7 @@
 		<!-- Content Header (Page header) -->
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>패키지관리
-				<small>it all starts here</small>
-			</h1>
+			<h1>과목관리</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 				<li><a href="#">과정설계업무</a></li>
@@ -62,8 +60,7 @@
 									<div class="bordered">
 
 										<div class="cate-toolbox-top clearfix">
-											<button type="button" id="addcate" class="btn btn-default btn-cate pull-right">추가</button>
-											<button type="button" class="btn btn-default btn-cate pull-right">편집</button>
+											<button type="button" id="addcate" class="btn btn-default btn-h25 pull-right">카테고리 추가</button>
 										</div><!-- /.cate-toolbox -->
 
 										<div class="scroll">
@@ -101,10 +98,9 @@
 							<!-- 과목정보영역 -->
 							<div class="col-xs-9">
 								<div class="sub-box">
-									<div class="sub-toolbox clearfix">
-										<button  id="btnAddsubject" class="btn btn-default btn-sm pull-right" type="button">과목 추가</button>
+									<div id ="brzone" class="sub-toolbox clearfix">
+										<button  id="btnAddsubject" class="btn btn-default btn-h25 pull-right" type="button">과목 추가</button>
 									</div>
-
 									<div class="sub-body">
 										<form id="subject" name="subject" method="get" action="${pageContext.request.contextPath}/subject/addSubject">
 											<table class="table table-condensed">
@@ -115,12 +111,14 @@
 												<tbody>
 												<tr>
 													<th>과목 카테고리</th>
-													<td>
-														<select name='subjectCate_no' class='form-control'>
-															<c:forEach items="${list}" var="vo">
-																<option value="${vo.subjectCate_no}"> ${vo.cateName} </option>
-															</c:forEach>
-														</select>
+													<td><input id="category" name="CateName" value="카테고리를 선택" type="text" style="border:none" readonly>
+														<input type="hidden" id="cate_no" name="subjectCate_no" value="">
+														<button type="button" id="selectCate" class="btn btn-default btn-h25 pull-right" >카테고리 선택</button>
+														<%--<select name='subjectCate_no' class='form-control'>--%>
+															<%--<c:forEach items="${list}" var="vo">--%>
+																<%--<option value="${vo.subjectCate_no}"> ${vo.cateName} </option>--%>
+															<%--</c:forEach>--%>
+														<%--</select>--%>
 													</td>
 												</tr>
 												<tr>
@@ -133,16 +131,18 @@
 												</tr>
 												</tbody>
 											</table>
-
+											<input type="hidden" id="prevInfo" value="">
 									</div><!-- /.sub-body -->
-
 									<div class="sub-toolbox clearfix text-center">
-										<div id="button">
-											<div id="inner-button">
-												<input type="submit" value="저장" class="btn btn-primary">
+										<div class="row">
+											<div class="col-xs-4">
+											</div>
+											<div id="primary" class="col-xs-4">
+													<input type="button" id="save-subject" value="저장" class="btn btn-primary">
+											</div>
+											<div id="default" class="col-xs-4">
 											</div>
 										</div>
-
 									</div>
 								</div><!-- /.sub-box -->
 							</div><!-- /.col-xs-9 -->
@@ -194,13 +194,30 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-
 				<button type="button" class="btn btn-primary" id="save">저장</button>
 				<button type="button" class="btn btn-primary" id="btn_cancel">취소</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<!--과목 선택 모달창-->
+<!--카테고리 선택 모달창-->
+<div class="modal fade" id="pop2">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">과목 카테고리 선택</h4>
+			</div>
+			<div class="modal-body">
+				<ul id="treeDemo2" class="ztree"></ul>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- /.모달창영역 -->
 <!-- ***************************************** -->
 
@@ -212,378 +229,5 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/assets/build/js/jquery.ztree.exedit.js"></script>
-<script type="text/javascript">
-    // zTree 설정
-    var setting = {
-        edit:{
-            drag:{
-                autoExpandTrigger: true,
-                prev: dropPrev,
-                inner: dropInner,
-                next: dropNext
-            },
-            enable:true,
-            editNameSelectAll: true,
-            showRemoveBtn: true, //showRemoveBtn
-            showRenameBtn: true  //showRenameBtn
-        },
-        data: {
-            simpleData: {
-                enable: true,
-            }
-        },
-        callback: {
-            beforeClick: subject,      // 마우스 클릭 콜백함수 지정
-            beforeDrag: beforeDrag,
-            beforeEditName: beforeEditName,
-            beforeRemove: beforeRemove,
-            beforeRename: beforeRename,
-            onRename:onRename,
-            onRemove: onRemove,
-            beforeDragOpen: beforeDragOpen,
-            onDrag: onDrag,
-            onDrop: onDrop,
-            onExpand: onExpand
-        }
-    };
-
-    var zNodes= [
-        <c:forEach items="${list}" var="vo">
-        <c:if test="${vo.subjectCate_no eq 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true},
-        </c:if>
-        <c:if test="${vo.subjectCate_no ne 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-        </c:if>
-        </c:forEach>
-        <c:forEach items="${sublist}" var="vo">
-        {id:${vo.subject_no},pId:${vo.subjectCate_no},name:"${vo.subjectName}",web:"${vo.subject_no}"},
-        </c:forEach>
-    ];
-
-    <!--삭제 수정용-->
-    function beforeEditName(treeId, treeNode) {
-        className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.selectNode(treeNode);
-        setTimeout(function() {
-            if (confirm(" '" + treeNode.name + "'을(를) 수정 하시겠습니까?")) {
-                setTimeout(function() {
-                    zTree.editName(treeNode);
-                }, 0);
-            }
-        }, 0);
-        return false;
-    }
-
-    <!--삭제 수정용(삭제확인 메세지 출력 및 삭제 전 노드 정보 출력)-->
-    function beforeRemove(treeId, treeNode) {
-        className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.selectNode(treeNode);
-        return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
-    }
-    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
-    function onRemove(e, treeId, treeNode) {
-        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
-    }
-    <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
-    function beforeRename(treeId, treeNode, newName, isCancel) {
-        className = (className === "dark" ? "":"dark");
-        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
-
-
-        if (newName.length == 0) {
-            setTimeout(function() {
-                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-                zTree.cancelEditName();
-                alert("공백은 입력할수 없습니다.");
-            }, 0);
-            return false;
-        }
-        return true;
-    }
-    <!--삭제 수정용(수정 후 데이터 출력)-->
-    function onRename(e, treeId, treeNode, isCancel) {
-        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId + (isCancel ? "</span>":""));
-        UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
-    }
-    <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
-    // function showRemoveBtn(treeId, treeNode) {
-    //     return !treeNode.isFirstNode;
-    // }
-    <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
-    // function showRenameBtn(treeId, treeNode) {
-    //     return !treeNode.isLastNode;
-    // }
-    <!--삭제 수정용-->
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-    <!--삭제 수정용-->
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
-    <!--삭제 수정용-->
-    var newCount = 1;
-    function addHoverDom(treeId, treeNode) {
-        var sObj = $("#" + treeNode.tId + "_span");
-        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-            + "' title='add node' onfocus='this.blur();'></span>";
-        sObj.after(addStr);
-        var btn = $("#addBtn_"+treeNode.tId);
-
-        if (btn) btn.bind("click", function(){
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
-            return false;
-        });
-    };
-    <!--삭제 수정용-->
-    function removeHoverDom(treeId, treeNode) {
-        $("#addBtn_"+treeNode.tId).unbind().remove();
-    };
-    <!--삭제 수정용-->
-    function selectAll() {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
-    }
-    <!--드래그용 함수-->
-    function dropPrev(treeId, nodes, targetNode) {
-        var pNode = targetNode.getParentNode();
-        if (pNode && pNode.dropInner === false) {
-            return false;
-        }
-        else {
-            for (var i=0,l=curDragNodes.length; i<l; i++) {
-                var curPNode = curDragNodes[i].getParentNode();
-                if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    <!--드래그용 함수-->
-    function dropInner(treeId, nodes, targetNode) {
-        if (targetNode && targetNode.dropInner === false) {
-            return false;
-        } else {
-            for (var i=0,l=curDragNodes.length; i<l; i++) {
-                if (!targetNode && curDragNodes[i].dropRoot === false) {
-                    return false;
-                } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    <!--드래그용 함수-->
-    function dropNext(treeId, nodes, targetNode) {
-        var pNode = targetNode.getParentNode();
-        if (pNode && pNode.dropInner === false) {
-            return false;
-        } else {
-            for (var i=0,l=curDragNodes.length; i<l; i++) {
-                var curPNode = curDragNodes[i].getParentNode();
-                if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    var log, className = "dark", curDragNodes, autoExpandNode;
-
-    <!--드래그용 함수-->
-    function beforeDrag(treeId, treeNodes) {
-        className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
-        for (var i=0,l=treeNodes.length; i<l; i++) {
-            if (treeNodes[i].drag === false) {
-                curDragNodes = null;
-                return false;
-            } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
-                curDragNodes = null;
-                return false;
-            }
-        }
-        curDragNodes = treeNodes;
-        return true;
-    }
-    <!--드래그용 함수-->
-    function beforeDragOpen(treeId, treeNode) {
-        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " +  "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+" nodes." );
-        autoExpandNode = treeNode;
-        return true;
-    }
-    <!--드래그용 함수-->
-    function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
-        className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
-        return true;
-    }
-
-    <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
-    function onDrag(event, treeId, treeNodes) {
-        className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes.id+"/pId:"+treeNodes.pId+" nodes." );
-    }
-
-    <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
-    function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
-        className = (className === "dark" ? "":"dark");
-        console.log("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType + "이름:" + treeNodes.toString() + "/ID:" + treeNodes+"/pId:"+treeNodes);
-        console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
-        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
-    }
-
-    <!--드래그용 함수-->
-    function onExpand(event, treeId, treeNode) {
-        if (treeNode === autoExpandNode) {
-            className = (className === "dark" ? "":"dark");
-            console.log("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
-        }
-    }
-    <!--드래그용 함수-->
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-    <!--드래그용 함수-->
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
-    <!--드래그용 함수-->
-    function setTrigger() {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
-    }
-
-    // zTree 초기화
-    $(document).ready(function(){
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        $("#callbackTrigger").bind("change", {}, setTrigger);
-        $("#selectAll").bind("click", selectAll);
-    });
-
-    function UpdateCate(name,id,pId){
-        console.log(name+id+pId);
-        subjectCateVo={
-            cateName : name,
-            subjectCate_no :id,
-            parentCode : pId
-
-        }
-        $.ajax({
-            url : "${pageContext.request.contextPath }/subject/updateCate",
-            type : "post",
-            contentType : "application/json",
-            data : JSON.stringify(subjectCateVo),
-            dataType : "json",
-
-            success : function(SubjectCateVo) {
-                console.log(SubjectCateVo);
-            },
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-
-    }
-    function subject(treeId, treeNode, clickFlag) {
-        var no=treeNode.web;
-        var str ="";
-        console.log(no);
-        $.ajax({
-            url : "${pageContext.request.contextPath }/subject/getSubjectVo",
-            type : "POST",
-            //contentType : "application/json",
-            data : {"no": no},
-            dataType : "json",
-            success : function(SubjectVo) {
-
-                console.log(SubjectVo);
-                $("#inner-button").remove();
-                str+="<div id='inner-button'>"
-                str+="<input type='button' value='수정' class='btn btn-primary' style='margin-left: 60px'>";
-                str+='<input type="submit" value="삭제" class="btn btn-default btn-sub pull-right">';
-                str+="</div>"
-                $("#button").append(str);
-                $("input[name='SubjectName']").val(SubjectVo.subjectName),
-                    $("textarea[name='Outline']").val(SubjectVo.outline),
-                    $("select[name='subjectCate_no']").val(SubjectVo.subjectCate_no).prop("selected",true)
-            },
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-    }
-    $("#btnAddsubject").on("click",function () {
-        var str=" ";
-        $("input[name='SubjectName']").val("");
-        $("textarea[name='Outline']").val("");
-        $("select[name='subjectCate_no']").val("");
-        $("#inner-button").remove();
-        str+="<div id='inner-button'>";
-        str+= '<input type="submit" value="저장" class="btn btn-primary">';
-        str+="</div>";
-        $("#button").append(str);
-
-    })
-    $("#addcate").on("click",function(){
-        $("#pop").modal();
-    });
-
-    $("#btn_cancel").on("click",function(){
-        $("#pop").modal("hide");
-    });
-
-    $("#save").on("click", function() {
-        event.preventDefault();
-        var SubjectCate_no = $("#SubjectCate_no").val();
-        var CateName = $("#CateName").val();
-        console.log(SubjectCate_no);
-        console.log(CateName);
-        $.ajax({
-            url : "${pageContext.request.contextPath }/subject/addSubjectCate",
-            type : "post",
-            async: false,
-            // contentType : "application/json",
-            data : {"SubjectCate_no": SubjectCate_no, "CateName": CateName},
-            dataType : "json",
-            success : function() {
-
-            },
-            error : function(XHR, status, error) {
-                console.error(status + " : " + error);
-            }
-        });
-        location.reload();
-        $("#pop").modal("hide");
-    });
-</script>
+<c:import url="/WEB-INF/views/curridesign/sub-script.jsp"></c:import>
 </html>

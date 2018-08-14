@@ -36,10 +36,36 @@ public class SubjectDao {
     public void UpdateCate(SubjectCateVo subjectCateVo) {
         sqlSession.update("subject.CateUpdate",subjectCateVo);
     }
-    public void UpdateSubject(SubjectCateVo subjectCateVo){
-        sqlSession.update("subject.SubjectUpdate",subjectCateVo);
+    public void UpdateSubjectPid(SubjectCateVo subjectCateVo){
+        sqlSession.update("subject.UpdateSubjectPid",subjectCateVo);
+    }
+    public void UpdateSubject(SubjectVo subjectVo){
+        sqlSession.update("subject.UpdateSubject",subjectVo);
     }
     public void addcate(SubjectCateVo subjectCateVo) {
         sqlSession.insert("subject.addcate",subjectCateVo);
+    }
+
+
+    public void delSubject(int no) {
+        sqlSession.update("subject.delSubject",no);
+    }
+    public void delChildSubject(int pid) {
+        sqlSession.update("subject.delChildSubject",pid);
+    }
+
+    public void delCate(int id) {
+        sqlSession.update("subject.delCate",id);
+    }
+    public void delChildCate(int pid){
+        sqlSession.update("subject.delChildCate",pid);
+    }
+
+    public SubjectCateVo getSubCate(int no) {
+        return sqlSession.selectOne("subject.getSubCate",no);
+    }
+
+    public void updateSubject(SubjectVo subjectVo) {
+        sqlSession.update("subject.updateSubject",subjectVo);
     }
 }
