@@ -92,15 +92,19 @@
 	<choose>
     	<when test="sord=='asc'">
         	<![CDATA[
-            	select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
+            	select u.User_no, c.GisuName,u.NameHan, substring(u.StudResNum,1,6) StudResNum,u.Gender,
 			    a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 			    s.School, s.Major,a.Deposit
 					  
-				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c,
+					(select User_no, MAX(StartDate) as StartDate from UserScholarship
+                     group by User_no) as us2 
+				
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
-				and c.Curriculum_no = #{param}  
+				and c.Curriculum_no = #{param} 
+				group by a.User_no 
 				order by ]]>
 				<if test="!sidx.equals('sidx0')">
                     ${sidx} asc,
@@ -111,15 +115,19 @@
                 </when>
                 <otherwise>
                     <![CDATA[
-                    	select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
+                    	select u.User_no, c.GisuName,u.NameHan, substring(u.StudResNum,1,6) StudResNum,u.Gender,
 					    a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 					    s.School, s.Major,a.Deposit
 					  
-						from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+						from Users u, ApplyInfo a, UserScholarship s, Curriculum c,
+							(select User_no, MAX(StartDate) as StartDate from UserScholarship
+                     		group by User_no) as us2 
+						
 						where u.User_no = a.User_no
 						and s.User_no = u.User_no 
 						and a.Curriculum_no = c.Curriculum_no
 						and c.Curriculum_no = #{param}
+						group by a.User_no
                         order by ${sidx} desc,
                         u.NameHan asc
                         limit #{startNum}, #{rows}
@@ -155,7 +163,8 @@
 	
 		   from ApplyInfo a, Curriculum c
 		   where c.Curriculum_no=a.Curriculum_no
-		   and a.User_no = #{user_no};
+		   and a.User_no = #{user_no}
+		   group by a.Curriculum_no;
 	]]>
 
 </select>
@@ -174,7 +183,9 @@
 		   where a.Curriculum_no=c.Curriculum_no
 		   and a.User_no=u.User_no
 		   and c.CurriculumCate_no=cc.CurriculumCate_no
-		   and c.Curriculum_no = #{curriculum_no} and a.User_no = #{user_no};
+		   and c.Curriculum_no = #{curriculum_no} and a.User_no = #{user_no}
+		   
+		   group by a.Curriculum_no;
 	]]>
 
 </select>

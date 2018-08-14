@@ -17,8 +17,10 @@
 <!-- 그리드에 반영될 데이터의 총 개수를 가져오기 -->
 <select id="getRecords" parameterType="Int" resultType="Int">
 	<![CDATA[
-		select count(u.User_no) from Users u, ApplyInfo a
-		where u.User_no = a.User_no and a.Curriculum_no = #{curriculum_no}
+		select count(u.User_no) 
+		from Users u, ApplyInfo a
+		where u.User_no = a.User_no 
+		and a.Curriculum_no = #{curriculum_no}
 	]]>
 </select>
 
@@ -28,35 +30,44 @@
 	<choose>
      	<when test="sord=='asc'">
             <![CDATA[
-               select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
+               select u.User_no, c.GisuName,u.NameHan, substring(u.StudResNum,1,6) StudResNum,u.Gender,
 			   a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 			   s.School, s.Major,a.Deposit
 	  
-				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c,
+					(select User_no, MAX(StartDate) as StartDate from UserScholarship
+                     group by User_no) as us2          
+                             
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
 				and c.Curriculum_no = #{param}  
+				group by a.User_no
 				order by ]]>
 				<if test="!sidx.equals('sidx0')">
-			            ${sidx} asc,
+			            ${sidx} asc
 			    </if>
-             <![CDATA[ u.NameHan asc
+             <![CDATA[ 
+             		   u.NameHan asc
              		   limit #{startNum}, #{rows}
              ]]>
         </when>
    		<otherwise>
              <![CDATA[
-                select u.User_no, c.GisuName,u.NameHan, u.BirthDate,u.Gender,
+                select u.User_no, c.GisuName,u.NameHan, substring(u.StudResNum,1,6) StudResNum,u.Gender,
 				a.TestResult,u.Cellphone,a.ApplyDate, a.TestDate,
 				s.School, s.Major,a.Deposit
 	  
-				from Users u, ApplyInfo a, UserScholarship s, Curriculum c
+				from Users u, ApplyInfo a, UserScholarship s, Curriculum c,
+					(select User_no, MAX(StartDate) as StartDate from UserScholarship
+                     group by User_no) as us2 
+                     
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
 				and c.Curriculum_no = #{param}
-                order by ${sidx} desc,
+                group by a.User_no
+                order by ${sidx} desc
                 u.NameHan asc
                 limit #{startNum}, #{rows}
               ]]>
@@ -110,6 +121,7 @@
 					Role=#{role},
 					TelePhone=#{telePhone},
 					State=#{state},
+					CompanyAddress=#{companyAddress},
 					Department=#{department}
 				where User_no=#{user_no}
 				and UserCareer_no=#{userCareer_no}
@@ -124,6 +136,7 @@
 					Role=#{role},
 					TelePhone=#{telePhone},
 					State=#{state},
+					CompanyAddress=#{companyAddress},
 					Department=#{department}
 				where User_no=#{user_no}
 				and UserCareer_no=#{userCareer_no}
@@ -139,6 +152,7 @@
 					Role=#{role},
 					TelePhone=#{telePhone},
 					State=#{state},
+					CompanyAddress=#{companyAddress},
 					Department=#{department}
 				where User_no=#{user_no}
 				and UserCareer_no=#{userCareer_no}
