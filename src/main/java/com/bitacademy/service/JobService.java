@@ -56,8 +56,16 @@ public class JobService {
 	}
 
 
+
 	public JobVo getReceiptDate(int company_no) {
 		
 		return jobDao.getReceiptDate(company_no);
 	}
+	
+	
+/*	 취업의뢰리스트 한번클릭했을때 
+	public JobVo getJobRequest(int request_no) {
+
+		return jobDao.getJobRequest(request_no);
+	}*/
 }
