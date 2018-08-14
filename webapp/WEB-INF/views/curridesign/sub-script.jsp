@@ -48,13 +48,12 @@
         $("#del-subject").remove();
         $("#save-subject").remove();
         $("#cancel").remove();
-
+        var str=" ";
         str+='<button  id="btnAddsubject" class="btn btn-default btn-h25 pull-right" type="button">과목 추가</button>';
         $("#brzone").append(str);
         str="<input type='button' id='update-subject' value='수정' class='btn btn-primary' >";
         $("#primary").append(str);
-        str='<button type="button" id="del-subject" value='+SubjectVo.subject_no+' class="btn btn-default btn-sub pull-right">삭제</button>';
-        $("#default").append(str);
+
     }
     //과목 추가 누를시
     function CaseB() {
@@ -63,6 +62,7 @@
         $("#del-subject").remove();
         $("#save-subject").remove();
         $("#cancel").remove();
+        var str=" ";
         str+= '<input type="button" id="save-subject" value="저장" class="btn btn-primary">';
         $("#primary").append(str);
         str='<button type="button" id="cancel" class="btn btn-default btn-sub pull-right">취소</button>';
@@ -90,6 +90,9 @@
             var str=" ";
             console.log(SubjectVo);
             CaseA();
+
+            str='<button type="button" id="del-subject" value='+SubjectVo.subject_no+' class="btn btn-default btn-sub pull-right">삭제</button>';
+            $("#default").append(str);
             $("#prevInfo").val(SubjectVo.subject_no),
                 $("input[name=CateName]").val(SubjectVo.cateName),
                 $("input[name='SubjectName']").val(SubjectVo.subjectName),
