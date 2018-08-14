@@ -324,6 +324,8 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
+				$("input[name='testDate']").val(curriAllVo.curriculumVo.testDate),
+				$("#testTime").val(curriAllVo.curriculumVo.testTime).prop("selected", true),
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),

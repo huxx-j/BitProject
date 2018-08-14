@@ -54,7 +54,7 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/updateCate")
 	public int updateCate(@RequestParam("curriculumCateVo") CurriculumCateVo curriculumCateVo) {
-		System.out.println("updateCate" + curriculumCateVo.toString());
+//		System.out.println("updateCate" + curriculumCateVo.toString());
 		int result = curriService.updateCate(curriculumCateVo);
 		return result;
 	}
@@ -82,10 +82,10 @@ public class CurriculumController {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
-		System.out.println("applicantList" + applicantList.toString());
+//		System.out.println("applicantList" + applicantList.toString());
 		// System.out.println("studentList" + studentList.toString());
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
-		// System.out.println(curriAllVo.toString());
+		 System.out.println("curriAllVo"+curriAllVo.toString());
 		return curriAllVo;
 	}
 

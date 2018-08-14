@@ -11,12 +11,14 @@
   			SELECT 	cc.cateName, cc.curriculumCate_no,
   					c.curriculum_no, c.package_no, c.curriName, c.startDate, c.endDate, c.time, c.maxCnt, c.price,
   					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, c.mainViewFlag, c.detailViewFlag, c.gisuName,
-  					p.packageName, 
-  					p.package_no
-			FROM 	Curriculum as c, Package as p, CurriculumCate as cc
+  					p.packageName, p.package_no,
+  					DATE_FORMAT(t.testDate, "%Y-%m-%d") AS testDate,
+  					TIME_FORMAT(t.testDate, "%H:%i") AS testTime
+			FROM 	Curriculum as c, Package as p, CurriculumCate as cc, TestInfo as t
 			WHERE 	c.package_no = p.package_no
 			AND 	cc.curriculumCate_no = c.curriculumCate_no
-			AND 	c.curriculum_no = #{curriculum_no};
+			AND 	c.curriculum_no = #{curriculum_no}
+			AND		t.curriculum_no = c.curriculum_no
   		]]> 
   	</select>
  	
