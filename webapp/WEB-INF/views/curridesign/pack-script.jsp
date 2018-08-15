@@ -57,13 +57,14 @@
             },
             error : function(xhr,status) {
                 console.error(status + " : " + error);
+
             }
         });
     });
 
     $(document).on("click","input[name='addpackage']",function() {
         packageVo={
-            PackageCate_no: $("select[name='strPackageCate_no']").val(),
+            PackageCate_no: $("input[name='PackageCate_no']").val(),
             UseStatus: $("select[name='UseStatus']").val(),
             PackageName: $("input[name='PackageName']").val(),
             Goal: $("textarea[name='Goal']").val(),
@@ -109,7 +110,8 @@
                 $("#cancel").remove();
                 $("#submit").remove();
                 $("#cancel").remove();
-
+                $("#stepadd").remove();
+                $("#btnAddPackage").remove();
                 str+="<input type='button' name='addpackage' id ='update-packinfo' value='수정' class='btn btn-primary' >";
                 $("#primary").append(str);
                 str='<input type="button" name="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
@@ -118,6 +120,8 @@
                 $("#primary2").append(str);
                 str='<input type="button" name="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
                 $("#default2").append(str);
+                str='<button id="btnAddPackage" class="btn btn-default btn-h25 pull-right" type="button">패키지 추가</button>';
+                $("#btnzone").append(str);
                 clean();
                 console.log(PackageVo);
                 for(var i=0;i<PackageVo.steplist.length;i++) {
@@ -141,8 +145,8 @@
 
                 if(PackageVo.useStatus == 0 ){$("#UserStatus0").prop("checked", true);}
                 else if(PackageVo.useStatus == 1 ){$("#UserStatus1").prop("checked", true);}
-                $("prevInfo").val(PackageVo.package_no),
-                $("select[name='strPackageCate_no']").val(PackageVo.packageCate_no).prop("selected",true),
+                $("#prevInfo").val(PackageVo.package_no),
+                $("input[name='PackageCate_no']").val(PackageVo.packageCate_no),
                     $("input[name='PackageName']").val(PackageVo.packageName),
                     $("input[name='PackageNameInStep']").val(PackageVo.packageName),
                     $("textarea[name='Goal']").val(PackageVo.goal),
@@ -196,7 +200,7 @@ function cleanButton() {
                 console.error(status + " : " + error);
             }
         });
-        location.reload();
+        //location.reload();
     });
         //$("#time").attr("style","border: none;");
     }
@@ -213,7 +217,7 @@ function cleanButton() {
         fristStepDraw();
     }
 
-    $("#btnAddPackage").on("click",function () {
+    $(document).on("click","#btnAddPackage",function () {
         str=" ";
         $("input[name='PackageNameInStep']").val(" ");
         $("input[name='TotalTimeInStep']").val(" ");
@@ -230,6 +234,7 @@ function cleanButton() {
         $("div[name='die']").remove();
         $("tr[name='die']").remove();
         $("table[name='die']").remove();
+        $("#btnAddPackage").remove();
         $("#addpackage").remove();
         $("#cancel").remove();
         $("#submit").remove();
@@ -238,7 +243,8 @@ function cleanButton() {
         $("input[name='del-package']").remove();
         $("#update-pack").remove();
         $("input[name='del-package']").remove();
-
+        $("#btnAddstep").remove();
+        $("#stepadd").remove();
         str+= '<input type="button" value="저장" id="addpackage" name="addpackage" class="btn btn-primary">';
         $("#primary").append(str);
         str='<input type="button" value="취소" name="cancel"id="cancel"  class="btn btn-default btn-sub pull-right">';
@@ -247,8 +253,9 @@ function cleanButton() {
         $("#primary2").append(str);
         str='<input type="button" value="취소" name="cancel"id="cancel" class="btn btn-default btn-sub pull-right">';
         $("#default2").append(str);
-        $("#packageTab a:first").tab('show');
 
+        $("#packageTab a:first").tab('show');
+        fristStepDraw();
     });
 
     $("#addcate").on("click",function(){
@@ -276,9 +283,9 @@ function cleanButton() {
             dataType : "json",
             success : function(PackageCateVo) {
                 console.log(PackageCateVo.cateName);
-                console.log(PackageCateVo.subjectCate_no);
+                console.log(PackageCateVo.packageCate_no);
                 $("#category").val(PackageCateVo.cateName),
-                    $("#cate_no").val(PackageCateVo.subjectCate_no)
+                    $("#cate_no").val(PackageCateVo.packageCate_no)
                 $("#pop3").modal("hide");
             },
             error : function(XHR, status, error) {
@@ -961,10 +968,10 @@ function cleanButton() {
     var zNodes2= [
         <c:forEach items="${subcatelist}" var="vo">
         <c:if test="${vo.subjectCate_no eq 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true},
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         <c:if test="${vo.subjectCate_no ne 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png"},
         </c:if>
         </c:forEach>
         <c:forEach items="${sublist}" var="vo">

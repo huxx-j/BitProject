@@ -105,9 +105,9 @@
 									<ul class="nav nav-tabs" id="packageTab">
 										<li class="active"><a href="#tab_1" data-toggle="tab">패키지 개요</a></li>
 										<li class=""><a href="#tab_2" data-toggle="tab">구성 과목</a></li>
-
-										<button id="btnAddPackage" class="btn btn-default btn-h25 pull-right" type="button">패키지 추가</button>
-
+										<div id="btnzone">
+											<button id="btnAddPackage" class="btn btn-default btn-h25 pull-right" type="button">패키지 추가</button>
+										</div>
 									</ul>
 
 									<!-- /.상단탭영역 -->
@@ -140,8 +140,8 @@
 															<tr>
 																<th>패키지카테고리</th>
 																<td colspan="3">
-																<input id="category" name="CateName" value="카테고리를 선택" type="text" style="border:none" readonly>
-																	<input type="hidden" id="cate_no" name="packageCate_no" value="">
+																<input id="category" name="PackageName" value="카테고리를 선택" type="text" style="border:none" readonly>
+																	<input type="hidden" id="cate_no" name="PackageCate_no" value="">
 																	<button type="button" id="selectCategory" class="btn btn-default btn-h25 pull-right" >카테고리 선택</button>
 																	</td>
 																	<%--<select name ="strPackageCate_no" class="form-control">--%>
