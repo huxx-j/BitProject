@@ -11,12 +11,14 @@
   			SELECT 	cc.cateName, cc.curriculumCate_no,
   					c.curriculum_no, c.package_no, c.curriName, c.startDate, c.endDate, c.time, c.maxCnt, c.price,
   					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, c.mainViewFlag, c.detailViewFlag, c.gisuName,
-  					p.packageName, 
-  					p.package_no
-			FROM 	Curriculum as c, Package as p, CurriculumCate as cc
+  					p.packageName, p.package_no,
+  					DATE_FORMAT(t.testDate, "%Y-%m-%d") AS testDate,
+  					TIME_FORMAT(t.testDate, "%H:%i") AS testTime
+			FROM 	Curriculum as c, Package as p, CurriculumCate as cc, TestInfo as t
 			WHERE 	c.package_no = p.package_no
 			AND 	cc.curriculumCate_no = c.curriculumCate_no
-			AND 	c.curriculum_no = #{curriculum_no};
+			AND 	c.curriculum_no = #{curriculum_no}
+			AND		t.curriculum_no = c.curriculum_no
   		]]> 
   	</select>
  	
@@ -31,6 +33,16 @@
  		]]>
  	</insert>
  	
+ 	<!-- 교육과정 카테고리 수정 -->
+ 	<update id="updateCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
+ 		<![CDATA[
+ 			UPDATE 	CurriculumCate 
+ 			SET 	cateName = #{cateName},
+ 					parentCode = #{parentCode}
+ 			WHERE 	curriculumCate_no = #{curriculumCate_no}
+ 		]]>
+ 	
+ 	</update>
 	<!-- 커리큘럼 수정 -->
     <update id = "editCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
@@ -111,7 +123,7 @@
 	<!-- 전체지원자리스트 조회 -->
 	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no
@@ -123,7 +135,7 @@
 	<!-- 수강생 리스트 조회 -->
 	<select id = "viewStudentList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no

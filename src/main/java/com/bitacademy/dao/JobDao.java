@@ -46,7 +46,6 @@ public class JobDao {
 	
 	//지원자 리스트 조회
 	public List<GisuTableVo> getGisu(GisuTableVo gisuTableVo) {
-
 		List<GisuTableVo> list = sqlSession.selectList("job.selectList",gisuTableVo );
 		return list;
 	}
@@ -55,16 +54,19 @@ public class JobDao {
 
 	/*한번클릭*/
 	public List<JobVo> getInterviewList(int request_no) {
-
 		return sqlSession.selectList("job.getInterviewList",request_no);
 
 	}
 
 	
 	
-	public JobVo getReceiptDate(int company_no) {
-		
+	public JobVo getReceiptDate(int company_no) {	
 		return sqlSession.selectOne("job.getReceiptDate", company_no);
 		
 	}
+
+	/* 취업의뢰리스트 한번클릭했을때 
+	public JobVo getJobRequest(int request_no) {
+		return sqlSession.selectOne("job.getJobRequest",request_no);
+	}*/
 }

@@ -57,8 +57,6 @@ public class JobController {
 		return "graduate/pop_jobRequestDetail";
 	}
 
-	
-	
 
 	/*특정기업 취업의뢰 상세*/
 	@ResponseBody
@@ -82,7 +80,10 @@ public class JobController {
 	 * 
 	 * return jobdetails; }
 	 */
-	/* 한번클릭했을때 */
+	
+	
+	
+	/* 구인업체 한번클릭했을때 */
 	/*취업지원자 리스트*/
 	@ResponseBody
 	@RequestMapping(value = "/getInterviewList", method = RequestMethod.POST)
@@ -93,7 +94,7 @@ public class JobController {
 
 		return searchList;
 	}
-	
+		
 	
 	/* modal */
 	@ResponseBody
@@ -106,4 +107,17 @@ public class JobController {
 
 		return getGisu;
 	}
+	
+	
+	/* 취업의뢰리스트 한번클릭했을때 */
+	/*@ResponseBody
+	@RequestMapping(value = "/jobRequest", method = RequestMethod.POST)
+	public JobVo getJobRequest(@RequestParam int request_no) {
+		System.out.println(request_no);
+		JobVo jobVo = jobService.getJobRequest(request_no);
+		System.out.println(jobVo.toString());
+
+		return jobVo;
+	}*/
+	
 }

@@ -28,14 +28,14 @@
 											<div class = "sub-title">
 												전체지원자리스트
 											</div><!-- /.sub-title -->
-											<div class = "sub-box">
+											<div class = "sub-box" style="overflow:scroll; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
+														<col class = "col-xs-1">
 														<col class = "col-xs-2">
 														<col class = "col-xs-3">
-														<col class = "col-xs-3">
 														<col class = "col-xs-2">
-														<col class = "col-xs-2">
+														<col class = "col-xs-4">
 													</colgroup>
 													<thead>
 														<tr>
@@ -66,14 +66,14 @@
 											<div class = "sub-title">
 												수강생리스트
 											</div><!-- /.sub-title -->
-											<div class = "sub-box" id = "">
+											<div class = "sub-box" style="overflow:scroll; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
+														<col class = "col-xs-1">
 														<col class = "col-xs-2">
 														<col class = "col-xs-3">
-														<col class = "col-xs-3">
 														<col class = "col-xs-2">
-														<col class = "col-xs-2">
+														<col class = "col-xs-4">
 													</colgroup>
 													<thead>
 														<tr>
