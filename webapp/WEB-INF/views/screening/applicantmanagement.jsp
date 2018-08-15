@@ -192,11 +192,11 @@
 												<tbody>
 												<tr>
 													<th>업무구분</th>
-													<td><input type="text" class="form-control" name="cateName"></td>
+													<td><input type="text" class="form-control" name="cateName" readOnly="readOnly"></td>
 												</tr>
 												<tr>
 													<th>교육과정명</th>
-													<td><input type="text" class="form-control" name="curriName"></td>
+													<td><input type="text" class="form-control" name="curriName" readOnly="readOnly"></td>
 												</tr>
 	
 												</tbody>
@@ -446,6 +446,8 @@ $("#applySearch").on("click",function() {
 	jqGridFrame();
     var curriculum_no = $("#curriSelect option:selected").val();
     console.log("클릭됨" + curriculum_no);
+    $("#appliedTable").empty();
+    past_apply_Reset();
     
     /* $.ajax({
         url : "/api/apply/getStudentList",
@@ -478,7 +480,7 @@ $("#jqGrid").jqGrid({
 	colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
-	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
+	    {name : 'studResNum',index : 'studResNum',width : 100,align : "center"},
 	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
@@ -512,6 +514,7 @@ $("#jqGrid").jqGrid({
 	            console.log(list);
 	
 	            $("#appliedTable").empty();
+	            past_apply_Reset();
 	
 	            for (var i = 0; i < list.length; i++) {
 	                renderApplied(list[i])
@@ -602,24 +605,21 @@ function past_apply(curriculum_no, user_no) {
         },
         dataType : "json",
         success : function(applyVo) {
-            console.log(applyVo.consult);
+            console.log(applyVo);
             $("input[name='hidden_no']").val(applyVo.user_no)
             $("input[name='hidden_currino']").val(applyVo.curriculum_no)
             $("input[name='cateName']").val(applyVo.cateName)
             $("input[name='curriName']").val(applyVo.curriName)
-            $("input[name='applyType']").val(applyVo.applyType)
-            $("input[name='testLang']").val(applyVo.testLang)
-            var str = "";
-            str += "<option>"+applyVo.testLang+"<option>";
-            $("[name=testLang]").append(str);
-
+            $("[name='applyType']").val(applyVo.applyType)
+            $("[name='testLang']").val(applyVo.testLang)
             $("input[name='testScore']").val(applyVo.testScore)
-            $("input[name='testResult']").val(applyVo.testResult)
+            $("[name='testResult']").val(applyVo.testResult)
             $("input[name='date1']").val(applyVo.depositDate)
             $("input[name='date2']").val(applyVo.cardPayDate)
             $("input[name='depositAmount']").val(applyVo.depositAmount)
             $("input[name='cardPayAmount']").val(applyVo.cardPayAmount)
-            $("input[name='deposit']").val(applyVo.deposit)
+            $("[name='deposit']").val(applyVo.deposit)
+            
             $("input[name='totalPay']").val(applyVo.totalPay)
             $("[name='consult']").val(applyVo.consultContent)
 
@@ -635,12 +635,16 @@ function past_apply(curriculum_no, user_no) {
 //지원내역 상세에서 계좌입금액,카드결제액 자동계산
 $("#amountCalcul_1, #amountCalcul_2").change(function(){
     calc();
+    var cost = $(this).val();
+	cost = cost.replace(/[^0-9]/g,"");
+	$(this).val(cost);
 });
-
+/* 지원내역 상세에서 계좌입금액,카드결제액 자동계산 END*/
 function calc() {
     $("#amountResult").val(Number($("#amountCalcul_1").val()) + Number($("#amountCalcul_2").val()));
+    
 }
-/* 지원내역 상세에서 계좌입금액,카드결제액 자동계산 END*/
+
 
 //수정버튼 누를때
 $("#update").on("click", function () {
@@ -680,6 +684,28 @@ $("#update").on("click", function () {
     });
 
 })
+
+function past_apply_Reset(){
+    
+    $("input[name='cateName']").val("")
+    $("input[name='curriName']").val("")
+    $("input[name='applyType']").val("")
+    $("input[name='testLang']").val("")
+    var str = "";
+    str += "<option><option>";
+    $("[name=testLang]").append(str);
+
+    $("input[name='testScore']").val("")
+    $("input[name='testResult']").val("")
+    $("input[name='date1']").val("")
+    $("input[name='date2']").val("")
+    $("input[name='depositAmount']").val("")
+    $("input[name='cardPayAmount']").val("")
+    $("input[name='deposit']").val("")
+    $("input[name='totalPay']").val("")
+    $("[name='consult']").val("")
+	
+};
 
 </script>
 </body>
