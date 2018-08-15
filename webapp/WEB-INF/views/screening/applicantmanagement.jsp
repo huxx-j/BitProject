@@ -605,24 +605,21 @@ function past_apply(curriculum_no, user_no) {
         },
         dataType : "json",
         success : function(applyVo) {
-            console.log(applyVo.consult);
+            console.log(applyVo);
             $("input[name='hidden_no']").val(applyVo.user_no)
             $("input[name='hidden_currino']").val(applyVo.curriculum_no)
             $("input[name='cateName']").val(applyVo.cateName)
             $("input[name='curriName']").val(applyVo.curriName)
-            $("input[name='applyType']").val(applyVo.applyType)
-            $("input[name='testLang']").val(applyVo.testLang)
-            var str = "";
-            str += "<option>"+applyVo.testLang+"<option>";
-            $("[name=testLang]").append(str);
-
+            $("[name='applyType']").val(applyVo.applyType)
+            $("[name='testLang']").val(applyVo.testLang)
             $("input[name='testScore']").val(applyVo.testScore)
-            $("input[name='testResult']").val(applyVo.testResult)
+            $("[name='testResult']").val(applyVo.testResult)
             $("input[name='date1']").val(applyVo.depositDate)
             $("input[name='date2']").val(applyVo.cardPayDate)
             $("input[name='depositAmount']").val(applyVo.depositAmount)
             $("input[name='cardPayAmount']").val(applyVo.cardPayAmount)
-            $("input[name='deposit']").val(applyVo.deposit)
+            $("[name='deposit']").val(applyVo.deposit)
+            
             $("input[name='totalPay']").val(applyVo.totalPay)
             $("[name='consult']").val(applyVo.consultContent)
 

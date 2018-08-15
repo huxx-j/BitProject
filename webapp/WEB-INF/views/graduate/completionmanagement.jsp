@@ -278,8 +278,8 @@
 									<div class="sub-toolbox text-center clearfix" id="company_btn_div">
 										<!-- <button type="button" class="btn btn-primary" id="company_btn">수정</button> -->
 									</div>
-									<input type="hidden" name="hidden_no" id = "hidden_no">
-									<input type="hidden" name="hidden_applyno" id = "hidden_applyno">
+									<input type='hidden' name="hidden_no" id = "hidden_no">
+									<input type='hidden' name="hidden_applyno" id = "hidden_applyno">
 								</div><!-- /.sub-box -->
 							</div><!-- /.row -->
 
@@ -445,8 +445,13 @@ $("#jqGrid").jqGrid({
                 $("#afterServiceTable").empty();
                 companyForm_Reset();
 
-                for (var i = 0; i < list.length; i++) {
-                    renderApplied(list[i])
+                if (list.length > 0) {
+	                 for (var i = 0; i < list.length; i++) {
+	                     renderApplied(list[i])
+	                 }
+                } else {
+                    var str = "<tr><td colspan='5' align='center'>등록된 정보가 없습니다.</td></tr>";
+                    $("#afterServiceTable").append(str);
                 }
 
                 $("input[name='hidden_no']").val(userNo)
@@ -596,12 +601,14 @@ $("#company_btn_div").on("click","#btn_companyInsert", function (user_no) {
 
                  $("#afterServiceTable").empty();
 
-                 for (var i = 0; i < list.length; i++) {
-                     renderApplied(list[i])
+                 if (list.length > 0) {
+	                 for (var i = 0; i < list.length; i++) {
+	                     renderApplied(list[i])
+	                 }
+                 } else {
+                     var str = "<tr><td colspan='5' align='center'>등록된 정보가 없습니다.</td></tr>";
+                     $("#afterServiceTable").append(str);
                  }
-
-                 $("input[name='hidden_no']").val(userNo)
-                 $("input[name='hidden_applyno']").val(userCareer_no)
 
              },
              error : function(request, status, error) {
@@ -611,7 +618,7 @@ $("#company_btn_div").on("click","#btn_companyInsert", function (user_no) {
 
     	function renderApplied(list) {
             var str = "";
-            str += "<tr id='" + list.userCareer_no+ "' name='" + list.user_no + "' class='past'>";
+            str += "<tr data-careerno='" + list.userCareer_no+ "' data-userno='" + list.user_no + "' class='past'>";
             str += "<td value='" + list.userCareer_no + "'>"
                 + list.userCareer_no + "</td>";
             str += "<td value='" + list.userCareer_no + "'>"
@@ -660,6 +667,7 @@ function past_apply(userCareer_no,user_no) {
             $("input[name='telePhone']").val(userCareerVo.telePhone)
             $("input[name='date1']").val(userCareerVo.startDate)
             $("input[name='date2']").val(userCareerVo.endDate)
+            $("[name='state']").val(userCareerVo.state)
             $("input[name='position']").val(userCareerVo.role)
             $("input[name='department']").val(userCareerVo.department)
             $("input[name='companyAddress']").val(userCareerVo.companyAddress)
