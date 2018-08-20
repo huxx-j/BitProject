@@ -81,6 +81,7 @@
     // 과목 클릭시 발동되는 함수
     function subject(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
+        console.log(no);
         if (no>=10000){
             selectSubjectCate(no);
         }else{
@@ -92,6 +93,7 @@
         var no=$("#prevInfo").val();
         selectsubject(no);
     });
+
     function selectSubjectCate(no){
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/getSubjectCate",
@@ -105,7 +107,7 @@
                 CaseB();
 
                 $("#prevInfo").val(SubjectCateVo.subjectCate_no),
-                    $("input[name='CateName']").val(SubjectVo.cateName)
+                    $("input[name='CateName']").val(SubjectCateVo.cateName)
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
