@@ -78,7 +78,7 @@
         from SubInStep s
         where Step_no =#{no}
         ]]>
-    </select>
+    </select>0.
     <update id="delPackage" parameterType="int">
         <![CDATA[
         UPDATE Package set
