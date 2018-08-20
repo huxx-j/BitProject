@@ -36,6 +36,7 @@
         <typeAlias alias="PagerRequestVo" type="com.bitacademy.vo.PagerRequestVo"/>
         <typeAlias alias="AuthVo" type="com.bitacademy.vo.AuthVo"/>
     </typeAliases>
+
     <mappers>
         <mapper resource="mybatis/mappers/afterservice.xml"/>
         <mapper resource="mybatis/mappers/applicant.xml"/>
