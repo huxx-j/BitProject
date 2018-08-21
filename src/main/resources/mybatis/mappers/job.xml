@@ -4,8 +4,81 @@
 
 	<!-- 검색 -->
 	<!--/*기업정보 리스트 가져오기*/-->
-	<select id="jobRequestList" parameterType="com.bitacademy.vo.JobSearchVo" resultType="com.bitacademy.vo.JobVo">
+	<select id="getJobRequestList" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="com.bitacademy.vo.JobVo">
 		<![CDATA[
+			select *
+			from JobRequest j, Company c 
+			where j.Company_no = c.Company_no
+		]]>	
+		
+		<if test="comCondition == 'isShow'">
+			and j.isShow = '1'
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<if test="comCondition == 'receiptDate'">
+			and j.receiptDate between #{startDate} and #{endDate}
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<!-- <if test="sidx==null or sidx.equals('')">
+			order by ReceiptDate desc
+		</if> -->
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord}
+		</if>
+		<![CDATA[
+			limit #{startNum}, #{rows}
+		]]>	
+	
+	</select>
+	
+	<!-- 취업의뢰 전체 카운트 -->
+	<select id="getJobRequestTotalCnt" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="Int">
+		<![CDATA[
+			select count(*)
+			from JobRequest j, Company c 
+			where j.Company_no = c.Company_no
+		]]>	
+		
+		<if test="comCondition == 'isShow'">
+			and j.isShow = '1'
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<if test="comCondition == 'receiptDate'">
+			and j.receiptDate between #{startDate} and #{endDate}
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		
+	</select>
+		
+		
+<!-- 	
+<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} asc
+		</if>
+		
+
+	<if test="comCondition == 'isShow'">
+			and j.isShow = '1'
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<if test="comCondition == 'receiptDate'">
+			and j.receiptDate between #{startDate} and #{endDate}
+		</if>
+		<![CDATA[	
+			order by receiptDate desc
+		]]> -->
+		
+		<!-- <![CDATA[
 			select  j.Company_no, 
 					j.Request_no,
 					j.Post,
@@ -28,10 +101,8 @@
 		</if>
 		<if test="comCondition == 'receiptdate'">
 			and j.receiptDate between #{startDate} and #{endDate}
-		</if>
+		</if> -->
 		
-	</select>
-
 	
 	
 	<!-- 두번 클릭 -->

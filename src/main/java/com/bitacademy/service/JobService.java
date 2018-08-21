@@ -1,15 +1,16 @@
 package com.bitacademy.service;
 
-import com.bitacademy.dao.JobDao;
-import com.bitacademy.vo.GisuTableVo;
+import java.util.List;
 
-import com.bitacademy.vo.JobSearchVo;
-import com.bitacademy.vo.JobVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.List;
+import com.bitacademy.dao.JobDao;
+import com.bitacademy.vo.GisuTableVo;
+import com.bitacademy.vo.JobCriteriaVo;
+import com.bitacademy.vo.JobVo;
+import com.bitacademy.vo.PagerResponseVo;
+import com.bitacademy.vo.ResultGridVo;
 
 
 @Service
@@ -18,9 +19,30 @@ public class JobService {
 	@Autowired
 	JobDao jobDao;
 
-	/*기업정보 리스트 가져오기*/
-	public List<JobVo> jobRequestList(JobSearchVo jobSearchVo) {
-		return jobDao.jobRequestList(jobSearchVo);
+	/*취업의뢰 리스트 가져오기*/
+	public ResultGridVo getJobRequestList(JobCriteriaVo jobCriteriaVo) {
+		
+		int page; // 요청페이지
+		int records; // 총데이타수(전체데이타수)
+		List<Object> rows; // 데이터리스트
+		int rowCnt; // 한페이지당 출력되는 수
+		
+		//요청한 현재페이지 번호
+		page = jobCriteriaVo.getPage();
+		
+		//토탈카운트 구하기 --> records
+		records = jobDao.getJobRequestTotalCnt(jobCriteriaVo);
+		
+		//현재페이지에서 출력할 리스트 가져오기 --> rows
+		rows = jobDao.getJobRequestList(jobCriteriaVo);
+		
+		//한페이지당 출력되는 수
+		rowCnt = jobCriteriaVo.getRows();
+			
+		/*리턴Vo*/
+		ResultGridVo resultGridVo = new ResultGridVo(page, records, rows, rowCnt);
+		
+		return resultGridVo;
 	}
 
 	

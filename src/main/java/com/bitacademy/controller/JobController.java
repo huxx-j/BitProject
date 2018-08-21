@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.bitacademy.service.JobService;
 import com.bitacademy.vo.GisuTableVo;
-import com.bitacademy.vo.JobSearchVo;
+import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobVo;
+import com.bitacademy.vo.ResultGridVo;
 
 @Controller
 @RequestMapping("/jobrequest")
@@ -21,6 +23,7 @@ public class JobController {
 
 	@Autowired
 	JobService jobService;
+	
 
 	/* 취업의뢰 메인 */
 	@RequestMapping("/")
@@ -29,16 +32,16 @@ public class JobController {
 		return "graduate/jobrequest";
 	}
 
-	/* 기업정보 리스트 가져오기 */
+	/* 취업의뢰 리스트 가져오기 */
 	@ResponseBody
 	@RequestMapping(value = "/jobRequestList", method = RequestMethod.POST)
-	public List<JobVo> jobRequestList(@ModelAttribute JobSearchVo jobSearchVo) {
+	public ResultGridVo getJobRequestList(@ModelAttribute JobCriteriaVo jobCriteriaVo ) {
 
-		System.out.println(jobSearchVo.toString());
-		List<JobVo> jobRequestList = jobService.jobRequestList(jobSearchVo);
-		System.out.println(jobRequestList.toString());
-
-		return jobRequestList;
+		System.out.println(jobCriteriaVo.toString());
+		ResultGridVo resultGridVo = jobService.getJobRequestList(jobCriteriaVo);
+		/*System.out.println(resultGridVo.toString());*/
+		System.out.println(resultGridVo.getRows().size());
+		return resultGridVo;
 	}
 
 
@@ -57,6 +60,7 @@ public class JobController {
 		return "graduate/pop_jobRequestDetail";
 	}
 
+	
 
 	/*특정기업 취업의뢰 상세*/
 	@ResponseBody
