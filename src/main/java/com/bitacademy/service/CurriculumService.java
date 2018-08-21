@@ -12,6 +12,7 @@ import com.bitacademy.vo.CurriculumCateVo;
 import com.bitacademy.vo.CurriculumVo;
 import com.bitacademy.vo.PackageCateVo;
 import com.bitacademy.vo.PackageVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Service
 public class CurriculumService {
@@ -57,8 +58,16 @@ public class CurriculumService {
 		return curriDao.updateCate(curriCateVo);
 	}
 	// 교육과정 추가
-	public int addCurri(CurriculumVo curriVo) {
-		return curriDao.addCurri(curriVo);
+	public int addCurri(CurriculumVo curriVo, TestInfoVo testInfoVo) {
+		int result1 = curriDao.addCurri(curriVo);
+		int result2 = curriDao.addCurriTest(testInfoVo);
+		int result = 0;
+		if (result1 == 1 && result2 == 1) {
+			result = 1;
+		}else {
+			result = 0; 
+		}
+		return result;
 	}
 
 	// zTree 카테고리 탭 (목록 불러오기)

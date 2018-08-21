@@ -175,16 +175,124 @@
 																					        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 																				        </div>
 																					</td>
-																				</tr>
-																				<tr>
-																					<th>강의시간</th>
-																					<td colspan="3">
-																						<input type="text" class="form-control" name = "time">
-																					</td>
 																					<th>정원</th>
 																					<td>
 																						<input type="text" class="form-control w140 pull-left" name = "maxCnt">명
 																					</td>
+																				</tr>
+																				
+																				<tr id = "tr_testDate" >
+																					<th>전형일시<input type = "hidden" value = "0" name = "testTimeCnt"></th>
+																					<td colspan="5" id = "testTimeTd">
+									<%-- 											       	<c:forEach begin="1" end="9"> --%>
+																					        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv0"> <!-- style = " margin-bottom:3px;" -->
+																								<span class="input-group border-inputcolor w140">
+																							        <input type="text" class="  form-control border-none" id="testDate0" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																							        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+																						        </span>
+																						        <span>
+																						        	<select class="form-control w60 testTime" id = "testTime0">
+																										<option value = "--:--">--:--</option>
+																										<option value = "08:00">08:00</option>
+																										<option value = "09:00">09:00</option>
+																										<option value = "10:00">10:00</option>
+																										<option value = "11:00">11:00</option>
+																										<option value = "12:00">12:00</option>
+																										<option value = "13:00">13:00</option>
+																										<option value = "14:00">14:00</option>
+																										<option value = "15:00">15:00</option>
+																										<option value = "16:00">16:00</option>
+																										<option value = "17:00">17:00</option>
+																										<option value = "18:00">18:00</option>
+																										<option value = "19:00">19:00</option>
+																										<option value = "20:00">20:00</option>
+																										<option value = "21:00">21:00</option>
+																										<option value = "22:00">22:00</option>
+																										<option value = "23:00">23:00</option>
+																									</select>
+																								</span>
+																								<span>
+																									<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																									<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+																								</span>
+																					        </div>
+																					        
+																					        
+																					        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv1"><!--  style = " margin-bottom:3px;" -->															<span class="input-group border-inputcolor w140">
+																							        <input type="text" class="  form-control border-none" id="testDate1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																							        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+																						        </span>
+																						        <span>
+																						        	<select class="form-control w60 testTime" id = "testTime1">
+																										<option value = "--:--">--:--</option>
+																										<option value = "08:00">08:00</option>
+																										<option value = "09:00">09:00</option>
+																										<option value = "10:00">10:00</option>
+																										<option value = "11:00">11:00</option>
+																										<option value = "12:00">12:00</option>
+																										<option value = "13:00">13:00</option>
+																										<option value = "14:00">14:00</option>
+																										<option value = "15:00">15:00</option>
+																										<option value = "16:00">16:00</option>
+																										<option value = "17:00">17:00</option>
+																										<option value = "18:00">18:00</option>
+																										<option value = "19:00">19:00</option>
+																										<option value = "20:00">20:00</option>
+																										<option value = "21:00">21:00</option>
+																										<option value = "22:00">22:00</option>
+																										<option value = "23:00">23:00</option>
+																									</select>
+																								</span>
+																								<span>
+																									<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																									<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+																								</span>
+																					        </div>
+																					        
+																					        
+																					        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv2">
+																								<span class="input-group border-inputcolor w140">
+																							        <input type="text" class="  form-control border-none" id="testDate2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+																							        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+																						        </span>
+																						        <span>
+																						        	<select class="form-control w60 testTime" id = "testTime2">
+																										<option value = "--:--">--:--</option>
+																										<option value = "08:00">08:00</option>
+																										<option value = "09:00">09:00</option>
+																										<option value = "10:00">10:00</option>
+																										<option value = "11:00">11:00</option>
+																										<option value = "12:00">12:00</option>
+																										<option value = "13:00">13:00</option>
+																										<option value = "14:00">14:00</option>
+																										<option value = "15:00">15:00</option>
+																										<option value = "16:00">16:00</option>
+																										<option value = "17:00">17:00</option>
+																										<option value = "18:00">18:00</option>
+																										<option value = "19:00">19:00</option>
+																										<option value = "20:00">20:00</option>
+																										<option value = "21:00">21:00</option>
+																										<option value = "22:00">22:00</option>
+																										<option value = "23:00">23:00</option>
+																									</select>
+																								</span>
+																								<span>
+																									<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																									<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+																								</span>
+																					        </div>
+																					        
+																					        
+									<%-- 											        </c:forEach> --%>
+																					</td>
+																				</tr>
+																				
+																				<tr>
+																					<th>강의시간</th>
+																					<td colspan="5">
+																						<input type="text" class="form-control" name = "time">
+																					</td>
+																					
 																				</tr>
 																				<tr>
 																					<th>교육비용</th>

@@ -206,6 +206,20 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
+				
+				
+				
+				$("input[name='testDate0']").val(curriAllVo.curriculumVo.testDate0),
+				$("input[name='testDate1']").val(curriAllVo.curriculumVo.testDate1),
+				$("input[name='testDate2']").val(curriAllVo.curriculumVo.testDate2),
+				$("#testTime0").val(curriAllVo.curriculumVo.testTime0).prop("selected", true),
+				$("#testTime1").val(curriAllVo.curriculumVo.testTime1).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testTime2).prop("selected", true),
+				
+				
+		
+				
+				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
@@ -288,6 +302,13 @@
 	//커리큘럼 추가(저장버튼)
 	$("#addCurriBtn").on("click", function(){
 		console.log("addCurri IN")
+		
+		
+// 		var testTimeCnt = $("input[name=testTimeCnt]").val();
+
+		
+		
+		
 		var curriculumCate_no = $("#curriculumCate_no option:selected").val();
 // 		var curriculumCate_no = $("input[name=curriculumCate_no]:option").val();
 		var package_no = $("input[name=package_no]").val();
@@ -297,6 +318,23 @@
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
+		
+		var testDate = [];
+		var testTime = [];
+		
+// 		for(var i = 0; i <= testTimeCnt; i++){
+// 			testDate.push($("input[name=testDate"+i+"]").val());
+// 			testTime.push($("select[name=testTime"+i+"]").val());
+// 		}
+		
+		var testDate0 = $("input[name='testDate0']").val();
+		var testDate1 = $("input[name='testDate1']").val();
+		var testDate2 = $("input[name='testDate2']").val();
+		var testTime0 = $("#testTime0 option:selected").val();
+		var testTime1 = $("#testTime1 option:selected").val();
+		var testTime2 = $("#testTime2 option:selected").val();
+		
+		
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -306,7 +344,8 @@
 		var gisuName = $("input[name=gisuName]").val();
 		console.log("package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
 					"curriName="+curriName,
-					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, 
+					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, "testDate0="+testDate0, "testDate1="+testDate1, "testDate2="+testDate2,
+					"testTime0="+testTime0, "testTime1="+testTime1, "testTime2="+testTime2,
 					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
 					"state="+state, "gisuName="+gisuName);
 		
@@ -316,7 +355,8 @@
 			type : "post",
 			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
 					curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
+					startDate : startDate, endDate : endDate, testDate0 : testDate0, testDate1 : testDate1, testDate2 : testDate2,
+					testTime0 : testTime0, testTime1 : testTime1, testTime2 : testTime2, time : time, maxCnt : maxCnt, price : price,
 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
 				
 		 	dataType : "json",

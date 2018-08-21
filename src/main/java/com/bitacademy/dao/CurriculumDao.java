@@ -1,13 +1,15 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.ApplicantVo;
-import com.bitacademy.vo.CurriculumCateVo;
-import com.bitacademy.vo.CurriculumVo;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.bitacademy.vo.ApplicantVo;
+import com.bitacademy.vo.CurriculumCateVo;
+import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Repository
 public class CurriculumDao {
@@ -59,6 +61,10 @@ public class CurriculumDao {
 	// 교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
 		return sqlSession.insert("curriculum.addCurri", curriVo);
+	}
+	
+	public int addCurriTest(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.addCurriTest", testInfoVo);
 	}
 
 	// 전체지원자 리스트 조회

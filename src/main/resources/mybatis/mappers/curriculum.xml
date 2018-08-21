@@ -93,6 +93,30 @@
 			 	   )
  		]]>
  	</insert>
+ 	
+ 	<!-- 전형일 추가 -->
+ 	<!-- 
+ 	<insert id = "addCurriTest" parameterType = "com.bitacademy.vo.CurriculumVo">
+ 		<![CDATA[
+ 			INSERT INTO TestInfo ( testDate, testTime, curriculum_no)
+ 			VALUES	(
+ 					#{testDate0},
+ 					#{testTime0},
+ 					SELECT curriculum_no WHERE curriculum_no = #{curriculum_no}
+ 					),
+ 					(
+ 					#{testDate1},
+ 					#{testTime1},
+ 					SELECT curriculum_no WHERE curriculum_no = #{curriculum_no}
+ 					),
+ 					(
+ 					#{testDate2},
+ 					#{testTime2},
+ 					SELECT curriculum_no WHERE curriculum_no = #{curriculum_no}
+ 					)
+ 		]]>
+ 	</insert>
+ 	 -->
 	<!-- 커리큘럼 카테고리 관련 -->
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
