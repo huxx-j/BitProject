@@ -9,7 +9,6 @@ import com.bitacademy.dao.JobDao;
 import com.bitacademy.vo.GisuTableVo;
 import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobVo;
-import com.bitacademy.vo.PagerResponseVo;
 import com.bitacademy.vo.ResultGridVo;
 
 

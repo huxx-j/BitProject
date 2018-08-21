@@ -23,7 +23,6 @@ public class JobController {
 
 	@Autowired
 	JobService jobService;
-	
 
 	/* 취업의뢰 메인 */
 	@RequestMapping("/")
