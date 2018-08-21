@@ -94,6 +94,30 @@
     //패키지 클릭시 발동되는 함수
     function package(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
+        console.log(no);
+        if(no<=10000){
+            packageselect(no);
+        }
+        else{
+            packageCateSelect(no);
+        }
+    }
+    function packageCateSelect(no){
+        $.ajax({
+            url : "${pageContext.request.contextPath }/package/getPackageCate",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"no": no},
+            dataType : "json",
+            success : function(PackageCateVo) {
+                console.log(PackageCateVo);
+                CaseA();
+                $("input[name='PackageCate_no']").val(PackageCateVo.packageCate_no),
+                    $("input[name='CateName']").val(PackageCateVo.cateName)
+            }
+        });
+    }
+    function packageselect(no){
         $.ajax({
             url : "${pageContext.request.contextPath }/package/getPackageVo",
             type : "POST",
@@ -146,7 +170,8 @@
                 if(PackageVo.useStatus == 0 ){$("#UserStatus0").prop("checked", true);}
                 else if(PackageVo.useStatus == 1 ){$("#UserStatus1").prop("checked", true);}
                 $("#prevInfo").val(PackageVo.package_no),
-                $("input[name='PackageCate_no']").val(PackageVo.packageCate_no),
+                    $("input[name='PackageCate_no']").val(PackageVo.packageCate_no),
+                    $("input[name='CateName']").val(PackageVo.cateName),
                     $("input[name='PackageName']").val(PackageVo.packageName),
                     $("input[name='PackageNameInStep']").val(PackageVo.packageName),
                     $("textarea[name='Goal']").val(PackageVo.goal),
@@ -164,7 +189,7 @@
                     $("textarea[name='steplist[0].sublist[0].Content']").val(PackageVo.steplist[0].sublist[0].content),
                     $("input[name='steplist[0].sublist[0].SubHour']").val(PackageVo.steplist[0].sublist[0].subHour)
 
-                    if(PackageVo.referenceCnt>0){
+                if(PackageVo.referenceCnt>0){
                     cleanButton();
                 }
             },
@@ -173,9 +198,8 @@
             }
         });
     }
-
 function cleanButton() {
-    //버튼없애기!
+    //버튼없애기! 참조받는 패키지일시 발똥!
     for(var i=0;i<100;i++) {
         $("#btnAddstep").remove();
         $("#btnAddsubject").remove();
@@ -210,14 +234,13 @@ function cleanButton() {
         // $("input[name='SubjectName00']").val(" ");
         // $("textarea[name='steplist[0].sublist[0].Content']").val(" ");
         // $("input[name='steplist[0].sublist[0].SubHour']").val(" ");
-         $("div[name='die']").remove();
          $("tr[name='die']").remove();
          $("table[name='die']").remove();
          $("#btnAddstep").remove();
         fristStepDraw();
     }
-
-    $(document).on("click","#btnAddPackage",function () {
+    //패키지 추가 클릭시 발동되는 함수
+    function CaseA(){
         str=" ";
         $("input[name='PackageNameInStep']").val(" ");
         $("input[name='TotalTimeInStep']").val(" ");
@@ -231,7 +254,6 @@ function cleanButton() {
         $("input[name='SubjectName00']").val(" ");
         $("textarea[name='steplist[0].sublist[0].Content']").val(" ");
         $("input[name='steplist[0].sublist[0].SubHour']").val(" ");
-        $("div[name='die']").remove();
         $("tr[name='die']").remove();
         $("table[name='die']").remove();
         $("#btnAddPackage").remove();
@@ -255,6 +277,9 @@ function cleanButton() {
         $("#default2").append(str);
 
         $("#packageTab a:first").tab('show');
+    }
+    $(document).on("click","#btnAddPackage",function () {
+        CaseA();
         fristStepDraw();
     });
 
@@ -351,7 +376,6 @@ function cleanButton() {
     $(document).on("click","#deletestep" ,function (){
         var val = $(this).val();
         console.log("단계삭제");
-        $("div[name='die']").remove();
         $("#steptable" + val).remove();
 
     });
@@ -500,7 +524,6 @@ function cleanButton() {
         console.log("step:"+step);
         console.log("sub:"+sub);
         var str=" ";
-        str+= "<br><br>";
         str+=  "<table id='steptable"+step+"' class='table table-condensed'>";
         str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+">단계 삭제</button></caption>";
         str+=  "<colgroup>";
@@ -586,7 +609,6 @@ function cleanButton() {
         step=stepNo;
         sub=subNo;
         var str=" ";
-        str+= "<div name='die'><br><br></div>";
         str+=  "<table id='steptable"+step+"' name = 'die'  class='table table-condensed'>";
         str+=  "<caption><button type='button' id='deletestep' class='btn btn-default btn-sm' value="+step+">단계 삭제</button></caption>";
         str+=  "<colgroup>";
@@ -705,10 +727,10 @@ function cleanButton() {
     var zNodes= [
         <c:forEach items="${packcatelist}" var="vo">
         <c:if test="${vo.packageCate_no eq 10000}">
-        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         <c:if test="${vo.packageCate_no ne 10000}">
-        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         </c:forEach>
         <c:forEach items="${packlist}" var="vo">

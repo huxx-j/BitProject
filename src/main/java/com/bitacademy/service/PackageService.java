@@ -73,6 +73,8 @@ public class PackageService {
     public PackageVo getpack(int no) {
         PackageVo packageVo=packageDao.selectpackage(no);
         packageVo.setReferenceCnt(packageDao.getReferenceCnt(no));
+        PackageCateVo packageCateVo=packageDao.getPackCate(packageVo.getPackageCate_no());
+        packageVo.setCateName(packageCateVo.getCateName());
         return packageVo;
     }
 
