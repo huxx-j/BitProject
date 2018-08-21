@@ -2,7 +2,7 @@ package com.bitacademy.dao;
 
 import com.bitacademy.vo.GisuTableVo;
 
-import com.bitacademy.vo.JobSearchVo;
+import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,14 @@ public class JobDao {
 	SqlSession sqlSession;
 
 	
-	//취업의뢰 리스트 가져오기
-	public List<JobVo> jobRequestList(JobSearchVo jobSearchVo) {
-		return sqlSession.selectList("job.jobRequestList",jobSearchVo);
+	//취업의뢰 리스트 가져오기(현재페이지)
+	public List<Object> getJobRequestList(JobCriteriaVo jobCriteriaVo) {
+		return sqlSession.selectList("job.getJobRequestList",jobCriteriaVo);
+	}
+	
+	//전체 취업의뢰 리스트 count 구하기
+	public int getJobRequestTotalCnt(JobCriteriaVo jobCriteriaVo) {
+		return sqlSession.selectOne("job.getJobRequestTotalCnt",jobCriteriaVo);
 	}
 	
 	

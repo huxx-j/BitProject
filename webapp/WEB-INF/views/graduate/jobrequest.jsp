@@ -67,10 +67,10 @@
 													<th>검색조건</th>
 													<td class="clearfix">
 														<div class="radio-group pull-left">
-															<label class="radiobox"><input type="radio" name="comCondition" value="all" checked="checked">전체보기</label>
-															<label class="radiobox"><input type="radio" name="comCondition" value="post">게시중만 보기</label>
+															<label class="radiobox"><input type="radio" name="comCondition" value="all">전체보기</label>
+															<label class="radiobox"><input type="radio" name="comCondition" value="isShow" checked="checked">게시중만 보기</label>
 															<label class="radiobox"><input type="radio" name="comCondition" value="employment">상시채용만 보기</label>
-															<label class="radiobox"><input type="radio" name="comCondition" value="receiptdate">신청일로 조회</label>
+															<label class="radiobox"><input type="radio" name="comCondition" value="receiptDate">신청일로 조회</label>
 														</div>
 
 														<div class="clearfix pull-left dateRange">
@@ -130,6 +130,7 @@
 										
 										<!-- 페이징 -->
 										<div id="jqGridPager"></div>
+										
 										
 									</div>
 									<!-- ./sub_body -->
@@ -245,7 +246,7 @@
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
 	
-
+	<div class="control-sidebar-bg"></div>
 </div><!-- /.wrapper -->
 
 
@@ -380,6 +381,9 @@
 $(document).ready(function() {
 	/* 시작시 달력 안보이게 */
 	$(".dateRange").hide();
+	
+	/* 그리드실행 */
+	gridExec();
 });
 
 
@@ -389,7 +393,7 @@ $("[name=comCondition]").on("click", function(){
 	var $this = $(this).val();
 	console.log($this);
 
-	if($this == 'receiptdate'){
+	if($this == 'receiptDate'){
 		$(".dateRange").show();
 	} else{
 		$(".dateRange").hide();
@@ -398,58 +402,49 @@ $("[name=comCondition]").on("click", function(){
 });
 
 
-
-
-
-
 /* 검색버튼 클릭했을때 */
 $("#btn_search").on("click", function(){
-	$("#jqGrid").clearGridData();   //해당 데이터 초기화 하기 !
+	console.log("검색클릭");
 	
-	var comCondition = $('input[name=comCondition]:checked').val();        //라디오 버튼 눌렀을때  name값들 들어가기
-	var data
- 	if (comCondition!='receiptdate') {
-		data = {"comCondition" :comCondition}
-	} else {
-		data = {"comCondition" :comCondition,
-				"startDate" : $("#startDate").val(),
-				"endDate" : $("#endDate").val()}
-	}
-	console.log("클릭" + data);
-
-	$.ajax({
-        url: "${pageContext.request.contextPath}/jobrequest/jobRequestList",
-        type: "post",
-        data: data,
-
-        dataType: "json",
-        success: function (list) {
-      		console.log(list);
-      		
-      		/* 그리드에 데이타출력 */
-      		for (var i=0; i<=list.length; i++) {
-                 $("#jqGrid").jqGrid('addRowData', i+1, list[i]);
-            }
-      		
-        },
-        error: function (XHR, status, error) {
-            console.error(status + " : " + error);
-        }
-    });
+	var comCondition = $("input[name=comCondition]:checked").val()
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	
+	if(comCondition == 'receiptDate'){
+		if((startDate == null || startDate == "") || (endDate == null || endDate == "" )){
+			alert("날자를 입력해주세요");
+			return;
+		}
+	} 
+	
+	/* 그리드실행 */
+	gridExec();
+	
 });
 
+
+/* 그리드 출력하기 */
+function gridExec() {
 	
-
-
-/* 메인그리드관련 */
-var cnames = [ '회사번호', '취업의뢰번호', '유무', '블랙', '접수일', '회사명', '담당자', '모집부문', '모집인원', '이메일', '채용'];
-$("#jqGrid").jqGrid(
-	{
-		url : "jqgridStartMain.do",
-		datatype : "local",
+	var postData ={
+		"comCondition": $('input[name=comCondition]:checked').val(),
+		"startDate": $("#startDate").val(),
+		"endDate": $("#endDate").val()
+	}
+	
+	console.log(postData);
+	
+	var cnames = [ '회사번호', '취업의뢰번호', '유무', '블랙', '접수일', '회사명', '담당자', '모집부문', '모집인원', '이메일', '채용'];
+	$("#jqGrid").jqGrid({
+		
+		url : "${pageContext.request.contextPath}/jobrequest/jobRequestList",
+		mtype : "post",
+		postData : postData,
+		datatype:"json",
+		
 		colNames : cnames,
 		colModel : [{name: 'company_no', index: 'company_no', width: 60, hidden: true},
-					{name: 'request_no', index: 'request_no', width: 60, hidden: true},
+					{name: 'request_no', index: 'request_no', width: 60},
 					{name: 'post', index: 'post', width: 60, align: "center"},
 					{name: 'black', index: 'black', width: 60, align: "center"},
 					{name: 'receiptDate', index: 'receiptDate', width: 220, align: "center"},
@@ -458,38 +453,50 @@ $("#jqGrid").jqGrid(
 					{name: 'field', index: 'field', width: 200, align: "center"},
 					{name: 'hireCnt', index: 'hireCnt', width: 200, align: "center"},
 					{name: 'email', index: 'email', width: 200, align: "center"},
-					{name: 'employment', index: 'employment', width: 60, align: "center"}],
+					{name: 'employment', index: 'employment', width: 60, align: "center", formatter: function( cellvalue , options ,rowObject ){
+																											    if(cellvalue == '1') return "상시";
+																											    else return "";}
+					}],
+					
+					/* {name: 'employment', index: 'employment', width: 60, align: "center", formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:false} }], */
 		rowheight : 20,
 		height : 443,
 		width : 960,
-		rowNum : 15,
-		rowList : [ 10, 20, 30 ],
+		rowNum : 500,
+		rowList : [ 300, 500, 1000 ],
 		pager : '#jqGridPager',
 		rownumbers : true,
-	
+		loadtext : '로딩중',
+		sortname : 'receiptDate',
+		sortorder:"desc", 
+		gridview:true,
+		
+		emptyrecords: '데이터가 없습니다.',  //데이터 없을 때
+
+
 		/* 한번클릭했을때 */
 		onSelectRow : function(rowId, iRow, iCol, e) {
-
+	
 			var rowId = $("#jqGrid").getGridParam("selrow");
 			var request_no = $("#jqGrid").getRowData(rowId).request_no; 
 			console.log(request_no)
 			
-
+	
 			$.ajax({
-            	url : "${pageContext.request.contextPath}/jobrequest/getInterviewList",
+	        	url : "${pageContext.request.contextPath}/jobrequest/getInterviewList",
 				type : "post",
 				data : {"request_no" : request_no},
 				dataType : "json",
 				success : function(list) {
-               	 	console.log(list);
-               	 	$("#applicantList").empty();
-               	 	for (var i=0; i<list.length; i++) {
+	           	 	console.log(list);
+	           	 	$("#applicantList").empty();
+	           	 	for (var i=0; i<list.length; i++) {
 						render(list[i])
-                 	}               		
+	             	}               		
 				},
 				error : function(request, status, error) {
-                		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
-                }
+	            		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+	            }
 			});
 		},
 		
@@ -501,10 +508,23 @@ $("#jqGrid").jqGrid(
 			console.log(url)
 			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestDetail?company_no="+company_no;
 			window.open(url, "_blank", "width=1000px, height=900px, scrollbars=yes"); 
-			
-			
-		}	
- });
+		}
+		
+	});
+	
+	/* 파라미터값 재설정 */
+	$("#jqGrid").setGridParam({
+	   	 datatype	: "json",
+	   	 postData	: postData,
+	   	 loadComplete	: function(data) {
+	   		 console.log(data);
+	   	 }
+	}).trigger("reloadGrid");
+
+}
+
+
+
 
 
 /* 지원자리스트 테이블(리스트)그리기 */
@@ -548,7 +568,7 @@ $("#choice").on("click", function() {
 			console.error(status + " : " + error);
 		}
 	});
-	});
+});
 
 
 $('[id=insertData]').on('click', function() {
@@ -557,7 +577,7 @@ $('[id=insertData]').on('click', function() {
 
 
 /* 모달 그리드 */
-var cnames = [ 'j', '선택', '과정', '이름', '생년월일', '성별' ];
+/* var cnames = [ 'j', '선택', '과정', '이름', '생년월일', '성별' ];
 $("#jqGrid").jqGrid(
 		{
 			url : "jqgridStartMain.do", 
@@ -586,7 +606,7 @@ $("#jqGrid").jqGrid(
 
 		viewrecords : true,
 		caption : "유저 정보"
-});
+}); */
 
 </script>
 </html>

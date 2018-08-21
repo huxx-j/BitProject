@@ -219,7 +219,7 @@
         from
         PackageCate
         where
-        PAckageCate_no=#{no}
+        PackageCate_no=#{no}
     </select>
     <!--<update id="updateSub" parameterType= "SubInStepVo">-->
     <!--<![CDATA[-->
