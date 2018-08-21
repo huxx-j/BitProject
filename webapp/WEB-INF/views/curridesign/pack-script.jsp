@@ -114,6 +114,7 @@
                 CaseA();
                 $("input[name='PackageCate_no']").val(PackageCateVo.packageCate_no),
                     $("input[name='CateName']").val(PackageCateVo.cateName)
+                fristStepDraw();
             }
         });
     }
