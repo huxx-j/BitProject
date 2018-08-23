@@ -12,9 +12,8 @@
             //contentType : "application/json",
             data : {"id": id},
             dataType : "json",
-            success : function(d) {
-                location.reload();
-                console.log(d);
+            success : function(c) {
+                $("input[name='CateName']").val("카테고리를 선택");
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
@@ -42,7 +41,6 @@
                 console.error(status + " : " + error);
             }
         });
-
     }
     $("#packageadd").on("click", function() {
         var formData = $("#package").serialize();
@@ -332,14 +330,14 @@ function cleanButton() {
             data : {"PackageCate_no": PackageCate_no, "CateName": CateName},
             dataType : "json",
             success : function(c) {
-
+                location.reload();
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
         $("#pop").modal("hide");
-        location.reload();
+
     });
 
     $(document).on("change",".time",function() {

@@ -52,10 +52,12 @@ public class SubjectController {
     public void delSubject(@RequestParam("no") int no ){
         subjectService.delSubject(no);
     }
+
     @ResponseBody
     @RequestMapping(value = "/delCate", method = {RequestMethod.POST,RequestMethod.GET})
-    public void delCate(@RequestParam("id") int id ){
+    public int delCate(@RequestParam("id") int id ){
         subjectService.delCate(id);
+        return id;
     }
 //    @ResponseBody
 //    @RequestMapping(value = "/addformat", method = {RequestMethod.POST,RequestMethod.GET})

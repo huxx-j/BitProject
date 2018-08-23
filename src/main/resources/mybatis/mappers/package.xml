@@ -28,6 +28,7 @@
         Qualification,
         TotalTime
         from Package
+        where DelStatus=0
         ]]>
     </select>
 

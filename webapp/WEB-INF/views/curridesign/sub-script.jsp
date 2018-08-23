@@ -10,7 +10,8 @@
             //contentType : "application/json",
             data : {"id": id},
             dataType : "json",
-            success : function() {
+            success : function(c) {
+                $("input[name='CateName']").val("카테고리를 선택");
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);

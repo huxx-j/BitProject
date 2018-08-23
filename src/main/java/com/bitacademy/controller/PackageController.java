@@ -53,6 +53,7 @@ public class PackageController {
         System.out.println(packageVo);
         return packageVo;
 }
+    @ResponseBody
     @RequestMapping(value = "/addPackageCate", method = {RequestMethod.POST,RequestMethod.GET})
     public int addPackageCate(@RequestParam("PackageCate_no") int packageCate_no,@RequestParam("CateName") String CateName) {
         PackageCateVo packageCateVo=new PackageCateVo();
