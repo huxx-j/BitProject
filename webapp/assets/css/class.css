@@ -212,3 +212,7 @@ textarea {
     height: 137px;
     border: 1px solid #a2a5ab
 }
+
+.lec-chk {
+    margin: 0px !important;
+}
