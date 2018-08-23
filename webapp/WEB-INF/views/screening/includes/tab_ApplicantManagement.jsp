@@ -31,11 +31,11 @@
 											<div class = "sub-box" style="overflow:scroll; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-1">
-														<col class = "col-xs-2">
-														<col class = "col-xs-3">
-														<col class = "col-xs-2">
-														<col class = "col-xs-4">
+														<col width = "30px"/>
+														<col width = "60px"/>
+														<col width = "90px"/>
+														<col width = "60px"/>
+														<col width = "120px"/>
 													</colgroup>
 													<thead>
 														<tr>
@@ -69,11 +69,11 @@
 											<div class = "sub-box" style="overflow:scroll; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-1">
-														<col class = "col-xs-2">
-														<col class = "col-xs-3">
-														<col class = "col-xs-2">
-														<col class = "col-xs-4">
+														<col width = "30px"/>
+														<col width = "60px"/>
+														<col width = "90px"/>
+														<col width = "60px"/>
+														<col width = "120px"/>
 													</colgroup>
 													<thead>
 														<tr>
