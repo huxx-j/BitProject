@@ -47,10 +47,6 @@ public class ClassManagementService {
 
     //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
     public CurriculumVo getCurriInfo(int curriculum_no) {
-//        Map<String, Object> returnMap = new HashMap<>();
-//        returnMap.put("vo", classManagementDao.getCurriInfo(curriculum_no));
-//        returnMap.put("gisu", gisuDao.getGisu(curriculum_no));
-//        return returnMap;
         return classManagementDao.getCurriInfo(curriculum_no);
     }
 
@@ -172,7 +168,6 @@ public class ClassManagementService {
         if (file_no != 0) {
             projectVo.setFile_no(file_no);
         }
-//        System.out.println(projectVo.toString());
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
 
         if (projectVo.getProject_no() == 0) {
