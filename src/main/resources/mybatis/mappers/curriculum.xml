@@ -146,7 +146,9 @@
     <select id = "curriCateList" resultType = "com.bitacademy.vo.CurriculumCateVo">
 		<![CDATA[
 			SELECT 	curriculumCate_no, cateName, parentCode
-			FROM 	CurriculumCate;
+			FROM 	CurriculumCate
+			WHERE	delStatus = 0
+			;
 		]]>
 	</select>
 	
@@ -155,6 +157,7 @@
 		<![CDATA[
 			SELECT 	curriculumCate_no, cateName 
 			FROM 	CurriculumCate
+			WHERE	delStatus = 0
 			GROUP BY cateName
 		]]>
 	</select>

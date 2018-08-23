@@ -370,7 +370,7 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center'" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
@@ -384,7 +384,7 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.studentList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center'" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.studentList[i].birthDate +"</td>";
 			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";
