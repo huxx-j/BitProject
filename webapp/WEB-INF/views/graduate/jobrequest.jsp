@@ -443,16 +443,16 @@ function gridExec() {
 		datatype:"json",
 		
 		colNames : cnames,
-		colModel : [{name: 'company_no', index: 'company_no', width: 60, hidden: true},
-					{name: 'request_no', index: 'request_no', width: 60},
+		colModel : [{name: 'company_no', index: 'company_no', width: 60/* , hidden: true */},
+					{name: 'request_no', index: 'request_no', width: 60/* , hidden: true */},
 					{name: 'post', index: 'post', width: 60, align: "center"},
-					{name: 'black', index: 'black', width: 60, align: "center"},
-					{name: 'receiptDate', index: 'receiptDate', width: 220, align: "center"},
-					{name: 'compName', index: 'compName', align: "center"},
-					{name: 'mgrName', index: 'mgrName', width: 90, align: "center"},
-					{name: 'field', index: 'field', width: 200, align: "center"},
-					{name: 'hireCnt', index: 'hireCnt', width: 200, align: "center"},
-					{name: 'email', index: 'email', width: 200, align: "center"},
+					{name: 'black', index: 'black' , width: 50, align: "center"},
+					{name: 'receiptDate', index: 'receiptDate', width: 80, align: "center"},
+					{name: 'compName', index: 'compName', width: 200, align: "left"},
+					{name: 'mgrName', index: 'mgrName', width: 70, align: "left"},
+					{name: 'field', index: 'field', width: 250, align: "left"},
+					{name: 'hireCnt', index: 'hireCnt', width: 60, align: "center"},
+					{name: 'email', index: 'email', width: 180, align: "left"},
 					{name: 'employment', index: 'employment', width: 60, align: "center", formatter: function( cellvalue , options ,rowObject ){
 																											    if(cellvalue == '1') return "상시";
 																											    else return "";}
@@ -467,14 +467,14 @@ function gridExec() {
 		pager : '#jqGridPager',
 		rownumbers : true,
 		loadtext : '로딩중',
-		sortname : 'receiptDate',
+		sortname : 'request_no',
 		sortorder:"desc", 
 		gridview:true,
-		
+		shrinkToFit: false,
 		emptyrecords: '데이터가 없습니다.',  //데이터 없을 때
 
 
-		/* 한번클릭했을때 */
+		/* 한번클릭했을때 --> 면접지원자 리스트*/
 		onSelectRow : function(rowId, iRow, iCol, e) {
 	
 			var rowId = $("#jqGrid").getGridParam("selrow");
@@ -487,11 +487,11 @@ function gridExec() {
 				type : "post",
 				data : {"request_no" : request_no},
 				dataType : "json",
-				success : function(list) {
-	           	 	console.log(list);
+				success : function(interViewerList) {
+	           	 	console.log(interViewerList);
 	           	 	$("#applicantList").empty();
-	           	 	for (var i=0; i<list.length; i++) {
-						render(list[i])
+	           	 	for (var i=0; i<interViewerList.length; i++) {
+						render(interViewerList[i])
 	             	}               		
 				},
 				error : function(request, status, error) {
@@ -500,19 +500,20 @@ function gridExec() {
 			});
 		},
 		
-		/* 두번클릭했을때 */
+		/* 두번클릭했을때 (팝업호출)*/
 		ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
 			var rowId = $("#jqGrid").getGridParam("selrow");
-			var company_no = $("#jqGrid").getRowData(rowId).company_no; 
+			var company_no = $("#jqGrid").getRowData(rowId).company_no;
+			var request_no = $("#jqGrid").getRowData(rowId).request_no; 
 		
 			console.log(url)
-			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestDetail?company_no="+company_no;
+			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestPopup?request_no="+ request_no + "&company_no="+ company_no ;
 			window.open(url, "_blank", "width=1000px, height=900px, scrollbars=yes"); 
 		}
 		
 	});
 	
-	/* 파라미터값 재설정 */
+	/* 그리드 파라미터값 재설정 */
 	$("#jqGrid").setGridParam({
 	   	 datatype	: "json",
 	   	 postData	: postData,
@@ -525,18 +526,16 @@ function gridExec() {
 
 
 
-
-
 /* 지원자리스트 테이블(리스트)그리기 */
-function render(GisuTableVo) {
+function render(interViewerVo) {
 	
 	var str = "" +
 			"<tr class=''>"+
 				"<td>" + "</td>" +
-				"<td>" + GisuTableVo.gisuName + "</td>" +
-				"<td>" + GisuTableVo.nameHan + "</td>" +
-				"<td>" + "2018-09-07" + "</td>" +
-				"<td>" + "합격" + "</td>" +
+				"<td>" + interViewerVo.gisuName + "</td>" +
+				"<td>" + interViewerVo.nameHan + "</td>" +
+				"<td>" + interViewerVo.applyDate + "</td>" +
+				"<td>" + interViewerVo.result + "</td>" +
 				"<td>" +  "</td>"
 			"</tr>"	
 			
