@@ -20,7 +20,7 @@
 			     	str += "<tr id='tr" + applicantVo.applicant_no + "'>";
 			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
 					str += "	<td>" + applicantVo.nameHan + "</td>";    	
-			    	str += "	<td>" + applicantVo.birthDate +"</td>";
+			    	str += "	<td>" + applicantVo.studResNum +"</td>";
 			    	str += " 	<td>" + applicantVo.gender + "</td>";
 			    	str += "	<td>" + applicantVo.testResult +"</td>";
 			 		str += "</tr>";
@@ -54,7 +54,7 @@
 				     	str += "<tr id = 'tr"+ applicantVo.applicant_no + "'>";
 				    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
 						str += "	<td>" + applicantVo.nameHan + "</td>";    	
-				    	str += "	<td>" + applicantVo.birthDate +"</td>";
+				    	str += "	<td>" + applicantVo.studResNum +"</td>";
 				    	str += " 	<td>" + applicantVo.gender + "</td>";
 				    	str += "	<td>" + applicantVo.testResult +"</td>";
 				 		str += "</tr>";

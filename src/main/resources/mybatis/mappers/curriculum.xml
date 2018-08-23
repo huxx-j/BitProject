@@ -171,31 +171,33 @@
 	<!-- 전체지원자리스트 조회 -->
 	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, substring(u.StudResNum,1,6) StudResNum, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no
 			AND 	a.curriculum_no = #{curriculum_no}
 			AND 	a.gisuFlag = 0
+			ORDER BY u.nameHan asc
 		]]>
 	</select>
 	
 	<!-- 수강생 리스트 조회 -->
 	<select id = "viewStudentList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, substring(u.StudResNum,1,6) StudResNum, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no
 			AND 	a.curriculum_no = #{curriculum_no}
 			AND 	a.gisuFlag = 1
+			ORDER BY u.nameHan asc
 		]]>
 	</select>
 	
 	<!-- 기수부여 -->
 	<select id = "gisuGrant" parameterType = "int" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no
+			SELECT 	u.User_no, u.NameHan, substring(u.StudResNum,1,6) StudResNum, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no
 			FROM 	ApplyInfo as a, Users as u
 			WHERE 	a.User_no = u.User_no
 			AND 	a.applicant_no = #{applicant_no}
