@@ -80,13 +80,11 @@ public class CurriculumDao {
 
 	// 전형일추가
 	public int addCurriTest(TestInfoVo testInfoVo) {
-		System.out.println("dao" + testInfoVo.toString());
 		return sqlSession.insert("curriculum.addCurriTest", testInfoVo);
 	}
 
 	// 전체지원자 리스트 조회
 	public List<ApplicantVo> viewApplicantList(String curriculum_no) {
-		System.out.println(curriculum_no);
 		return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
 	}
 

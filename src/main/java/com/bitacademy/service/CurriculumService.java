@@ -27,7 +27,6 @@ public class CurriculumService {
 	public CurriculumVo viewCurriculum(String curriculum_no) {
 		CurriculumVo curriculumVo = curriDao.viewCurriculum(curriculum_no);
 		curriculumVo.setTestInfoList(curriDao.viewTestInfo(curriculum_no));
-		// System.out.println("SERVICE CurriculumVo"+curriculumVo);
 		return curriculumVo;
 	}
 
@@ -42,14 +41,10 @@ public class CurriculumService {
 		// 2. or if문 써서 둘 다 성공해야 1넘기도록 설정
 		System.out.println("수정서비스와따");
 		int editCurriResult = curriDao.editCurri(curriVo);
-		System.out.println("editCurriResult"+editCurriResult);
 		int listSize = curriVo.getTestInfoList().size();
 		List<TestInfoVo> testInfoList = curriVo.getTestInfoList();
-		System.out.println("testInfoList"+testInfoList);
 		int curriculum_no = curriVo.getCurriculum_no();
-		System.out.println("curriculum_no"+curriculum_no);
 		int delResult = curriDao.deleteTestInfo(curriculum_no);
-		System.out.println("delResult"+delResult);
 		int insSuccessCnt = 0;
 		for (int j = 0; j < listSize; j++) {
 			TestInfoVo testInfoVo = testInfoList.get(j);
@@ -59,8 +54,6 @@ public class CurriculumService {
 				insSuccessCnt += 1;
 			}
 		}
-		System.out.println("delResult"+delResult);
-		System.out.println("insSuccessCnt"+insSuccessCnt);
 		if (insSuccessCnt == listSize) {
 			return 1;
 		}else {
@@ -123,7 +116,6 @@ public class CurriculumService {
 
 	// 전체지원자리스트 조회
 	public List<ApplicantVo> viewApplicantList(String curriculum_no) {
-		// System.out.println("viewApplicantList" + curriculum_no);
 		return curriDao.viewApplicantList(curriculum_no);
 	}
 

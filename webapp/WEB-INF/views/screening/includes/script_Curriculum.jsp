@@ -356,11 +356,23 @@
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
 				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
 				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
+				
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
-				
-				
+				/* 
+				for(var j = 0; j < 3; j++){
+					for(var i = 0; i < curriAllVo.curriculumVo.testInfoList.length; i++){
+						$("#testDate"+j).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+// 						$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
+// 						$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
+						
+						$("#testTime"+j).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+// 						$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
+// 						$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
+					};
+				}
+				 */
 // 				지원자 리스트 테이블 초기화
 //                 $("#renderApplicantList").find("tr:gt(0)").remove();
 //                 $("#renderApplicantList").remove(); //표 틀까지 다 지움
