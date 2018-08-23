@@ -72,23 +72,7 @@
 
 <!-- 조회버튼 클릭 후 그리드영역 학생리스트 가져가기 -->
 <select id="getStudentList" parameterType="PagerRequestVo" resultType="com.bitacademy.vo.ApplyUserVo">
-		<!-- <if test="sidx.equals('sidx0')">
-            <![CDATA[
-                    select u.User_no, g.GisuName, u.NameHan, u.BirthDate, u.Gender,
-					    a.TestResult, u.Cellphone, a.ApplyDate, a.TestDate,
-					    s.School, s.Major, a.Deposit
-					  
-					from Users u, ApplyInfo a, UserScholarship s, Curriculum c, Gisu g
-					where u.User_no = a.User_no
-					and s.User_no = u.User_no 
-					and a.Curriculum_no = c.Curriculum_no
-					and g.Curriculum_no = c.Curriculum_no
-					and c.Curriculum_no = #{param}
-                    order by u.NameHan asc
-                    limit #{startNum}, #{rows}
-            ]]>
-        </if>
-        <if test="sidx!=''"> -->
+	
 	<choose>
     	<when test="sord=='asc'">
         	<![CDATA[
@@ -103,6 +87,8 @@
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
+				and s.User_no=us2.User_no
+                and s.StartDate=us2.StartDate
 				and c.Curriculum_no = #{param} 
 				group by a.User_no 
 				order by ]]>
@@ -126,6 +112,8 @@
 						where u.User_no = a.User_no
 						and s.User_no = u.User_no 
 						and a.Curriculum_no = c.Curriculum_no
+						and s.User_no=us2.User_no
+                      	and s.StartDate=us2.StartDate
 						and c.Curriculum_no = #{param}
 						group by a.User_no
                         order by ${sidx} desc,

@@ -41,6 +41,8 @@
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
+				and s.User_no=us2.User_no
+                and s.StartDate=us2.StartDate
 				and c.Curriculum_no = #{param}  
 				group by a.User_no
 				order by ]]>
@@ -65,6 +67,8 @@
 				where u.User_no = a.User_no
 				and s.User_no = u.User_no 
 				and a.Curriculum_no = c.Curriculum_no
+				and s.User_no=us2.User_no
+                and s.StartDate=us2.StartDate
 				and c.Curriculum_no = #{param}
                 group by a.User_no
                 order by ${sidx} desc
