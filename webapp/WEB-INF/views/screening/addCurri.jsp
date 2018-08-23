@@ -122,7 +122,7 @@
 <!-- 																						<input type = "text" name = "curriculumCate_no"  style = "border:none;"> -->
 																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no">
 																							<c:forEach items = "${workType }" var = "workType">
-																								<option id = "${workType.curriculumCate_no }" name = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
+																								<option id = "${workType.curriculumCate_no }"  value = "${workType.curriculumCate_no }">${workType.cateName }</option>
 																							</c:forEach>
 																						</select>
 																					</td>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,12 +49,12 @@ public class CurriculumController {
 		int result = curriService.addCurriCate(curriCateVo);
 		return result;
 	}
-	
-	//교육과정 카테고리 수정
+
+	// 교육과정 카테고리 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateCate")
 	public int updateCate(@RequestParam("curriculumCateVo") CurriculumCateVo curriculumCateVo) {
-//		System.out.println("updateCate" + curriculumCateVo.toString());
+		// System.out.println("updateCate" + curriculumCateVo.toString());
 		int result = curriService.updateCate(curriculumCateVo);
 		return result;
 	}
@@ -79,12 +80,13 @@ public class CurriculumController {
 	@RequestMapping(value = "/{curriculum_no}")
 	public CurriAllVo viewCurriculum(@PathVariable String curriculum_no) {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
+		System.out.println("VIEW CURRICULUM"+curriculumVo.toString());
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
-//		System.out.println("applicantList" + applicantList.toString());
+		// System.out.println("applicantList" + applicantList.toString());
 		// System.out.println("studentList" + studentList.toString());
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
-//		 System.out.println("curriAllVo"+curriAllVo.toString());
+		// System.out.println("curriAllVo"+curriAllVo.toString());
 		return curriAllVo;
 	}
 
@@ -99,21 +101,17 @@ public class CurriculumController {
 	// 커리큘럼 추가
 	@ResponseBody
 	@RequestMapping(value = "/addCurri")
-	public int addCurri(@ModelAttribute CurriculumVo curriVo, @ModelAttribute TestInfoVo testInfoVo) {
-		System.out.println("curriVo"+curriVo);
-		int result = curriService.addCurri(curriVo, testInfoVo);
+	public int addCurri(@RequestBody CurriculumVo curriVo) {
+//		System.out.println("curriVo" + curriVo.toString());
+		int result = curriService.addCurri(curriVo);
 		return result;
 	}
 
 	// 교육과정 수정
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	public int edit(@ModelAttribute CurriculumVo curriVo, @RequestParam("testDate") List<String> testDate, @RequestParam("testTime") List<String> testTime) {
-		System.out.println("열받네");
-		System.out.println(curriVo.toString());
-		System.out.println(testDate.toString());
-		System.out.println(testTime.toString());
-
+	public int edit(@RequestBody CurriculumVo curriVo) {
+		System.out.println("EDIT curriVo"+curriVo);
 		int result = curriService.edit(curriVo);
 		return result;
 	}

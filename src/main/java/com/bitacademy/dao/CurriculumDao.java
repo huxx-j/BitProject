@@ -23,6 +23,10 @@ public class CurriculumDao {
 		return sqlSession.selectOne("curriculum.viewCurriculum", curriculum_no);
 	}
 
+	public List<TestInfoVo> viewTestInfo(String curriculum_no) {
+		return sqlSession.selectList("curriculum.viewTestInfo", curriculum_no);
+	}
+
 	// 커리큘럼카테고리 관련
 	public List<CurriculumVo> currilist() {
 		return sqlSession.selectList("curriculum.currilist");
@@ -37,7 +41,7 @@ public class CurriculumDao {
 	public int addCurriCate(CurriculumCateVo curriCateVo) {
 		return sqlSession.insert("curriculum.addCurriCate", curriCateVo);
 	}
-	
+
 	// 교육과정 카테고리 수정
 	public int updateCate(CurriculumCateVo curriCateVo) {
 		return sqlSession.update("curriculum.updateCate", curriCateVo);
@@ -54,16 +58,29 @@ public class CurriculumDao {
 		return sqlSession.update("curriculum.editCurri", curriVo);
 	}
 
+	// 교육과정 수정(전형일 전체 삭제)
+	public int deleteTestInfo(int curriculum_no) {
+		return sqlSession.delete("curriculum.deleteTestInfo", curriculum_no);
+	}
+
+	// 교육과정 수정(전형일 전체 새로 저장)
+	public int insertTestInfo(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.insertTestInfo", testInfoVo);
+	}
+
 	public int editCurriCate(CurriculumVo curriVo) {
 		return sqlSession.update("curriculum.editCurriCate", curriVo);
 	}
 
 	// 교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
-		return sqlSession.insert("curriculum.addCurri", curriVo);
+		sqlSession.insert("curriculum.addCurri", curriVo);
+		return curriVo.getCurriculum_no();
 	}
-	
+
+	// 전형일추가
 	public int addCurriTest(TestInfoVo testInfoVo) {
+		System.out.println("dao" + testInfoVo.toString());
 		return sqlSession.insert("curriculum.addCurriTest", testInfoVo);
 	}
 

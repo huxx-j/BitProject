@@ -31,7 +31,7 @@
 											<th>선택패키지</th>
 											<td>
 												<input type = "hidden" name = "package_no"  style = "border:none;">
-												<input type = "text " class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
+												<input type = "text" class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
 												<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
 											</td>
 										</tr>

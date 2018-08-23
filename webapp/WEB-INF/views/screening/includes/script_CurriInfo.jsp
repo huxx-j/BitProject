@@ -9,7 +9,7 @@
 	// $("#editCurriBtn").unbind("click").bind("click", function(){
 	$("#editCurriBtn").on("click", function(){
 		console.log("editCurriBtn");
-		var testTimeCnt = $("input[name=testTimeCnt]").val();
+// 		var testTimeCnt = $("input[name=testTimeCnt]").val();
 	//		console.log(curriName);	
 		var cateName = $("#cateName option:selected").val();
 		var curriculumCate_no = $("input[name=curriculumCate_no]").val();
@@ -21,16 +21,20 @@
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
 		
-		
-		var testDate0 = $("input[name='testDate0']").val();
-		var testDate1 = $("input[name='testDate1']").val();
-		var testDate2 = $("input[name='testDate2']").val();
-		var testTime0 = $("#testTime0 option:selected").val();
-		var testTime1 = $("#testTime1 option:selected").val();
-		var testTime2 = $("#testTime2 option:selected").val();
-		
-		
-		
+		var testDateCnt = $(".testTimeDiv").index($(".testTimeDiv").last());
+		var testInfoList = []; //배열
+		var testInfoVo = {}; //객체 (new랑 같은 의미)
+// 		var testDate = [];
+// 		var testTime = [];
+		for(i = 0; i < testDateCnt+1; i++){
+			var testInfoVo = {	testDate : $("#testDate"+i).val(),
+								testTime : $("#testTime"+i).val()
+							 }; 
+// 			testDate[i] = $("#testDate"+i).val();
+// 			testTime[i] = $("#testTime"+i).val();
+// 			testDate.push($("td ").eq(i).val());
+			testInfoList[i] = testInfoVo;
+		}
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -38,61 +42,41 @@
 		var managerInfo = $("input[name=managerInfo]").val();
 		var state = $("input[type=radio]:checked").val();
 		var gisuName = $("input[name=gisuName]").val();
-		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
-					"packageName="+packageName, "curriculum_no="+curriculum_no, "curriName="+curriName,
-					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, "testDate="+testDate, "testTime="+testTime,
-					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
-					"state="+state, "gisuName="+gisuName);
-		 /* 
-		curriVo = { cateName = $("#cateName option:selected").val();
-					curriculumCate_no = $("input[name=curriculumCate_no]").val();
-					package_no = $("input[name=package_no]").val();
-					packageName = $("input[name=packageName]").val();
-					var curriculum_no = $("input[name=curriculum_no]").val();
-					var curriName = $("input[name=curriName]").val();
-					var curriNickname = $("input[name=curriNickname]").val();
-					var startDate = $("input[name=startDate]").val();
-					var endDate = $("input[name=endDate]").val();
-					
-					
-					var testDate = [];
-					var testTime = [];
-					
-					for(var i = 0; i <= testTimeCnt; i++){
-						testDate.push($("input[name=testDate"+i+"]").val());
-						testTime.push($("select[name=testTime"+i+"]").val());
-					}
-					testDate.push("즐");
-					
-					
-					
-					var time = $("input[name=time]").val();
-					var maxCnt = $("input[name=maxCnt]").val();
-					var price = $("input[name=price]").val();
-					var support = $("input[name=support]").val();
-					var managerInfo = $("input[name=managerInfo]").val();
-					var state = $("input[type=radio]:checked").val();
-					var gisuName = $("input[name=gisuName]").val();};
-		 */
+// 		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
+// 					"packageName="+packageName, "curriculum_no="+curriculum_no, "curriName="+curriName,
+// 					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, "testDate="+testDate, "testTime="+testTime,
+// 					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
+// 					"state="+state, "gisuName="+gisuName);
+		 curriculumVo = { 
+		 					cateName : $("#cateName option:selected").val(),
+							curriculumCate_no : $("#curriculumCate_no option:selected").val(),
+							package_no : $("input[name=package_no]").val(),
+							packageName : $("input[name=packageName]").val(),
+							curriculum_no : $("input[name=curriculum_no]").val(),
+							curriName : $("input[name=curriName]").val(),
+							curriNickname : $("input[name=curriNickname]").val(),
+							startDate : $("input[name=startDate]").val(),
+							endDate : $("input[name=endDate]").val(),
+							time : $("input[name=time]").val(),
+							maxCnt : $("input[name=maxCnt]").val(),
+							price : $("input[name=price]").val(),
+							support : $("input[name=support]").val(),
+							managerInfo : $("input[name=managerInfo]").val(),
+							state : $("input[type=radio]:checked").val(),
+							gisuName : $("input[name=gisuName]").val(),
+							testInfoList : testInfoList
+		 				};
+		console.log(curriculumVo);
 		alert("수정하시겠습니까?");
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
 		$.ajax({
 			url : "${pageContext.request.contextPath}/curri/edit",
 			type : "post",
 	        contentType: "application/json",
-// 				data : JSON.stringify(curriVo), //@RequestBody(ModelAttribute대신)
-				data : {cateName : cateName, curriculumCate_no : curriculumCate_no, package_no : package_no, packageName : packageName,
-					curriculum_no : curriculum_no, curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, testDate : testDate, testTime : testTime, time : time, maxCnt : maxCnt, price : price,
-					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
+				data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
+// 				data : {cateName : cateName, curriculumCate_no : curriculumCate_no, package_no : package_no, packageName : packageName,
+// 					curriculum_no : curriculum_no, curriName : curriName, curriNickname : curriNickname,
+// 					startDate : startDate, endDate : endDate, testDate : testDate, testTime : testTime, time : time, maxCnt : maxCnt, price : price,
+// 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
 				dataType : "json",
 				success : function(result){
 	// 				console.log("성공"+curriVo);
