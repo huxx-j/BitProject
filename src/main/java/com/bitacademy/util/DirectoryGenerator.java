@@ -18,14 +18,12 @@ public class DirectoryGenerator {
     public String DirectoryGenerator(MultipartHttpServletRequest multipartHttpServletRequest, String param){
         String saveDir;
         if(param.equals("project")) {
-            System.out.println("a");
             int pjtCurriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("detailCurriNo"));
             String gisu = sqlSession.selectOne("class.getGisu", pjtCurriNo);
             saveDir = "D:\\bit_file\\"+gisu+"\\project";
             makeDir(saveDir);
             return saveDir;
         } else if (param.equals("score")) {
-            System.out.println("b");
             Map<String, Integer> iMap = new HashMap<>();
             int scoreSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("iSisNo"));
             int curriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("iCurriNo"));
@@ -38,7 +36,6 @@ public class DirectoryGenerator {
             makeDir(saveDir);
             return saveDir;
         } else {
-            System.out.println("c");
             Map<String, Integer> testMap = new HashMap<>();
             int testSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("testSisNo"));
             int curriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("testCurriNo"));

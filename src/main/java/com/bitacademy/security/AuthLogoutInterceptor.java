@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 public class AuthLogoutInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("AuthLogoutInterceptor");
+//        System.out.println("AuthLogoutInterceptor");
         HttpSession session = request.getSession();
         if( session != null ) {
             session.removeAttribute( "authUser" );
