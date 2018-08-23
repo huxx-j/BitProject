@@ -32,8 +32,8 @@ public class ClassManagementController {
     @ResponseBody
     @RequestMapping(value = "/getCurriList", method = RequestMethod.POST)
     public List<CurriculumVo> getCurriList(@RequestParam("cateName") String cateName, @RequestParam("radioStat") String radioStat) {
-        System.out.println(cateName);
-        System.out.println(radioStat);
+//        System.out.println(cateName);
+//        System.out.println(radioStat);
         return classManagementService.getCurriList(cateName, radioStat);
     }
 
@@ -55,7 +55,7 @@ public class ClassManagementController {
     @ResponseBody
     @RequestMapping(value = "/addLectureReport", method = RequestMethod.POST)
     public int addLectureReport(@RequestBody LectureReportVo lectureReportVo) {
-        System.out.println(lectureReportVo.toString());
+//        System.out.println(lectureReportVo.toString());
         return classManagementService.addLectureReport(lectureReportVo);
     }
 

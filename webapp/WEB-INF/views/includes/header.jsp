@@ -37,7 +37,7 @@
 
     	<!-- Header Navbar: style can be found in header.less -->
     	<nav class="navbar navbar-static-top">
-
+			<input type="hidden" id="auth-name" value="${authUser != null?authUser.nameHan:''}">
 			<div>
 				<a href="/user/logout"><button type="button" class="btn btn-default pull-right btnLogout" style="margin-right: 50px">로그아웃</button></a>
 			</div>
