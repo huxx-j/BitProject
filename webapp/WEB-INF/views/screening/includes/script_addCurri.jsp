@@ -208,18 +208,6 @@
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
 				
 				
-				
-				$("input[name='testDate0']").val(curriAllVo.curriculumVo.testDate0),
-				$("input[name='testDate1']").val(curriAllVo.curriculumVo.testDate1),
-				$("input[name='testDate2']").val(curriAllVo.curriculumVo.testDate2),
-				$("#testTime0").val(curriAllVo.curriculumVo.testTime0).prop("selected", true),
-				$("#testTime1").val(curriAllVo.curriculumVo.testTime1).prop("selected", true),
-				$("#testTime2").val(curriAllVo.curriculumVo.testTime2).prop("selected", true),
-				
-				
-		
-				
-				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
@@ -234,7 +222,15 @@
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
 				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
-				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
+				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
+
+				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
+				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
+				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
+				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
+				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true),
+				
 				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
 	        error : function(XHR, status, error) {

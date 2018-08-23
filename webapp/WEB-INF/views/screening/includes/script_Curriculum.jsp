@@ -340,7 +340,7 @@
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
 				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
-				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
+				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
 // 				for(i = 0; i < testDateArr.length; i++){
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
@@ -349,7 +349,7 @@
 // 				}
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
-				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
 				
 				
 // 				지원자 리스트 테이블 초기화
