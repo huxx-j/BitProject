@@ -12,11 +12,11 @@
 							<div class = "sub-box">
 								<table class = "table table-condensed ">
 									<colgroup>
-										<col class = "col-xs-2"/>
-										<col class = "col-xs-3"/>
-										<col class = "col-xs-2"/>
-										<col class = "col-xs-5"/>
-									</colgroup>
+											<col width="90px" />
+											<col width="229px" />
+											<col width="90px" />
+											<col width="" />
+										</colgroup>
 									<tbody>
 										<tr>
 											<th>업무구분</th>
@@ -31,7 +31,7 @@
 											<th>선택패키지</th>
 											<td>
 												<input type = "hidden" name = "package_no"  style = "border:none;">
-												<input type = "text " class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
+												<input type = "text" class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
 												<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
 											</td>
 										</tr>
@@ -51,183 +51,177 @@
 								</div><!-- /.sub-title -->
 								<div class = "sub-body">
 									<table class = "table table-condensed ">
+										<colgroup>
+											<col width="90px" />
+											<col width="" />
+											<col width="90px" />
+											<col width="" />
+											<col width="90px" />
+											<col width="" />
+										</colgroup>
+										
 										<tbody>
 											<tr >
-												<th  class = "col-xs-1">교육과정명</th>
-												<td colspan = "3" class = "col-xs-7">
+												<th>교육과정명</th>
+												<td colspan="3">
 													<input type = "hidden"  name = "curriculum_no">
 													<input class = "form-control" type = "text"  name = "curriName">
 												</td>
-												<th class = "col-xs-1">과목별명</th>
-												<td class = "col-xs-3">
+												<th>과목별명</th>
+												<td>
 													<input type = "text" class = "form-control" name = "curriNickname">
 												</td>
 											</tr>
 											<tr>
-												<th colspan = "1" class = "col-xs-1">시작일</th>
-												<td colspan = "2" class = "col-xs-5">
+												<th>시작일</th>
+												<td>
 													 <div class="input-group border-inputcolor ">
 												        <input type="text" class=" form-control border-none" name="startDate" id="startDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 											        </div>
 												</td>
-												<th colspan = "1" class = "col-xs-1">종료일</th>
-												<td colspan = "2" class = "col-xs-5">
+												<th>종료일</th>
+												<td>
 													 <div class="input-group border-inputcolor ">
 												        <input type="text" class=" form-control border-none" name="endDate" id="endDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 											        </div>
 												</td>
-											</tr>
-											<tr id = "tr_testDate" >
-												<th class = "col-xs-1">전형일시</th>
-												<td class = "col-xs-1" >
-													 <div class="input-group border-inputcolor" style = "width : 170px;">
-												        <input type="text" class=" form-control border-none" name="testDate" id="testDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
-												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
-											        </div>
-												</td>
-												<td class = "col-xs-1" id = "td_testDate" style = "width : 200px !important;">
-													<div style = "float : left; ">
-											        	<select class = "form-control " id = "testTime" name = "testTime">
-															<option value = "--:--">--:--</option>
-															<option value = "08:00">08:00</option>
-															<option value = "09:00">09:00</option>
-															<option value = "10:00">10:00</option>
-															<option value = "11:00">11:00</option>
-															<option value = "12:00">12:00</option>
-															<option value = "13:00">13:00</option>
-															<option value = "14:00">14:00</option>
-															<option value = "15:00">15:00</option>
-															<option value = "16:00">16:00</option>
-															<option value = "17:00">17:00</option>
-															<option value = "18:00">18:00</option>
-															<option value = "19:00">19:00</option>
-															<option value = "20:00">20:00</option>
-															<option value = "21:00">21:00</option>
-															<option value = "22:00">22:00</option>
-															<option value = "23:00">23:00</option>
-														</select>
-													</div>
-													<div class = "pull-right" style = "float : right; vertical-align: middle; margin:2px 0px 1px 0px !important; ">
-														<button class = "glyphicon glyphicon-plus border-none" style = "background-color : transparent; " id = "addTestDateBtn"></button>
-														<button class = "glyphicon glyphicon-remove border-none " style = "background-color : transparent; "></button>
-													</div>
-												</td>
-<!-- 												<td> -->
-<!-- <!-- 													<span class = "glyphicon glyphicon-remove"></span> --> 
-<!-- 												</td> -->
-												<!-- 
-												<td  style = "width : 20%;">
-													 <div class="input-group border-inputcolor ">
-												        <input type="text" class=" form-control border-none" name="testDate2" id="testDate2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
-												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
-											        </div>
-												</td>
-												<td style ="width : 10%;">
-											        <select class = "form-control " id = "testTime2" name = "testTime2">
-														<option value = "--:--">--:--</option>
-														<option value = "08:00">08:00</option>
-														<option value = "09:00">09:00</option>
-														<option value = "10:00">10:00</option>
-														<option value = "11:00">11:00</option>
-														<option value = "12:00">12:00</option>
-														<option value = "13:00">13:00</option>
-														<option value = "14:00">14:00</option>
-														<option value = "15:00">15:00</option>
-														<option value = "16:00">16:00</option>
-														<option value = "17:00">17:00</option>
-														<option value = "18:00">18:00</option>
-														<option value = "19:00">19:00</option>
-														<option value = "20:00">20:00</option>
-														<option value = "21:00">21:00</option>
-														<option value = "22:00">22:00</option>
-														<option value = "23:00">23:00</option>
-													</select>
-												</td>
-												<td  style = "width : 20%;">
-													 <div class="input-group border-inputcolor ">
-												        <input type="text" class=" form-control border-none" name="testDate3" id="testDate3" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
-												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
-											        </div>
-												</td>
-												<td style ="width : 10%;">
-											        <select class = "form-control " id = "testTime3" name = "testTime2">
-														<option value = "--:--">--:--</option>
-														<option value = "08:00">08:00</option>
-														<option value = "09:00">09:00</option>
-														<option value = "10:00">10:00</option>
-														<option value = "11:00">11:00</option>
-														<option value = "12:00">12:00</option>
-														<option value = "13:00">13:00</option>
-														<option value = "14:00">14:00</option>
-														<option value = "15:00">15:00</option>
-														<option value = "16:00">16:00</option>
-														<option value = "17:00">17:00</option>
-														<option value = "18:00">18:00</option>
-														<option value = "19:00">19:00</option>
-														<option value = "20:00">20:00</option>
-														<option value = "21:00">21:00</option>
-														<option value = "22:00">22:00</option>
-														<option value = "23:00">23:00</option>
-													</select>
-												</td>
-												 -->
-<!-- 												<td> -->
-<!-- 													 <div class="input-group border-inputcolor "> -->
-<!-- 												        <input type="text" class=" form-control border-none" name="testDate" id="testDate" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD"> -->
-<!-- 												        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span> -->
-<!-- 											        </div> -->
-<!-- 												</td> -->
-<!-- 												<td> -->
-<!-- 											        <select class = "form-control " id = "testTime" name = "testTime"> -->
-<!-- 														<option value = "0">전체</option> -->
-<!-- 														<option value = "1">08:00</option> -->
-<!-- 														<option value = "2">09:00</option> -->
-<!-- 														<option value = "3">10:00</option> -->
-<!-- 														<option value = "3">11:00</option> -->
-<!-- 														<option value = "3">12:00</option> -->
-<!-- 														<option value = "3">13:00</option> -->
-<!-- 														<option value = "3">14:00</option> -->
-<!-- 														<option value = "3">15:00</option> -->
-<!-- 														<option value = "3">16:00</option> -->
-<!-- 														<option value = "3">17:00</option> -->
-<!-- 														<option value = "3">18:00</option> -->
-<!-- 														<option value = "3">19:00</option> -->
-<!-- 														<option value = "3">20:00</option> -->
-<!-- 														<option value = "3">21:00</option> -->
-<!-- 														<option value = "3">22:00</option> -->
-<!-- 														<option value = "3">23:00</option> -->
-<!-- 													</select> -->
-<!-- 												</td> -->
-											</tr>
-											<tr >
-												<th class = "col-xs-1">강의시간</th>
-												<td colspan="3" class = "col-xs-7">
-													<input type="text" class="form-control" name = "time">
-												</td>
-												<th class = "col-xs-1">정원</th>
-												<td class = "col-xs-3">
+												<th>정원</th>
+												<td>
 													<input type="text" class="form-control w140 pull-left" name = "maxCnt">명
 												</td>
 											</tr>
+											
+											
+											<tr id = "tr_testDate" >
+												<th>전형일시<input type = "hidden" value = "0" name = "testTimeCnt"></th>
+												<td colspan="5" id = "testTimeTd">
+<%-- 											       	<c:forEach begin="1" end="9"> --%>
+												        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv0"> <!-- style = " margin-bottom:3px;" -->
+															<span class="input-group border-inputcolor w140">
+														        <input type="text" class="form-control border-none " id="testDate0" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+														        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													        </span>
+													        <span>
+													        	<select class="form-control w60 testTime" id = "testTime0">
+																	<option value = "--:--">--:--</option>
+																	<option value = "08:00">08:00</option>
+																	<option value = "09:00">09:00</option>
+																	<option value = "10:00">10:00</option>
+																	<option value = "11:00">11:00</option>
+																	<option value = "12:00">12:00</option>
+																	<option value = "13:00">13:00</option>
+																	<option value = "14:00">14:00</option>
+																	<option value = "15:00">15:00</option>
+																	<option value = "16:00">16:00</option>
+																	<option value = "17:00">17:00</option>
+																	<option value = "18:00">18:00</option>
+																	<option value = "19:00">19:00</option>
+																	<option value = "20:00">20:00</option>
+																	<option value = "21:00">21:00</option>
+																	<option value = "22:00">22:00</option>
+																	<option value = "23:00">23:00</option>
+																</select>
+															</span>
+															<span>
+																<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+															</span>
+												        </div>
+												        
+												        
+												        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv1"><!--  style = " margin-bottom:3px;" -->															<span class="input-group border-inputcolor w140">
+														        <input type="text" class="  form-control border-none " id="testDate1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+														        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													        </span>
+													        <span>
+													        	<select class="form-control w60 testTime" id = "testTime1">
+																	<option value = "--:--">--:--</option>
+																	<option value = "08:00">08:00</option>
+																	<option value = "09:00">09:00</option>
+																	<option value = "10:00">10:00</option>
+																	<option value = "11:00">11:00</option>
+																	<option value = "12:00">12:00</option>
+																	<option value = "13:00">13:00</option>
+																	<option value = "14:00">14:00</option>
+																	<option value = "15:00">15:00</option>
+																	<option value = "16:00">16:00</option>
+																	<option value = "17:00">17:00</option>
+																	<option value = "18:00">18:00</option>
+																	<option value = "19:00">19:00</option>
+																	<option value = "20:00">20:00</option>
+																	<option value = "21:00">21:00</option>
+																	<option value = "22:00">22:00</option>
+																	<option value = "23:00">23:00</option>
+																</select>
+															</span>
+															<span>
+																<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+															</span>
+												        </div>
+												        
+												        
+												        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv2">
+															<span class="input-group border-inputcolor w140">
+														        <input type="text" class="  form-control border-none " id="testDate2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+														        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
+													        </span>
+													        <span>
+													        	<select class="form-control w60 testTime" id = "testTime2">
+																	<option value = "--:--">--:--</option>
+																	<option value = "08:00">08:00</option>
+																	<option value = "09:00">09:00</option>
+																	<option value = "10:00">10:00</option>
+																	<option value = "11:00">11:00</option>
+																	<option value = "12:00">12:00</option>
+																	<option value = "13:00">13:00</option>
+																	<option value = "14:00">14:00</option>
+																	<option value = "15:00">15:00</option>
+																	<option value = "16:00">16:00</option>
+																	<option value = "17:00">17:00</option>
+																	<option value = "18:00">18:00</option>
+																	<option value = "19:00">19:00</option>
+																	<option value = "20:00">20:00</option>
+																	<option value = "21:00">21:00</option>
+																	<option value = "22:00">22:00</option>
+																	<option value = "23:00">23:00</option>
+																</select>
+															</span>
+															<span>
+																<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
+																<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
+															</span>
+												        </div>
+												        
+												        
+<%-- 											        </c:forEach> --%>
+												</td>
+											</tr>
+											<tr >
+												<th>강의시간</th>
+												<td colspan="5">
+													<input type="text" class="form-control" name = "time">
+												</td>
+											</tr>
 											<tr>
-												<th class = "col-xs-1">교육비용</th>
-												<td class = "col-xs-3">
+												<th>교육비용</th>
+												<td>
 													<input type="text" class="form-control" name = "price">
 												</td>
-												<th class = "col-xs-1">교육비지원</th>
-												<td class = "col-xs-3">
+												<th>교육비지원</th>
+												<td>
 													<input type="text" class="form-control" name = "support">
 												</td>
-												<th class = "col-xs-1">문의</th>
-												<td class = "col-xs-3">
+												<th>문의</th>
+												<td>
 													<input type="text" class="form-control" name = "managerInfo">
 												</td>
 											</tr>
 											<tr>
-												<th class = "col-xs-1">상태</th>
-												<td colspan="3" class = "col-xs-7" >
+												<th>상태</th>
+												<td colspan="3">
 													<div class="radio-group">
 														<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="0">준비중</label>
 														<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="1">모집중</label>
@@ -236,8 +230,8 @@
 														<label class="radiobox"><input id = "state" class="state" type="radio" name="state" value="4">종료</label>
 													</div>
 												</td>
-												<th class = "col-xs-1">기수</th>
-												<td class = "col-xs-3">
+												<th>기수</th>
+												<td>
 													<input type="text" class="form-control " name = "gisuName">
 												</td>
 											</tr>

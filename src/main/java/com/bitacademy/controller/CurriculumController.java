@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.service.CurriculumService;
-import com.bitacademy.service.PackageService;
 import com.bitacademy.vo.ApplicantVo;
 import com.bitacademy.vo.CurriAllVo;
 import com.bitacademy.vo.CurriculumCateVo;
 import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Controller
 @RequestMapping(value = "/curri/")
@@ -49,12 +49,11 @@ public class CurriculumController {
 		int result = curriService.addCurriCate(curriCateVo);
 		return result;
 	}
-	
-	//교육과정 카테고리 수정
+
+	// 교육과정 카테고리 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateCate")
 	public int updateCate(@RequestParam("curriculumCateVo") CurriculumCateVo curriculumCateVo) {
-//		System.out.println("updateCate" + curriculumCateVo.toString());
 		int result = curriService.updateCate(curriculumCateVo);
 		return result;
 	}
@@ -62,7 +61,6 @@ public class CurriculumController {
 	// 교육과정 추가 버튼
 	@RequestMapping(value = "/addCurriForm")
 	public String addCurriForm(Model model) {
-		System.out.println("form");
 		// 교육과정 카테고리
 		model.addAttribute("list", curriService.currilist());
 		model.addAttribute("cateList", curriService.curriCateList());
@@ -82,10 +80,7 @@ public class CurriculumController {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
-//		System.out.println("applicantList" + applicantList.toString());
-		// System.out.println("studentList" + studentList.toString());
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
-		 System.out.println("curriAllVo"+curriAllVo.toString());
 		return curriAllVo;
 	}
 
@@ -100,7 +95,7 @@ public class CurriculumController {
 	// 커리큘럼 추가
 	@ResponseBody
 	@RequestMapping(value = "/addCurri")
-	public int addCurri(@ModelAttribute CurriculumVo curriVo) {
+	public int addCurri(@RequestBody CurriculumVo curriVo) {
 		int result = curriService.addCurri(curriVo);
 		return result;
 	}
@@ -108,7 +103,8 @@ public class CurriculumController {
 	// 교육과정 수정
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	public int edit(@ModelAttribute CurriculumVo curriVo) {
+	public int edit(@RequestBody CurriculumVo curriVo) {
+		System.out.println("EDIT curriVo"+curriVo);
 		int result = curriService.edit(curriVo);
 		return result;
 	}

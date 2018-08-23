@@ -41,8 +41,16 @@
         });
 
     }
+    function clean(){
+        $("input[name=CateName]").val(""),
+            $("input[name='SubjectName']").val(""),
+            $("textarea[name='Outline']").val(""),
+            $("button[name='SubjectName']").val("")
+    }
+
     //카테고리의 패키지 혹은 취소 누를시
     function CaseA(){
+        clean();
         $("#btnAddsubject").remove();
         $("#update-subject").remove();
         $("#del-subject").remove();
@@ -53,10 +61,11 @@
         $("#brzone").append(str);
         str="<input type='button' id='update-subject' value='수정' class='btn btn-primary' >";
         $("#primary").append(str);
-
     }
+
     //과목 추가 누를시
     function CaseB() {
+        clean();
         $("#btnAddsubject").remove();
         $("#update-subject").remove();
         $("#del-subject").remove();
@@ -67,17 +76,44 @@
         $("#primary").append(str);
         str='<button type="button" id="cancel" class="btn btn-default btn-sub pull-right">취소</button>';
         $("#default").append(str);
-
     }
+
+    // 과목 클릭시 발동되는 함수
     function subject(treeId, treeNode, clickFlag) {
         var no=treeNode.web;
-       selectsubject(no);
+        console.log(no);
+        if (no>=10000){
+            selectSubjectCate(no);
+        }else{
+            selectsubject(no);
+        }
     }
 
     $(document).on("click","#cancel",function() {
         var no=$("#prevInfo").val();
         selectsubject(no);
     });
+
+    function selectSubjectCate(no){
+        $.ajax({
+            url : "${pageContext.request.contextPath }/subject/getSubjectCate",
+            type : "POST",
+            //contentType : "application/json",
+            data : {"no": no},
+            dataType : "json",
+            success : function(SubjectCateVo) {
+                var str=" ";
+                console.log(SubjectCateVo);
+                CaseB();
+
+                $("#prevInfo").val(SubjectCateVo.subjectCate_no),
+                    $("input[name='CateName']").val(SubjectCateVo.cateName)
+            },
+            error : function(XHR, status, error) {
+                console.error(status + " : " + error);
+            }
+        });
+    }
 
     function selectsubject(no){
     $.ajax({
@@ -94,7 +130,7 @@
             str='<button type="button" id="del-subject" value='+SubjectVo.subject_no+' class="btn btn-default btn-sub pull-right">삭제</button>';
             $("#default").append(str);
             $("#prevInfo").val(SubjectVo.subject_no),
-                $("input[name=CateName]").val(SubjectVo.cateName),
+                $("input[name='CateName']").val(SubjectVo.cateName),
                 $("input[name='SubjectName']").val(SubjectVo.subjectName),
                 $("textarea[name='Outline']").val(SubjectVo.outline),
                 $("select[name='subjectCate_no']").val(SubjectVo.subjectCate_no).prop("selected",true),
@@ -264,10 +300,10 @@
     var zNodes= [
         <c:forEach items="${list}" var="vo">
         <c:if test="${vo.subjectCate_no eq 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",open:true ,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.subjectCate_no}",open:true ,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         <c:if test="${vo.subjectCate_no ne 10000}">
-        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}", icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+        {id:${vo.subjectCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.subjectCate_no}", icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
         </c:if>
         </c:forEach>
         <c:forEach items="${sublist}" var="vo">

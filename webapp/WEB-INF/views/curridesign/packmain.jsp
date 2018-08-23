@@ -140,7 +140,7 @@
 															<tr>
 																<th>패키지카테고리</th>
 																<td colspan="3">
-																<input id="category" name="PackageName" value="카테고리를 선택" type="text" style="border:none" readonly>
+																<input id="category" name="CateName" value="카테고리를 선택" type="text" style="border:none" readonly>
 																	<input type="hidden" id="cate_no" name="PackageCate_no" value="">
 																	<button type="button" id="selectCategory" class="btn btn-default btn-h25 pull-right" >카테고리 선택</button>
 																	</td>

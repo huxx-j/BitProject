@@ -16,10 +16,10 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("AuthLoginInterceptor");
+//        System.out.println("AuthLoginInterceptor");
         String id = request.getParameter( "id" );
         String password = request.getParameter( "password" );
-        System.out.println(id + " / " + password);
+//        System.out.println(id + " / " + password);
         // 데이터베이스에서 해당 UserVo 받아오기
         AuthVo authVo = loginService.login(id, password);
 

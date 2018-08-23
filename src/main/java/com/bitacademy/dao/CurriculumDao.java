@@ -1,13 +1,15 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.ApplicantVo;
-import com.bitacademy.vo.CurriculumCateVo;
-import com.bitacademy.vo.CurriculumVo;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.bitacademy.vo.ApplicantVo;
+import com.bitacademy.vo.CurriculumCateVo;
+import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Repository
 public class CurriculumDao {
@@ -19,6 +21,10 @@ public class CurriculumDao {
 	// 교육과정 메인
 	public CurriculumVo viewCurriculum(String curriculum_no) {
 		return sqlSession.selectOne("curriculum.viewCurriculum", curriculum_no);
+	}
+
+	public List<TestInfoVo> viewTestInfo(String curriculum_no) {
+		return sqlSession.selectList("curriculum.viewTestInfo", curriculum_no);
 	}
 
 	// 커리큘럼카테고리 관련
@@ -35,7 +41,7 @@ public class CurriculumDao {
 	public int addCurriCate(CurriculumCateVo curriCateVo) {
 		return sqlSession.insert("curriculum.addCurriCate", curriCateVo);
 	}
-	
+
 	// 교육과정 카테고리 수정
 	public int updateCate(CurriculumCateVo curriCateVo) {
 		return sqlSession.update("curriculum.updateCate", curriCateVo);
@@ -52,18 +58,33 @@ public class CurriculumDao {
 		return sqlSession.update("curriculum.editCurri", curriVo);
 	}
 
+	// 교육과정 수정(전형일 전체 삭제)
+	public int deleteTestInfo(int curriculum_no) {
+		return sqlSession.delete("curriculum.deleteTestInfo", curriculum_no);
+	}
+
+	// 교육과정 수정(전형일 전체 새로 저장)
+	public int insertTestInfo(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.insertTestInfo", testInfoVo);
+	}
+
 	public int editCurriCate(CurriculumVo curriVo) {
 		return sqlSession.update("curriculum.editCurriCate", curriVo);
 	}
 
 	// 교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
-		return sqlSession.insert("curriculum.addCurri", curriVo);
+		sqlSession.insert("curriculum.addCurri", curriVo);
+		return curriVo.getCurriculum_no();
+	}
+
+	// 전형일추가
+	public int addCurriTest(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.addCurriTest", testInfoVo);
 	}
 
 	// 전체지원자 리스트 조회
 	public List<ApplicantVo> viewApplicantList(String curriculum_no) {
-		System.out.println(curriculum_no);
 		return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
 	}
 
