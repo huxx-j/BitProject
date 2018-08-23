@@ -77,7 +77,7 @@
 													</colgroup>
 													<thead>
 														<tr>
-															<th><input type = "checkbox" name = "gisuRemoveCheckAll" id = "gisuRemoveCheckAll"></th>
+															<th><input type = "checkbox" class = "text-center" name = "gisuRemoveCheckAll" id = "gisuRemoveCheckAll"></th>
 															<th>이름</th>
 															<th>생년월일</th>
 															<th>성별</th>

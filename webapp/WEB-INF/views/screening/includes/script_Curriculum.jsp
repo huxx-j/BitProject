@@ -342,11 +342,20 @@
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
-// 				for(i = 0; i < testDateArr.length; i++){
+				//전형일 초기화
+				$("#testDate0").val(""),
+				$("#testDate1").val(""),
+				$("#testDate2").val(""),
+				$("#testTime0").val("--:--"),
+				$("#testTime1").val("--:--"),
+				$("#testTime2").val("--:--"),
+// 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", false),
+// 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", false),
+// 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", false),
+
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
 				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
 				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
-// 				}
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)

@@ -91,7 +91,7 @@
 					console.error(status + " : " + error);
 				}
 		}); //ajax		
-	//		location.reload();
+			location.reload();
 	});// onClick function
 	
 	
@@ -221,11 +221,13 @@
 			$("#testTimeTd").append(row);
 	});
 			 */
-	
+			 
+	//전형일 삭제버튼
+	/* 
  	$("#testTimeTd").on("click", ".removeTestDateBtn", function(){
 		$(this).parent().parent().remove();
 	}); 
-	
+	 */
 	
 
  	$(document).ready(function () {
