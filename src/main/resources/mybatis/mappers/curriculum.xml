@@ -11,15 +11,20 @@
   			SELECT 	cc.cateName, cc.curriculumCate_no,
   					c.curriculum_no, c.package_no, c.curriName, c.startDate, c.endDate, c.time, c.maxCnt, c.price,
   					c.support, c.managerInfo, c.state, c.curriNickname, c.curriculumCate_no, c.mainViewFlag, c.detailViewFlag, c.gisuName,
-  					p.packageName, 
-  					p.package_no
+  					p.packageName, p.package_no
 			FROM 	Curriculum as c, Package as p, CurriculumCate as cc
 			WHERE 	c.package_no = p.package_no
 			AND 	cc.curriculumCate_no = c.curriculumCate_no
-			AND 	c.curriculum_no = #{curriculum_no};
+			AND 	c.curriculum_no = #{curriculum_no}
   		]]> 
   	</select>
- 	
+ 	<select id = "viewTestInfo" parameterType = "String" resultType = "hashmap">
+ 		<![CDATA[
+			SELECT 	curriculum_no, testDate, testTime
+			FROM 	TestInfo 		
+			WHERE 	curriculum_no = #{curriculum_no}
+ 		]]>
+ 	</select>
  	<!-- 교육과정 카테고리 추가 -->
  	<insert id="addCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
  		<![CDATA[
@@ -31,6 +36,16 @@
  		]]>
  	</insert>
  	
+ 	<!-- 교육과정 카테고리 수정 -->
+ 	<update id="updateCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
+ 		<![CDATA[
+ 			UPDATE 	CurriculumCate 
+ 			SET 	cateName = #{cateName},
+ 					parentCode = #{parentCode}
+ 			WHERE 	curriculumCate_no = #{curriculumCate_no}
+ 		]]>
+ 	
+ 	</update>
 	<!-- 커리큘럼 수정 -->
     <update id = "editCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
@@ -50,7 +65,25 @@
  			WHERE 	curriculum_no = #{curriculum_no}
  		]]>
  	</update>
- 	
+ 	<!-- 교육과정 수정 시 전형일 데이터 전체 삭제하고 다시 저장하기 위한 삭제 -->
+ 	<delete id = "deleteTestInfo" parameterType = "int">
+ 		<![CDATA[
+ 			DELETE 
+ 			FROM 	TestInfo 
+ 			WHERE 	curriculum_no = #{curriculum_no}
+ 		]]>
+ 	</delete>
+ 	<!-- 교육과정 수정 시 전형일 전체 삭제 후 다시 저장하기 위한 쿼리 -->
+ 	<insert id = "insertTestInfo" parameterType = "com.bitacademy.vo.TestInfoVo">
+ 		<![CDATA[
+ 			INSERT INTO TestInfo (testDate, testTime, curriculum_no)
+ 			VALUES (
+ 					#{testDate},
+ 					#{testTime},
+ 					#{curriculum_no}
+ 					)
+ 		]]>
+ 	</insert>
     <update id = "editCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
  		<![CDATA[
  			UPDATE 	CurriculumCate
@@ -59,9 +92,15 @@
  		]]>
  	</update>
  	
- 	
 	<!-- 커리큘럼 추가 -->
     <insert id="addCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
+    <!-- 가장 최근값 가져오면 되지만(max값) 혹시 그동안 다른 사람이 insert할 경우를 대비해서 selectKey 씀 -->
+    	<selectKey keyProperty="curriculum_no" resultType="Int" order="AFTER">
+        	<![CDATA[
+	           select LAST_INSERT_ID()
+	           from dual
+			]]>
+		</selectKey>
  		<![CDATA[
  			INSERT INTO Curriculum ( curriculumCate_no, package_no, curriName, curriNickname, startDate, endDate, time, maxCnt, price, support, managerInfo, state, gisuName)
 			VALUES(
@@ -81,6 +120,18 @@
 			 	   )
  		]]>
  	</insert>
+ 	
+ 	<!-- 전형일 추가 -->
+ 	<insert id = "addCurriTest" parameterType = "com.bitacademy.vo.CurriculumVo">
+ 		<![CDATA[
+ 			INSERT INTO TestInfo ( testDate, testTime, curriculum_no)
+ 			VALUES	(
+ 					#{testDate},
+ 					#{testTime},
+ 					#{curriculum_no}
+ 					)
+ 		]]>
+ 	</insert>
 	<!-- 커리큘럼 카테고리 관련 -->
     <select id = "currilist"  resultType = "com.bitacademy.vo.CurriculumVo">
 		<![CDATA[
@@ -95,7 +146,9 @@
     <select id = "curriCateList" resultType = "com.bitacademy.vo.CurriculumCateVo">
 		<![CDATA[
 			SELECT 	curriculumCate_no, cateName, parentCode
-			FROM 	CurriculumCate;
+			FROM 	CurriculumCate
+			WHERE	delStatus = 0
+			;
 		]]>
 	</select>
 	
@@ -104,6 +157,7 @@
 		<![CDATA[
 			SELECT 	curriculumCate_no, cateName 
 			FROM 	CurriculumCate
+			WHERE	delStatus = 0
 			GROUP BY cateName
 		]]>
 	</select>
@@ -111,7 +165,7 @@
 	<!-- 전체지원자리스트 조회 -->
 	<select id = "viewApplicantList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no
@@ -123,7 +177,7 @@
 	<!-- 수강생 리스트 조회 -->
 	<select id = "viewStudentList" parameterType="String" resultType = "com.bitacademy.vo.ApplicantVo">
 		<![CDATA[
-			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '여자' ELSE '남자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
+			SELECT 	u.User_no, u.NameHan, u.BirthDate, CASE u.gender WHEN 1 THEN '남자' ELSE '여자' END gender, a.TestResult, a.applicant_no, c.curriculum_no, a.gisuFlag
 			FROM 	ApplyInfo as a, Users as u, Curriculum as c 
 			WHERE 	a.User_no = u.User_no
 			AND 	c.curriculum_no = a.curriculum_no

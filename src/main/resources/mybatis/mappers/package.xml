@@ -11,7 +11,7 @@
         CateName,
         ParentCode
         from PackageCate
-        where DelStatus='0'
+        where DelStatus=0
         ]]>
     </select>
 
@@ -79,7 +79,14 @@
         where Step_no =#{no}
         ]]>
     </select>
-
+    <update id="delPackage" parameterType="int">
+        <![CDATA[
+        UPDATE Package set
+        Delstatus =1
+        where
+        Package_no=#{no}
+        ]]>
+    </update>
 
     <!--패키지를 삽입하는 SQL문( 다음페이지에 이름과 총시간을 넘기기 위해 no값을 돌려받는다. )-->
     <insert id="insert" parameterType="PackageVo" >
@@ -154,14 +161,30 @@
         <![CDATA[
         insert into PackageCate
         (ParentCode,
-        CateName)
+        CateName,
+        DelStatus)
         values
         (#{PackageCate_no},
-        #{CateName})
+        #{CateName},
+        0)
         ]]>
     </insert>
-
-
+    <update id="delCate" parameterType="int">
+        <![CDATA[
+        UPDATE PackageCate set
+        Delstatus =1
+        where
+        PackageCate_no=#{id}
+        ]]>
+    </update>
+    <update id="delChildCate" parameterType="int">
+        <![CDATA[
+        UPDATE PackageCate set
+        Delstatus =1
+        where
+        ParentCode=#{pid}
+        ]]>
+    </update>
     <update id="CateUpdate" parameterType="PackageCateVo">
         <![CDATA[
         UPDATE PackageCate set
@@ -196,7 +219,7 @@
         from
         PackageCate
         where
-        PAckageCate_no=#{no}
+        PackageCate_no=#{no}
     </select>
     <!--<update id="updateSub" parameterType= "SubInStepVo">-->
     <!--<![CDATA[-->

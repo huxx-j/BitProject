@@ -110,7 +110,9 @@ tfoot > tr > th{
 	border-bottom: 1px solid #a2a5ab !important;
 }
 
-
+.trSelected {
+	background-color: #fffa90 !important;
+}
 
 /***********************************/
 /* form 관련 */
@@ -151,6 +153,28 @@ input[type=radio] {
 	font-size: 12px;
 	margin:2px 0px 1px 0px !important;
 }
+
+
+input[type=checkbox] {
+	margin: -3px 0px 0px -14px !important;
+	padding: 0px 10px 0px -14px !important;
+  	vertical-align: middle;
+  	font-size: 12px !important;
+}
+
+.checkbox-group{
+	margin:0px 0px 0px 15px !important;
+	padding: 0px 0px 0px 0px;
+	height: 25px !important;
+}
+
+
+.checkbox{
+	font-weight: normal;
+	margin:4px 0px 0px 0px !important;
+	padding: 0px 0px 0px 0px !important;
+	font-size: 12px;
+} 
 
 
 
@@ -376,7 +400,12 @@ input[type=radio] {
 .w360{width: 360px !important;}
 .w380{width: 380px !important;}
 .w400{width: 400px !important;}
-
+.w420{width: 420px !important;}
+.w430{width: 430px !important;}
+.w440{width: 440px !important;}
+.w460{width: 460px !important;}
+.w480{width: 480px !important;}
+.w500{width: 500px !important;}
 
 .bordered{
 	border: 1px solid #a2a5ab !important;

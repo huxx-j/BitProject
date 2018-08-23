@@ -87,9 +87,11 @@
         insert into
          SubjectCate
          (ParentCode,
-         CateName)
+         CateName,
+         DelStatus)
          values (#{SubjectCate_no},
-         #{CateName})
+         #{CateName},
+         0)
         ]]>
     </insert>
     <update id="CateUpdate" parameterType="SubjectCateVo">
@@ -160,10 +162,10 @@
 
     <update id="delChildCate" parameterType="int">
         <![CDATA[
-        UPDATE Subject set
+        UPDATE SubjectCate set
         Delstatus =1
         where
-        Parent=#{pid}
+        ParentCode=#{pid}
         ]]>
     </update>
     <!--진현-->

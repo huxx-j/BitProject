@@ -28,18 +28,18 @@
 											<div class = "sub-title">
 												전체지원자리스트
 											</div><!-- /.sub-title -->
-											<div class = "sub-box">
+											<div class = "sub-box" style="overflow-x:hidden; overflow-y:auto; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-2">
-														<col class = "col-xs-3">
-														<col class = "col-xs-3">
-														<col class = "col-xs-2">
-														<col class = "col-xs-2">
+														<col width = "30px"/>
+														<col width = "60px"/>
+														<col width = "90px"/>
+														<col width = "60px"/>
+														<col width = "120px"/>
 													</colgroup>
 													<thead>
 														<tr>
-															<th><input type = "checkbox" name = "gisuGrantCheckAll" id = "gisuGrantCheckAll"></th>
+															<th><div class = "checkbox-group form-inline"><label class = "checkbox"><input type = "checkbox" class = "text-center" name = "gisuGrantCheckAll" id = "gisuGrantCheckAll" ></label></div></th>
 															<th>이름</th>
 															<th>생년월일</th>
 															<th>성별</th>
@@ -66,18 +66,18 @@
 											<div class = "sub-title">
 												수강생리스트
 											</div><!-- /.sub-title -->
-											<div class = "sub-box" id = "">
+											<div class = "sub-box" style="overflow-x:hidden; overflow-y:auto; height : 95%;">
 												<table class = "table table-condensed text-center" >
 													<colgroup>
-														<col class = "col-xs-2">
-														<col class = "col-xs-3">
-														<col class = "col-xs-3">
-														<col class = "col-xs-2">
-														<col class = "col-xs-2">
+														<col width = "30px"/>
+														<col width = "60px"/>
+														<col width = "90px"/>
+														<col width = "60px"/>
+														<col width = "120px"/>
 													</colgroup>
 													<thead>
 														<tr>
-															<th><input type = "checkbox" name = "gisuRemoveCheckAll" id = "gisuRemoveCheckAll"></th>
+															<th><div class = "checkbox-group form-inline"><label class = "checkbox"><input type = "checkbox" class = "text-center" name = "gisuRemoveCheckAll" id = "gisuRemoveCheckAll"></label></div></th>
 															<th>이름</th>
 															<th>생년월일</th>
 															<th>성별</th>

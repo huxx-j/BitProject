@@ -36,7 +36,12 @@ public class PackageController {
     public void updateCate(@RequestParam("packageCateVo") PackageCateVo packageCateVo) {
         packageService.UpdateCate(packageCateVo);
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/delCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public int delCate(@RequestParam("id") int id ){
+        packageService.delCate(id);
+        return id;
+    }
     @ResponseBody
     @RequestMapping(value = "/getPackageVo", method = {RequestMethod.POST,RequestMethod.GET})
     public PackageVo getPackageVo(@RequestParam("no") int no,Model model) {
@@ -48,12 +53,13 @@ public class PackageController {
         System.out.println(packageVo);
         return packageVo;
 }
-    @RequestMapping(value = "/addPackageCate", method = RequestMethod.POST)
-    public void addPackageCate(@RequestParam("PackageCate_no") int packageCate_no,@RequestParam("CateName") String CateName) {
+    @RequestMapping(value = "/addPackageCate", method = {RequestMethod.POST,RequestMethod.GET})
+    public int addPackageCate(@RequestParam("PackageCate_no") int packageCate_no,@RequestParam("CateName") String CateName) {
         PackageCateVo packageCateVo=new PackageCateVo();
         packageCateVo.setPackageCate_no(packageCate_no);
         packageCateVo.setCateName(CateName);
         packageService.addcate(packageCateVo);
+        return 1;
     }
     @RequestMapping("/")
     public String main(Model model){
@@ -67,7 +73,11 @@ public class PackageController {
         model.addAttribute("packlist",packlist);
         return "curridesign/packmain";
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/delPackage", method = {RequestMethod.POST,RequestMethod.GET})
+    public void delPackage(@RequestParam("no") int no ){
+        packageService.delPackage(no);
+    }
     @ResponseBody
     @RequestMapping(value="/addPackage" , method = {RequestMethod.POST,RequestMethod.GET})
     public int addPackage(@ModelAttribute PackageVo packageVo , Model model){

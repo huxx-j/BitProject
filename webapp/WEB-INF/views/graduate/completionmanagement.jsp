@@ -176,7 +176,7 @@
 							<div class="col-xs-8">
 								<div class="sub-box">
 									<!-- sub_title -->
-									<div class="sub-title clearfix" id="companyAdd_div">
+									<div class="sub-toolbox clearfix" id="companyAdd_div">
 										<!-- <button type="button" class="btn btn-default btn-sm pull-right" id="companyAdd">&nbsp;&nbsp;&nbsp;&nbsp;취업기업 추가&nbsp;&nbsp;&nbsp;&nbsp;</button> -->
 									</div><!-- /sub_title -->
 									
@@ -189,7 +189,7 @@
 												<col width="300px" />
 											</colgroup>
 
-											<tbody>
+											<tbody id="userCareerTable">
 											<tr>
 												<th>회사명</th>
 												<td colspan="8">
@@ -278,8 +278,8 @@
 									<div class="sub-toolbox text-center clearfix" id="company_btn_div">
 										<!-- <button type="button" class="btn btn-primary" id="company_btn">수정</button> -->
 									</div>
-									<input type="hidden" name="hidden_no" id = "hidden_no">
-									<input type="hidden" name="hidden_applyno" id = "hidden_applyno">
+									<input type='hidden' name="hidden_no" id = "hidden_no">
+									<input type='hidden' name="hidden_applyno" id = "hidden_applyno">
 								</div><!-- /.sub-box -->
 							</div><!-- /.row -->
 
@@ -320,7 +320,7 @@ $(document).ready(function() {
     console.log(curriculumCate_no);
 
     getCurriList(curriculumCate_no);
-    addUpdate_btnSet();
+    addUpdate_btnSet();z
 });
 
 
@@ -408,7 +408,7 @@ $("#jqGrid").jqGrid({
 	colModel : [ {name : 'user_no',index : 'user_no',width : 10,hidden : true},
 	    {name : 'gisuName',index : 'gisuName',width : 100,align : "center"},
 	    {name : 'nameHan',index : 'nameHan',width : 100,align : "center"},
-	    {name : 'birthDate',index : 'birthDate',width : 100,align : "center"},
+	    {name : 'studResNum',index : 'studResNum',width : 100,align : "center"},
 	    {name : 'c_gender',index : 'c_gender',width : 50,align : "center"},
 	    {name : 'testResult',index : 'testResult',width : 80,align : "center"},
 	    {name : 'cellphone',index : 'cellphone',width : 150,align : "center"},
@@ -443,9 +443,15 @@ $("#jqGrid").jqGrid({
                 console.log(list);
 
                 $("#afterServiceTable").empty();
+                companyForm_Reset();
 
-                for (var i = 0; i < list.length; i++) {
-                    renderApplied(list[i])
+                if (list.length > 0) {
+	                 for (var i = 0; i < list.length; i++) {
+	                     renderApplied(list[i])
+	                 }
+                } else {
+                    var str = "<tr><td colspan='5' align='center'>등록된 정보가 없습니다.</td></tr>";
+                    $("#afterServiceTable").append(str);
                 }
 
                 $("input[name='hidden_no']").val(userNo)
@@ -595,12 +601,14 @@ $("#company_btn_div").on("click","#btn_companyInsert", function (user_no) {
 
                  $("#afterServiceTable").empty();
 
-                 for (var i = 0; i < list.length; i++) {
-                     renderApplied(list[i])
+                 if (list.length > 0) {
+	                 for (var i = 0; i < list.length; i++) {
+	                     renderApplied(list[i])
+	                 }
+                 } else {
+                     var str = "<tr><td colspan='5' align='center'>등록된 정보가 없습니다.</td></tr>";
+                     $("#afterServiceTable").append(str);
                  }
-
-                 $("input[name='hidden_no']").val(userNo)
-                 $("input[name='hidden_applyno']").val(userCareer_no)
 
              },
              error : function(request, status, error) {
@@ -610,7 +618,7 @@ $("#company_btn_div").on("click","#btn_companyInsert", function (user_no) {
 
     	function renderApplied(list) {
             var str = "";
-            str += "<tr id='" + list.userCareer_no+ "' name='" + list.user_no + "' class='past'>";
+            str += "<tr data-careerno='" + list.userCareer_no+ "' data-userno='" + list.user_no + "' class='past'>";
             str += "<td value='" + list.userCareer_no + "'>"
                 + list.userCareer_no + "</td>";
             str += "<td value='" + list.userCareer_no + "'>"
@@ -659,6 +667,7 @@ function past_apply(userCareer_no,user_no) {
             $("input[name='telePhone']").val(userCareerVo.telePhone)
             $("input[name='date1']").val(userCareerVo.startDate)
             $("input[name='date2']").val(userCareerVo.endDate)
+            $("[name='state']").val(userCareerVo.state)
             $("input[name='position']").val(userCareerVo.role)
             $("input[name='department']").val(userCareerVo.department)
             $("input[name='companyAddress']").val(userCareerVo.companyAddress)
@@ -721,7 +730,7 @@ function addUpdate_btnSet(){
 	$("#btn_companyInsert").remove();
 
     var strAdd = "";
-    strAdd += "<button type='button' class='btn btn-default btn-sm pull-right' id='btn_companyAdd'>취업기업 추가</button>";
+    strAdd += "<button type='button' class='btn btn-default btn-h25 pull-right' id='btn_companyAdd'>취업기업 추가</button>";
     $("#companyAdd_div").append(strAdd);
 
     var str = "";

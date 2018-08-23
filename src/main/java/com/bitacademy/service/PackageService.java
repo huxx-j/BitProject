@@ -73,6 +73,8 @@ public class PackageService {
     public PackageVo getpack(int no) {
         PackageVo packageVo=packageDao.selectpackage(no);
         packageVo.setReferenceCnt(packageDao.getReferenceCnt(no));
+        PackageCateVo packageCateVo=packageDao.getPackCate(packageVo.getPackageCate_no());
+        packageVo.setCateName(packageCateVo.getCateName());
         return packageVo;
     }
 
@@ -88,9 +90,15 @@ public class PackageService {
          packageDao.UpdateCate(packageCateVo);
 
     }
-
+    public void delCate(int id) {
+        packageDao.delCate(id);
+        packageDao.delChildCate(id);
+    }
     public PackageCateVo getPackCate(int no) {
         return packageDao.getPackCate(no);
+    }
+
+    public void delPackage(int no) { packageDao.delPackage(no);
     }
 //
 //    public void deleteSubInPack(int no) {

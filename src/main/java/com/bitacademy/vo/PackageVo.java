@@ -13,11 +13,12 @@ public class PackageVo {
     private int TotalTime;
     private List<StepInPackVo> steplist;
     private int referenceCnt;
+    private String CateName;
 
     public PackageVo() {
     }
 
-    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime, List<StepInPackVo> steplist, int referencecnt) {
+    public PackageVo(int package_no, int packageCate_no, int useStatus, String packageName, String goal, String content, String qualification, int totalTime, List<StepInPackVo> steplist, int referenceCnt, String cateName) {
         Package_no = package_no;
         PackageCate_no = packageCate_no;
         UseStatus = useStatus;
@@ -27,7 +28,8 @@ public class PackageVo {
         Qualification = qualification;
         TotalTime = totalTime;
         this.steplist = steplist;
-        this.referenceCnt = referencecnt;
+        this.referenceCnt = referenceCnt;
+        CateName = cateName;
     }
 
     public int getPackage_no() {
@@ -106,8 +108,16 @@ public class PackageVo {
         return referenceCnt;
     }
 
-    public void setReferenceCnt(int referencecnt) {
-        this.referenceCnt = referencecnt;
+    public void setReferenceCnt(int referenceCnt) {
+        this.referenceCnt = referenceCnt;
+    }
+
+    public String getCateName() {
+        return CateName;
+    }
+
+    public void setCateName(String cateName) {
+        CateName = cateName;
     }
 
     @Override
@@ -122,7 +132,8 @@ public class PackageVo {
                 ", Qualification='" + Qualification + '\'' +
                 ", TotalTime=" + TotalTime +
                 ", steplist=" + steplist +
-                ", referencecnt=" + referenceCnt +
+                ", referenceCnt=" + referenceCnt +
+                ", CateName='" + CateName + '\'' +
                 '}';
     }
 }

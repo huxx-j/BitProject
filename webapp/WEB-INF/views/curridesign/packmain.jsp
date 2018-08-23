@@ -105,9 +105,9 @@
 									<ul class="nav nav-tabs" id="packageTab">
 										<li class="active"><a href="#tab_1" data-toggle="tab">패키지 개요</a></li>
 										<li class=""><a href="#tab_2" data-toggle="tab">구성 과목</a></li>
-
-										<button id="btnAddPackage" class="btn btn-default btn-h25 pull-right" type="button">패키지 추가</button>
-
+										<div id="btnzone">
+											<button id="btnAddPackage" class="btn btn-default btn-h25 pull-right" type="button">패키지 추가</button>
+										</div>
 									</ul>
 
 									<!-- /.상단탭영역 -->
@@ -141,7 +141,7 @@
 																<th>패키지카테고리</th>
 																<td colspan="3">
 																<input id="category" name="CateName" value="카테고리를 선택" type="text" style="border:none" readonly>
-																	<input type="hidden" id="cate_no" name="packageCate_no" value="">
+																	<input type="hidden" id="cate_no" name="PackageCate_no" value="">
 																	<button type="button" id="selectCategory" class="btn btn-default btn-h25 pull-right" >카테고리 선택</button>
 																	</td>
 																	<%--<select name ="strPackageCate_no" class="form-control">--%>
@@ -172,7 +172,7 @@
 															</tr>
 															</tbody>
 														</table>
-
+													<input type="hidden" id="prevInfo" value="">
 												</div><!-- /.sub-body -->
 
 												<div class="sub-toolbox clearfix text-center">
@@ -180,7 +180,7 @@
 														<div class="col-xs-4">
 														</div>
 														<div id="primary" class="col-xs-4">
-															<input type="button" value="저장" name="addpackage" class="btn btn-primary">
+															<input type="button" value="저장" id="addpackage" name="addpackage" class="btn btn-primary">
 														</div>
 														<div id="default" class="col-xs-4">
 														</div>
