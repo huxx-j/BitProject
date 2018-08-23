@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bitacademy.dao.CurriculumDao;
 import com.bitacademy.dao.PackageDao;
@@ -12,6 +13,7 @@ import com.bitacademy.vo.CurriculumCateVo;
 import com.bitacademy.vo.CurriculumVo;
 import com.bitacademy.vo.PackageCateVo;
 import com.bitacademy.vo.PackageVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Service
 public class CurriculumService {
@@ -23,9 +25,13 @@ public class CurriculumService {
 
 	// 커리큘럼 조회(curriculum_no값으로)
 	public CurriculumVo viewCurriculum(String curriculum_no) {
-		return curriDao.viewCurriculum(curriculum_no);
+		CurriculumVo curriculumVo = curriDao.viewCurriculum(curriculum_no);
+		curriculumVo.setTestInfoList(curriDao.viewTestInfo(curriculum_no));
+		// System.out.println("SERVICE CurriculumVo"+curriculumVo);
+		return curriculumVo;
 	}
 
+	@Transactional
 	// 교육과정 수정
 	public int edit(CurriculumVo curriVo) {
 		// System.out.println("수정 서비스 와따");
@@ -34,16 +40,31 @@ public class CurriculumService {
 		// 두 테이블 update할 떄,
 		// 1. DAO 두개 성공해야 반영되도록 트랜젝션 해줘야함
 		// 2. or if문 써서 둘 다 성공해야 1넘기도록 설정
-
+		System.out.println("수정서비스와따");
 		int editCurriResult = curriDao.editCurri(curriVo);
-		int editCurriCateResult = curriDao.editCurriCate(curriVo);
-
-		if (editCurriResult == 1 && editCurriCateResult == 1) {
-			int result = 1;
-			return result;
-		} else {
-			int result = 0;
-			return result;
+		System.out.println("editCurriResult"+editCurriResult);
+		int listSize = curriVo.getTestInfoList().size();
+		List<TestInfoVo> testInfoList = curriVo.getTestInfoList();
+		System.out.println("testInfoList"+testInfoList);
+		int curriculum_no = curriVo.getCurriculum_no();
+		System.out.println("curriculum_no"+curriculum_no);
+		int delResult = curriDao.deleteTestInfo(curriculum_no);
+		System.out.println("delResult"+delResult);
+		int insSuccessCnt = 0;
+		for (int j = 0; j < listSize; j++) {
+			TestInfoVo testInfoVo = testInfoList.get(j);
+			testInfoVo.setCurriculum_no(curriculum_no);
+			int insResult = curriDao.insertTestInfo(testInfoVo);
+			if (insResult > 0) {
+				insSuccessCnt += 1;
+			}
+		}
+		System.out.println("delResult"+delResult);
+		System.out.println("insSuccessCnt"+insSuccessCnt);
+		if (insSuccessCnt == listSize) {
+			return 1;
+		}else {
+			return 0;
 		}
 	}
 
@@ -56,9 +77,32 @@ public class CurriculumService {
 	public int updateCate(CurriculumCateVo curriCateVo) {
 		return curriDao.updateCate(curriCateVo);
 	}
+
+	// 트랜잭션
+	@Transactional
 	// 교육과정 추가
 	public int addCurri(CurriculumVo curriVo) {
-		return curriDao.addCurri(curriVo);
+		// 커리큘럼 정보 insert 후 전형일 추가하기 위해 curriculum_no값 받아오기(selectKey)
+		int curriculum_no = curriDao.addCurri(curriVo);
+		int listSize = curriVo.getTestInfoList().size();
+		int successCnt = 0;
+		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
+		for (int i = 0; i < listSize; i++) {
+			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
+			testInfoVo.setCurriculum_no(curriculum_no);
+			int result = curriDao.addCurriTest(testInfoVo);
+			// insert 성공건수 check
+			if (result > 0) {
+				successCnt = successCnt + 1;
+				// successCnt += 1;
+			}
+		}
+		// insert 성공건수가 list사이즈와 같으면 성공!
+		if (successCnt == listSize) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	// zTree 카테고리 탭 (목록 불러오기)

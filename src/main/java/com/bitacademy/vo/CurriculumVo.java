@@ -1,5 +1,8 @@
 package com.bitacademy.vo;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CurriculumVo {
 
 	private int curriculumCate_no;
@@ -11,8 +14,6 @@ public class CurriculumVo {
 	private String curriNickname;
 	private String startDate;
 	private String endDate;
-	private String testDate;
-	private String testTime;
 	private String time;
 	private int maxCnt;
 	private String price;
@@ -22,13 +23,14 @@ public class CurriculumVo {
 	private String state;
 	private int mainViewFlag;
 	private int detailViewFlag;
+	private List<TestInfoVo> testInfoList;
 	public CurriculumVo() {
 		super();
 	}
 	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String cateName,
-			String curriName, String curriNickname, String startDate, String endDate, String testDate, String testTime,
-			String time, int maxCnt, String price, String support, String gisuName, String managerInfo, String state,
-			int mainViewFlag, int detailViewFlag) {
+			String curriName, String curriNickname, String startDate, String endDate, String time, int maxCnt,
+			String price, String support, String gisuName, String managerInfo, String state, int mainViewFlag,
+			int detailViewFlag, List<TestInfoVo> testInfoList) {
 		super();
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
@@ -39,8 +41,6 @@ public class CurriculumVo {
 		this.curriNickname = curriNickname;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.testDate = testDate;
-		this.testTime = testTime;
 		this.time = time;
 		this.maxCnt = maxCnt;
 		this.price = price;
@@ -50,6 +50,7 @@ public class CurriculumVo {
 		this.state = state;
 		this.mainViewFlag = mainViewFlag;
 		this.detailViewFlag = detailViewFlag;
+		this.testInfoList = testInfoList;
 	}
 	public int getCurriculumCate_no() {
 		return curriculumCate_no;
@@ -105,18 +106,6 @@ public class CurriculumVo {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public String getTestDate() {
-		return testDate;
-	}
-	public void setTestDate(String testDate) {
-		this.testDate = testDate;
-	}
-	public String getTestTime() {
-		return testTime;
-	}
-	public void setTestTime(String testTime) {
-		this.testTime = testTime;
-	}
 	public String getTime() {
 		return time;
 	}
@@ -171,16 +160,24 @@ public class CurriculumVo {
 	public void setDetailViewFlag(int detailViewFlag) {
 		this.detailViewFlag = detailViewFlag;
 	}
+	public List<TestInfoVo> getTestInfoList() {
+		return testInfoList;
+	}
+	public void setTestInfoList(List<TestInfoVo> testInfoList) {
+		this.testInfoList = testInfoList;
+	}
 	@Override
 	public String toString() {
 		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no + ", packageName="
 				+ packageName + ", curriculum_no=" + curriculum_no + ", cateName=" + cateName + ", curriName="
 				+ curriName + ", curriNickname=" + curriNickname + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", testDate=" + testDate + ", testTime=" + testTime + ", time=" + time + ", maxCnt=" + maxCnt
-				+ ", price=" + price + ", support=" + support + ", gisuName=" + gisuName + ", managerInfo="
-				+ managerInfo + ", state=" + state + ", mainViewFlag=" + mainViewFlag + ", detailViewFlag="
-				+ detailViewFlag + "]";
+				+ ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support=" + support + ", gisuName="
+				+ gisuName + ", managerInfo=" + managerInfo + ", state=" + state + ", mainViewFlag=" + mainViewFlag
+				+ ", detailViewFlag=" + detailViewFlag + ", testInfoList=" + testInfoList + "]";
 	}
+
+	
+	
 	
 	
 }
