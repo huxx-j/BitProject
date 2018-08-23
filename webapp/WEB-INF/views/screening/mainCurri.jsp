@@ -94,10 +94,10 @@
 									<!-- 상단 탭 영역 -->
 									<ul class = "nav nav-tabs" id = "curri-nav-tab">
 										<li class = "active"><a href = "#tab_1" data-toggle = "tab">교육과정정보</a></li>
-										<li class = ""><a href = "#tab_2" data-toggle = "tab">홈페이지관리</a></li>
+<!-- 										<li class = ""><a href = "#tab_2" data-toggle = "tab">홈페이지관리</a></li> -->
 										<li class = ""><a href = "#tab_3" data-toggle = "tab">교육생관리</a></li>
-										<li class = ""><a href = "#tab_4" data-toggle = "tab">강사배정</a></li>
-										<li class = ""><a href = "#tab_5" data-toggle = "tab">강의실배정</a></li>
+<!-- 										<li class = ""><a href = "#tab_4" data-toggle = "tab">강사배정</a></li> -->
+<!-- 										<li class = ""><a href = "#tab_5" data-toggle = "tab">강의실배정</a></li> -->
 										<a href = "${pageContext.request.contextPath }/curri/addCurriForm">
 											<button type = "button" class = "btn btn-default btn-sm pull-right" >교육과정추가</button>
 										</a>
@@ -112,7 +112,7 @@
 										<!-- /.1번탭 -->
 										
 										<!-- 2번탭 영역 시작 -->
-										<c:import url="/WEB-INF/views/screening/includes/tab_HomepageManagement.jsp"></c:import>
+<%-- 										<c:import url="/WEB-INF/views/screening/includes/tab_HomepageManagement.jsp"></c:import> --%>
 										<!-- /.2번탭 끝 -->
 
 										<!-- 3번탭 영역 시작 -->
@@ -122,13 +122,13 @@
 										
 										
 										<!-- 4번탭 영역 시작 -->
-										<c:import url="/WEB-INF/views/screening/includes/tab_AssignInstructor.jsp"></c:import>
+<%-- 										<c:import url="/WEB-INF/views/screening/includes/tab_AssignInstructor.jsp"></c:import> --%>
 										
 										<!-- /.4번탭 끝 -->
 										
 										
 										<!-- 5번탭 영역 시작 -->
-										<c:import url="/WEB-INF/views/screening/includes/tab_AssignClassroom.jsp"></c:import>
+<%-- 										<c:import url="/WEB-INF/views/screening/includes/tab_AssignClassroom.jsp"></c:import> --%>
 										
 										<!-- /.5번탭 끝 -->
 
