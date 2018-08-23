@@ -35,7 +35,7 @@
                         <td class="a_c"><input id="con1" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t1" class="form-control disp-inline" style="width: 70%;" type="text" readonly>
                             &ensp;
-                            <input id="t_box1" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box1" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
                         <td class="a_c"><input id="note1" class="form-control" type="text"></td>
                     </tr>
                     <tr>
@@ -45,7 +45,7 @@
                         <td class="a_c"><input id="con2" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t2" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box2" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box2" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
                         <td class="a_c"><input class="form-control" id="note2" type="text"></td>
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@
                         <td class="a_c"><input id="con3" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t3" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box3" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box3" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input class="form-control" id="note3" type="text"></td>
                     </tr>
@@ -69,7 +69,7 @@
                         <td class="a_c"><input id="con4" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t4" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box4" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box4" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note4" class="form-control" type="text"></td>
                     </tr>
@@ -80,7 +80,7 @@
                         <td class="a_c"><input id="con5" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t5" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box5" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box5" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note5" class="form-control" type="text"></td>
                     </tr>
@@ -91,7 +91,7 @@
                         <td class="a_c"><input id="con6" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t6" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box6" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box6" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note6" class="form-control" type="text"></td>
                     </tr>
@@ -102,7 +102,7 @@
                         <td class="a_c"><input id="con7" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t7" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box7" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box7" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note7" class="form-control" type="text"></td>
                     </tr>
@@ -113,7 +113,7 @@
                         <td class="a_c"><input id="con8" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t8" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box8" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box8" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note8" class="form-control" type="text"></td>
                     </tr>
@@ -127,7 +127,7 @@
                         <td class="a_c"><input id="con9" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t9" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box9" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box9" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input class="form-control" id="note9" type="text"></td>
                     </tr>
@@ -138,7 +138,7 @@
                         <td class="a_c"><input id="con10" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t10" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box10" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box10" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note10" class="form-control" type="text"></td>
                     </tr>
@@ -149,7 +149,7 @@
                         <td class="a_c"><input id="con11" class="form-control" style="width: 100%" type="text"></td>
                         <td class="a_c"><input id="t11" class="form-control disp-inline" style="width: 70%" type="text" readonly>
                             &ensp;
-                            <input id="t_box11" name="t_box" class="lec-chk" type="checkbox"></td>
+                            <input id="t_box11" name="t_box" class="lec-chk" type="checkbox" style="margin: -3px 0px 0px 0px !important;"></td>
 
                         <td class="a_c"><input id="note11" class="form-control" type="text"></td>
                     </tr>
