@@ -1,9 +1,10 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.GisuTableVo;
+import com.bitacademy.vo.InterViewerVo;
 
 import com.bitacademy.vo.JobCriteriaVo;
-import com.bitacademy.vo.JobVo;
+import com.bitacademy.vo.JobReqVo;
+import com.bitacademy.vo.JobRequestVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,50 +23,65 @@ public class JobDao {
 	public List<Object> getJobRequestList(JobCriteriaVo jobCriteriaVo) {
 		return sqlSession.selectList("job.getJobRequestList",jobCriteriaVo);
 	}
-	
+
 	//전체 취업의뢰 리스트 count 구하기
 	public int getJobRequestTotalCnt(JobCriteriaVo jobCriteriaVo) {
 		return sqlSession.selectOne("job.getJobRequestTotalCnt",jobCriteriaVo);
 	}
 	
-	
-	/*취업의뢰 기업 상세정보 가져오기*/
-	public JobVo getCompany(int company_no) {
-		return sqlSession.selectOne("job.getCompany", company_no);
-	}
-
-	/*특정기업 취업의뢰 리스트*/
-	public List<JobVo> getJobRequestListByComNo(int company_no) {
-		return sqlSession.selectList("job.getJobRequestListByComNo", company_no);
+	/*면접지원자 리스트*/
+	public List<InterViewerVo> getInterviewList(int request_no) {
+		return sqlSession.selectList("job.getInterviewList", request_no);
 	}
 	
-	/*취업의뢰 리스트*/
-	public JobVo getJobRequest(int request_no) {
+	/*특정기업 취업의뢰 상세*/
+	public JobRequestVo getJobRequest(int request_no) {
 		return sqlSession.selectOne("job.getJobRequest", request_no);
 	}
 	
+	/*특정기업 취업의뢰 리스트*/
+	public List<JobReqVo> getJobReqList(int company_no) {
+		return sqlSession.selectList("job.getJobReqList", company_no);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*취업의뢰 기업 상세정보 가져오기(회사정보)*/
+	public JobRequestVo getCompany(int company_no) {
+		return sqlSession.selectOne("job.getCompany", company_no);
+	}
+	
+	
+	
+	
+	
 
 	
 	
 	
 	
-	//지원자 리스트 조회
-	public List<GisuTableVo> getGisu(GisuTableVo gisuTableVo) {
-		List<GisuTableVo> list = sqlSession.selectList("job.selectList",gisuTableVo );
+	
+	
+/*	//지원자 리스트 조회
+	public List<InterViewerVo> getGisu(InterViewerVo gisuTableVo) {
+		List<InterViewerVo> list = sqlSession.selectList("job.selectList",gisuTableVo );
 		return list;
 	}
+*/
+	
 
 	
 
-	/*한번클릭*/
-	public List<JobVo> getInterviewList(int request_no) {
-		return sqlSession.selectList("job.getInterviewList",request_no);
-
-	}
-
 	
 	
-	public JobVo getReceiptDate(int company_no) {	
+	public JobRequestVo getReceiptDate(int company_no) {	
 		return sqlSession.selectOne("job.getReceiptDate", company_no);
 		
 	}

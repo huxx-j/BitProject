@@ -1,6 +1,8 @@
 package com.bitacademy.vo;
 
-public class JobVo {
+import java.util.List;
+
+public class JobRequestVo {
 
 	private int company_no;
 	private String compName;
@@ -23,7 +25,7 @@ public class JobVo {
 	private int request_no;
 	private String hireCnt;
 	private String hireCnt_M;
-	private String hirecnt_F;
+	private String hireCnt_F;
 	private String workPlace;
 	private String majorBiz;
 	private String field;
@@ -51,23 +53,29 @@ public class JobVo {
 	private String career;
 	private String careerYear;
 	private String contractType;
+	private String internTerm;
 	private String employPosition;
 	private String advantage;
 	private String isLicensePartnership;
 	private String memo;
 
-	public JobVo() {
+	private List<JobReqVo> jobReqList;
+	private List<InterViewerVo> interViewerList;
+
+	public JobRequestVo() {
 	}
 
-	public JobVo(int company_no, String compName, String isStock, String address, String tel, int file_no,
+	public JobRequestVo(int company_no, String compName, String isStock, String address, String tel, int file_no,
 			String business, String capital, String yearSell, String staffCnt, String homePage, String postCode,
 			String introduction, String welfare, String compResNum, String openDate, String updateDate, int request_no,
-			String hireCnt, String hireCnt_M, String hirecnt_F, String workPlace, String majorBiz, String field,
+			String hireCnt, String hireCnt_M, String hireCnt_F, String workPlace, String majorBiz, String field,
 			String useLang, String useOS, String useDB, String useETC, String requirement, String major,
 			String yearIncome, String salaryCode, String procedures, String reqDocument, String reqDetail,
 			String department, String mgrName, String position, String email, String fax, String telephone,
 			String cellphone, String receiptDate, String isShow, String employment, String career, String careerYear,
-			String contractType, String employPosition, String advantage, String isLicensePartnership, String memo) {
+			String contractType, String internTerm, String employPosition, String advantage,
+			String isLicensePartnership, String memo, List<JobReqVo> jobReqList, List<InterViewerVo> interViewerList) {
+		super();
 		this.company_no = company_no;
 		this.compName = compName;
 		this.isStock = isStock;
@@ -88,7 +96,7 @@ public class JobVo {
 		this.request_no = request_no;
 		this.hireCnt = hireCnt;
 		this.hireCnt_M = hireCnt_M;
-		this.hirecnt_F = hirecnt_F;
+		this.hireCnt_F = hireCnt_F;
 		this.workPlace = workPlace;
 		this.majorBiz = majorBiz;
 		this.field = field;
@@ -116,17 +124,15 @@ public class JobVo {
 		this.career = career;
 		this.careerYear = careerYear;
 		this.contractType = contractType;
+		this.internTerm = internTerm;
 		this.employPosition = employPosition;
 		this.advantage = advantage;
 		this.isLicensePartnership = isLicensePartnership;
 		this.memo = memo;
+		this.jobReqList = jobReqList;
+		this.interViewerList = interViewerList;
 	}
 
-	public String removeHtml(String str) {
-		String content = str.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""); 
-		return content;
-	}
-	
 	public int getCompany_no() {
 		return company_no;
 	}
@@ -287,12 +293,12 @@ public class JobVo {
 		this.hireCnt_M = hireCnt_M;
 	}
 
-	public String getHirecnt_F() {
-		return hirecnt_F;
+	public String getHireCnt_F() {
+		return hireCnt_F;
 	}
 
-	public void setHirecnt_F(String hirecnt_F) {
-		this.hirecnt_F = hirecnt_F;
+	public void setHireCnt_F(String hireCnt_F) {
+		this.hireCnt_F = hireCnt_F;
 	}
 
 	public String getWorkPlace() {
@@ -304,12 +310,11 @@ public class JobVo {
 	}
 
 	public String getMajorBiz() {
-		
 		return majorBiz;
 	}
 
 	public void setMajorBiz(String majorBiz) {
-		this.majorBiz = removeHtml(majorBiz);
+		this.majorBiz = majorBiz;
 	}
 
 	public String getField() {
@@ -317,7 +322,7 @@ public class JobVo {
 	}
 
 	public void setField(String field) {
-		this.field = removeHtml(field);
+		this.field = field;
 	}
 
 	public String getUseLang() {
@@ -325,7 +330,7 @@ public class JobVo {
 	}
 
 	public void setUseLang(String useLang) {
-		this.useLang = removeHtml(useLang);
+		this.useLang = useLang;
 	}
 
 	public String getUseOS() {
@@ -333,7 +338,7 @@ public class JobVo {
 	}
 
 	public void setUseOS(String useOS) {
-		this.useOS = removeHtml(useOS);
+		this.useOS = useOS;
 	}
 
 	public String getUseDB() {
@@ -341,7 +346,7 @@ public class JobVo {
 	}
 
 	public void setUseDB(String useDB) {
-		this.useDB = removeHtml(useDB);
+		this.useDB = useDB;
 	}
 
 	public String getUseETC() {
@@ -349,7 +354,7 @@ public class JobVo {
 	}
 
 	public void setUseETC(String useETC) {
-		this.useETC = removeHtml(useETC);
+		this.useETC = useETC;
 	}
 
 	public String getRequirement() {
@@ -365,7 +370,7 @@ public class JobVo {
 	}
 
 	public void setMajor(String major) {
-		this.major = removeHtml(major);
+		this.major = major;
 	}
 
 	public String getYearIncome() {
@@ -373,7 +378,7 @@ public class JobVo {
 	}
 
 	public void setYearIncome(String yearIncome) {
-		this.yearIncome = removeHtml(yearIncome);
+		this.yearIncome = yearIncome;
 	}
 
 	public String getSalaryCode() {
@@ -389,7 +394,7 @@ public class JobVo {
 	}
 
 	public void setProcedures(String procedures) {
-		this.procedures = removeHtml(procedures);
+		this.procedures = procedures;
 	}
 
 	public String getReqDocument() {
@@ -397,7 +402,7 @@ public class JobVo {
 	}
 
 	public void setReqDocument(String reqDocument) {
-		this.reqDocument = removeHtml(reqDocument);
+		this.reqDocument = reqDocument;
 	}
 
 	public String getReqDetail() {
@@ -437,7 +442,7 @@ public class JobVo {
 	}
 
 	public void setEmail(String email) {
-		this.email = removeHtml(email);
+		this.email = email;
 	}
 
 	public String getFax() {
@@ -512,6 +517,14 @@ public class JobVo {
 		this.contractType = contractType;
 	}
 
+	public String getInternTerm() {
+		return internTerm;
+	}
+
+	public void setInternTerm(String internTerm) {
+		this.internTerm = internTerm;
+	}
+
 	public String getEmployPosition() {
 		return employPosition;
 	}
@@ -525,7 +538,7 @@ public class JobVo {
 	}
 
 	public void setAdvantage(String advantage) {
-		this.advantage = removeHtml(advantage);
+		this.advantage = advantage;
 	}
 
 	public String getIsLicensePartnership() {
@@ -544,23 +557,41 @@ public class JobVo {
 		this.memo = memo;
 	}
 
+	public List<JobReqVo> getJobReqList() {
+		return jobReqList;
+	}
+
+	public void setJobReqList(List<JobReqVo> jobReqList) {
+		this.jobReqList = jobReqList;
+	}
+
+	public List<InterViewerVo> getInterViewerList() {
+		return interViewerList;
+	}
+
+	public void setInterViewerList(List<InterViewerVo> interViewerList) {
+		this.interViewerList = interViewerList;
+	}
+
 	@Override
 	public String toString() {
-		return "JobVo [company_no=" + company_no + ", compName=" + compName + ", isStock=" + isStock + ", address="
-				+ address + ", tel=" + tel + ", file_no=" + file_no + ", business=" + business + ", capital=" + capital
-				+ ", yearSell=" + yearSell + ", staffCnt=" + staffCnt + ", homePage=" + homePage + ", postCode="
-				+ postCode + ", introduction=" + introduction + ", welfare=" + welfare + ", compResNum=" + compResNum
-				+ ", openDate=" + openDate + ", updateDate=" + updateDate + ", request_no=" + request_no + ", hireCnt="
-				+ hireCnt + ", hireCnt_M=" + hireCnt_M + ", hirecnt_F=" + hirecnt_F + ", workPlace=" + workPlace
-				+ ", majorBiz=" + majorBiz + ", field=" + field + ", useLang=" + useLang + ", useOS=" + useOS
-				+ ", useDB=" + useDB + ", useETC=" + useETC + ", requirement=" + requirement + ", major=" + major
-				+ ", yearIncome=" + yearIncome + ", salaryCode=" + salaryCode + ", procedures=" + procedures
-				+ ", reqDocument=" + reqDocument + ", reqDetail=" + reqDetail + ", department=" + department
-				+ ", mgrName=" + mgrName + ", position=" + position + ", email=" + email + ", fax=" + fax
-				+ ", telephone=" + telephone + ", cellphone=" + cellphone + ", receiptDate=" + receiptDate + ", isShow="
-				+ isShow + ", employment=" + employment + ", career=" + career + ", careerYear=" + careerYear
-				+ ", contractType=" + contractType + ", employPosition=" + employPosition + ", advantage=" + advantage
-				+ ", isLicensePartnership=" + isLicensePartnership + ", memo=" + memo + "]";
+		return "JobRequestVo [company_no=" + company_no + ", compName=" + compName + ", isStock=" + isStock
+				+ ", address=" + address + ", tel=" + tel + ", file_no=" + file_no + ", business=" + business
+				+ ", capital=" + capital + ", yearSell=" + yearSell + ", staffCnt=" + staffCnt + ", homePage="
+				+ homePage + ", postCode=" + postCode + ", introduction=" + introduction + ", welfare=" + welfare
+				+ ", compResNum=" + compResNum + ", openDate=" + openDate + ", updateDate=" + updateDate
+				+ ", request_no=" + request_no + ", hireCnt=" + hireCnt + ", hireCnt_M=" + hireCnt_M + ", hireCnt_F="
+				+ hireCnt_F + ", workPlace=" + workPlace + ", majorBiz=" + majorBiz + ", field=" + field + ", useLang="
+				+ useLang + ", useOS=" + useOS + ", useDB=" + useDB + ", useETC=" + useETC + ", requirement="
+				+ requirement + ", major=" + major + ", yearIncome=" + yearIncome + ", salaryCode=" + salaryCode
+				+ ", procedures=" + procedures + ", reqDocument=" + reqDocument + ", reqDetail=" + reqDetail
+				+ ", department=" + department + ", mgrName=" + mgrName + ", position=" + position + ", email=" + email
+				+ ", fax=" + fax + ", telephone=" + telephone + ", cellphone=" + cellphone + ", receiptDate="
+				+ receiptDate + ", isShow=" + isShow + ", employment=" + employment + ", career=" + career
+				+ ", careerYear=" + careerYear + ", contractType=" + contractType + ", internTerm=" + internTerm
+				+ ", employPosition=" + employPosition + ", advantage=" + advantage + ", isLicensePartnership="
+				+ isLicensePartnership + ", memo=" + memo + ", jobReqList=" + jobReqList + ", interViewerList="
+				+ interViewerList + "]";
 	}
 
 }

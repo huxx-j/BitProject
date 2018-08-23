@@ -110,7 +110,9 @@ tfoot > tr > th{
 	border-bottom: 1px solid #a2a5ab !important;
 }
 
-
+.trSelected {
+	background-color: #fffa90 !important;
+}
 
 /***********************************/
 /* form 관련 */
@@ -399,6 +401,7 @@ input[type=checkbox] {
 .w380{width: 380px !important;}
 .w400{width: 400px !important;}
 .w420{width: 420px !important;}
+.w430{width: 430px !important;}
 .w440{width: 440px !important;}
 .w460{width: 460px !important;}
 .w480{width: 480px !important;}

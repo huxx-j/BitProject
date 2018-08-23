@@ -320,7 +320,7 @@ $(document).ready(function() {
     console.log(curriculumCate_no);
 
     getCurriList(curriculumCate_no);
-    addUpdate_btnSet();
+    addUpdate_btnSet();z
 });
 
 
