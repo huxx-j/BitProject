@@ -28,7 +28,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect(request.getContextPath() + "/user/loginform?result=fail" );
             return false;
         } else {
-            if(authVo.getAuthCode()==3) {
+            if(authVo.getAuthCode()!=1) {
                 // 인증 처리
                 HttpSession session = request.getSession( true );
                 session.setAttribute( "authUser", authVo );
