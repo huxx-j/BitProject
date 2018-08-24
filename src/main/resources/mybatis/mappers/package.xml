@@ -106,7 +106,8 @@
         Goal,
         Content,
         Qualification,
-        TotalTime)
+        TotalTime,
+        DelStatus)
         values (
         #{PackageCate_no},
         #{UseStatus},
@@ -114,7 +115,8 @@
         #{Goal},
         #{Content},
         #{Qualification},
-        #{TotalTime})
+        #{TotalTime},
+        0)
         ]]>
     </insert>
 
@@ -192,7 +194,7 @@
         CateName=#{CateName},
         ParentCode=#{ParentCode}
         WHERE
-        PackageCate_no=#{pacageCate_no}
+        PackageCate_no=#{packageCate_no}
         ]]>
     </update>
 
@@ -258,4 +260,17 @@
         <!--Step_no=#{Step_no}-->
         <!--]]>-->
     <!--</update>-->
+    <update id="updatePackage" parameterType="PackageVo">
+        <![CDATA[
+        UPDATE Package set
+        PackageCate_no=#{PackageCate_no},
+        PackageName=#{PackageName},
+        Goal=#{Goal},
+        Content=#{Content},
+        Qualification=#{Qualification},
+        TotalTime=#{TotalTime}
+        WHERE
+        Package_no=#{Package_no}
+        ]]>
+    </update>
 </mapper>

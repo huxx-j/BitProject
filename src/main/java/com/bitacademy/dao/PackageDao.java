@@ -96,4 +96,8 @@ public class PackageDao {
     public void delPackage(int no) {
         sqlSession.update("package.delPackage",no);
     }
+
+    public void updatePackage(PackageVo packageVo) {
+        sqlSession.update("package.updatePackage",packageVo);
+    }
 }

@@ -25,7 +25,6 @@
             cateName : name,
             subjectCate_no :id,
             parentCode : pId
-
         }
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/updateCate",

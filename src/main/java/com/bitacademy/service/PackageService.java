@@ -100,6 +100,10 @@ public class PackageService {
 
     public void delPackage(int no) { packageDao.delPackage(no);
     }
+
+    public void updatePackage(PackageVo packageVo) {
+        packageDao.updatePackage(packageVo);
+    }
 //
 //    public void deleteSubInPack(int no) {
 //        packageDao.deleteSubInPack(no);

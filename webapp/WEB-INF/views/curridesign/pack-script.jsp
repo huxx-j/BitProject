@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
@@ -20,6 +19,7 @@
             }
         });
     }
+
     function UpdateCate(name,id,pId){
         console.log(name+id+pId);
         packageCateVo={
@@ -33,15 +33,14 @@
             contentType : "application/json",
             data : JSON.stringify(packageCateVo),
             dataType : "json",
-
-            success : function(PackageCateVo) {
-                console.log(PackageCateVo);
+            success : function() {
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
     }
+
     $("#packageadd").on("click", function() {
         var formData = $("#package").serialize();
         console.log("드가이씨1")
@@ -60,6 +59,36 @@
         });
     });
 
+    $(document).on("click","#update-packinfo",function() {
+        packageVo={
+            Package_no:$("#prevInfo").val(),
+            PackageCate_no: $("input[name='PackageCate_no']").val(),
+            UseStatus: $("select[name='UseStatus']").val(),
+            PackageName: $("input[name='PackageName']").val(),
+            Goal: $("textarea[name='Goal']").val(),
+            Content: $("textarea[name='Content']").val(),
+            Qualification: $("textarea[name='Qualification']").val(),
+            TotalTime:$("input[name='TotalTime']").val()
+        }
+        $("input[name=PackageNameInStep]").val(packageVo.PackageName);
+        $("input[name=TotalTimeInStep]").val(packageVo.TotalTime);
+        console.log(packageVo);
+        $.ajax({
+            url : "${pageContext.request.contextPath }/package/updatePackage",
+            type : "POST",
+            contentType : "application/json",
+            data : JSON.stringify(packageVo),
+            dataType : "json",
+            success : function(package_no) {
+                console.log(package_no);
+                $("input[name='steplist[0].Package_no']").val(package_no);
+                $("button[name='btnaddstep']").val(package_no);
+            }
+        });
+        //$("#packageTab a:last").tab('show');
+    });
+
+
     $(document).on("click","input[name='addpackage']",function() {
         packageVo={
             PackageCate_no: $("input[name='PackageCate_no']").val(),
@@ -76,8 +105,8 @@
         $.ajax({
             url : "${pageContext.request.contextPath }/package/addPackage",
             type : "POST",
-            //contentType : "application/json",
-            data : packageVo,
+            contentType : "application/json",
+            data : JSON.stringify(packageVo),
             dataType : "json",
             success : function(package_no) {
                 console.log(package_no);
@@ -135,7 +164,7 @@
                 $("#cancel").remove();
                 $("#stepadd").remove();
                 $("#btnAddPackage").remove();
-                str+="<input type='button' name='addpackage' id ='update-packinfo' value='수정' class='btn btn-primary' >";
+                str+="<input type='button' id ='update-packinfo' value='수정' class='btn btn-primary' >";
                 $("#primary").append(str);
                 str='<input type="button" name="del-package" value="삭제" class="btn btn-default btn-sub pull-right">';
                 $("#default").append(str);
@@ -190,24 +219,30 @@
 
                 if(PackageVo.referenceCnt>0){
                     cleanButton();
+
                 }
+                totaltime();
+
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
     }
-function cleanButton() {
-    //버튼없애기! 참조받는 패키지일시 발똥!
-    for(var i=0;i<100;i++) {
-        $("#btnAddstep").remove();
-        $("#btnAddsubject").remove();
-        $("#selectsub").remove();
-        $("#del-subject").remove();
-        $("#deletestep").remove();//attr("readonly",true);
-        $("input[name='del-package']").remove();
-        $("#time:eq("+i+")").attr("readonly",true);
+    function cleanButton() {
+        //버튼없애기! 참조받는 패키지일시 발똥!
+        for (var i = 0; i < 100; i++) {
+            $("#btnAddstep").remove();
+            $("#btnAddsubject").remove();
+            $("#selectsub").remove();
+            $("#del-subject").remove();
+            $("#deletestep").remove();//attr("readonly",true);
+            $("#stepadd").remove();
+            $("input[name='del-package']").remove();
+            $("#time:eq(" + i + ")").attr("readonly", true);
+        }
     }
+
     $(document).on("click","input[name='del-package']",function(){
         var no=$("#prevInfo").val();
         console.log(no);
@@ -223,10 +258,10 @@ function cleanButton() {
                 console.error(status + " : " + error);
             }
         });
-        //location.reload();
+        location.reload();
     });
         //$("#time").attr("style","border: none;");
-    }
+
     //깨끗히 지우는 함수
     function clean(){
         // $("input[name='steplist[0].StepName']").val(" ");
@@ -270,7 +305,7 @@ function cleanButton() {
         $("#primary").append(str);
         str='<input type="button" value="취소" name="cancel"id="cancel"  class="btn btn-default btn-sub pull-right">';
         $("#default").append(str);
-        str= '<input type="submit" id="submit" value="저장" id="stepadd" class="btn btn-primary">';
+        str= '<input type="submit" value="저장" id="stepadd" class="btn btn-primary">';
         $("#primary2").append(str);
         str='<input type="button" value="취소" name="cancel"id="cancel" class="btn btn-default btn-sub pull-right">';
         $("#default2").append(str);
@@ -341,17 +376,17 @@ function cleanButton() {
     });
 
     $(document).on("change",".time",function() {
-        console.log("발똥");
-        var time = 0;
-        var cost = $(this).val();
-        cost = cost.replace(/[^0-9]/g, "");
-        $(this).val(cost);
-        $(".time").each(function () {
-            if ($(this).val() != "") {
-                time += parseInt($(this).val());
-                console.log(time);
-            }
-        });
+            console.log("발똥");
+            var time = 0;
+            var cost = $(this).val();
+            cost = cost.replace(/[^0-9]/g, "");
+            $(this).val(cost);
+            $(".time").each(function () {
+                if ($(this).val() != "") {
+                    time += parseInt($(this).val());
+                    console.log(time);
+                }
+            });
         if ($("input[name='TotalTimeInStep']").val() < time) {
             alert("과목 시간의 합이 패키지 총 시간을 넘었습니다.");
             $(this).val("");
