@@ -47,10 +47,6 @@ public class ClassManagementService {
 
     //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
     public CurriculumVo getCurriInfo(int curriculum_no) {
-//        Map<String, Object> returnMap = new HashMap<>();
-//        returnMap.put("vo", classManagementDao.getCurriInfo(curriculum_no));
-//        returnMap.put("gisu", gisuDao.getGisu(curriculum_no));
-//        return returnMap;
         return classManagementDao.getCurriInfo(curriculum_no);
     }
 
@@ -172,7 +168,6 @@ public class ClassManagementService {
         if (file_no != 0) {
             projectVo.setFile_no(file_no);
         }
-        System.out.println(projectVo.toString());
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
 
         if (projectVo.getProject_no() == 0) {
@@ -237,23 +232,18 @@ public class ClassManagementService {
         SubInStepVo subInStepVo = new SubInStepVo();
         FileUpload fileUpload = new FileUpload();
         int file_no;
-        System.out.println("1");
         if (!multipartFile.getFile("testFile").isEmpty()) {
-            System.out.println("2");
             String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "test");
             MultipartFile file = multipartFile.getFile("testFile");
             FileVo fileVo = fileUpload.saveScoreFile(file, saveDir);
             if (Integer.parseInt(multipartFile.getParameter("testFileNo"))!=0){
-                System.out.println("3");
                 file_no = Integer.parseInt(multipartFile.getParameter("testFileNo"));
                 fileVo.setFile_no(file_no);
                 return scoreDao.updateScoreFile(fileVo);
             } else {
-                System.out.println("4");
                 file_no = scoreDao.addScoreFile(fileVo);
             }
         } else {
-            System.out.println("5");
             file_no = 0;
         }
 
@@ -261,10 +251,8 @@ public class ClassManagementService {
         subInStepVo.setSubInStep_no(testSisNo);
         subInStepVo.setFile_no(file_no);
         if (file_no!=0) {
-            System.out.println("6");
             return scoreDao.addTest(subInStepVo);
         } else {
-            System.out.println("7");
             return 1;
         }
     }

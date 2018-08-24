@@ -197,7 +197,7 @@
 	        dataType : "json",
 	//         async: false,
 	        success : function(curriAllVo) {
-	            $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
+	            $("#cateName").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
 	            $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
 	            $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
 	            $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
@@ -206,6 +206,8 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
+				
+				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
@@ -220,8 +222,16 @@
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
 				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
-				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
-				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
+				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
+
+				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
+				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
+				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
+				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
+				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
+				
+// 				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
 	        error : function(XHR, status, error) {
 	            console.error(status + " : " + error);
@@ -287,9 +297,8 @@
 
 	//커리큘럼 추가(저장버튼)
 	$("#addCurriBtn").on("click", function(){
-		console.log("addCurri IN")
+		console.log("addCurri IN");
 		var curriculumCate_no = $("#curriculumCate_no option:selected").val();
-// 		var curriculumCate_no = $("input[name=curriculumCate_no]:option").val();
 		var package_no = $("input[name=package_no]").val();
 // 		var packageName = $("input[name=packageName]").val();
 // 		var curriculum_no = $("input[name=curriculum_no]").val();
@@ -297,6 +306,33 @@
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
+		var testDateCnt = $(".testTimeDiv").index($(".testTimeDiv").last());
+		var testInfoList = []; //배열
+		var testInfoVo = {}; //객체 (new랑 같은 의미)
+		for(i = 0; i < testDateCnt+1; i++){
+			var testInfoVo = {	testDate : $("#testDate"+i).val(),
+								testTime : $("#testTime"+i).val()
+							 }; 
+// 			testDate[i] = $("#testDate"+i).val();
+// 			testTime[i] = $("#testTime"+i).val();
+// 			testDate.push($("td ").eq(i).val());
+			testInfoList[i] = testInfoVo;
+		}
+
+		 //실험중
+		 /* 
+		var testInfoList = [];
+		var testInfoVo = {};
+		for(var k = 0; k < 3; k++){
+			if($("#testDate"+k).val() != null){
+				var testInfoVo = {	testDate : $("#testDate"+k).val(),
+									testTime : $("#testTime"+k).val()
+								 };
+				testInfoList[k] = testInfoVo;
+			};
+		}
+		console.log(testInfoList);
+		 */
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -304,26 +340,41 @@
 		var managerInfo = $("input[name=managerInfo]").val();
 		var state = $("input[type=radio]:checked").val();
 		var gisuName = $("input[name=gisuName]").val();
-		console.log("package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
-					"curriName="+curriName,
-					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, 
-					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
-					"state="+state, "gisuName="+gisuName);
-		
+		curriculumVo = { 
+// 		 					cateName : $("#cateName option:selected").val(),
+							curriculumCate_no : $("#curriculumCate_no option:selected").val(),
+							package_no : $("input[name=package_no]").val(),
+							packageName : $("input[name=packageName]").val(),
+							curriculum_no : $("input[name=curriculum_no]").val(),
+							curriName : $("input[name=curriName]").val(),
+							curriNickname : $("input[name=curriNickname]").val(),
+							startDate : $("input[name=startDate]").val(),
+							endDate : $("input[name=endDate]").val(),
+							time : $("input[name=time]").val(),
+							maxCnt : $("input[name=maxCnt]").val(),
+							price : $("input[name=price]").val(),
+							support : $("input[name=support]").val(),
+							managerInfo : $("input[name=managerInfo]").val(),
+							state : $("input[type=radio]:checked").val(),
+							gisuName : $("input[name=gisuName]").val(),
+							testInfoList : testInfoList
+		 				};
 		alert("저장하시겠습니까?");
+		jQuery.ajaxSettings.traditional = true;
 		$.ajax({
 			url : "${pageContext.request.contextPath}/curri/addCurri",
 			type : "post",
-			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
-					curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
-					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
-				
-		 	dataType : "json",
+	        contentType: "application/json",
+			data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
+// 			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
+// 					curriName : curriName, curriNickname : curriNickname,
+// 					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
+// 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName, testInfoList : testInfoList},
+ 		 	dataType : "json",
 			success : function(result){
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
-						location.reload();
+// 						location.reload();
 					}else{
 						alert("다시 시도해주세요.");
 					}

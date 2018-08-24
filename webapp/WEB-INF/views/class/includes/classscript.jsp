@@ -214,7 +214,7 @@
                 data: JSON.stringify(report),
                 dataType: "json",
                 success: function (result) {
-                    console.log(result)
+                    // console.log(result)
                     if (result == 2) {
                         countUpdate++;
                     } else if (result == 1) {
@@ -249,7 +249,7 @@
         id ="t"+id.slice(5);
 
         if ($(this).is(":checked")) {
-            $("#"+id).val("김미정");
+            $("#"+id).val($("#auth-name").val());
         } else {
             $("#"+id).val("");
         }
@@ -888,7 +888,7 @@
             ondblClickRow: function () {
                 var rowId = $("#jqGrid").getGridParam("selrow");
                 var userNo = $("#jqGrid").getRowData(rowId).user_no; //선택한 줄의 User_no을 가져오는 코드
-                console.log(userNo);
+                // console.log(userNo);
                 alert("나중에 " + userNo + "")
             },
             viewrecords: true
@@ -904,7 +904,7 @@
                 data: {"curriNo": currival},
                 dataType: "json",
                 success: function (result) {
-                    console.log(result)
+                    // console.log(result)
                     for (var i = 0; i < result.length; i++)
                         $("#jqGrid").jqGrid('addRowData', i + 1, result[i]);
                 },

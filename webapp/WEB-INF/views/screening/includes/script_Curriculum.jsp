@@ -324,8 +324,8 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
-				$("input[name='testDate']").val(curriAllVo.curriculumVo.testDate),
-				$("#testTime").val(curriAllVo.curriculumVo.testTime).prop("selected", true),
+				
+				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
@@ -340,8 +340,51 @@
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
 				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
-				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
+				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
+				//전형일 초기화
+				$("#testDate0").val(""),
+				$("#testDate1").val(""),
+				$("#testDate2").val(""),
+				$("#testTime0").val("--:--"),
+				$("#testTime1").val("--:--"),
+				$("#testTime2").val("--:--")
+// 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", false),
+// 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", false),
+// 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", false),
+				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
+				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
+				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
+				
+				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
+				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
+				 
+				 
+				 //실험중
+				 /* 
+// 				var listLen = curriAllVo.curriculumVo.testInfoList.length;
+                console.log(curriAllVo.curriculumVo.testInfoList.length);
+				for(var j = 0; j < 3; j++){
+					for(var i = 0; i < curriAllVo.curriculumVo.testInfoList.length; i++){
+						if(curriAllVo.curriculumVo.testInfoList.length < j){
+							for(var k = 0; k < curriAllVo.curriculumVo.testInfoList.length+1; k++){
+								$("#testDate"+k).val("");
+								$("#testTime"+k).val("--:--");
+								$("#testDate"+k).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+								$("#testTime"+k).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+							};
+						}else{
+								$("#testDate"+j).val("");
+								$("#testTime"+j).val("--:--");
+
+								$("#testDate"+j).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+								$("#testTime"+j).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+							
+						};
+					};
+				}
+				 */
 // 				지원자 리스트 테이블 초기화
 //                 $("#renderApplicantList").find("tr:gt(0)").remove();
 //                 $("#renderApplicantList").remove(); //표 틀까지 다 지움
@@ -351,9 +394,9 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center'" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
-			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
+			    	str += "	<td>" + curriAllVo.applicantList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
 			 		str += "</tr>";
@@ -365,9 +408,9 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.studentList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center'" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
-			    	str += "	<td>" + curriAllVo.studentList[i].birthDate +"</td>";
+			    	str += "	<td>" + curriAllVo.studentList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.studentList[i].testResult +"</td>";
 			 		str += "</tr>";
@@ -380,165 +423,4 @@
         });
        
     }
-    
-    
-    
-    //커리큘럼 수정 버튼
-//     $("#editCurriBtn").unbind("click").bind("click", function(){
-	$("#editCurriBtn").on("click", function(){
-		console.log("editCurriBtn");
-// 		console.log(curriName);	
-		var cateName = $("#cateName option:selected").val();
-		var curriculumCate_no = $("input[name=curriculumCate_no]").val();
-		var package_no = $("input[name=package_no]").val();
-		var packageName = $("input[name=packageName]").val();
-		var curriculum_no = $("input[name=curriculum_no]").val();
-		var curriName = $("input[name=curriName]").val();
-		var curriNickname = $("input[name=curriNickname]").val();
-		var startDate = $("input[name=startDate]").val();
-		var endDate = $("input[name=endDate]").val();
-		var time = $("input[name=time]").val();
-		var maxCnt = $("input[name=maxCnt]").val();
-		var price = $("input[name=price]").val();
-		var support = $("input[name=support]").val();
-		var managerInfo = $("input[name=managerInfo]").val();
-		var state = $("input[type=radio]:checked").val();
-		var gisuName = $("input[name=gisuName]").val();
-		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no, 
-					"packageName="+packageName, "curriculum_no="+curriculum_no, "curriName="+curriName,
-					"curriNickname="+curriNickname, "startDate="+startDate, "endDate="+endDate, 
-					"time="+time, "maxCnt="+maxCnt, "price="+price, "support="+support, "managerInfo="+managerInfo,
-					"state="+state, "gisuName="+gisuName);
-/*  			 
-		curriVo = 	{ cateName : $("input[name='cateName']").val(),
-					 package_no : $("input[name='package_no']").val(),
-					 packageName : $("input[name='packageName']").val(),
-					 curriculum_no : $("input[name='curriculum_no']").val(),
-					 curriName : $("input[name='curriName']").val(),
-					 curriNickname : $("input[name='curriNickname']").val(),
-					 startDate : $("input[name='startDate']").val(),
-					 endDate : $("input[name='endDate']").val(),
-					 time : $("input[name='time']").val(),
-					 maxCnt : $("input[name='maxCnt']").val(),
-					 support : $("input[name='support']").val(),
-					 managerInfo : $("input[name='managerInfo']").val(),
-					 state : $("input[name='state']").val(),
-					 gisuName : $("input[name='gisuName']").val()};
-*/ 		
-		alert("수정하시겠습니까?");
-		$.ajax({
-			url : "${pageContext.request.contextPath}/curri/edit",
-			type : "post",
-//  			data : JSON.stringify(curriVo), //@RequestBody(ModelAttribute대신)
-		
- 			data : {cateName : cateName, curriculumCate_no : curriculumCate_no, package_no : package_no, packageName : packageName,
-					curriculum_no : curriculum_no, curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
-					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
-					
- 			dataType : "json",
- 			success : function(result){
-//	 				console.log("성공"+curriVo);
-					console.log(result);
-					if(result != 0){
-		 				alert("수정이 완료되었습니다");
-					}else{
-		 				alert("실패!");
-					}
- 			},
- 			error : function(XHR, status, error){
- 				console.error(status + " : " + error);
- 			}
-		}); //ajax		
-		location.reload();
-	});// onClick function
-   
-    
-    ////////////////////////////////////////////////////////////////////
-	 //패키지 보기 모달창
-    var settingModal = {
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            beforeClick: package
-        }
-    };
-    var zNodesModal= [
-    	  <c:forEach items="${packageCateList}" var="vo">
-          {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-          </c:forEach>
-          <c:forEach items="${packageList}" var="vo">
-          {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
-          </c:forEach>
-    ];
-    $(document).ready(function(){
-        $.fn.zTree.init($("#modalTree"), settingModal, zNodesModal);
-    });
-    
-    
-    function package(treeId, treeNode, clickFlag) {
-	    $("#modalSelectBtn").on("click", function(){
-	        var package_no=treeNode.web;
-	//         var locate=$("#locate").val();
-	//         var str ="";
-	        console.log(package_no);
-	        $.ajax({
-	            url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
-	            type : "POST",
-	            //contentType : "application/json",
-	            data : {"package_no": package_no},
-	            dataType : "json",
-	            success : function(packageVo) {
-	            	
-	            	$("input[name='packageName']").val(packageVo.packageName),
-	            	$("input[name='package_no']").val(packageVo.package_no)
-	            	$("#packageViewModal").modal("hide");
-	            },
-	            error : function(XHR, status, error) {
-	                console.error(status + " : " + error);
-	            }
-	        });
-	    });
-    }
-    
-    $("#modalCancelBtn").on("click", function(){
-        $("#packageViewModal").modal("close"); // 모달창 감추기
-    });
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //****************************************
-    //**			현재 탭 유지					**
-    //****************************************
-    if (location.hash) {
-        $('a[href=\'' + location.hash + '\']').tab('show');
-    }
-    var activeTab = localStorage.getItem('activeTab');
-    if (activeTab) {
-        $('a[href="' + activeTab + '"]').tab('show');
-    }
-
-    $('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
-        e.preventDefault()
-        var tab_name = this.getAttribute('href')
-        if (history.pushState) {
-            history.pushState(null, null, tab_name)
-        }
-        else {
-            location.hash = tab_name
-        }
-        localStorage.setItem('activeTab', tab_name)
-
-        $(this).tab('show');
-        return false;
-    });
-
-    $(window).on('popstate', function () {
-        var anchor = location.hash ||
-            $('a[data-toggle=\'tab\']').first().attr('href');
-        $('a[href=\'' + anchor + '\']').tab('show');
-    });
-    //****************************************
   </script>

@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.bitacademy.service.JobService;
-import com.bitacademy.vo.GisuTableVo;
-import com.bitacademy.vo.JobSearchVo;
-import com.bitacademy.vo.JobVo;
+import com.bitacademy.vo.InterViewerVo;
+import com.bitacademy.vo.JobCriteriaVo;
+import com.bitacademy.vo.JobReqVo;
+import com.bitacademy.vo.JobRequestVo;
+import com.bitacademy.vo.ResultGridVo;
 
 @Controller
 @RequestMapping("/jobrequest")
@@ -29,44 +32,77 @@ public class JobController {
 		return "graduate/jobrequest";
 	}
 
-	/* 기업정보 리스트 가져오기 */
+	/* 취업의뢰 리스트 가져오기 */
 	@ResponseBody
 	@RequestMapping(value = "/jobRequestList", method = RequestMethod.POST)
-	public List<JobVo> jobRequestList(@ModelAttribute JobSearchVo jobSearchVo) {
+	public ResultGridVo getJobRequestList(@ModelAttribute JobCriteriaVo jobCriteriaVo ) {
 
-		System.out.println(jobSearchVo.toString());
-		List<JobVo> jobRequestList = jobService.jobRequestList(jobSearchVo);
-		System.out.println(jobRequestList.toString());
-
-		return jobRequestList;
+		System.out.println(jobCriteriaVo.toString());
+		ResultGridVo resultGridVo = jobService.getJobRequestList(jobCriteriaVo);
+		/*System.out.println(resultGridVo.toString());*/
+		System.out.println(resultGridVo.getRows().size());
+		return resultGridVo;
 	}
 
 
+	/* 구인업체 한번클릭했을때 */
+	/*면접 지원자 리스트*/
+	@ResponseBody
+	@RequestMapping(value = "/getInterviewList", method = RequestMethod.POST)
+	public List<InterViewerVo> getInterviewList(@RequestParam int request_no) {
+		System.out.println(request_no);
+		List<InterViewerVo> interViewerList = jobService.getInterviewList(request_no);
+		System.out.println(interViewerList.toString());
+
+		return interViewerList;
+	}
+	
+	
 	/* 두번클릭했을때 팝업 */
-	/*취업의뢰기업 상세정보 가져오기*/
-	@RequestMapping("/jobRequestDetail")
-	public String popJobRequestDetail(@RequestParam("company_no")int company_no, Model model) {
-		
-		JobVo companyVo = jobService.getCompany(company_no);
-		List<JobVo> jobRequestList = jobService.getJobRequestListByComNo(company_no);
-		System.out.println("test: " + jobRequestList.toString());
-		
-		model.addAttribute("companyVo", companyVo);
-		model.addAttribute("jobRequestList", jobRequestList);
-		
+	/*취업의뢰기업 팝업 데이타는 로딩후 ajax로*/
+	@RequestMapping("/jobRequestPopup")
+	public String popJobRequestDetail(@RequestParam int company_no, Model model) {
+		List<JobReqVo> jobReqList = jobService.getJobReqList(company_no);
+		model.addAttribute("jobReqList", jobReqList);
 		return "graduate/pop_jobRequestDetail";
 	}
-
+	
 
 	/*특정기업 취업의뢰 상세*/
 	@ResponseBody
-	@RequestMapping(value = "/jobRequest", method = RequestMethod.POST)
-	public JobVo getJobRequest(@RequestParam("request_no") int request_no) {
+	@RequestMapping(value = "/getJobRequest", method = RequestMethod.POST)
+	public JobRequestVo getJobRequest(@RequestParam("request_no") int request_no) {
 
-		JobVo jobVo = jobService.getJobRequest(request_no);
-		System.out.println("jobVo: " + jobVo.toString());
-		return jobVo;
+		JobRequestVo jobRequestVo = jobService.getJobRequest(request_no);
+		System.out.println("jobRequestVo: " + jobRequestVo.toString());
+		return jobRequestVo;
 	}
+	
+	
+	
+	
+	
+	
+	
+	/*@RequestMapping("/jobRequestDetail")
+	public String popJobRequestDetail(@RequestParam("request_no") int request_no, Model model) {
+		
+		//취업의뢰 상세정보(회사정보+구직정보 + 구직리스트(코드, 날자) 를 가져온다
+		JobRequestVo jobRequestVo = jobService.getJobRequest(request_no);
+		
+		model.addAttribute("jobRequestVo", jobRequestVo);
+		
+		return "graduate/pop_jobRequestDetail";
+	}*/
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	
 	
@@ -83,30 +119,20 @@ public class JobController {
 	
 	
 	
-	/* 구인업체 한번클릭했을때 */
-	/*취업지원자 리스트*/
-	@ResponseBody
-	@RequestMapping(value = "/getInterviewList", method = RequestMethod.POST)
-	public List<JobVo> getInterviewList(@RequestParam int request_no) {
-		System.out.println(request_no);
-		List<JobVo> searchList = jobService.getInterviewList(request_no);
-		System.out.println(searchList.toString());
 
-		return searchList;
-	}
 		
 	
 	/* modal */
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value = "/choice", method = RequestMethod.POST)
-	public List<GisuTableVo> getGisu(@ModelAttribute GisuTableVo gisuTableVo) {
+	public List<InterViewerVo> getGisu(@ModelAttribute InterViewerVo gisuTableVo) {
 
 		System.out.println(gisuTableVo.toString());
-		List<GisuTableVo> getGisu = jobService.getGisu(gisuTableVo);
+		List<InterViewerVo> getGisu = jobService.getGisu(gisuTableVo);
 		System.out.println(getGisu.toString());
 
 		return getGisu;
-	}
+	}*/
 	
 	
 	/* 취업의뢰리스트 한번클릭했을때 */

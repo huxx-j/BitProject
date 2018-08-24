@@ -25,6 +25,7 @@ public class ApplicantVo {
 	private String curriName;
 	private String gender;
 	private int gisuFlag;
+	private String studResNum;
 	public ApplicantVo() {
 		super();
 	}
@@ -32,7 +33,7 @@ public class ApplicantVo {
 			String applyDay, String applyType, String testDay, String testLang, int testScore, String testResult,
 			String comment, String deposit, int depositAmount, String cardPayDate, int cardPayAmount,
 			String cardPayState, String depositDate, int totalPay, String note, String curriName, String gender,
-			int gisuFlag) {
+			int gisuFlag, String studResNum) {
 		super();
 		this.applicant_no = applicant_no;
 		this.user_no = user_no;
@@ -57,6 +58,7 @@ public class ApplicantVo {
 		this.curriName = curriName;
 		this.gender = gender;
 		this.gisuFlag = gisuFlag;
+		this.studResNum = studResNum;
 	}
 	public int getApplicant_no() {
 		return applicant_no;
@@ -196,6 +198,12 @@ public class ApplicantVo {
 	public void setGisuFlag(int gisuFlag) {
 		this.gisuFlag = gisuFlag;
 	}
+	public String getStudResNum() {
+		return studResNum;
+	}
+	public void setStudResNum(String studResNum) {
+		this.studResNum = studResNum;
+	}
 	@Override
 	public String toString() {
 		return "ApplicantVo [applicant_no=" + applicant_no + ", user_no=" + user_no + ", curriculum_no=" + curriculum_no
@@ -204,8 +212,10 @@ public class ApplicantVo {
 				+ ", testResult=" + testResult + ", comment=" + comment + ", deposit=" + deposit + ", depositAmount="
 				+ depositAmount + ", cardPayDate=" + cardPayDate + ", cardPayAmount=" + cardPayAmount
 				+ ", cardPayState=" + cardPayState + ", depositDate=" + depositDate + ", totalPay=" + totalPay
-				+ ", note=" + note + ", curriName=" + curriName + ", gender=" + gender + ", gisuFlag=" + gisuFlag + "]";
+				+ ", note=" + note + ", curriName=" + curriName + ", gender=" + gender + ", gisuFlag=" + gisuFlag
+				+ ", studResNum=" + studResNum + "]";
 	}
+
 	
 	
 }
