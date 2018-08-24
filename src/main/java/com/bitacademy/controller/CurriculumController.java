@@ -78,7 +78,9 @@ public class CurriculumController {
 	@RequestMapping(value = "/{curriculum_no}")
 	public CurriAllVo viewCurriculum(@PathVariable String curriculum_no) {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
+		System.out.println("curriculumVo"+curriculumVo.toString());
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
+		System.out.println("APPLICANTLIST"+applicantList.toString());
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
 		return curriAllVo;

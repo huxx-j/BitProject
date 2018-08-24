@@ -10,7 +10,8 @@
             //contentType : "application/json",
             data : {"id": id},
             dataType : "json",
-            success : function() {
+            success : function(c) {
+                $("input[name='CateName']").val("카테고리를 선택");
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
@@ -24,7 +25,6 @@
             cateName : name,
             subjectCate_no :id,
             parentCode : pId
-
         }
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/updateCate",
@@ -93,7 +93,7 @@
         var no=$("#prevInfo").val();
         selectsubject(no);
     });
-
+    //카테고리 클릭시 발동되는 함수
     function selectSubjectCate(no){
         $.ajax({
             url : "${pageContext.request.contextPath }/subject/getSubjectCate",
@@ -105,7 +105,6 @@
                 var str=" ";
                 console.log(SubjectCateVo);
                 CaseB();
-
                 $("#prevInfo").val(SubjectCateVo.subjectCate_no),
                     $("input[name='CateName']").val(SubjectCateVo.cateName)
             },

@@ -197,7 +197,7 @@
 	        dataType : "json",
 	//         async: false,
 	        success : function(curriAllVo) {
-	            $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
+	            $("#cateName").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
 	            $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
 	            $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
 	            $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
@@ -229,9 +229,9 @@
 				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
-				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true),
+				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
 				
-				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
+// 				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
 	        error : function(XHR, status, error) {
 	            console.error(status + " : " + error);
@@ -306,12 +306,9 @@
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
-		
 		var testDateCnt = $(".testTimeDiv").index($(".testTimeDiv").last());
 		var testInfoList = []; //배열
 		var testInfoVo = {}; //객체 (new랑 같은 의미)
-// 		var testDate = [];
-// 		var testTime = [];
 		for(i = 0; i < testDateCnt+1; i++){
 			var testInfoVo = {	testDate : $("#testDate"+i).val(),
 								testTime : $("#testTime"+i).val()
@@ -321,6 +318,21 @@
 // 			testDate.push($("td ").eq(i).val());
 			testInfoList[i] = testInfoVo;
 		}
+
+		 //실험중
+		 /* 
+		var testInfoList = [];
+		var testInfoVo = {};
+		for(var k = 0; k < 3; k++){
+			if($("#testDate"+k).val() != null){
+				var testInfoVo = {	testDate : $("#testDate"+k).val(),
+									testTime : $("#testTime"+k).val()
+								 };
+				testInfoList[k] = testInfoVo;
+			};
+		}
+		console.log(testInfoList);
+		 */
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -362,7 +374,7 @@
 			success : function(result){
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
-						location.reload();
+// 						location.reload();
 					}else{
 						alert("다시 시도해주세요.");
 					}

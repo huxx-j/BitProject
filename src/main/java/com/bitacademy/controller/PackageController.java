@@ -33,7 +33,7 @@ public class PackageController {
     //카테고리 수정을 위한 함수 (제거, 드래그, 이름수정)
     @ResponseBody
     @RequestMapping(value = "/updateCate", method = {RequestMethod.POST,RequestMethod.GET})
-    public void updateCate(@RequestParam("packageCateVo") PackageCateVo packageCateVo) {
+    public void updateCate(@RequestBody PackageCateVo packageCateVo) {
         packageService.UpdateCate(packageCateVo);
     }
     @ResponseBody
@@ -53,6 +53,7 @@ public class PackageController {
         System.out.println(packageVo);
         return packageVo;
 }
+    @ResponseBody
     @RequestMapping(value = "/addPackageCate", method = {RequestMethod.POST,RequestMethod.GET})
     public int addPackageCate(@RequestParam("PackageCate_no") int packageCate_no,@RequestParam("CateName") String CateName) {
         PackageCateVo packageCateVo=new PackageCateVo();
@@ -78,6 +79,7 @@ public class PackageController {
     public void delPackage(@RequestParam("no") int no ){
         packageService.delPackage(no);
     }
+
     @ResponseBody
     @RequestMapping(value="/addPackage" , method = {RequestMethod.POST,RequestMethod.GET})
     public int addPackage(@ModelAttribute PackageVo packageVo , Model model){
@@ -110,7 +112,13 @@ public class PackageController {
         PackageCateVo packageCateVo = packageService.getPackCate(no);
         return packageCateVo;
     }
-
+    //패키지 정보만 수정할시에 발동하는 함수 (단계 말고 첫번째 탭)
+    @ResponseBody
+    @RequestMapping(value = "/updatePackage", method = {RequestMethod.POST,RequestMethod.GET})
+    public int updatePackage(@RequestBody PackageVo packageVo) {
+        packageService.updatePackage(packageVo);
+        return 1;
+    }
 //    @ResponseBody
 //    @RequestMapping(value = "/deleteSubInPack", method = {RequestMethod.POST,RequestMethod.GET})
 //    public void deleteSubInPack(@RequestParam("no") int no) {

@@ -348,11 +348,10 @@
 				$("#testDate2").val(""),
 				$("#testTime0").val("--:--"),
 				$("#testTime1").val("--:--"),
-				$("#testTime2").val("--:--"),
+				$("#testTime2").val("--:--")
 // 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", false),
 // 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", false),
 // 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", false),
-
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
 				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
 				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
@@ -360,16 +359,29 @@
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
-				/* 
+				 
+				 
+				 //실험중
+				 /* 
+// 				var listLen = curriAllVo.curriculumVo.testInfoList.length;
+                console.log(curriAllVo.curriculumVo.testInfoList.length);
 				for(var j = 0; j < 3; j++){
 					for(var i = 0; i < curriAllVo.curriculumVo.testInfoList.length; i++){
-						$("#testDate"+j).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
-// 						$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
-// 						$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
-						
-						$("#testTime"+j).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
-// 						$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
-// 						$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
+						if(curriAllVo.curriculumVo.testInfoList.length < j){
+							for(var k = 0; k < curriAllVo.curriculumVo.testInfoList.length+1; k++){
+								$("#testDate"+k).val("");
+								$("#testTime"+k).val("--:--");
+								$("#testDate"+k).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+								$("#testTime"+k).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+							};
+						}else{
+								$("#testDate"+j).val("");
+								$("#testTime"+j).val("--:--");
+
+								$("#testDate"+j).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+								$("#testTime"+j).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+							
+						};
 					};
 				}
 				 */
@@ -384,7 +396,7 @@
 			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
 			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center'" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
-			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
+			    	str += "	<td>" + curriAllVo.applicantList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
 			 		str += "</tr>";
@@ -398,7 +410,7 @@
 			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
 			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center'" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
-			    	str += "	<td>" + curriAllVo.studentList[i].birthDate +"</td>";
+			    	str += "	<td>" + curriAllVo.studentList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.studentList[i].testResult +"</td>";
 			 		str += "</tr>";

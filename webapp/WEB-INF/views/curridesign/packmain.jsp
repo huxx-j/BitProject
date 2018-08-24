@@ -333,7 +333,7 @@
 					<tr>
 						<th>위치</th>
 						<td>
-							<select name='subcate' id="PackageCate_no" class='form-control input-sm'>
+							<select name='PackageCate_no' id="PackageCate_no" class='form-control input-sm'>
 								<c:forEach items="${packcatelist}" var="vo">
 									<option  value="${vo.packageCate_no}"> ${vo.cateName} </option>
 								</c:forEach>
