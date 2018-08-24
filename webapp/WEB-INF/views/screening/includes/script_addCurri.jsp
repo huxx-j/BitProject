@@ -13,6 +13,7 @@
 				next:dropNext
 			},
 			enable:true
+			
 		},
 	    data: {
 	        simpleData: {
@@ -32,11 +33,16 @@
 	
 	var zNodes= [
 		  <c:forEach items="${cateList}" var="vo">
-	      {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-	      </c:forEach>
-	      <c:forEach items="${list}" var="vo">
-	      {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
-	      </c:forEach>
+    	  <c:if test="${vo.curriculumCate_no eq 10000}">
+          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+          </c:if>
+          <c:if test="${vo.curriculumCate_no ne 10000}">
+          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+          </c:if>
+          </c:forEach>
+          <c:forEach items="${list}" var="vo">
+          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}, icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
+          </c:forEach>
 	];
 	
 	
@@ -255,11 +261,16 @@
 	};
 	var zNodesModal2= [
 		 <c:forEach items="${packageCateList}" var="vo">
-         {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-         </c:forEach>
-         <c:forEach items="${packageList}" var="vo">
-         {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
-         </c:forEach>
+	        <c:if test="${vo.packageCate_no eq 10000}">
+	        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+	        </c:if>
+	        <c:if test="${vo.packageCate_no ne 10000}">
+	        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+	        </c:if>
+	        </c:forEach>
+	        <c:forEach items="${packageList}" var="vo">
+	        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}",icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
+	        </c:forEach>
 	];
 	$(document).ready(function(){
 	   $.fn.zTree.init($("#modalTree2"), settingModal2, zNodesModal2);
@@ -374,7 +385,9 @@
 			success : function(result){
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
-// 						location.reload();
+						location.reload();
+						treeObj.refresh();
+
 					}else{
 						alert("다시 시도해주세요.");
 					}
@@ -383,6 +396,7 @@
  				console.error(status + " : " + error);
  			}
 		});//ajax
+
 	});//addCurriBtn onClick
 
 	

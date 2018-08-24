@@ -92,6 +92,8 @@
 				}
 		}); //ajax		
 			location.reload();
+			treeObj.refresh();
+
 	});// onClick function
 	
 	
@@ -108,12 +110,17 @@
 	    }
 	};
 	var zNodesModal= [
-		  <c:forEach items="${packageCateList}" var="vo">
-	      {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-	      </c:forEach>
-	      <c:forEach items="${packageList}" var="vo">
-	      {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}"},
-	      </c:forEach>
+	      <c:forEach items="${packageCateList}" var="vo">
+	        <c:if test="${vo.packageCate_no eq 10000}">
+	        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+	        </c:if>
+	        <c:if test="${vo.packageCate_no ne 10000}">
+	        {id:${vo.packageCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.packageCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png" ,iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+	        </c:if>
+	        </c:forEach>
+	        <c:forEach items="${packageList}" var="vo">
+	        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}",icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
+	        </c:forEach>
 	];
 	$(document).ready(function(){
 	    $.fn.zTree.init($("#modalTree"), settingModal, zNodesModal);

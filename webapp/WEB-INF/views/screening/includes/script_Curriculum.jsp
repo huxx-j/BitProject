@@ -47,10 +47,15 @@
 
     var zNodes= [
     	  <c:forEach items="${cateList}" var="vo">
-          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
+    	  <c:if test="${vo.curriculumCate_no eq 10000}">
+          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+          </c:if>
+          <c:if test="${vo.curriculumCate_no ne 10000}">
+          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+          </c:if>
           </c:forEach>
           <c:forEach items="${list}" var="vo">
-          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
+          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}, icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
           </c:forEach>
     ];
 

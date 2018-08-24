@@ -59,8 +59,7 @@
 									
 									<div class = "bordered">
 										<div class = "cate-toolbox-top clearfix">
-											<button type = "button" id = "addcate" class = "btn btn-default btn-cate pull-right">추가</button>
-											<button type = "button" class = "btn btn-default btn-cate pull-right">편집</button>
+											<button type="button" id="addCateBtn" class="btn btn-default btn-h25 pull-right">카테고리 추가</button>
 										</div><!-- /.cate-toolbox -->
 										
 										<div class = "scroll">
