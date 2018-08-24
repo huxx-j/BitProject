@@ -83,6 +83,11 @@
 					console.log(result);
 					if(result != 0){
 		 				alert("수정이 완료되었습니다");
+   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+		 				treeObj.refresh();
+						treeObj.refresh();
+						location.reload();
 					}else{
 		 				alert("실패!");
 					}
@@ -91,8 +96,6 @@
 					console.error(status + " : " + error);
 				}
 		}); //ajax		
-			location.reload();
-			treeObj.refresh();
 
 	});// onClick function
 	

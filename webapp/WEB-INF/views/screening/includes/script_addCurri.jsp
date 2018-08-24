@@ -385,8 +385,10 @@
 			success : function(result){
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
-						location.reload();
+   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
 						treeObj.refresh();
+						location.reload();
 
 					}else{
 						alert("다시 시도해주세요.");
