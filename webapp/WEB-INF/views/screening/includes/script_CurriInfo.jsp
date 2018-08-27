@@ -177,6 +177,7 @@
 			dataType : "json",
 			data : {"curriculumCate_no" : curriculumCate_no, "cateName" : cateName},
 			success : function(){
+				location.reload();
 				
 			},
 			error : function(XHR, status, error){
@@ -184,7 +185,6 @@
 			}
 			
 		});
-		location.reload();
 		$("#addCateModal").modal("close");
 	});
 	

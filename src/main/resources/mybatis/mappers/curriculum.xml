@@ -30,13 +30,24 @@
  	<!-- 교육과정 카테고리 추가 -->
  	<insert id="addCurriCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">
  		<![CDATA[
-			INSERT INTO CurriculumCate (parentCode, cateName)
+			INSERT INTO CurriculumCate (parentCode, cateName, delStatus)
 			VALUES (
 					#{curriculumCate_no},
-					#{cateName}
+					#{cateName},
+					0
 					)
  		]]>
  	</insert>
+ 	
+ 	<!-- 교육과정 카테고리 삭제 -->
+ 	<delete id = "deleteCate" parameterType = "int">
+ 		<![CDATA[
+ 			DELETE FROM CurriculumCate
+ 			WHERE		curriculumCate_no = #{curriculumCate_no}
+ 		
+ 		]]>
+ 	
+ 	</delete>
  	
  	<!-- 교육과정 카테고리 수정 -->
  	<update id="updateCate" parameterType = "com.bitacademy.vo.CurriculumCateVo">

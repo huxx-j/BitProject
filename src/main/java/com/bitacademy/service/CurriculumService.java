@@ -27,7 +27,7 @@ public class CurriculumService {
 	public CurriculumVo viewCurriculum(String curriculum_no) {
 		CurriculumVo curriculumVo = curriDao.viewCurriculum(curriculum_no);
 		curriculumVo.setTestInfoList(curriDao.viewTestInfo(curriculum_no));
-		System.out.println("CURRISERVICE VIEWCURRICULUM"+curriculumVo.getTestInfoList());
+		System.out.println("CURRISERVICE VIEWCURRICULUM" + curriculumVo.getTestInfoList());
 		return curriculumVo;
 	}
 
@@ -57,7 +57,7 @@ public class CurriculumService {
 		}
 		if (insSuccessCnt == listSize) {
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
@@ -72,6 +72,11 @@ public class CurriculumService {
 		return curriDao.updateCate(curriCateVo);
 	}
 
+	// 교육과정 카테고리 삭제
+	public int deleteCate(int curriculumCate_no) {
+		return curriDao.deleteCate(curriculumCate_no);
+	}
+
 	// 트랜잭션
 	@Transactional
 	// 교육과정 추가
@@ -79,7 +84,7 @@ public class CurriculumService {
 		// 커리큘럼 정보 insert 후 전형일 추가하기 위해 curriculum_no값 받아오기(selectKey)
 		int curriculum_no = curriDao.addCurri(curriVo);
 		int listSize = curriVo.getTestInfoList().size();
-		System.out.println("ADD CURRI SERVICE LISTSIZE"+listSize);
+		System.out.println("ADD CURRI SERVICE LISTSIZE" + listSize);
 		int successCnt = 0;
 		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
 		for (int i = 0; i < listSize; i++) {

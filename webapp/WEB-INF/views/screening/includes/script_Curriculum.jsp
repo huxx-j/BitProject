@@ -14,49 +14,49 @@
 	//교육과정 카테고리 탭
     var setting = {
 		edit:{
-			drag:{
-				autoExpandTrigger:true,
-				prev:dropPrev,
-				inner:dropInner,
-				next:dropNext
+				drag:{
+						autoExpandTrigger : true,
+						prev : dropPrev,
+						inner : dropInner,
+						next : dropNext
 			},
-			enable:true,
-			editNameSelectAll: true,
-            showRemoveBtn: true, //showRemoveBtn
-            showRenameBtn: true  //showRenameBtn
+			enable : true,
+			editNameSelectAll : true,
+            showRemoveBtn : showRemoveBtn, //showRemoveBtn
+            showRenameBtn : showRenameBtn  //showRenameBtn
 		},
         data: {
-            simpleData: {
-                enable: true,
-            }
-        },
+				simpleData: {
+				enable: true
+            	}
+       	},
         callback: {
-            beforeClick: curriculum,  // 마우스 클릭 콜백함수 지정
-            beforeDrag: beforeDrag,
-            beforeEditName: beforeEditName,
-            beforeRemove: beforeRemove,
-            beforeRename: beforeRename,
-            onRename:onRename,
-            onRemove: onRemove,
-            beforeDragOpen: beforeDragOpen,
-            onDrag: onDrag,
-            onDrop: onDrop,
-            onExpand: onExpand
-        },
+		            beforeClick : curriculum,  // 마우스 클릭 콜백함수 지정
+		            beforeDrag : beforeDrag,
+		            beforeEditName : beforeEditName,
+		            beforeRemove : beforeRemove,
+		            beforeRename : beforeRename,
+		            onRename : onRename,
+		            onRemove : onRemove,
+		            beforeDragOpen : beforeDragOpen,
+		            onDrag : onDrag,
+		            onDrop : onDrop,
+		            onExpand : onExpand
+       },
     };
 
     var zNodes= [
-    	  <c:forEach items="${cateList}" var="vo">
-    	  <c:if test="${vo.curriculumCate_no eq 10000}">
-          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
-          </c:if>
-          <c:if test="${vo.curriculumCate_no ne 10000}">
-          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
-          </c:if>
-          </c:forEach>
-          <c:forEach items="${list}" var="vo">
-          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}, icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
-          </c:forEach>
+		    	  <c:forEach items="${cateList}" var="vo">
+		    	  <c:if test="${vo.curriculumCate_no eq 10000}">
+		          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+		          </c:if>
+		          <c:if test="${vo.curriculumCate_no ne 10000}">
+		          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+		          </c:if>
+		          </c:forEach>
+		          <c:forEach items="${list}" var="vo">
+		          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}, icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
+		          </c:forEach>
     ];
 
     <!--삭제 수정용-->
@@ -83,10 +83,6 @@
         zTree.selectNode(treeNode);
         return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
     }
-    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
-    function onRemove(e, treeId, treeNode) {
-        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
-    }
     <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
     function beforeRename(treeId, treeNode, newName, isCancel) {
         className = (className === "dark" ? "":"dark");
@@ -103,19 +99,27 @@
         }
         return true;
     }
+    
     <!--삭제 수정용(수정 후 데이터 출력)-->
     function onRename(e, treeId, treeNode, isCancel) {
         console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId + (isCancel ? "</span>":""));
         updateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
+    
     <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
-    // function showRemoveBtn(treeId, treeNode) {
-    //     return !treeNode.isFirstNode;
-    // }
+    function showRemoveBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<=10000){ show=false;}
+        return show;
+    }
+    
     <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
-    // function showRenameBtn(treeId, treeNode) {
-    //     return !treeNode.isLastNode;
-    // }
+    function showRenameBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<10000){ show=false;}
+        return show;
+    }
+    
     <!--삭제 수정용-->
     function showLog(str) {
         if (!log) log = $("#log");
@@ -124,6 +128,7 @@
             log.get(0).removeChild(log.children("li")[0]);
         }
     }
+    
     <!--삭제 수정용-->
     function getTime() {
         var now= new Date(),
@@ -133,6 +138,7 @@
             ms=now.getMilliseconds();
         return (h+":"+m+":"+s+ " " +ms);
     }
+    
     <!--삭제 수정용-->
     var newCount = 1;
     function addHoverDom(treeId, treeNode) {
@@ -149,15 +155,18 @@
             return false;
         });
     };
+    
     <!--삭제 수정용-->
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_"+treeNode.tId).unbind().remove();
     };
+    
     <!--삭제 수정용-->
     function selectAll() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
     }
+    
     <!--드래그용 함수-->
     function dropPrev(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
@@ -174,6 +183,7 @@
 	    }
         return true;
     }
+    
     <!--드래그용 함수-->
     function dropInner(treeId, nodes, targetNode) {
         if (targetNode && targetNode.dropInner === false) {
@@ -189,6 +199,7 @@
         }
         return true;
     }
+    
     <!--드래그용 함수-->
     function dropNext(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
@@ -237,18 +248,21 @@
         showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
         return true;
     }
-
-    <!--드래그용 함수-->
+    
+    <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
     function onDrag(event, treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes[0].id+"/pId:"+treeNodes.pId+" nodes." );
+        UpdateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
     }
-
-    <!--드래그용 함수-->
+    
+    <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
     function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        console.log("[ "+getTime()+" onDrop ]; moveType:" + moveType + "/ID:" + treeNodes[0].id+" /pId:" + treeNodes[0].pId);
+        updateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
+        console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
 
     <!--드래그용 함수-->
@@ -258,25 +272,6 @@
             showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
         }
     }
-
-    <!--드래그용 함수-->
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-
-    <!--드래그용 함수-->
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
     
     <!--드래그용 함수-->
     function setTrigger() {
@@ -284,23 +279,41 @@
         zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
     }
 
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $("#callbackTrigger").bind("change", {}, setTrigger);
+        $("#selectAll").bind("click", selectAll);
+//         fristStepDraw();
+    });
+   
+    
+    
+    
+    
+    
+    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
+    function onRemove(e, treeId, treeNode) {
+        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        deleteCate(treeNode.id);
+    }
 
+    
+    ///////////////////////////////////////////////////////////////////////
 	
 	function updateCate(name, id, pId){
 		console.log(name+id+pId);
-// 		curriculumCateVo = {cateName : name, curriculumCate_no : id, parentCode : pId}
+		curriculumCateVo = {cateName : name, curriculumCate_no : id, parentCode : pId}
 		$.ajax({
 			url : "${pageContext.request.contextPath}/curri/updateCate",
 			type : "post",
 			contentType : "application/json",
-			data : {cateName : name, curriculumCate_no : id, parentCode : pId},
+			data : JSON.stringify(curriculumCateVo),
 			dataType : "json",
 			success : function(result){
 				if(result == 1){
-					alert("수정이 완료되었습니다");
+					alert("수정이 완료되었습니다.");
 					location.reload();
 				}
-				console.log();
 			},
 			error : function(XHR, status, error){
 				console.error(status + " : " + error);
@@ -308,6 +321,26 @@
 		});
 	}
 	
+    function deleteCate(id){
+    	console.log(id);
+    	
+    	$.ajax({
+    		url : "${pageContext.request.contextPath}/curri/deleteCate",
+    		type : "post",
+    		data : {curriculumCate_no : id},
+    		dataType : "json",
+    		success : function(result){
+    			if(result == 1){
+    				alert("삭제가 완료되었습니다.");
+    				location.reload();
+    			}
+    		},
+    		error : function(XHR, status, error){
+    			console.error(status + " : " + error);
+    		}
+    		
+    	});//ajax
+    }//function
 	
     //교육과정 클릭 시 정보 뿌려줌
     function curriculum(treeId, treeNode, clickFlag) {
@@ -399,7 +432,7 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
-			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center'" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.applicantList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
@@ -413,7 +446,7 @@
 				var str = ""; //append 하려면 for문 안에 넣어야함.
 				for (var i = 0; i < curriAllVo.studentList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
-			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center'" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
 			    	str += "	<td>" + curriAllVo.studentList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";

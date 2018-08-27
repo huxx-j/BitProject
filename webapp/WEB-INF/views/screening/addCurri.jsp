@@ -129,7 +129,7 @@
 																					<td>
 																						<input type = "hidden" name = "package_no"  style = "border:none;">
 																						<input type = "text" class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
-																						<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal2">패키지보기</button>
+																						<button type = "button" class = "btn btn-default btn-sm pull-right " data-toggle = "modal" data-target = "#packageViewModal2">패키지보기</button>
 																					</td>
 																				</tr>
 																			</tbody>
@@ -393,6 +393,45 @@
 
 
 
+<!-- 교육과정 카테고리 추가 버튼 모달창 -->
+<div class = "modal fade" id = "addCateModal" >
+	<div class = " modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class = "modal-title" id = "addCateModalLabel">패키지선택</h4>
+			</div><!-- /.modal-header -->
+			<div class = "modal-body">
+				<table class = "table table-condensed">
+					<tr>
+						<th>위치</th>
+						<td>
+							<select name = "curriCate" id = "curriculumCate_no" class = "form-control">
+								<c:forEach items = "${workType }" var = "workType">
+									<option id = "${workType.curriculumCate_no }" name = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>카테고리명</th>
+						<td>
+							<input type = "text" class = "form-control" name = "cateName" value = "" id = "cateName">
+						</td>
+					</tr>	
+				</table>
+			</div><!-- /.modal-body -->
+			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-primary " id = "addCateSaveBtn" >저장</button>
+				<button type = "button" class = "btn btn-default pull-right" id = "addCateCancelBtn" data-dismiss = "modal" >취소</button>
+			</div><!-- /.modal-footer -->
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal-fade -->
+<!-- /.모달 끝 --> 
+
+
+<!-- /.교육과정 카테고리 추가 버튼 모달창 -->
 
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	<div class="control-sidebar-bg"></div>

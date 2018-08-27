@@ -842,6 +842,7 @@
             log.get(0).removeChild(log.children("li")[0]);
         }
     }
+    
     <!--삭제 수정용-->
     function getTime() {
         var now= new Date(),
@@ -978,23 +979,7 @@
             console.log("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
         }
     }
-    <!--드래그용 함수-->
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-    <!--드래그용 함수-->
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
+
     <!--드래그용 함수-->
     function setTrigger() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");

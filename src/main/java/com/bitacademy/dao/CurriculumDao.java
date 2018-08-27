@@ -47,6 +47,11 @@ public class CurriculumDao {
 		return sqlSession.update("curriculum.updateCate", curriCateVo);
 	}
 
+	// 교육과정 카테고리 삭제
+	public int deleteCate(int curriculumCate_no) {
+		return sqlSession.delete("curriculum.deleteCate", curriculumCate_no);
+	}
+
 	// 업무구분 select box ajax
 	public List<CurriculumCateVo> getWorkType() {
 		return sqlSession.selectList("curriculum.getWorkType");

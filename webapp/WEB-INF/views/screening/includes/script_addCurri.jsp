@@ -2,32 +2,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script type="text/javascript">
+	//화면 로딩 
+	$(document).ready(function(){
+	    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	    console.log(treeObj);
+	});
 	
 	//교육과정 카테고리 탭
 	var setting = {
 		edit:{
-			drag:{
-				autoExpandTrigger:true,
-				prev:dropPrev,
-				inner:dropInner,
-				next:dropNext
+				drag:{
+						autoExpandTrigger:true,
+						prev:dropPrev,
+						inner:dropInner,
+						next:dropNext
 			},
-			enable:true
-			
+			enable:true,
+			editNameSelectAll : true,
+            showRemoveBtn : showRemoveBtn, //showRemoveBtn
+            showRenameBtn : showRenameBtn  //showRenameBtn
 		},
 	    data: {
-	        simpleData: {
+	       		simpleData: {
 	            enable: true,
-	        }
+	       		}
 	    },
 	    callback: {
-	        beforeClick: curriculum,  // 마우스 클릭 콜백함수 지정
-	        beforeDrag: beforeDrag,
-	        beforeDrop: beforeDrop,
-	        beforeDragOpen: beforeDragOpen,
-	        onDrag: onDrag,
-	        onDrop: onDrop,
-	        onExpand: onExpand
+			        beforeClick: curriculum,  // 마우스 클릭 콜백함수 지정
+			        beforeDrag : beforeDrag,
+		            beforeEditName : beforeEditName,
+		            beforeRemove : beforeRemove,
+		            beforeRename : beforeRename,
+		            onRename : onRename,
+		            onRemove : onRemove,
+		            beforeDragOpen : beforeDragOpen,
+		            onDrag : onDrag,
+		            onDrop : onDrop,
+		            onExpand : onExpand
 	    },
 	};
 	
@@ -45,50 +56,122 @@
           </c:forEach>
 	];
 	
+	<!--삭제 수정용-->
+    function beforeEditName(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        setTimeout(function() {
+            if (confirm(" '" + treeNode.name + "'을(를) 수정 하시겠습니까?")) {
+                setTimeout(function() {
+                    zTree.editName(treeNode);
+                }, 0);
+            }
+        }, 0);
+        return false;
+    }
+
+    <!--삭제 수정용(삭제확인 메세지 출력 및 삭제 전 노드 정보 출력)-->
+    function beforeRemove(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
+    }
+    
+    <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
+    function beforeRename(treeId, treeNode, newName, isCancel) {
+        className = (className === "dark" ? "":"dark");
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
+
+
+        if (newName.length == 0) {
+            setTimeout(function() {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.cancelEditName();
+                alert("공백은 입력할수 없습니다.");
+            }, 0);
+            return false;
+        }
+        return true;
+    }
 	
-	
-	//화면 로딩 실험중~
-	$(document).ready(function(){
-	    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-	    console.log(treeObj);
-	});
-	
-	function dropPrev(treeId, nodes, targetNode) {
-	    var pNode = targetNode.getParentNode();
-	    if (pNode && pNode.dropInner === false) {
-	    return false;
-	}
-	else {
-	    for (var i=0,l=curDragNodes.length; i<l; i++) {
-	        var curPNode = curDragNodes[i].getParentNode();
-	        if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-	            return false;
-	        }
+    <!--삭제 수정용(수정 후 데이터 출력)-->
+    function onRename(e, treeId, treeNode, isCancel) {
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId + (isCancel ? "</span>":""));
+        updateCate(treeNode.name,treeNode.id,treeNode.pId);
+    }
+    
+    <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
+    function showRemoveBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<=10000){ show=false;}
+        return show;
+    }
+    
+    <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
+    function showRenameBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<10000){ show=false;}
+        return show;
+    }
+    
+    <!--삭제 수정용-->
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='"+className+"'>"+str+"</li>");
+        if(log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+    
+    <!--삭제 수정용-->
+    function getTime() {
+        var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+        return (h+":"+m+":"+s+ " " +ms);
+    }
+    
+    <!--삭제 수정용-->
+    var newCount = 1;
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+
+        if (btn) btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            return false;
+        });
+    };
+    
+    <!--삭제 수정용-->
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+    
+    <!--삭제 수정용-->
+    function selectAll() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+    }
+    
+    <!--드래그용 함수-->
+    function dropPrev(treeId, nodes, targetNode) {
+        var pNode = targetNode.getParentNode();
+        if (pNode && pNode.dropInner === false) {
+        return false;
 	    }
-	}
-	    return true;
-	}
-	
-	function dropInner(treeId, nodes, targetNode) {
-	    if (targetNode && targetNode.dropInner === false) {
-	        return false;
-	    } else {
-	        for (var i=0,l=curDragNodes.length; i<l; i++) {
-	            if (!targetNode && curDragNodes[i].dropRoot === false) {
-	                return false;
-	            } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
-	}
-	
-	function dropNext(treeId, nodes, targetNode) {
-	    var pNode = targetNode.getParentNode();
-	    if (pNode && pNode.dropInner === false) {
-	        return false;
-	    } else {
+	    else {
 	        for (var i=0,l=curDragNodes.length; i<l; i++) {
 	            var curPNode = curDragNodes[i].getParentNode();
 	            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
@@ -96,101 +179,116 @@
 	            }
 	        }
 	    }
-	    return true;
-	}
-	
-	var log, className = "dark", curDragNodes, autoExpandNode;
-	
-	function beforeDrag(treeId, treeNodes) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
-	    for (var i=0,l=treeNodes.length; i<l; i++) {
-	        if (treeNodes[i].drag === false) {
-	            curDragNodes = null;
-	            return false;
-	        } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
-	            curDragNodes = null;
-	            return false;
-	        }
-	    }
-	    curDragNodes = treeNodes;
-	    return true;
-	}
-	
-	function beforeDragOpen(treeId, treeNode) {
-	    autoExpandNode = treeNode;
-	    return true;
-	}
-	
-	function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
-	    return true;
-	}
-	
-	function onDrag(event, treeId, treeNodes) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
-	}
-	
-	function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
-	    className = (className === "dark" ? "":"dark");
-	    showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-	    showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
-	}
-	
-	function onExpand(event, treeId, treeNode) {
-	    if (treeNode === autoExpandNode) {
-	        className = (className === "dark" ? "":"dark");
-	        showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
-	    }
-	}
-	
-	function showLog(str) {
-	    if (!log) log = $("#log");
-	    log.append("<li class='"+className+"'>"+str+"</li>");
-	    if(log.children("li").length > 8) {
-	        log.get(0).removeChild(log.children("li")[0]);
-	    }
-	}
-	
-	function getTime() {
-	    var now= new Date(),
-	        h=now.getHours(),
-	        m=now.getMinutes(),
-	        s=now.getSeconds(),
-	        ms=now.getMilliseconds();
-	    return (h+":"+m+":"+s+ " " +ms);
-	}
-	function setTrigger() {
-	    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-	    zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
-	}
-	
-	<!--이름수정, 삭제용-->
-	function setEdit() {
-	    var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-	        remove = $("#remove").attr("checked"),
-	        rename = $("#rename").attr("checked"),
-	        removeTitle = $.trim($("#removeTitle").get(0).value),
-	        renameTitle = $.trim($("#renameTitle").get(0).value);
-	    zTree.setting.edit.showRemoveBtn = remove;
-	    zTree.setting.edit.showRenameBtn = rename;
-	    zTree.setting.edit.removeTitle = removeTitle;
-	    zTree.setting.edit.renameTitle = renameTitle;
-	    console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
-	        'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
-	}
-	
-	<!--이름수정, 삭제용-->
-	function showCode(str) {
-	    var code = $("#code");
-	    code.empty();
-	    for (var i=0, l=str.length; i<l; i++) {
-	        code.append("<li>"+str[i]+"</li>");
-	    }
-	}
+        return true;
+    }
+    
+    <!--드래그용 함수-->
+    function dropInner(treeId, nodes, targetNode) {
+        if (targetNode && targetNode.dropInner === false) {
+            return false;
+        } else {
+            for (var i=0,l=curDragNodes.length; i<l; i++) {
+                if (!targetNode && curDragNodes[i].dropRoot === false) {
+                    return false;
+                } else if (curDragNodes[i].parentTId && curDragNodes[i].getParentNode() !== targetNode && curDragNodes[i].getParentNode().childOuter === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    <!--드래그용 함수-->
+    function dropNext(treeId, nodes, targetNode) {
+        var pNode = targetNode.getParentNode();
+        if (pNode && pNode.dropInner === false) {
+            return false;
+        } else {
+            for (var i=0,l=curDragNodes.length; i<l; i++) {
+                var curPNode = curDragNodes[i].getParentNode();
+                if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    var log, className = "dark", curDragNodes, autoExpandNode;
+    
+    <!--드래그용 함수-->
+    function beforeDrag(treeId, treeNodes) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+        for (var i=0,l=treeNodes.length; i<l; i++) {
+            if (treeNodes[i].drag === false) {
+                curDragNodes = null;
+                return false;
+            } else if (treeNodes[i].parentTId && treeNodes[i].getParentNode().childDrag === false) {
+                curDragNodes = null;
+                return false;
+            }
+        }
+        curDragNodes = treeNodes;
+        return true;
+    }
+
+    <!--드래그용 함수-->
+    function beforeDragOpen(treeId, treeNode) {
+        autoExpandNode = treeNode;
+        return true;
+    }
+
+    <!--드래그용 함수-->
+    function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
+        className = (className === "dark" ? "":"dark");
+        showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
+        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
+        return true;
+    }
+    
+    <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
+    function onDrag(event, treeId, treeNodes) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes[0].id+"/pId:"+treeNodes.pId+" nodes." );
+        UpdateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
+    }
+    
+    <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
+    function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" onDrop ]; moveType:" + moveType + "/ID:" + treeNodes[0].id+" /pId:" + treeNodes[0].pId);
+        updateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
+        console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
+    }
+
+    <!--드래그용 함수-->
+    function onExpand(event, treeId, treeNode) {
+        if (treeNode === autoExpandNode) {
+            className = (className === "dark" ? "":"dark");
+            showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+        }
+    }
+    
+    <!--드래그용 함수-->
+    function setTrigger() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
+    }
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $("#callbackTrigger").bind("change", {}, setTrigger);
+        $("#selectAll").bind("click", selectAll);
+//         fristStepDraw();
+    });
+    
+    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
+    function onRemove(e, treeId, treeNode) {
+        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        deleteCate(treeNode.id);
+    }
 	
 	//교육과정 클릭 시 정보 뿌려줌
 	function curriculum(treeId, treeNode, clickFlag) {
@@ -386,7 +484,6 @@
 					if(result != 0){
 						alert("저장이 완료되었습니다.");
    					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
 						treeObj.refresh();
 						location.reload();
 
@@ -403,4 +500,74 @@
 
 	
 
+	function updateCate(name, id, pId){
+		console.log(name+id+pId);
+		curriculumCateVo = {cateName : name, curriculumCate_no : id, parentCode : pId}
+		$.ajax({
+			url : "${pageContext.request.contextPath}/curri/updateCate",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(curriculumCateVo),
+			dataType : "json",
+			success : function(result){
+				if(result == 1){
+					alert("수정이 완료되었습니다.");
+					location.reload();
+				}
+			},
+			error : function(XHR, status, error){
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+    function deleteCate(id){
+    	console.log(id);
+    	
+    	$.ajax({
+    		url : "${pageContext.request.contextPath}/curri/deleteCate",
+    		type : "post",
+    		data : {curriculumCate_no : id},
+    		dataType : "json",
+    		success : function(result){
+    			if(result == 1){
+    				alert("삭제가 완료되었습니다.");
+    				location.reload();
+    			}
+    		},
+    		error : function(XHR, status, error){
+    			console.error(status + " : " + error);
+    		}
+    		
+    	});//ajax
+    }//function
+    
+    
+  //교육과정 카테고리 추가 버튼
+  	$("#addCateBtn").on("click", function(){
+  		$("#addCateModal").modal();
+  	});
+  	//카테고리 추가 버튼 (진행중)
+  	$("#addCateSaveBtn").on("click", function(){
+  	    event.preventDefault();
+  		var curriculumCate_no = $("#curriculumCate_no").val();
+  		var cateName = $("input[name=cateName]").val();
+  		console.log(curriculumCate_no, cateName);
+  		
+  		$.ajax({
+  			url : "${pageContext.request.contextPath}/curri/addCurriCate",
+  			type : "post",
+  			dataType : "json",
+  			data : {"curriculumCate_no" : curriculumCate_no, "cateName" : cateName},
+  			success : function(){
+  				location.reload();
+  				
+  			},
+  			error : function(XHR, status, error){
+  				console.error(status + " : " + error);
+  			}
+  			
+  		});
+  		$("#addCateModal").modal("close");
+  	});
 </script>

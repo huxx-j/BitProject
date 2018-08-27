@@ -5,9 +5,12 @@
 
 	//기수부여
   function gisuGrant(){
-  	applicant_no = "";
+//   	var applicant_no = 0;
   	$("input[name=gisuGrant]:checked").each(function(){
-  		applicant_no = $(this).attr("id");
+  		var applicant_no = $(this).attr("id");
+  		console.log("gisuGrant");
+  		console.log(applicant_no);
+  		
        	$("#renderApplicantList").find("#tr"+applicant_no).remove();
        	$.ajax({
               url : "${pageContext.request.contextPath }/curri/gisuGrant",
@@ -32,15 +35,25 @@
               }
           });
   	});
-  	console.log(applicant_no);
+//   	console.log(applicant_no);
 
   }
 
+	//왜반영이안되는것이야??????????/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//기수 제거
 	function gisuRemove(){
-	  	applicant_no = "";
+// 	  	var applicant_no = 0;
 	  	$("input[name=gisuRemove]:checked").each(function(){
-	  		applicant_no = $(this).attr("id");
+	  		var applicant_no = $(this).attr("id");
 	       	$("#gisuGrantList").find("#tr"+applicant_no).remove();
 	
 	       	$.ajax({
@@ -66,14 +79,14 @@
 	              }
 	          });
 	  	});
-	  	console.log(applicant_no);
+// 	  	console.log(applicant_no);
 	}
 
 	//기수부여 저장 버튼
 	$("#gisuGrantSaveBtn").on("click", function(){
 		//전체지원자리스트(Flag = 0)
 		$("input[name=gisuGrant]").each(function(){
-			applicant_no = $(this).attr("id");
+			var applicant_no = $(this).attr("id");
 			console.log("remove" + applicant_no);
 			$.ajax({
 				url : "${pageContext.request.contextPath}/curri/gisuRemoveSave",
@@ -95,7 +108,7 @@
 		
 		//수강생리스트(Flag = 1)
 		$("input[name=gisuRemove]").each(function(){
-			applicant_no = $(this).attr("id");
+			var applicant_no = $(this).attr("id");
 			console.log("grant" + applicant_no);
 			$.ajax({
 				url : "${pageContext.request.contextPath}/curri/gisuGrantSave",

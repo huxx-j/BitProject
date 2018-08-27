@@ -53,8 +53,18 @@ public class CurriculumController {
 	// 교육과정 카테고리 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateCate")
-	public int updateCate(@RequestParam("curriculumCateVo") CurriculumCateVo curriculumCateVo) {
+	public int updateCate(@RequestBody CurriculumCateVo curriculumCateVo) {
+		System.out.println("UPDATECATE" + curriculumCateVo.toString());
 		int result = curriService.updateCate(curriculumCateVo);
+		return result;
+	}
+
+	// 교육과정 카테고리 삭제
+	@ResponseBody
+	@RequestMapping(value = "/deleteCate")
+	public int deleteCate(@RequestParam("curriculumCate_no") int curriculumCate_no) {
+		System.out.println("DELETECATE" + curriculumCate_no);
+		int result = curriService.deleteCate(curriculumCate_no);
 		return result;
 	}
 
@@ -78,9 +88,9 @@ public class CurriculumController {
 	@RequestMapping(value = "/{curriculum_no}")
 	public CurriAllVo viewCurriculum(@PathVariable String curriculum_no) {
 		CurriculumVo curriculumVo = curriService.viewCurriculum(curriculum_no);
-		System.out.println("curriculumVo"+curriculumVo.toString());
+		System.out.println("curriculumVo" + curriculumVo.toString());
 		List<ApplicantVo> applicantList = curriService.viewApplicantList(curriculum_no);
-		System.out.println("APPLICANTLIST"+applicantList.toString());
+		System.out.println("APPLICANTLIST" + applicantList.toString());
 		List<ApplicantVo> studentList = curriService.viewStudentList(curriculum_no);
 		CurriAllVo curriAllVo = new CurriAllVo(curriculumVo, applicantList, studentList);
 		return curriAllVo;
@@ -106,7 +116,7 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	public int edit(@RequestBody CurriculumVo curriVo) {
-		System.out.println("EDIT curriVo"+curriVo);
+		System.out.println("EDIT curriVo" + curriVo);
 		int result = curriService.edit(curriVo);
 		return result;
 	}
@@ -115,6 +125,7 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/gisuGrant")
 	public ApplicantVo gisuGrant(@RequestParam("applicant_no") int applicant_no) {
+		System.out.println("GISUGRANT IN"+applicant_no);
 		ApplicantVo applicantVo = curriService.gisuGrant(applicant_no);
 		return applicantVo;
 	}
@@ -123,6 +134,7 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/gisuRemove")
 	public ApplicantVo gisuRemove(@RequestParam("applicant_no") int applicant_no) {
+		System.out.println("GISUREMOVE IN" + applicant_no);
 		ApplicantVo applicantVo = curriService.gisuRemove(applicant_no);
 		return applicantVo;
 	}
