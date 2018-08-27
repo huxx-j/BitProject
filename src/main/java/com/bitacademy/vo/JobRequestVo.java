@@ -26,6 +26,7 @@ public class JobRequestVo {
 	private String hireCnt;
 	private String hireCnt_M;
 	private String hireCnt_F;
+	private String hireCntDisplay;
 	private String workPlace;
 	private String majorBiz;
 	private String field;
@@ -300,6 +301,14 @@ public class JobRequestVo {
 	public void setHireCnt_F(String hireCnt_F) {
 		this.hireCnt_F = hireCnt_F;
 	}
+
+	
+	/*모집인원 출력용*/
+	public String getHireCntDisplay() {
+		String str ="총:"+ hireCnt + "  남:"+ hireCnt_M + "  여:"+ hireCnt_F;
+		return str;
+	}
+	
 
 	public String getWorkPlace() {
 		return workPlace;
@@ -581,17 +590,17 @@ public class JobRequestVo {
 				+ homePage + ", postCode=" + postCode + ", introduction=" + introduction + ", welfare=" + welfare
 				+ ", compResNum=" + compResNum + ", openDate=" + openDate + ", updateDate=" + updateDate
 				+ ", request_no=" + request_no + ", hireCnt=" + hireCnt + ", hireCnt_M=" + hireCnt_M + ", hireCnt_F="
-				+ hireCnt_F + ", workPlace=" + workPlace + ", majorBiz=" + majorBiz + ", field=" + field + ", useLang="
-				+ useLang + ", useOS=" + useOS + ", useDB=" + useDB + ", useETC=" + useETC + ", requirement="
-				+ requirement + ", major=" + major + ", yearIncome=" + yearIncome + ", salaryCode=" + salaryCode
-				+ ", procedures=" + procedures + ", reqDocument=" + reqDocument + ", reqDetail=" + reqDetail
-				+ ", department=" + department + ", mgrName=" + mgrName + ", position=" + position + ", email=" + email
-				+ ", fax=" + fax + ", telephone=" + telephone + ", cellphone=" + cellphone + ", receiptDate="
-				+ receiptDate + ", isShow=" + isShow + ", employment=" + employment + ", career=" + career
-				+ ", careerYear=" + careerYear + ", contractType=" + contractType + ", internTerm=" + internTerm
-				+ ", employPosition=" + employPosition + ", advantage=" + advantage + ", isLicensePartnership="
-				+ isLicensePartnership + ", memo=" + memo + ", jobReqList=" + jobReqList + ", interViewerList="
-				+ interViewerList + "]";
+				+ hireCnt_F + ", hireCntDisplay=" + hireCntDisplay + ", workPlace=" + workPlace + ", majorBiz="
+				+ majorBiz + ", field=" + field + ", useLang=" + useLang + ", useOS=" + useOS + ", useDB=" + useDB
+				+ ", useETC=" + useETC + ", requirement=" + requirement + ", major=" + major + ", yearIncome="
+				+ yearIncome + ", salaryCode=" + salaryCode + ", procedures=" + procedures + ", reqDocument="
+				+ reqDocument + ", reqDetail=" + reqDetail + ", department=" + department + ", mgrName=" + mgrName
+				+ ", position=" + position + ", email=" + email + ", fax=" + fax + ", telephone=" + telephone
+				+ ", cellphone=" + cellphone + ", receiptDate=" + receiptDate + ", isShow=" + isShow + ", employment="
+				+ employment + ", career=" + career + ", careerYear=" + careerYear + ", contractType=" + contractType
+				+ ", internTerm=" + internTerm + ", employPosition=" + employPosition + ", advantage=" + advantage
+				+ ", isLicensePartnership=" + isLicensePartnership + ", memo=" + memo + ", jobReqList=" + jobReqList
+				+ ", interViewerList=" + interViewerList + "]";
 	}
 
 }

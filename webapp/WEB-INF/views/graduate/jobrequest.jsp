@@ -182,7 +182,7 @@
 																	<th>X</th>
 																</tr>
 															</thead>
-															<tbody id="applicantList">
+															<tbody id="interViewerList">
 																<!-- jquery로 출력 -->
 															</tbody>
 													</table>	
@@ -423,6 +423,18 @@ $("#btn_search").on("click", function(){
 });
 
 
+/* 면접자리스트 두번클릭 */
+$("#interViewerList").on("dblclick", "tr", function(){
+	$this = $(this);
+	console.log($this.attr("class"));
+	if($this.attr("class") != "noData"){
+		trSelected($this);
+		console.log("in");
+		//프로필 창 로드	
+	}
+});	
+
+
 /* 그리드 출력하기 */
 function gridExec() {
 	
@@ -434,9 +446,8 @@ function gridExec() {
 	
 	console.log(postData);
 	
-	var cnames = [ '회사번호', '취업의뢰번호', '유무', '블랙', '접수일', '회사명', '담당자', '모집부문', '모집인원', '이메일', '채용'];
+	var cnames = [ '회사번호', '취업의뢰번호', '유무', '블랙', '접수일', '회사명', '담당자', '모집부문', '모집인원', '이메일', '상시채용'];
 	$("#jqGrid").jqGrid({
-		
 		url : "${pageContext.request.contextPath}/jobrequest/jobRequestList",
 		mtype : "post",
 		postData : postData,
@@ -451,30 +462,30 @@ function gridExec() {
 					{name: 'compName', index: 'compName', width: 200, align: "left"},
 					{name: 'mgrName', index: 'mgrName', width: 70, align: "left"},
 					{name: 'field', index: 'field', width: 250, align: "left"},
-					{name: 'hireCnt', index: 'hireCnt', width: 60, align: "center"},
+					{name: 'hireCntDisplay', index: 'hireCntDisplay', width: 90, align: "left"},
 					{name: 'email', index: 'email', width: 180, align: "left"},
-					{name: 'employment', index: 'employment', width: 60, align: "center", formatter: function( cellvalue , options ,rowObject ){
+					/* {name: 'employment', index: 'employment', width: 60, align: "center", formatter: function( cellvalue , options ,rowObject ){
 																											    if(cellvalue == '1') return "상시";
-																											    else return "";}
-					}],
-					
-					/* {name: 'employment', index: 'employment', width: 60, align: "center", formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:false} }], */
+																											    else return "aa";}
+					} */
+					{name: 'employment', index: 'employment', width: 60, align: "center", formatter:'checkbox', editoptions:{value:'1:0'}, formatoptions:{disabled:false} }
+					],
 		rowheight : 20,
 		height : 443,
 		width : 960,
 		rowNum : 500,
-		rowList : [ 300, 500, 1000 ],
+		rowList : [ 10, 300, 500, 1000 ],
 		pager : '#jqGridPager',
 		rownumbers : true,
 		loadtext : '로딩중',
-		sortname : 'request_no',
+		sortname : 'receiptDate',
 		sortorder:"desc", 
 		gridview:true,
 		shrinkToFit: false,
 		emptyrecords: '데이터가 없습니다.',  //데이터 없을 때
 
 
-		/* 한번클릭했을때 --> 면접지원자 리스트*/
+		/* 그리드 한번클릭했을때 --> 면접지원자 리스트*/
 		onSelectRow : function(rowId, iRow, iCol, e) {
 	
 			var rowId = $("#jqGrid").getGridParam("selrow");
@@ -489,10 +500,9 @@ function gridExec() {
 				dataType : "json",
 				success : function(interViewerList) {
 	           	 	console.log(interViewerList);
-	           	 	$("#applicantList").empty();
-	           	 	for (var i=0; i<interViewerList.length; i++) {
-						render(interViewerList[i])
-	             	}               		
+	           	 	
+	           	 	interViewerListRender(interViewerList);
+	           	 	
 				},
 				error : function(request, status, error) {
 	            		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
@@ -500,7 +510,7 @@ function gridExec() {
 			});
 		},
 		
-		/* 두번클릭했을때 (팝업호출)*/
+		/* 그리드 두번클릭했을때 (팝업호출)*/
 		ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
 			var rowId = $("#jqGrid").getGridParam("selrow");
 			var company_no = $("#jqGrid").getRowData(rowId).company_no;
@@ -508,7 +518,7 @@ function gridExec() {
 		
 			console.log(url)
 			var url = "${pageContext.request.contextPath}/jobrequest/jobRequestPopup?request_no="+ request_no + "&company_no="+ company_no ;
-			window.open(url, "_blank", "width=1000px, height=900px, scrollbars=yes"); 
+			window.open(url, "_blank", "width=1120px, height=900px, scrollbars=yes"); 
 		}
 		
 	});
@@ -525,23 +535,41 @@ function gridExec() {
 }
 
 
-
-/* 지원자리스트 테이블(리스트)그리기 */
-function render(interViewerVo) {
+/* 면접학생리스트 출력하기*/
+function interViewerListRender(interViewerList) {
+	var str = "";
 	
-	var str = "" +
-			"<tr class=''>"+
-				"<td>" + "</td>" +
-				"<td>" + interViewerVo.gisuName + "</td>" +
-				"<td>" + interViewerVo.nameHan + "</td>" +
-				"<td>" + interViewerVo.applyDate + "</td>" +
-				"<td>" + interViewerVo.result + "</td>" +
-				"<td>" +  "</td>"
-			"</tr>"	
-			
-	$("#applicantList").append(str); 		
+	if(interViewerList.length > 0){
+		for (var i=0; i<interViewerList.length; i++) {
+			var interViewerVo = interViewerList[i];
+			str +=  "<tr class='mouse'>"+
+						"<td>" + "</td>" +
+						"<td>" + interViewerVo.gisuName + "</td>" +
+						"<td>" + interViewerVo.nameHan + "</td>" +
+						"<td>" + interViewerVo.applyDate + "</td>" +
+						"<td>" + interViewerVo.result + "</td>" +
+						"<td>" +  "</td>"
+					"</tr>"	
+	    }  
+	} else {
+		str +=  "<tr class='noData'>"+
+					"<td colspan='6' class='text-center'>지원자가 없습니다.</td>" +
+				"</tr>"	
+	}
+	
+	$("#interViewerList").empty();			
+	$("#interViewerList").append(str); 		
 }
- 
+
+
+/* 면접자 리스트 선택한 tr 배경색변경 */
+function trSelected($this){
+	console.log($this); 
+	$this.removeClass("trSelected");
+	$this.addClass("trSelected");
+}
+
+
 
 
 /* 모달 선택 */

@@ -50,7 +50,7 @@
 					j.Fax,
 					j.Telephone,
 					j.Cellphone,
-					j.ReceiptDate,
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate,
 					j.IsShow,
 					j.Employment,
 					j.Career,
@@ -120,7 +120,7 @@
 					i.User_no, 
 					i.Interview_no, 
 					u.NameHan, 
-					i.ApplyDate, 
+					DATE_FORMAT(i.ApplyDate, '%Y-%m-%d %H:%i') ApplyDate,
 					i.Result,
 					i.GisuName
 			from Interview i, Users u
@@ -180,7 +180,7 @@
 					j.Fax,
 					j.Telephone,
 					j.Cellphone,
-					j.ReceiptDate,
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate,
 					j.IsShow,
 					j.Employment,
 					j.Career,
@@ -203,7 +203,7 @@
 		<![CDATA[
 			select  j.Request_no,
 					j.Company_no,
-					j.ReceiptDate
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate
 			from JobRequest j
 			where j.Company_no = #{company_no}
 			order by j.ReceiptDate desc
