@@ -407,6 +407,9 @@ input[type=checkbox] {
 .w480{width: 480px !important;}
 .w500{width: 500px !important;}
 
+.wfull{width: 100% !important;}
+.hfull{height: 100% !important;}
+
 .bordered{
 	border: 1px solid #a2a5ab !important;
 }

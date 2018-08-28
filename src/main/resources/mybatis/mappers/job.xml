@@ -211,11 +211,85 @@
 	</select>
 	
 	
+	<!-- 면접지원자 삭제-->
+	<delete id="delInterViewer" parameterType="Int">
+		<![CDATA[
+			delete from Interview
+			where interview_no = #{interview_no}
+		]]>
+	</delete>
+
+
+	<!-- 회사정보 수정 -->
+	<!-- File_no = #{file_no}, -->
+	<update id="updateCompany" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE Company
+			SET 
+				CompName = #{compName},
+				isStock = #{isStock},
+				Address = #{address},
+				Tel = #{tel},
+				
+				Business = #{business},
+				Capital = #{capital},
+				YearSell = #{yearSell},
+				StaffCnt = #{staffCnt},
+				HomePage = #{homePage},
+				PostCode = #{postCode},
+				Introduction = #{introduction},
+				Welfare = #{welfare},
+				CompResNum = #{compResNum},
+				OpenDate = #{openDate},
+				UpdateDate = #{updateDate}
+			WHERE Company_no = #{company_no} 
+		]]>
+	</update>
+
 	
-	
-	
-	
-	
+	<!-- 취업의뢰 수정 -->
+	<update id="updateJobRequest" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE JobRequest
+			SET 
+				HireCnt = #{hireCnt},
+				HireCnt_M = #{hireCnt_M},
+				Hirecnt_F = #{hireCnt_F},
+				WorkPlace = #{workPlace},
+				MajorBiz = #{majorBiz},
+				Field = #{field},
+				UseLang = #{useLang},
+				UseOS = #{useOS},
+				UseDB = #{useDB},
+				UseETC = #{useETC},
+				Requirement = #{requirement},
+				Major = #{major},
+				YearIncome = #{yearIncome},
+				SalaryCode = #{salaryCode},
+				Procedures = #{procedures},
+				ReqDocument = #{reqDocument},
+				ReqDetail = #{reqDetail},
+				Department = #{department},
+				Position = #{position},
+				MgrName = #{mgrName},
+				Telephone = #{telephone},
+				Email = #{email},
+				CellPhone = #{cellphone},
+				Fax = #{fax},
+				IsShow = #{isShow},
+				Employment = #{employment},
+				Career = #{career},
+				CareerYear = #{careerYear},
+				ContractType = #{contractType},
+				InternTerm = #{internTerm},
+				EmployPosition = #{employPosition},
+				Advantage = #{advantage},
+				IsLicensePartnership = #{isLicensePartnership},
+				Memo = #{memo}
+			WHERE Company_no = #{company_no} 
+			and Request_no =  #{request_no}
+		]]>
+	</update>
 	
 	
 	

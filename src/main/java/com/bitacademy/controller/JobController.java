@@ -62,6 +62,8 @@ public class JobController {
 	/*취업의뢰기업 팝업 데이타는 로딩후 ajax로*/
 	@RequestMapping("/jobRequestPopup")
 	public String popJobRequestDetail(@RequestParam int company_no, Model model) {
+		System.out.println("company_no: " + company_no);
+		/*취업의뢰 히스토리만 전달*/
 		List<JobReqVo> jobReqList = jobService.getJobReqList(company_no);
 		model.addAttribute("jobReqList", jobReqList);
 		return "graduate/pop_jobRequestDetail";
@@ -72,13 +74,34 @@ public class JobController {
 	@ResponseBody
 	@RequestMapping(value = "/getJobRequest", method = RequestMethod.POST)
 	public JobRequestVo getJobRequest(@RequestParam("request_no") int request_no) {
-
+		
 		JobRequestVo jobRequestVo = jobService.getJobRequest(request_no);
 		System.out.println("jobRequestVo: " + jobRequestVo.toString());
 		return jobRequestVo;
 	}
 	
 	
+	/*면접지원자 삭제*/
+	@ResponseBody
+	@RequestMapping(value = "/delInterViewer", method = RequestMethod.POST)
+	public int delInterViewer(@RequestParam("interview_no") int interview_no) {
+		System.out.println(interview_no);
+		/*int result = jobService.delInterViewer(interview_no);*/
+		/*System.out.println(result);*/
+		return 342;
+	}
+	
+	/*취업의뢰 수정*/
+	@RequestMapping(value = "/updateJobRequest", method = RequestMethod.POST)
+	public String delInterViewer(@ModelAttribute JobRequestVo jobRequestVo) {
+		int request_no = jobRequestVo.getRequest_no();
+		int company_no = jobRequestVo.getCompany_no();
+		System.out.println("=============================================");
+		System.out.println(jobRequestVo.toString());
+		jobService.updateJobRequest(jobRequestVo);
+		System.out.println("=============================================");
+		return "redirect:/jobrequest/jobRequestPopup?request_no="+ request_no + "&company_no=" + company_no; 
+	}
 	
 	
 	

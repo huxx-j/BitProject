@@ -165,26 +165,30 @@
 												<div class="bordered scroll innerBox" style="height: 500px;">
 													<table class="table table-hover table-condensed no-border">
 														<colgroup>
-															<col width="20px" />
-															<col width="82px" />
-															<col width="44px" />
+															<col width="16" />
+															<col width="58" />
+															<col width="43" />
 															<col width="" />
-															<col width="38px" />
-															<col width="20px" />
-														</colgroup>			
-															<thead>
-																<tr>
-																	<th>&nbsp;</th>
-																	<th>기수</th>
-																	<th>이름</th>
-																	<th>지원일자</th>
-																	<th>결과</th>
-																	<th>X</th>
-																</tr>
-															</thead>
-															<tbody id="interViewerList">
-																<!-- jquery로 출력 -->
-															</tbody>
+															<col width="33" />
+															<col width="34" />
+														</colgroup>				
+														<thead>
+															<tr>
+																<th>&nbsp;</th>
+																<th>기수</th>
+																<th>이름</th>
+																<th>지원일자</th>
+																<th>결과</th>
+																<th>관리</th>
+															</tr>
+														</thead>
+														<tbody id="interViewerList">
+															<tr class='noData'>
+																<td colspan='6' class='text-center hfull'>
+																	<div class=''>구인업체를 선택해 주세요</div>
+																</td>
+															</tr>
+														</tbody>
 													</table>	
 												</div> <!--./innerBox -->
 
@@ -305,12 +309,12 @@
 					<div class="sub-body">
 						<table class="table table-hover table-condensed">
 							<colgroup>
-								<col width="5" />
-								<col width="10" />
-								<col width="10" />
-								<col width="10" />
-								<col width="10" />
-								<col width="10" />
+								<col width="16" />
+								<col width="58" />
+								<col width="43" />
+								<col width="90" />
+								<col width="33" />
+								<col width="34" />
 							</colgroup>
 					
 							<thead>
@@ -456,7 +460,7 @@ function gridExec() {
 		colNames : cnames,
 		colModel : [{name: 'company_no', index: 'company_no', width: 60/* , hidden: true */},
 					{name: 'request_no', index: 'request_no', width: 60/* , hidden: true */},
-					{name: 'post', index: 'post', width: 60, align: "center"},
+					{name: 'isShow', index: 'isShow', width: 60, align: "center"},
 					{name: 'black', index: 'black' , width: 50, align: "center"},
 					{name: 'receiptDate', index: 'receiptDate', width: 80, align: "center"},
 					{name: 'compName', index: 'compName', width: 200, align: "left"},
@@ -534,21 +538,50 @@ function gridExec() {
 
 }
 
+/* 지원자리스트 마우스오버 */
+$("#interViewerList").on("mouseenter", "tr",  function(){
+	$this = $(this);
+	$this.find(".td_btn_del_area").html("<span class='label label-danger'>X</span>");
+});
 
-/* 면접학생리스트 출력하기*/
+/* 지원자리스트 마우스아웃 */
+$("#interViewerList").on("mouseleave","tr",  function(){
+	$this = $(this);
+	$this.find(".td_btn_del_area").empty();
+});
+
+/* 지원자리스트 삭제버튼 클릭 */
+$("#interViewerList").on("click", "span", function(){
+	$this = $(this);
+	var interview_no = $this.parent().data("interview_no");
+	
+	var result = confirm('삭제하시겠습니까?'); 
+	if(result == true) { 
+		console.log(interview_no+"삭제");
+		$this.closest("tr").remove();
+		
+	} else { 
+		console.log(interview_no+"취소");		
+	} 
+});
+
+
+
+/* 면접학생리스트 */
 function interViewerListRender(interViewerList) {
 	var str = "";
 	
 	if(interViewerList.length > 0){
 		for (var i=0; i<interViewerList.length; i++) {
+			var no = i+1;
 			var interViewerVo = interViewerList[i];
 			str +=  "<tr class='mouse'>"+
-						"<td>" + "</td>" +
+						"<td class='text-center'></td>" +
 						"<td>" + interViewerVo.gisuName + "</td>" +
 						"<td>" + interViewerVo.nameHan + "</td>" +
 						"<td>" + interViewerVo.applyDate + "</td>" +
 						"<td>" + interViewerVo.result + "</td>" +
-						"<td>" +  "</td>"
+						"<td class='td_btn_del_area' data-interview_no="+interViewerVo.interview_no+"></td>"
 					"</tr>"	
 	    }  
 	} else {
@@ -558,7 +591,7 @@ function interViewerListRender(interViewerList) {
 	}
 	
 	$("#interViewerList").empty();			
-	$("#interViewerList").append(str); 		
+	$("#interViewerList").append(str); 	
 }
 
 
@@ -569,11 +602,37 @@ function trSelected($this){
 	$this.addClass("trSelected");
 }
 
+/* 면접자 삭제 */
+function delInterViewer(interview_no, $this){
+	var result = confirm('삭제하시겠습니까?'); 
+	if(result) { 
+		$.ajax({
+	    	url : "${pageContext.request.contextPath}/jobrequest/delInterViewer",
+			type : "post",
+			data : {"interview_no" : interview_no},
+			dataType : "text",
+			async : false, 
+			success : function(result) {
+				if(result > 0){
+					$this.parents("tr").remove();
+				}else {
+					alert("삭제실패(관리자에게 문의하세요)");
+				}
+			},
+			error : function(request, status, error) {
+	        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+	        }
+		});
+		
+		
+	} 
+	
+	
+}
 
-
-
+ 
 /* 모달 선택 */
-$("#choice").on("click", function() {
+ /* $("#choice").on("click", function() {
 	event.preventDefault();
 	var GisuName = $("#GisuName").val();
 	var NameHan = $("#NameHan").val();
@@ -596,10 +655,10 @@ $("#choice").on("click", function() {
 		}
 	});
 });
+  */
 
-
-$('[id=insertData]').on('click', function() {
-	$("[id=insertDataModal]").modal();
+$("#insertData").on("click", function() {
+	$("#insertDataModal").modal();
 });
 
 
