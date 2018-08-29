@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitacademy.service.JobService;
+import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.InterViewerVo;
 import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobReqVo;
@@ -104,7 +106,17 @@ public class JobController {
 	}
 	
 	
-	
+	/*학생리스트--> 면접지원 팝업*/
+	@ResponseBody
+	@RequestMapping(value = "/getStudentList", method = RequestMethod.POST)
+	public List<ApplyUserVo> getStudentList(@ModelAttribute JobCriteriaVo jobCriteriaVo) {
+		System.out.println("***********************");
+		System.out.println(jobCriteriaVo.toString());
+		System.out.println("=============================================");
+		List<ApplyUserVo> studentList = jobService.getStudentList();
+		System.out.println(studentList.toString());
+		return studentList; 
+	}
 	
 	
 	/*@RequestMapping("/jobRequestDetail")

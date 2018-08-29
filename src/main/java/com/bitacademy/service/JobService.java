@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bitacademy.dao.JobDao;
+import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.InterViewerVo;
 import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobReqVo;
@@ -93,8 +94,12 @@ public class JobService {
 		return cResult+rResult;
 	}
 	
-	
-	
+	/*학생리스트--> 면접지원 팝업*/
+	public List<ApplyUserVo> getStudentList() {
+		System.out.println("=============================================");
+		System.out.println("=============================================");
+		return jobDao.getStudentList();
+	}
 	
 	/*취업의뢰기업 상세정보 가져오기(회사정보)  삭제예정*/
 	/*public JobRequestVo getCompany(int company_no) {

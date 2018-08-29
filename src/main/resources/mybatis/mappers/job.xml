@@ -291,6 +291,22 @@
 		]]>
 	</update>
 	
+	<!-- 졸업생(수료생) 리스트 가져오기-->
+	<select id="getStudentList" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="com.bitacademy.vo.ApplyUserVo">
+		<![CDATA[
+			select 	u.User_no, 
+					a.Applicant_no,
+			        c.Curriculum_no,
+			        c.GisuName,
+			        u.NameHan
+			from Users u, ApplyInfo a, Curriculum c 
+			where u.User_no = a.User_no
+			and a.Curriculum_no = c.Curriculum_no
+		]]>	
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord}
+		</if>
+	</select>
 	
 	
 	<!-- 취업의뢰기업 상세정보 가져오기(회사정보) -->

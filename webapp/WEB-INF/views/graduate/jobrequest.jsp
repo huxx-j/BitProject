@@ -152,7 +152,7 @@
 														<span class="sub-title">지원자리스트</span>
 													</div>
 													<div class="col-xs-6">
-														<button class="btn btn-default btn-h25 pull-right" type="button" id="insertData">지원자 추가</button>
+														<button class="btn btn-default btn-h25 pull-right" type="button" id="btn_studentModal">지원자 추가</button>
 													</div>
 												</div><!-- /.row -->
 											</div>
@@ -257,7 +257,7 @@
 
 
 <!---------------- 지원자 추가 Modal!!! ---------------->
-<div class="modal fade" id="insertDataModal">
+<div class="modal fade" id="studentModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			
@@ -279,20 +279,26 @@
 					<div class="sub-body">
 						<table class="table table-condensed">
 							<colgroup>
-								<col width="40px" />
+								<col width="80px" />
+								<col width="150px" />
+								<col width="250px" />
 								<col width="" />
-								<col width="40px" />
-								<col width="" />
-								<col width="40px" />
 							</colgroup>
 					
 							<tbody>
 								<tr>
-									<th>기수</th>
-									<td><input class="form-control" type="text"name="gisu" value="">
-									<th>이름</th>
-									<td><input class="form-control" type="text" name="name" value=""></td>
-									<td><button type="button" class="btn btn-primary btn-h25" id="btn_search">검색</button></td>
+									<th class="text-center">수료생검색</th>
+									<td>
+										<select class="form-control" name="studentCondition" id="studentCondition">
+											<option value="">선택</option> 
+											<option value="kisu">기수</option> 
+											<option value="name">이름</option>
+											<option value="curri">교육과정명</option>
+											<option value="birth">생년월일</option>
+										</select>
+									</td>
+									<td><input class="form-control" type="text" name="keyword" value="">
+									<td><button type="button" class="btn btn-primary btn-h25" id="btn_modal_search">검색</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -307,7 +313,14 @@
 				<!-- 하단부분 -->
 				<div class="sub-box">
 					<div class="sub-body">
-						<table class="table table-hover table-condensed">
+						<!-- 업체정보 테이블 -->
+						<table id="jqGridModal" class="mouse">		
+						</table>
+
+						<!-- 페이징 -->
+						<div id="jqGridPagerModal"></div>
+						
+						<%-- <table class="table table-hover table-condensed">
 							<colgroup>
 								<col width="16" />
 								<col width="58" />
@@ -328,7 +341,7 @@
 								</tr>
 							</thead>
 					
-							<tbody>
+							<tbody id=>
 								<c:forEach begin="0" end="15">
 								<tr>
 									<td>1</td>
@@ -340,7 +353,7 @@
 								</tr>
 								</c:forEach>
 							</tbody>	
-						</table>
+						</table> --%>
 					</div><!-- /.sub-body -->
 					
 				</div><!-- /.sub-box 하단영역 끝-->
@@ -443,7 +456,7 @@ $("#interViewerList").on("dblclick", "tr", function(){
 function gridExec() {
 	
 	var postData ={
-		"comCondition": $('input[name=comCondition]:checked').val(),
+		"comCondition": $('#searchListTable input[name=comCondition]:checked').val(),
 		"startDate": $("#startDate").val(),
 		"endDate": $("#endDate").val()
 	}
@@ -630,36 +643,78 @@ function delInterViewer(interview_no, $this){
 	
 }
 
+/************************************************/
+/* 모달영역(지원자추가) /************************************/
+/************************************************/ 
  
-/* 모달 선택 */
- /* $("#choice").on("click", function() {
-	event.preventDefault();
-	var GisuName = $("#GisuName").val();
-	var NameHan = $("#NameHan").val();
-	console.log(gisuName);
-	console.log(nameHan);
+/* 모달호출 */ 
+$("#btn_studentModal").on("click", function() {
+	modalGridExec();
+	$("#studentModal").modal();
+}); 
+ 
 
-	$.ajax({
-		url : "${pageContext.request.contextPath }/subject/addcate",
-		type : "post",
-		data : {
-			"GisuName" : GisuName,
-			"NameHan" : NameHan
-		},
-		dataType : "json",
-		success : function() {
-		},
+/* 모달창 검색 */
+$("#btn_modal_search").on("click", function() {
+	console.log("aaaa");
+	modalGridExec();
+}); 
 
-		error : function(XHR, status, error) {
-			console.error(status + " : " + error);
+
+
+
+/* 그리드 출력하기 */
+function modalGridExec() {
+	
+	var postData ={
+			"comCondition": $('select[name=studentCondition]').val(),
+			"keyword": $("input[name=keyword]").val(),
 		}
+		
+	console.log(postData);
+		
+	var cnames = [ '회원번호', '지원번호', '수업번호', '기수명', '수업명', '이름', '생년월일', '주민번호', '성별'];
+	$("#jqGridModal").jqGrid({
+			url : "${pageContext.request.contextPath }/jobrequest/getStudentList",
+			mtype : "post",
+			postData : postData,
+			datatype:"json",
+			
+			colNames : cnames,
+			colModel : [{name: 'user_no', index: 'user_no', width: 60/* , hidden: true */},
+						{name: 'applicant_no', index: 'applicant_no', width: 60/* , hidden: true */},
+						{name: 'curriculum_no', index: 'curriculum_no', width: 60/* , hidden: true */},
+						{name: 'gisuName', index: 'gisuName', width: 60, align: "center"},
+						{name: 'curriName', index: 'curriName' , width: 50, align: "center"},
+						{name: 'nameHan', index: 'nameHan', width: 80, align: "center"},
+						{name: 'birthDate', index: 'birthDate', width: 200, align: "left"},
+						{name: 'studResNum', index: 'studResNum', width: 70, align: "left"},
+						{name: 'gender', index: 'gender', width: 250, align: "left"}
+						],
+			rowheight : 20,
+			height : 443,
+			width : 563,
+			rowNum : 500,
+			rowList : [ 50, 100, 200, 300, 500 ],
+			pager : '#jqGridPagerModal',
+			rownumbers : true,
+			loadtext : '로딩중',
+			sortname : 'nameHan',
+			sortorder:"asc", 
+			gridview:true,
+			/* shrinkToFit: false, */
+			emptyrecords: '데이터가 없습니다.'  //데이터 없을 때
 	});
-});
-  */
+	/* 그리드 파라미터값 재설정 */
+	$("#jqGridModal").setGridParam({
+	   	 datatype	: "json",
+	   	 postData	: postData,
+	   	 loadComplete	: function(data) {
+	   		 console.log(data);
+	   	 }
+	}).trigger("reloadGrid");
+}
 
-$("#insertData").on("click", function() {
-	$("#insertDataModal").modal();
-});
 
 
 /* 모달 그리드 */

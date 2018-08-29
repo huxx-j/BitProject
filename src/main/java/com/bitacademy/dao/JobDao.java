@@ -1,16 +1,16 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.InterViewerVo;
+import java.util.List;
 
-import com.bitacademy.vo.JobCriteriaVo;
-import com.bitacademy.vo.JobReqVo;
-import com.bitacademy.vo.JobRequestVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
-import java.util.List;
+import com.bitacademy.vo.ApplyUserVo;
+import com.bitacademy.vo.InterViewerVo;
+import com.bitacademy.vo.JobCriteriaVo;
+import com.bitacademy.vo.JobReqVo;
+import com.bitacademy.vo.JobRequestVo;
 
 @Repository
 public class JobDao {
@@ -63,7 +63,12 @@ public class JobDao {
 		return result;
 	}
 	
-	
+	/*학생리스트--> 면접지원 팝업*/
+	public List<ApplyUserVo> getStudentList() {
+		System.out.println("=============================================");
+		System.out.println("=============================================");
+		return sqlSession.selectList("job.getStudentList");
+	}
 	
 	
 	
