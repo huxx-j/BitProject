@@ -1,16 +1,16 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.InterViewerVo;
+import java.util.List;
 
-import com.bitacademy.vo.JobCriteriaVo;
-import com.bitacademy.vo.JobReqVo;
-import com.bitacademy.vo.JobRequestVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
-import java.util.List;
+import com.bitacademy.vo.ApplyUserVo;
+import com.bitacademy.vo.InterViewerVo;
+import com.bitacademy.vo.JobCriteriaVo;
+import com.bitacademy.vo.JobReqVo;
+import com.bitacademy.vo.JobRequestVo;
 
 @Repository
 public class JobDao {
@@ -45,19 +45,38 @@ public class JobDao {
 	}
 	
 	
+	/*면접지원자 삭제*/
+	public int delInterViewer(int interview_no) {
+		int result = sqlSession.delete("job.delInterViewer", interview_no);
+		return result;
+	}
+	
+	/*회사정보 수정*/
+	public int updateCompany(JobRequestVo jobRequestVo) {
+		int result = sqlSession.update("job.updateCompany", jobRequestVo);
+		return result;
+	}
+	
+	/*취업의뢰 수정*/
+	public int updateJobRequest(JobRequestVo jobRequestVo) {
+		int result = sqlSession.update("job.updateJobRequest", jobRequestVo);
+		return result;
+	}
+	
+	/*학생리스트--> 면접지원 팝업*/
+	public List<ApplyUserVo> getStudentList() {
+		System.out.println("=============================================");
+		System.out.println("=============================================");
+		return sqlSession.selectList("job.getStudentList");
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	/*취업의뢰 기업 상세정보 가져오기(회사정보)*/
+	/*취업의뢰 기업 상세정보 가져오기(회사정보)
 	public JobRequestVo getCompany(int company_no) {
 		return sqlSession.selectOne("job.getCompany", company_no);
 	}
-	
+	*/
 	
 	
 	
@@ -81,10 +100,10 @@ public class JobDao {
 
 	
 	
-	public JobRequestVo getReceiptDate(int company_no) {	
+	/*public JobRequestVo getReceiptDate(int company_no) {	
 		return sqlSession.selectOne("job.getReceiptDate", company_no);
 		
-	}
+	}*/
 
 	/* 취업의뢰리스트 한번클릭했을때 
 	public JobVo getJobRequest(int request_no) {

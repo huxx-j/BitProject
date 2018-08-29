@@ -21,7 +21,7 @@ public class CriteriaVo {
 
 	/*계산함수*/
 	public int getStartNum() {
-		int startNum = rows * (page - 1)+1;
+		int startNum = rows * (page - 1);
 		return startNum;
 	}
 	

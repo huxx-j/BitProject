@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bitacademy.dao.JobDao;
+import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.InterViewerVo;
 import com.bitacademy.vo.JobCriteriaVo;
 import com.bitacademy.vo.JobReqVo;
@@ -77,7 +79,27 @@ public class JobService {
 	
 	
 	
+	/*면접지원자 삭제*/
+	public int delInterViewer(int interview_no) {
+		int result = jobDao.delInterViewer(interview_no);
+		return result;
+	}
 	
+	@Transactional
+	/*취업의뢰 수정(회사정보+취업의뢰정보)*/
+	public int updateJobRequest(JobRequestVo jobRequestVo) {
+		
+		int cResult = jobDao.updateCompany(jobRequestVo);
+		int rResult = jobDao.updateJobRequest(jobRequestVo);
+		return cResult+rResult;
+	}
+	
+	/*학생리스트--> 면접지원 팝업*/
+	public List<ApplyUserVo> getStudentList() {
+		System.out.println("=============================================");
+		System.out.println("=============================================");
+		return jobDao.getStudentList();
+	}
 	
 	/*취업의뢰기업 상세정보 가져오기(회사정보)  삭제예정*/
 	/*public JobRequestVo getCompany(int company_no) {
@@ -107,11 +129,11 @@ public class JobService {
 	
 
 
-
+/*
 	public JobRequestVo getReceiptDate(int company_no) {
 		
 		return jobDao.getReceiptDate(company_no);
-	}
+	}*/
 	
 	
 /*	 취업의뢰리스트 한번클릭했을때 

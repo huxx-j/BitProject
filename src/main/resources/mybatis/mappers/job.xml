@@ -211,12 +211,102 @@
 	</select>
 	
 	
+	<!-- 면접지원자 삭제-->
+	<delete id="delInterViewer" parameterType="Int">
+		<![CDATA[
+			delete from Interview
+			where interview_no = #{interview_no}
+		]]>
+	</delete>
+
+
+	<!-- 회사정보 수정 -->
+	<!-- File_no = #{file_no}, -->
+	<update id="updateCompany" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE Company
+			SET 
+				CompName = #{compName},
+				isStock = #{isStock},
+				Address = #{address},
+				Tel = #{tel},
+				
+				Business = #{business},
+				Capital = #{capital},
+				YearSell = #{yearSell},
+				StaffCnt = #{staffCnt},
+				HomePage = #{homePage},
+				PostCode = #{postCode},
+				Introduction = #{introduction},
+				Welfare = #{welfare},
+				CompResNum = #{compResNum},
+				OpenDate = #{openDate},
+				UpdateDate = #{updateDate}
+			WHERE Company_no = #{company_no} 
+		]]>
+	</update>
+
 	
+	<!-- 취업의뢰 수정 -->
+	<update id="updateJobRequest" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE JobRequest
+			SET 
+				HireCnt = #{hireCnt},
+				HireCnt_M = #{hireCnt_M},
+				Hirecnt_F = #{hireCnt_F},
+				WorkPlace = #{workPlace},
+				MajorBiz = #{majorBiz},
+				Field = #{field},
+				UseLang = #{useLang},
+				UseOS = #{useOS},
+				UseDB = #{useDB},
+				UseETC = #{useETC},
+				Requirement = #{requirement},
+				Major = #{major},
+				YearIncome = #{yearIncome},
+				SalaryCode = #{salaryCode},
+				Procedures = #{procedures},
+				ReqDocument = #{reqDocument},
+				ReqDetail = #{reqDetail},
+				Department = #{department},
+				Position = #{position},
+				MgrName = #{mgrName},
+				Telephone = #{telephone},
+				Email = #{email},
+				CellPhone = #{cellphone},
+				Fax = #{fax},
+				IsShow = #{isShow},
+				Employment = #{employment},
+				Career = #{career},
+				CareerYear = #{careerYear},
+				ContractType = #{contractType},
+				InternTerm = #{internTerm},
+				EmployPosition = #{employPosition},
+				Advantage = #{advantage},
+				IsLicensePartnership = #{isLicensePartnership},
+				Memo = #{memo}
+			WHERE Company_no = #{company_no} 
+			and Request_no =  #{request_no}
+		]]>
+	</update>
 	
-	
-	
-	
-	
+	<!-- 졸업생(수료생) 리스트 가져오기-->
+	<select id="getStudentList" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="com.bitacademy.vo.ApplyUserVo">
+		<![CDATA[
+			select 	u.User_no, 
+					a.Applicant_no,
+			        c.Curriculum_no,
+			        c.GisuName,
+			        u.NameHan
+			from Users u, ApplyInfo a, Curriculum c 
+			where u.User_no = a.User_no
+			and a.Curriculum_no = c.Curriculum_no
+		]]>	
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord}
+		</if>
+	</select>
 	
 	
 	<!-- 취업의뢰기업 상세정보 가져오기(회사정보) -->

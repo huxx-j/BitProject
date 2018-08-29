@@ -22,8 +22,11 @@
 		}
 		
 		.devInput{
-			width: 404px !important;
+			width: 417px !important;
 		}
+		
+		
+		
 		
 		.receiptDate{
 			font-size: 14px;
@@ -50,491 +53,534 @@
 		
 		<!-- Main content -->
 		<section class="content">
-			<!-- 상단 -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box box-body">	
-					
-						<div class="row">
-							<!-- 위에테이블-->
-							<div class="col-xs-12">
-								<div class="sub-box">
-									<div class="sub-title">기업정보</div>
-									<div class="sub-body" id="companyForm">
-										<table class="table table-condensed">
-											<colgroup>
-												<col width="70px" />
-												<col width="" />
-												<col width="70px" />
-												<col width="" />
-												<col width="70px" />
-												<col width="" />
-												<col width="70px" />
-												<col width="" />
-											</colgroup>
-											
-											<tbody>
-												<tr>
-													<th>회사명</th>
-													<td colspan="3">
-														<input class="form-control" type="text" name="compName" id="req_compName" value="">
-													</td>
-													<th>설립년도</th>
-													<td>
-														<input class="form-control" type="text" name="openDate" id="req_openDate" value="">
-													</td>
-													<th>사업자번호</th>
-													<td>
-														<input class="form-control" type="text" name="compResNum" id="req_compResNum" value="">
-													</td>
-												</tr>
-												<tr>
-													<th>주력사업</th>
-													<td colspan="7">
-														<input class="form-control" type="text" name="business" id="req_business" value="">
-													</td>
-												</tr>
-												<tr>
-													<th>자본금</th>
-													<td>
-														<input class="form-control" type="text" name="capital" id="req_capital" value="">
-													</td>
-													<th>연매출액</th>
-													<td>
-														<input class="form-control" type="text" name="yearSell" id="req_yearSell" value="">
-													</td>
-													<th>직원수</th>
-													<td>
-														<input class="form-control" type="text" name="staffCnt" id="req_staffCnt" value="">
-													</td>
-													<th>상장여부</th>
-													<td>
-														<select class="form-control" name="isStock" id="req_isStock">
-															<option value="1" >상장</option> 
-															<option value="0" >비상장</option>
-														</select>
-													</td>
-												</tr>
-												<tr>
-													<th>회사주소</th>
-													<td>
-														<input class="form-control w100 pull-left" type="text" name="postCode" id="req_postCode" value="">	<!-- 우편번호 -->
-														<button class="btn btn-default btn-h25 pull-left" type="button">찾기</button>
-													</td>
-													<td colspan="6">
-														<input class="form-control" type="text" name="address" id="req_address" value=""> 
-													</td>
-												</tr>
-												<tr>
-													<th>홈페이지</th>
-													<td colspan="7">
-														<input class="form-control" type="text" name="homePage" id="req_homePage" value="">
-													</td>
-												</tr>
-												<tr>
-													<th>회사소개</th>
-													<td colspan="3">
-														<textarea class="form-control" name="introduction" id="req_introduction"></textarea>
-													</td>
-													<th>복지제도</th>
-													<td colspan="3">
-														<textarea class="form-control" name="welfare" id="req_welfare"></textarea>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div><!-- /.sub-body -->
-								</div><!-- /.sub-box -->
-							</div><!-- /.col-xs-12 -->
-						</div><!-- /.row -->
+			<form id="formJobRequest" method="post" action="${pageContext.request.contextPath}/jobrequest/updateJobRequest">
+				<!-- 상단 -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box box-body">	
 						
-					</div><!-- body -->
-				</div><!-- /.col-xs-12 -->	
-			</div><!-- /.row -->
-			<!-- /.상단 -->
-			
-			<!-- 하단 -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box box-body">
-						<div class="row">
-
-							<!-- 취업의뢰리스트 -->
-							<div class="col-xs-2 right-nopadding">
-								<div class="sub-box">
-									<div class="sub-title">취업의뢰리스트</div>
-									<div class="sub-body">
-										<table class="table table-hover table-condensed" class="mouse">
-											<colgroup>
-												<col width="" />
-												<col width="" />
-											</colgroup>
-											<thead>
-												<tr>
-													<th>접수일</th>
-													<!-- <th>모집부문</th> -->
-												</tr>
-											</thead>
-											<tbody id="jobReqList">
-												<c:forEach items="${jobReqList }" var="jobReqVo" >
-													<c:if test="${jobReqVo.request_no eq param.request_no}">
-														<tr class='mouse trSelected'  data-request_no="${jobReqVo.request_no}">
-															<td>${jobReqVo.receiptDate}</td>
-														</tr>
-													</c:if>
-													<c:if test="${jobReqVo.request_no ne param.request_no}">
-														<tr class='mouse'  data-request_no="${jobReqVo.request_no}">
-															<td>${jobReqVo.receiptDate}</td>
-														</tr>
-													</c:if>
-												</c:forEach>
-											</tbody>
-										</table>
-									</div><!-- sub-body -->
-								</div><!-- /.sub-box -->
-							</div><!-- /.col-xs-2 -->
+							<div class="row">
+								<!-- 위에테이블-->
+								<div class="col-xs-12">
+									<div class="sub-box">
+										<div class="sub-title">기업정보</div>
+										<div class="sub-body" id="companyForm">
+											<table class="table table-condensed">
+												<colgroup>
+													<col width="70px" />
+													<col width="" />
+													<col width="70px" />
+													<col width="" />
+													<col width="70px" />
+													<col width="" />
+													<col width="70px" />
+													<col width="" />
+												</colgroup>
+												
+												<tbody>
+													<tr>
+														<th>회사명</th>
+														<td colspan="3">
+															<input class="form-control" type="text" name="compName" id="req_compName" value="">
+														</td>
+														<th>설립년도</th>
+														<td>
+															<input class="form-control" type="text" name="openDate" id="req_openDate" value="">
+														</td>
+														<th>사업자번호</th>
+														<td>
+															<input class="form-control" type="text" name="compResNum" id="req_compResNum" value="">
+														</td>
+													</tr>
+													<tr>
+														<th>주력사업</th>
+														<td colspan="7">
+															<input class="form-control" type="text" name="business" id="req_business" value="">
+														</td>
+													</tr>
+													<tr>
+														<th>자본금</th>
+														<td>
+															<input class="form-control" type="text" name="capital" id="req_capital" value="">
+														</td>
+														<th>연매출액</th>
+														<td>
+															<input class="form-control" type="text" name="yearSell" id="req_yearSell" value="">
+														</td>
+														<th>직원수</th>
+														<td>
+															<input class="form-control" type="text" name="staffCnt" id="req_staffCnt" value="">
+														</td>
+														<th>상장여부</th>
+														<td>
+															<select class="form-control" name="isStock" id="req_isStock">
+																<option value="" >선택</option> 
+																<option value="1" >상장</option> 
+																<option value="0" >비상장</option>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<th>회사주소</th>
+														<td>
+															<input class="form-control w100 pull-left" type="text" name="postCode" id="req_postCode" value="">	<!-- 우편번호 -->
+															<button class="btn btn-default btn-h25 pull-left" type="button">찾기</button>
+														</td>
+														<td colspan="6">
+															<input class="form-control" type="text" name="address" id="req_address" value=""> 
+														</td>
+													</tr>
+													<tr>
+														<th>홈페이지</th>
+														<td colspan="7">
+															<input class="form-control" type="text" name="homePage" id="req_homePage" value="">
+														</td>
+													</tr>
+													<tr>
+														<th>회사소개</th>
+														<td colspan="3">
+															<textarea class="form-control" name="introduction" id="req_introduction"></textarea>
+														</td>
+														<th>복지제도</th>
+														<td colspan="3">
+															<textarea class="form-control" name="welfare" id="req_welfare"></textarea>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div><!-- /.sub-body -->
+									</div><!-- /.sub-box -->
+								</div><!-- /.col-xs-12 -->
+							</div><!-- /.row -->
 							
-							<!--  의뢰상세 -->
-							<div class="col-xs-6 right-nopadding" >
-								<form id="formJobRequest">
+						</div><!-- body -->
+					</div><!-- /.col-xs-12 -->	
+				</div><!-- /.row -->
+				<!-- /.상단 -->
+				
+				<!-- 하단 -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box box-body">
+							<div class="row">
+	
+								<!-- 취업의뢰리스트 -->
+								<div class="col-xs-2 right-nopadding">
 									<div class="sub-box">
-										<div class="sub-toolbox">
-											<div class="row">
-												<div class="col-xs-8">
-													<span class="sub-title">모집부문 및 자격요건</span>
-												</div>
-												
-												<div class="col-xs-4">
-													<span class="receiptDate">접수일:&nbsp;<sapn id="req_receiptDate"></sapn></span>
-												</div>
-											</div><!-- /.row -->
-										</div>
-													
-													
-										<!-- <div class="sub-title">충원계획</div> -->
+										<div class="sub-title">취업의뢰리스트</div>
 										<div class="sub-body">
-											<table class="table table-hover table-condensed">
+											<table class="table table-hover table-condensed" class="mouse">
 												<colgroup>
-													<col width="60px" />
-													<col width="110px" />
-													<col width="60px" />
-													<col width="110px" />
-													<col width="60px" />
 													<col width="" />
-												</colgroup>
-												
-												
-												<tbody>
-													<tr>
-														<th>게시여부</th>
-														<td class="clearfix">
-															<div class="checkbox-group pull-left form-inline">
-																<label class="checkbox">
-																	<input type="checkbox" id="req_isShow" name="isShow" value="1" >게시중
-																</label>
-															</div>
-														</td>
-														
-														<th>자격협약</th>
-														<td class="clearfix">
-															<div class="checkbox-group pull-left form-inline">
-																<label class="checkbox">
-																	<input type="checkbox" id="req_isLicensePartnership" name="isLicensePartnership" value="YES" >협약
-																</label>
-															</div>
-														</td>
-														
-														<th>채용방법</th>
-														<td>
-															<div class="checkbox-group pull-left form-inline">
-																<label class="checkbox">
-																	<input type="checkbox" id="req_employment" name="employment" value="1" >상시채용
-																</label>
-															</div>
-														</td>
-													</tr>
-													
-													<tr>
-														<th>모집부문</th>
-														<td colspan="5">
-															<input class="form-control" type="text" id="req_field" name="field" >
-														</td>
-													</tr>
-													
-													
-													<tr>
-														<th>담당업무</th>
-														<td colspan="5">
-															<input class="form-control" type="text" id="req_majorBiz" name="majorBiz" >
-														</td>
-													</tr>
-													
-													<tr>
-														<th>학력</th>
-														<td colspan="3">
-															<div class="radio-group pull-left" id="req_rquirement">
-																<label class="radiobox"><input type="radio" name="requirement" value="1000">석사</label>
-																<label class="radiobox"><input type="radio" name="requirement" value="0100">대졸</label>
-																<label class="radiobox"><input type="radio" name="requirement" value="0010">전문대졸</label>
-																<label class="radiobox"><input type="radio" name="requirement" value="0001">불문</label>
-															</div>
-														</td>
-														<th>학과</th>
-														<td>
-															<input class="form-control" type="text" id="req_major">
-														</td>
-													</tr>
-													
-													<tr>
-														<th>경력사항</th>            <!-- form-control 넣기 -->
-														<td colspan="5" class="radiobox clearfix form-inline" >
-															<div class="radio-group pull-left">
-																<label class="radiobox"><input type="radio" name="career" value="0">신입,경력</label>
-																<label class="radiobox"><input type="radio" name="career" value="1">신입</label>
-																<label class="radiobox"><input type="radio" name="career" value="2">경력</label>
-															</div>
-															<div>
-																<input type="text" id="req_careerYear" class="form-control w40"><span>년 이상</span>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<th>우대사항</th>
-														<td colspan="5">
-															<input class="form-control" type="text" id="req_advantage">
-														</td>
-													</tr>
-													<tr>
-														<th>모집인원</th>
-														<td colspan="5" class="form-inline">
-															총원&nbsp;<input class="form-control w40" type="text" id="req_hireCnt">명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															남자&nbsp;<input class="form-control w40" type="text" id="req_hireCnt_M">명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															여자&nbsp;<input class="form-control w40" type="text" id="req_hireCnt_F">명
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<!-- /.sub-body -->
-									</div>
-									<!--/.sub-box -->
-									
-									
-									<div class="sub-box">
-										<div class="sub-title">근무조건</div>
-										<div class="sub-body">
-											<table class="table table-hover table-condensed">
-												<colgroup>
-													<col width="60px" />
-													<col width="310px" />
-													<col width="60px" />
-													<col width="" />
-												</colgroup>
-												<tbody>
-													<tr>
-														<th>고용형태</th>
-														<td colspan="3" class="clearfix form-inline">												
-															<div class="radio-group pull-left" id="contractType">
-																<label class="radiobox"><input type="radio" name="contractType" value="0" >정규직</label>
-																<label class="radiobox"><input type="radio" name="contractType" value="1" >계약직</label>
-															</div>
-															
-															<div>
-																<span>계약기간</span><input type="text" id="req_internTerm" class="form-control w40"><span>개월</span>
-															</div>
-															
-														</td>
-													</tr>
-													<tr>
-														<th>근무지</th>
-														<td colspan="3">
-															<input class="form-control" type="text" id="req_workPlace">
-														</td>
-													</tr>
-													<tr>
-														<th>연봉</th>
-														<td>
-															<select class="form-control" name="salaryCode" id="req_salaryCode">
-																<option value="">선택</option> 
-																<option value="1">1000만원 이하</option> 
-																<option value="2">1000~1200만원</option>
-																<option value="3">1200~1400만원</option>
-																<option value="4">1400~1600만원</option>
-																<option value="5">1600~1800만원</option>
-																<option value="6">1800~2000만원</option>
-																<option value="7">2000~2200만원</option>
-																<option value="8">2200~2400만원</option>
-																<option value="9">2400~2600만원</option>
-																<option value="10">2600~2800만원</option>
-																<option value="11">2800~3000만원</option>
-																<option value="12">3000~3200만원</option>
-																<option value="13">3200~3400만원</option>
-																<option value="14">3400~3600만원</option>
-																<option value="15">3600~3800만원</option>
-																<option value="16">3800~4000만원</option>
-																<option value="17">4000~5000만원</option>
-																<option value="18">5000~6000만원</option>
-																<option value="19">6000~7000만원</option>
-																<option value="20">7000~8000만원</option>
-																<option value="21">8000~9000만원</option>
-																<option value="22">9000~1억원</option>
-																<option value="23">1억원 이상</option>
-															</select>
-														</td>
-														<th>채용직급</th>
-														<td>
-															<select class="form-control" name="employPosition" id="req_employPosition">
-																<option value="">선택</option> 
-																<option value="0">사원(연구원)</option> 
-																<option value="1">주임/계장(연구원)</option>
-																<option value="2">대리(주임연구원)</option>
-																<option value="3">과장(선임연구원)</option>
-																<option value="4">차장(수석연구원)</option>
-																<option value="5">부장(연구연구원)</option>
-																<option value="6">임원</option>
-																<option value="7">면접후결정</option>
-															</select>
-														</td>
-													</tr>
-													
-													<tr>
-														<th rowspan="4">개발환경</th>
-														<td colspan="3" class="form-inline">
-															<span class="trTitle">사용 OS</span>
-															<input class="form-control devInput" type="text" id="req_useOS">
-														</td>
-														
-														
-													<tr>	
-														<td colspan="3" class="form-inline">
-															<span class="trTitle">사용 DB</span>
-															<input class="form-control devInput" type="text" id="req_useDB">
-														</td>
-													</tr>
-													<tr>
-														<td colspan="3" class="form-inline">
-															<span class="trTitle">사용 언어</span>
-															<input class="form-control devInput" type="text" id="req_useLang">
-														</td>
-													</tr>
-													<tr>
-														<td colspan="3" class="form-inline">
-															<span class="trTitle">기타</span>
-															<input class="form-control devInput" type="text" id="req_userETC">
-														</td>
-													</tr>
-													
-													
-												</tbody>
-											</table>
-										</div>
-										<!-- /.sub-body -->
-									</div>
-									<!--/.sub-box -->
-									
-									
-									<div class="sub-box">
-										<div class="sub-title">전형방법</div>
-										<div class="sub-body">
-											<table class="table table-hover table-condensed">
-												<colgroup>
-													<col width="60px" />
 													<col width="" />
 												</colgroup>
 												<thead>
 													<tr>
-														<th>전형절차</th>
-														<td>
-															<input class="form-control" type="text" id="req_procedures">
-														</td>
-													</tr>
-													<tr>
-														<th>제출서류</th>
-														<td colspan="5">
-															<input class="form-control" type="text" id="req_reqDocument">
-														</td>
-													</tr>
-													<tr>
-														<th>요구사항</th>
-														<td colspan="5">
-															<input class="form-control" type="text" id="req_reqDetail">
-														</td>
+														<th>접수일</th>
+														<!-- <th>모집부문</th> -->
 													</tr>
 												</thead>
+												<tbody id="jobReqList">
+													<c:forEach items="${jobReqList }" var="jobReqVo" >
+														<c:if test="${jobReqVo.request_no eq param.request_no}">
+															<tr class='mouse trSelected'  data-request_no="${jobReqVo.request_no}">
+																<td>${jobReqVo.receiptDate}</td>
+															</tr>
+														</c:if>
+														<c:if test="${jobReqVo.request_no ne param.request_no}">
+															<tr class='mouse'  data-request_no="${jobReqVo.request_no}">
+																<td>${jobReqVo.receiptDate}</td>
+															</tr>
+														</c:if>
+													</c:forEach>
+												</tbody>
 											</table>
+											<input type="text" id="req_request_no" name="request_no" value="${param.request_no}"><br>
+											<input type="text" id="req_company_no" name="company_no" value="${param.company_no}">
+										</div><!-- sub-body -->
+									</div><!-- /.sub-box -->
+								</div><!-- /.col-xs-2 -->
+								
+								<!--  의뢰상세 -->
+								<div class="col-xs-6 right-nopadding" >
+									
+										<div class="sub-box">
+											<div class="sub-toolbox">
+												<div class="row">
+													<div class="col-xs-8">
+														<span class="sub-title">모집부문 및 자격요건</span>
+													</div>
+													
+													<div class="col-xs-4">
+														<span class="receiptDate">접수일:&nbsp;<span id="req_receiptDate" class=""></span></span>
+													</div>
+												</div><!-- /.row -->
+											</div>
+														
+														
+											<!-- <div class="sub-title">충원계획</div> -->
+											<div class="sub-body">
+												<table class="table table-hover table-condensed">
+													<colgroup>
+														<col width="60px" />
+														<col width="110px" />
+														<col width="60px" />
+														<col width="110px" />
+														<col width="60px" />
+														<col width="" />
+													</colgroup>
+													
+													
+													<tbody>
+														<tr>
+															<th>게시여부</th>
+															<td class="clearfix">
+																<div class="checkbox-group pull-left form-inline">
+																	<label class="checkbox">
+																		<input type="checkbox" id="req_isShow" name="isShow" value="1" >게시중
+																	</label>
+																</div>
+															</td>
+															
+															<th>자격협약</th>
+															<td class="clearfix">
+																<div class="checkbox-group pull-left form-inline">
+																	<label class="checkbox">
+																		<input type="checkbox" id="req_isLicensePartnership" name="isLicensePartnership" value="YES" >협약
+																	</label>
+																</div>
+															</td>
+															
+															<th>채용방법</th>
+															<td>
+																<div class="checkbox-group pull-left form-inline">
+																	<label class="checkbox">
+																		<input type="checkbox" id="req_employment" name="employment" value="1" >상시채용
+																	</label>
+																</div>
+															</td>
+														</tr>
+														
+														<tr>
+															<th>모집부문</th>
+															<td colspan="5">
+																<input class="form-control" type="text" id="req_field" name="field" >
+															</td>
+														</tr>
+														
+														
+														<tr>
+															<th>담당업무</th>
+															<td colspan="5">
+																<input class="form-control" type="text" id="req_majorBiz" name="majorBiz" >
+															</td>
+														</tr>
+														
+														<tr>
+															<th>학력</th>
+															<td colspan="3">
+																<div class="radio-group pull-left" id="req_rquirement">
+																	<label class="radiobox"><input type="radio" name="requirement" value="1000">석사</label>
+																	<label class="radiobox"><input type="radio" name="requirement" value="0100">대졸</label>
+																	<label class="radiobox"><input type="radio" name="requirement" value="0010">전문대졸</label>
+																	<label class="radiobox"><input type="radio" name="requirement" value="0001">불문</label>
+																</div>
+															</td>
+															<th>학과</th>
+															<td>
+																<input class="form-control" type="text" id="req_major" name="major">
+															</td>
+														</tr>
+														
+														<tr>
+															<th>경력사항</th>            <!-- form-control 넣기 -->
+															<td colspan="5" class="radiobox clearfix form-inline" >
+																<div class="radio-group pull-left">
+																	<label class="radiobox"><input type="radio" name="career" value="0">신입,경력</label>
+																	<label class="radiobox"><input type="radio" name="career" value="1">신입</label>
+																	<label class="radiobox"><input type="radio" name="career" value="2">경력</label>
+																</div>
+																<div>
+																	<input type="text" id="req_careerYear" class="form-control w40" name="careerYear"><span>년 이상</span>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<th>우대사항</th>
+															<td colspan="5">
+																<input class="form-control" type="text" id="req_advantage" name="advantage">
+															</td>
+														</tr>
+														<tr>
+															<th>모집인원</th>
+															<td colspan="5" class="form-inline">
+																총원&nbsp;<input class="form-control w40" type="text" id="req_hireCnt" name="hireCnt">명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																남자&nbsp;<input class="form-control w40" type="text" id="req_hireCnt_M" name="hireCnt_M">명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																여자&nbsp;<input class="form-control w40" type="text" id="req_hireCnt_F" name="hireCnt_F">명
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!-- /.sub-body -->
+										</div>
+										<!--/.sub-box -->
+										
+										
+										<div class="sub-box">
+											<div class="sub-title">근무조건</div>
+											<div class="sub-body">
+												<table class="table table-hover table-condensed">
+													<colgroup>
+														<col width="60px" />
+														<col width="310px" />
+														<col width="60px" />
+														<col width="" />
+													</colgroup>
+													<tbody>
+														<tr>
+															<th>고용형태</th>
+															<td colspan="3" class="clearfix form-inline">												
+																<div class="radio-group pull-left" id="contractType">
+																	<label class="radiobox"><input type="radio" name="contractType" value="0" >정규직</label>
+																	<label class="radiobox"><input type="radio" name="contractType" value="1" >계약직</label>
+																</div>
+																
+																<div>
+																	<span>계약기간</span><input type="text" id="req_internTerm" class="form-control w40" name="internTerm""><span>개월</span>
+																</div>
+																
+															</td>
+														</tr>
+														<tr>
+															<th>근무지</th>
+															<td colspan="3">
+																<input class="form-control" type="text" id="req_workPlace" name="workPlace">
+															</td>
+														</tr>
+														<tr>
+															<th>연봉</th>
+															<td>
+																<select class="form-control" name="salaryCode" id="req_salaryCode">
+																	<option value="">선택</option> 
+																	<option value="1">1000만원 이하</option> 
+																	<option value="2">1000~1200만원</option>
+																	<option value="3">1200~1400만원</option>
+																	<option value="4">1400~1600만원</option>
+																	<option value="5">1600~1800만원</option>
+																	<option value="6">1800~2000만원</option>
+																	<option value="7">2000~2200만원</option>
+																	<option value="8">2200~2400만원</option>
+																	<option value="9">2400~2600만원</option>
+																	<option value="10">2600~2800만원</option>
+																	<option value="11">2800~3000만원</option>
+																	<option value="12">3000~3200만원</option>
+																	<option value="13">3200~3400만원</option>
+																	<option value="14">3400~3600만원</option>
+																	<option value="15">3600~3800만원</option>
+																	<option value="16">3800~4000만원</option>
+																	<option value="17">4000~5000만원</option>
+																	<option value="18">5000~6000만원</option>
+																	<option value="19">6000~7000만원</option>
+																	<option value="20">7000~8000만원</option>
+																	<option value="21">8000~9000만원</option>
+																	<option value="22">9000~1억원</option>
+																	<option value="23">1억원 이상</option>
+																</select>
+															</td>
+															<th>채용직급</th>
+															<td>
+																<select class="form-control" name="employPosition" id="req_employPosition">
+																	<option value="">선택</option> 
+																	<option value="0">사원(연구원)</option> 
+																	<option value="1">주임/계장(연구원)</option>
+																	<option value="2">대리(주임연구원)</option>
+																	<option value="3">과장(선임연구원)</option>
+																	<option value="4">차장(수석연구원)</option>
+																	<option value="5">부장(연구연구원)</option>
+																	<option value="6">임원</option>
+																	<option value="7">면접후결정</option>
+																</select>
+															</td>
+														</tr>
+														
+														<tr>
+															<th rowspan="4">개발환경</th>
+															<td colspan="3" class="form-inline">
+																<span class="trTitle">사용 OS</span>
+																<input class="form-control devInput" type="text" id="req_useOS" name="useOS">
+															</td>
+															
+															
+														<tr>	
+															<td colspan="3" class="form-inline">
+																<span class="trTitle">사용 DB</span>
+																<input class="form-control devInput" type="text" id="req_useDB" name="useDB">
+															</td>
+														</tr>
+														<tr>
+															<td colspan="3" class="form-inline">
+																<span class="trTitle">사용 언어</span>
+																<input class="form-control devInput" type="text" id="req_useLang" name="useLang">
+															</td>
+														</tr>
+														<tr>
+															<td colspan="3" class="form-inline">
+																<span class="trTitle">기타</span>
+																<input class="form-control devInput" type="text" id="req_useETC" name="useETC">
+															</td>
+														</tr>
+														
+														
+													</tbody>
+												</table>
+											</div>
+											<!-- /.sub-body -->
+										</div>
+										<!--/.sub-box -->
+										
+										
+										<div class="sub-box">
+											<div class="sub-title">전형방법</div>
+											<div class="sub-body">
+												<table class="table table-hover table-condensed">
+													<colgroup>
+														<col width="60px" />
+														<col width="" />
+													</colgroup>
+													<thead>
+														<tr>
+															<th>전형절차</th>
+															<td>
+																<input class="form-control" type="text" id="req_procedures" name="procedures">
+															</td>
+														</tr>
+														<tr>
+															<th>제출서류</th>
+															<td colspan="5">
+																<input class="form-control" type="text" id="req_reqDocument" name="reqDocument">
+															</td>
+														</tr>
+														<tr>
+															<th>요구사항</th>
+															<td colspan="5">
+																<input class="form-control" type="text" id="req_reqDetail" name="reqDetail">
+															</td>
+														</tr>
+													</thead>
+												</table>
+											</div>
+											<!-- /.sub-body -->
+										</div>
+										<!--/.sub-box -->
+										
+										<div class="sub-box">
+											<div class="sub-title">담당자정보</div>
+											
+											<div class="sub-body">
+												<table class="table table-hover table-condensed">
+													<colgroup>
+														<col width="60px" />
+														<col width="" />
+														<col width="60px" />
+														<col width="" />
+														<col width="60px" />
+														<col width="" />
+													</colgroup>
+													<thead>
+														<tr>
+															<th>담당자</th>
+															<td>
+																<input class="form-control" type="text" id="req_mgrName" name="mgrName">
+															</td>
+															<th>부서</th>
+															<td>
+																<input class="form-control" type="text" id="req_department" name="department">
+															</td>
+															<th>직책</th>
+															<td>
+																<input class="form-control" type="text" id="req_position" name="position">
+															</td>
+														</tr>
+														<tr>
+															<th>전화번호</th>
+															<td>
+																<input class="form-control" type="text" id="req_telephone" name="telephone">
+															</td>
+															<th>휴대폰</th>
+															<td>
+																<input class="form-control" type="text" id="req_cellphone" name="cellphone">
+															</td>
+															<th>팩스</th>
+															<td>
+																<input class="form-control" type="text" id="req_fax" name="fax">
+															</td>
+														</tr>
+														<tr>
+															<th>이메일</th>
+															<td  colspan="5">
+																<input class="form-control" type="text" id="req_email" name="email">
+															</td>
+														</tr>
+													</thead>
+												</table>
+											</div>
+											<!-- /.sub-body -->
+										</div>
+										<!--/.sub-box -->
+										
+										
+									
+								</div>
+								<!-- /.col-xs-7 -->
+								
+								<!-- 지원자리스트 -->
+								<div class="col-xs-4">
+									<div class="sub-box">
+										<div class="sub-title">지원자리스트</div>
+									
+										<div class="sub-body">
+											<div class="innerBox bordered scroll" style="height: 456px;">
+												<table class="table table-hover table-condensed">
+													<colgroup>
+														<col width="16" />
+														<col width="58" />
+														<col width="43" />
+														<col width="" />
+														<col width="33" />
+														<col width="34" />
+													</colgroup>		
+													<thead>
+														<tr>
+															<th>&nbsp;</th>
+															<th>기수</th>
+															<th>이름</th>
+															<th>지원일자</th>
+															<th>결과</th>
+															<th>관리</th>
+														</tr>
+													</thead>
+													<tbody id="interViewerList">
+														<!-- jquery로 출력 -->
+													</tbody>										
+												</table>
+											</div>
 										</div>
 										<!-- /.sub-body -->
-									</div>
-									<!--/.sub-box -->
+									</div><!-- /.sub-box -->
 									
 									<div class="sub-box">
-										<div class="sub-title">담당자정보</div>
-										
+										<div class="sub-title">메모</div>
+									
 										<div class="sub-body">
 											<table class="table table-hover table-condensed">
 												<colgroup>
-													<col width="60px" />
-													<col width="" />
-													<col width="60px" />
-													<col width="" />
-													<col width="60px" />
 													<col width="" />
 												</colgroup>
 												<thead>
 													<tr>
-														<th>담당자</th>
 														<td>
-															<input class="form-control" type="text" id="req_mgrName">
-														</td>
-														<th>부서</th>
-														<td>
-															<input class="form-control" type="text" id="req_department">
-														</td>
-														<th>직책</th>
-														<td>
-															<input class="form-control" type="text" id="req_position">
-														</td>
-													</tr>
-													<tr>
-														<th>전화번호</th>
-														<td>
-															<input class="form-control" type="text" id="req_cellPhone">
-														</td>
-														<th>휴대폰</th>
-														<td>
-															<input class="form-control" type="text" id="req_fax">
-														</td>
-														<th>팩스</th>
-														<td>
-															<input class="form-control" type="text" id="fax">
-														</td>
-													</tr>
-													<tr>
-														<th>이메일</th>
-														<td  colspan="5">
-															<input class="form-control" type="text" id="req_email">
-														</td>
-													</tr>
-												</thead>
-											</table>
-										</div>
-										<!-- /.sub-body -->
-									</div>
-									<!--/.sub-box -->
-									
-									<div class="sub-box">
-										
-										<div class="sub-body">
-											<table class="table table-hover table-condensed">
-												<colgroup>
-													<col width="60px" />
-													<col width="" />
-												</colgroup>
-												<thead>
-													<tr>
-														<th>메모</th>
-														<td>
-															<input class="form-control" type="text" id="req_memo">
+															<textarea class="form-control" name="memo" id="req_memo" style="height: 212px;"></textarea>
 														</td>
 													</tr>
 												</thead>
@@ -543,63 +589,39 @@
 										<!-- /.sub-body -->
 									</div>
 									<!--/.sub-box -->	
-								</form>	
-							</div>
-							<!-- /.col-xs-7 -->
-							
-							<!-- 지원자리스트 -->
-							<div class="col-xs-4">
-								<div class="sub-box">
-									<div class="sub-title">지원자리스트</div>
-								</div><!-- /.sub-box -->
-								<div class="sub-body">
-									<div class="innerBox bordered scroll" style="height: 700px;">
-										<table class="table table-hover table-condensed">
-											<colgroup>
-												<col width="30px" />
-												<col width="82px" />
-												<col width="44px" />
-												<col width="" />
-												<col width="38px" />
-												<col width="40px" />
-											</colgroup>			
-											<thead>
-												<tr>
-													<th>&nbsp;</th>
-													<th>기수</th>
-													<th>이름</th>
-													<th>지원일자</th>
-													<th>결과</th>
-													<th>X</th>
-												</tr>
-											</thead>
-											<tbody id="interViewerList">
-												<!-- jquery로 출력 -->
-											</tbody>										
-										</table>
-									</div>
-								</div>
-								<!-- /.sub-body -->
+									
+									
+									
+								</div><!-- /.col-xs-4 -->
 								
-							</div><!-- /.col-xs-3 -->
+							</div><!-- /.row -->
 							
-						</div><!-- /.row -->
-					</div><!-- body -->
-				</div><!-- /.col-xs-12 -->	
-			</div><!-- /.row -->
-			<!-- /.하단 -->
-			
+							<!-- 취업의뢰 저장 -->
+							<div class="sub-toolbox clearfix text-center">
+								<input type="submit" value="저장" class="btn btn-primary" id="btn_search">
+							</div>
+							
+							<div class="space"></div><div class="space"></div><div class="space"></div><div class="space"></div>
+							
+						</div><!-- body -->
+					</div><!-- /.col-xs-12 -->	
+				</div><!-- /.row -->
+				<!-- /.하단 -->
+				
+			</form>	
 		</section>
+		
 	</div><!-- /.content-wrapper -->
 	
 	
 	<c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import>
 </div><!-- /.wrapper -->
-
 </body>
 
 
 <script type="text/javascript">
+
+
 /* 화면 처음 로딩될때 */
 $(document).ready(function() {
 	var request_no = "${param.request_no}";
@@ -682,6 +704,8 @@ function jobRequestFetcher(request_no){
       		
       		/* 0-->신입+경력 1-->신입  2-->경력  3 null '' */
       		$("input:radio[name='career'][value="+jobRequestVo.career+"]").prop("checked", true) ;
+	   		$("#req_careerYear").val(jobRequestVo.careerYear); /* 경력년수 */
+	   		$("#req_advantage").val(jobRequestVo.advantage); /* 우대사항 */
       		
       		$("#req_hireCnt").val(jobRequestVo.hireCnt) /* 모집인원 전체 */ 
       		$("#req_hireCnt_M").val(jobRequestVo.hireCnt_M) /* 모집인원 남 */ 
@@ -689,6 +713,8 @@ function jobRequestFetcher(request_no){
       		
       		/* 고용형태 0-->계약직 1-->정규직 2--> */
       		$("input:radio[name='contractType'][value="+jobRequestVo.contractType+"]").prop("checked", true) ;
+      		$("#req_internTerm").val(jobRequestVo.internTerm); /* 계약기간 */
+      		
       		
 			/* 계약기간  InternTerm 해야함*/
       		$("#req_workPlace").val(jobRequestVo.workPlace); /* 근무지 */
@@ -699,7 +725,7 @@ function jobRequestFetcher(request_no){
       		$("#req_useOS").val(jobRequestVo.useOS); /* OS */
       		$("#req_useDB").val(jobRequestVo.useDB); /* DB */
       		$("#req_useLang").val(jobRequestVo.useLang); /* 언어 */
-      		$("#req_useETC").val(jobRequestVo.userETC) /* 기타 */
+      		$("#req_useETC").val(jobRequestVo.useETC) /* 기타 */
       		
       		$("#req_procedures").val(jobRequestVo.procedures); /* 전형절차 */
       		$("#req_reqDocument").val(jobRequestVo.reqDocument); /* 제출서류 */
@@ -709,12 +735,15 @@ function jobRequestFetcher(request_no){
       		$("#req_department").val(jobRequestVo.department); /* 부서 */
       		$("#req_position").val(jobRequestVo.position); /* 직책 */
       		$("#req_telephone").val(jobRequestVo.telephone); /* 전화번호 */
-      		$("#req_cellPhone").val(jobRequestVo.cellPhone); /* 휴대폰 */
+      		$("#req_cellphone").val(jobRequestVo.cellphone); /* 휴대폰 */
       		$("#req_fax").val(jobRequestVo.fax); /* 팩스 */
       		$("#req_email").val(jobRequestVo.email); /* 이메일 */
       		
-      		$("#req_memo").val(jobRequestVo.memo); /* 이메일 */
+      		$("#req_memo").val(jobRequestVo.memo); /* 메모 */
       	
+      		
+      		/* 히든값 변경하기 */
+      		$("#req_request_no").val(request_no);
       		
       		/* 지원면접자리스트 */
       		interViewerListRender(jobRequestVo.interViewerList);
@@ -740,31 +769,33 @@ $("#interViewerList").on("dblclick", "tr", function(){
 });	
 
 
-$("#interViewerList").on("mouseover","tr",  function(){
-	console.log("AAAA");
+/* 지원자리스트 마우스오버 */
+$("#interViewerList").on("mouseenter", "tr",  function(){
 	$this = $(this);
-	$this.find(".btn_del_interViewer").text("X");
+	$this.find(".td_btn_del_area").html("<span class='label label-danger'>X</span>");
 });
 
+/* 지원자리스트 마우스아웃 */
 $("#interViewerList").on("mouseleave","tr",  function(){
-	console.log("AAAA");
 	$this = $(this);
-	$this.find(".btn_del_interViewer").text("");
+	$this.find(".td_btn_del_area").empty();
 });
 
-$("#interViewerList").on("click", ".btn_del_interViewer", function(){
+/* 지원자리스트 삭제버튼 클릭 */
+$("#interViewerList").on("click", "span", function(){
 	$this = $(this);
-	var interview_no = $this.data("interview_no");
-	console.log(interview_no);
-	alert(interview_no + "삭제하시겠습니까?");
+	var interview_no = $this.parent().data("interview_no");
+	
+	var result = confirm('삭제하시겠습니까?'); 
+	if(result == true) { 
+		console.log(interview_no+"삭제");
+		$this.closest("tr").remove();
+		
+	} else { 
+		console.log(interview_no+"취소");		
+	} 
 });
 
-/* 
-$("#interViewerList>tr").mouseover(function(){
-	$(this).css("color", "red");
-}
-$("#test").mouseleave(function(){$(this).css("color", "black");}
- */
 
 /* 면접학생리스트 */
 function interViewerListRender(interViewerList) {
@@ -775,12 +806,12 @@ function interViewerListRender(interViewerList) {
 			var no = i+1;
 			var interViewerVo = interViewerList[i];
 			str +=  "<tr class='mouse'>"+
-						"<td>" + no +"</td>" +
+						"<td class='text-center'></td>" +
 						"<td>" + interViewerVo.gisuName + "</td>" +
 						"<td>" + interViewerVo.nameHan + "</td>" +
 						"<td>" + interViewerVo.applyDate + "</td>" +
 						"<td>" + interViewerVo.result + "</td>" +
-						"<td class='btn_del_interViewer' data-interview_no="+interViewerVo.interview_no+">" +  "</td>"
+						"<td class='td_btn_del_area' data-interview_no="+interViewerVo.interview_no+"></td>"
 					"</tr>"	
 	    }  
 	} else {
@@ -802,7 +833,7 @@ function trSelected($this){
 	$this.addClass("trSelected");
 }
 
-
+/* 취업의뢰 정보폼 클리어 */
 function formClear(formID){
 	console.log($(formID));
 	
@@ -810,9 +841,32 @@ function formClear(formID){
 
 }
 
+
+/* 면접자 삭제 */
+function delInterViewer(interview_no, $this){
+	var result = confirm('삭제하시겠습니까?'); 
+	if(result) { 
+		$.ajax({
+	    	url : "${pageContext.request.contextPath}/jobrequest/delInterViewer",
+			type : "post",
+			data : {"interview_no" : interview_no},
+			dataType : "text",
+			async : false, 
+			success : function(result) {
+				if(result > 0){
+					$this.parents("tr").remove();
+				}else {
+					alert("삭제실패 관리자에게 문의하세요");
+				}
+			},
+			error : function(request, status, error) {
+	        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+	        }
+		});
+		
+		
+	} 
+}	
+
 </script>
-
-
 </html>
-
-	
