@@ -129,7 +129,7 @@
 																					<td>
 																						<input type = "hidden" name = "package_no"  style = "border:none;">
 																						<input type = "text" class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
-																						<button type = "button" class = "btn btn-default btn-sm pull-right " data-toggle = "modal" data-target = "#packageViewModal2">패키지보기</button>
+																						<button type = "button" class = "btn btn-default btn-h25 pull-right " data-toggle = "modal" data-target = "#packageViewModal2">패키지보기</button>
 																					</td>
 																				</tr>
 																			</tbody>

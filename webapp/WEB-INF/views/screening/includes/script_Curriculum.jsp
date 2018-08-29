@@ -397,8 +397,7 @@
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
-				 
-				 
+				  
 				 //실험중
 				 /* 
 // 				var listLen = curriAllVo.curriculumVo.testInfoList.length;
@@ -423,6 +422,27 @@
 					};
 				}
 				 */
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+				 /* 
+				 
+				 var testInfoList = curriAllVo.curriculumVo.testInfoList;
+				 console.log("아오");
+				 console.log(testInfoList);
+				 for (var i = 0; i < testInfoList.length; i++){
+					 if(testInfoList[i] != null){
+						 $("#testDate"[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+						 $("#testTime"[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+					 }
+				 }
+				  */
 // 				지원자 리스트 테이블 초기화
 //                 $("#renderApplicantList").find("tr:gt(0)").remove();
 //                 $("#renderApplicantList").remove(); //표 틀까지 다 지움

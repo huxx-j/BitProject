@@ -32,7 +32,7 @@
 											<td>
 												<input type = "hidden" name = "package_no"  style = "border:none;">
 												<input type = "text" class = "w300" readonly name = "packageName" style = "border : none; text-overflow: ellipsis;" >
-												<button type = "button" class = "btn btn-default btn-sm pull-right" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
+												<button type = "button" class = "btn btn-default btn-h25 pull-right form-inline" data-toggle = "modal" data-target = "#packageViewModal">패키지보기</button>
 											</td>
 										</tr>
 									</tbody>
@@ -105,7 +105,7 @@
 													        </span>
 													        <span>
 													        	<select class="form-control w60 testTime" id = "testTime0">
-																	<option value = "--:--">--:--</option>
+																	<option value = "">--:--</option>
 																	<option value = "08:00">08:00</option>
 																	<option value = "09:00">09:00</option>
 																	<option value = "10:00">10:00</option>
@@ -137,7 +137,7 @@
 													        </span>
 													        <span>
 													        	<select class="form-control w60 testTime" id = "testTime1">
-																	<option value = "--:--">--:--</option>
+																	<option value = "">--:--</option>
 																	<option value = "08:00">08:00</option>
 																	<option value = "09:00">09:00</option>
 																	<option value = "10:00">10:00</option>
@@ -170,7 +170,7 @@
 													        </span>
 													        <span>
 													        	<select class="form-control w60 testTime" id = "testTime2">
-																	<option value = "--:--">--:--</option>
+																	<option value = "">--:--</option>
 																	<option value = "08:00">08:00</option>
 																	<option value = "09:00">09:00</option>
 																	<option value = "10:00">10:00</option>

@@ -27,7 +27,6 @@ public class CurriculumService {
 	public CurriculumVo viewCurriculum(String curriculum_no) {
 		CurriculumVo curriculumVo = curriDao.viewCurriculum(curriculum_no);
 		curriculumVo.setTestInfoList(curriDao.viewTestInfo(curriculum_no));
-		System.out.println("CURRISERVICE VIEWCURRICULUM" + curriculumVo.getTestInfoList());
 		return curriculumVo;
 	}
 
@@ -46,10 +45,14 @@ public class CurriculumService {
 		List<TestInfoVo> testInfoList = curriVo.getTestInfoList();
 		int curriculum_no = curriVo.getCurriculum_no();
 		int delResult = curriDao.deleteTestInfo(curriculum_no);
+		
 		int insSuccessCnt = 0;
 		for (int j = 0; j < listSize; j++) {
 			TestInfoVo testInfoVo = testInfoList.get(j);
 			testInfoVo.setCurriculum_no(curriculum_no);
+			if(testInfoVo.getTestDate() == "") {
+				testInfoVo.setTestDate("null");
+			}
 			int insResult = curriDao.insertTestInfo(testInfoVo);
 			if (insResult > 0) {
 				insSuccessCnt += 1;
@@ -84,12 +87,29 @@ public class CurriculumService {
 		// 커리큘럼 정보 insert 후 전형일 추가하기 위해 curriculum_no값 받아오기(selectKey)
 		int curriculum_no = curriDao.addCurri(curriVo);
 		int listSize = curriVo.getTestInfoList().size();
-		System.out.println("ADD CURRI SERVICE LISTSIZE" + listSize);
 		int successCnt = 0;
+		
+		System.out.println("ADDCURRI 들어옴" + curriVo.toString());
 		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
+//		for (int i = 0; i < listSize; i++) {
+//			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
+//			testInfoVo.setCurriculum_no(curriculum_no);
+//			int result = curriDao.addCurriTest(testInfoVo);
+//			// insert 성공건수 check
+//			if (result > 0) {
+//				successCnt = successCnt + 1;
+//				// successCnt += 1;
+//			}
+//		}
 		for (int i = 0; i < listSize; i++) {
 			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
 			testInfoVo.setCurriculum_no(curriculum_no);
+			 
+			if(testInfoVo.getTestDate() == "" || testInfoVo.getTestTime() == "--:--") {
+				testInfoVo.setTestDate(null);
+				testInfoVo.setTestTime(null);
+			}
+			System.out.println("null값 처리이후" + testInfoVo.toString());
 			int result = curriDao.addCurriTest(testInfoVo);
 			// insert 성공건수 check
 			if (result > 0) {
