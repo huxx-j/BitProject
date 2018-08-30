@@ -45,15 +45,15 @@ public class CurriculumService {
 		List<TestInfoVo> testInfoList = curriVo.getTestInfoList();
 		int curriculum_no = curriVo.getCurriculum_no();
 		int delResult = curriDao.deleteTestInfo(curriculum_no);
-		
+
 		int insSuccessCnt = 0;
-		for (int j = 0; j < listSize; j++) {
+		for (int j = 0; j <= listSize; j++) {
 			TestInfoVo testInfoVo = testInfoList.get(j);
 			testInfoVo.setCurriculum_no(curriculum_no);
-			if(testInfoVo.getTestDate() == "") {
-				testInfoVo.setTestDate("null");
+			int insResult = 0;
+			if (testInfoVo.getTestDate() != null && testInfoVo.getTestTime() != null) {
+				insResult = curriDao.insertTestInfo(testInfoVo);
 			}
-			int insResult = curriDao.insertTestInfo(testInfoVo);
 			if (insResult > 0) {
 				insSuccessCnt += 1;
 			}
@@ -90,6 +90,8 @@ public class CurriculumService {
 		int successCnt = 0;
 		
 		System.out.println("ADDCURRI 들어옴" + curriVo.toString());
+		
+		/////////////////////////////초기 ver/////////////////////////
 		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
 //		for (int i = 0; i < listSize; i++) {
 //			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
@@ -101,6 +103,9 @@ public class CurriculumService {
 //				// successCnt += 1;
 //			}
 //		}
+		////////////////////////////////////////////////////////////
+		/*
+		/////////////////////////null값 처리 수정 ver////////////////////
 		for (int i = 0; i < listSize; i++) {
 			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
 			testInfoVo.setCurriculum_no(curriculum_no);
@@ -117,14 +122,36 @@ public class CurriculumService {
 				// successCnt += 1;
 			}
 		}
+		/////////////////////////////////////////////////////////////
+		*/
+		
+		for (int i = 0; i < listSize; i++) {
+			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
+			testInfoVo.setCurriculum_no(curriculum_no);
+			int result = 0;
+			if(testInfoVo.getTestDate() != "" && testInfoVo.getTestTime() != "--:--") {
+				result = curriDao.addCurriTest(testInfoVo);
+			}
+			System.out.println("ADDCURRI"+result);
+			System.out.println("testInfoVo"+testInfoVo.toString());
+			// insert 성공건수 check
+			if (result > 0) {
+				successCnt = successCnt + 1;
+				// successCnt += 1;
+			}
+		}
+		///////////////////////20180829 수정필요
 		// insert 성공건수가 list사이즈와 같으면 성공!
+		/*
 		if (successCnt == listSize) {
 			return 1;
 		} else {
 			return 0;
 		}
+		*/
+		return 1;
 	}
-
+	
 	// zTree 카테고리 탭 (목록 불러오기)
 	public List<CurriculumVo> currilist() {
 		return curriDao.currilist();

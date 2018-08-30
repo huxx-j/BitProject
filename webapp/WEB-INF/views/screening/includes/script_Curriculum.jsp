@@ -362,21 +362,16 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
-				
-				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
 				$("input[name='support']").val(curriAllVo.curriculumVo.support),
 				$("input[name='managerInfo']").val(curriAllVo.curriculumVo.managerInfo),
 				$("input[name='gisuName']").val(curriAllVo.curriculumVo.gisuName),
-				
-				
             	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='state'][value="+curriAllVo.curriculumVo.state+"]").attr("checked",true),
 				$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
-				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
@@ -384,12 +379,11 @@
 				$("#testDate0").val(""),
 				$("#testDate1").val(""),
 				$("#testDate2").val(""),
-				$("#testTime0").val("--:--"),
-				$("#testTime1").val("--:--"),
-				$("#testTime2").val("--:--")
-// 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", false),
-// 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", false),
-// 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", false),
+				$("#testTime0").val(""),
+				$("#testTime1").val(""),
+				$("#testTime2").val("")
+
+/* 
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
 				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
 				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
@@ -397,52 +391,16 @@
 				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
 				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
 				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
-				  
-				 //실험중
-				 /* 
-// 				var listLen = curriAllVo.curriculumVo.testInfoList.length;
-                console.log(curriAllVo.curriculumVo.testInfoList.length);
-				for(var j = 0; j < 3; j++){
-					for(var i = 0; i < curriAllVo.curriculumVo.testInfoList.length; i++){
-						if(curriAllVo.curriculumVo.testInfoList.length < j){
-							for(var k = 0; k < curriAllVo.curriculumVo.testInfoList.length+1; k++){
-								$("#testDate"+k).val("");
-								$("#testTime"+k).val("--:--");
-								$("#testDate"+k).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
-								$("#testTime"+k).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
-							};
-						}else{
-								$("#testDate"+j).val("");
-								$("#testTime"+j).val("--:--");
-
-								$("#testDate"+j).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
-								$("#testTime"+j).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
-							
-						};
-					};
-				}
 				 */
 				 
+				 var listLen = curriAllVo.curriculumVo.testInfoList.length;
+				 console.log(curriAllVo.curriculumVo.testInfoList.length);
+				 for(var i = 0; i < listLen; i++){
+					 $("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+					 $("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+				 };
 				 
 				 
-				 
-				 
-				 
-				 
-				 
-				 
-				 /* 
-				 
-				 var testInfoList = curriAllVo.curriculumVo.testInfoList;
-				 console.log("아오");
-				 console.log(testInfoList);
-				 for (var i = 0; i < testInfoList.length; i++){
-					 if(testInfoList[i] != null){
-						 $("#testDate"[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
-						 $("#testTime"[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
-					 }
-				 }
-				  */
 // 				지원자 리스트 테이블 초기화
 //                 $("#renderApplicantList").find("tr:gt(0)").remove();
 //                 $("#renderApplicantList").remove(); //표 틀까지 다 지움

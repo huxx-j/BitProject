@@ -107,7 +107,7 @@
 															<div class = "row">
 																<div class = "col-xs-12">
 																	<div class = "sub-box">
-																		<table class = "table table-condensed">
+																		<table class = "table table-condensed" id = "curriCateInfoTbl">
 																			<colgroup>
 																				<col width = "90px"/>
 																				<col width = "229px"/>
@@ -119,7 +119,8 @@
 																					<th>업무구분</th>
 																					<td>
 																						<input type = "hidden" name = "curriculumCate_no"  style = "border:none;">
-																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no">
+<!-- 																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no"> -->
+																						<select class = "form-control " id = "cateName" name = "cateName">
 																							<c:forEach items = "${workType }" var = "workType">
 																								<option id = "${workType.curriculumCate_no }"  value = "${workType.curriculumCate_no }">${workType.cateName }</option>
 																							</c:forEach>
@@ -143,11 +144,12 @@
 															<div class = "row">
 																<div class = "col-xs-12">
 																	<div class = "sub-box">
-																		<div class = "sub-title">
-																			기본정보
+																		<div class = "sub-title" style = "width : 945px;">
+																			<div class = " pull-left " style = "float : left;">기본정보</div>
+																			<div class = "pull-right" style = "float : right;"><button type = "button" class = "btn btn-default btn-sm pull-right" id = "emptyTbl">전체 내용 지우기</button></div>
 																		</div><!-- /.sub-title -->
 																		<div class = "sub-body">
-																			<table class = "table table-condensed">
+																			<table class = "table table-condensed" id = "curriInfoTbl">
 																				<colgroup>
 																					<col width = "90px"/>
 																					<col width = ""/>

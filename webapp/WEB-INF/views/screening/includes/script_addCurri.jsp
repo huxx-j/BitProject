@@ -310,30 +310,33 @@
 				$("input[name='curriNickname']").val(curriAllVo.curriculumVo.curriNickname),
 				$("input[name='startDate']").val(curriAllVo.curriculumVo.startDate),
 				$("input[name='endDate']").val(curriAllVo.curriculumVo.endDate),
-				
-				
 				$("input[name='time']").val(curriAllVo.curriculumVo.time),
 				$("input[name='maxCnt']").val(curriAllVo.curriculumVo.maxCnt),
 				$("input[name='price']").val(curriAllVo.curriculumVo.price),
 				$("input[name='support']").val(curriAllVo.curriculumVo.support),
 				$("input[name='managerInfo']").val(curriAllVo.curriculumVo.managerInfo),
 				$("input[name='gisuName']").val(curriAllVo.curriculumVo.gisuName),
-				
 	        	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='state'][value="+curriAllVo.curriculumVo.state+"]").attr("checked",true),
-				
 				$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
-				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 
-				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
-				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
-				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
-				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
-				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
-				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
+				//전형일 초기화
+				$("#testDate0").val(""),
+				$("#testDate1").val(""),
+				$("#testDate2").val(""),
+				$("#testTime0").val(""),
+				$("#testTime1").val(""),
+				$("#testTime2").val("")
+				
+				 var listLen = curriAllVo.curriculumVo.testInfoList.length;
+				 console.log(curriAllVo.curriculumVo.testInfoList.length);
+				 for(var i = 0; i < listLen; i++){
+					 $("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+					 $("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+				 };
 				
 // 				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
@@ -422,26 +425,9 @@
 			var testInfoVo = {	testDate : $("#testDate"+i).val(),
 								testTime : $("#testTime"+i).val()
 							 }; 
-// 			testDate[i] = $("#testDate"+i).val();
-// 			testTime[i] = $("#testTime"+i).val();
-// 			testDate.push($("td ").eq(i).val());
 			testInfoList[i] = testInfoVo;
 		}
 
-		 //실험중
-		 /* 
-		var testInfoList = [];
-		var testInfoVo = {};
-		for(var k = 0; k < 3; k++){
-			if($("#testDate"+k).val() != null){
-				var testInfoVo = {	testDate : $("#testDate"+k).val(),
-									testTime : $("#testTime"+k).val()
-								 };
-				testInfoList[k] = testInfoVo;
-			};
-		}
-		console.log(testInfoList);
-		 */
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -486,7 +472,12 @@
    					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 						treeObj.refresh();
 						location.reload();
-
+						var confirmMsg = confirm("계속 추가하시겠습니까?")
+						if(confirmMsg){
+							
+						}else{
+							location.replace("${pageContext.request.contextPath}/curri/")
+						}
 					}else{
 						alert("다시 시도해주세요.");
 					}
@@ -570,4 +561,64 @@
   		});
   		$("#addCateModal").modal("close");
   	});
+  	
+  	
+  	
+  	
+  	$("#emptyTbl").on("click", function(){
+  		emptyTblFnc();
+  	});
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	function emptyTblFnc(){
+//   		$('select').find('option:first').attr('selected', 'selected'),
+//         $("#cateName").val().prop("selected",false),
+// 		$("select").empty().data('options'),
+// 		$("select").prop('selectedIndex',0),
+// 		$("#cateName").val("option:eq(0)").prop("selected", true),
+
+		$("select").each(function(){
+			$(this).find('option:first').prop("selected", true);
+		}),
+		
+		
+  		$("#cateName").val(""),
+        $("input[name='curriculumCate_no']").val(""),
+        $("input[name='package_no']").val(""),
+        $("input[name='packageName']").val(""),
+        $("input[name='curriculum_no']").val(""),
+		$("input[name='curriName']").val(""),
+		$("input[name='curriNickname']").val(""),
+		$("input[name='startDate']").val(""),
+		$("input[name='endDate']").val(""),
+		$("input[name='time']").val(""),
+		$("input[name='maxCnt']").val(""),
+		$("input[name='price']").val(""),
+		$("input[name='support']").val(""),
+		$("input[name='managerInfo']").val(""),
+		$("input[name='gisuName']").val(""),
+     	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
+		$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
+		$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
+
+		//전형일 초기화
+		$("#testDate0").val(""),
+		$("#testDate1").val(""),
+		$("#testDate2").val(""),
+		$("#testTime0").val("--:--"),
+		$("#testTime1").val(""),
+		$("#testTime2").val("")
+			
+  	}
 </script>

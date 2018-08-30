@@ -248,6 +248,9 @@
 
 	
 	
+	$("#addCurriFormBtn").on("click", function(){
+		location.replace("${pageContext.request.contextPath}/curri/addCurriForm");
 	
+	});
 
 </script>

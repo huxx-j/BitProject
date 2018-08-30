@@ -97,9 +97,9 @@
 										<li class = ""><a href = "#tab_3" data-toggle = "tab">교육생관리</a></li>
 <!-- 										<li class = ""><a href = "#tab_4" data-toggle = "tab">강사배정</a></li> -->
 <!-- 										<li class = ""><a href = "#tab_5" data-toggle = "tab">강의실배정</a></li> -->
-										<a href = "${pageContext.request.contextPath }/curri/addCurriForm">
-											<button type = "button" class = "btn btn-default btn-sm pull-right" >교육과정추가</button>
-										</a>
+<%-- 										<a href = "${pageContext.request.contextPath }/curri/addCurriForm"> --%>
+											<span><button type = "button" class = "btn btn-default btn-sm pull-right" id = "addCurriFormBtn">교육과정추가</button></span>
+<!-- 										</a> -->
 									</ul><!-- /.nav nav-tabs -->
 									<!-- /.상단 탭 영역 끝 -->
 									<!-- 탭 내용 박스 -->
