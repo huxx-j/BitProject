@@ -540,11 +540,6 @@ function gridExec() {
 
 }
 
-/* 그리드 강제 선택 */
-function selectGrid()
-$("#그리드아이디").jqGrid('setSelection', "1", true);
-
-
 
 /* 면접자 삭제*/
 function delInterViewer(interview_no){
