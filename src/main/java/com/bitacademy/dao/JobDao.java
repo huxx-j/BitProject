@@ -51,6 +51,12 @@ public class JobDao {
 		return result;
 	}
 	
+	/*면접지원자 추가*/
+	public int insertInterViewer(InterViewerVo interViewerVo) {
+		return sqlSession.insert("job.insertInterViewer", interViewerVo);
+	}
+	
+	
 	/*회사정보 수정*/
 	public int updateCompany(JobRequestVo jobRequestVo) {
 		int result = sqlSession.update("job.updateCompany", jobRequestVo);
@@ -64,10 +70,10 @@ public class JobDao {
 	}
 	
 	/*학생리스트--> 면접지원 팝업*/
-	public List<ApplyUserVo> getStudentList() {
+	public List<ApplyUserVo> getStudentList(JobCriteriaVo jobCriteriaVo) {
 		System.out.println("=============================================");
 		System.out.println("=============================================");
-		return sqlSession.selectList("job.getStudentList");
+		return sqlSession.selectList("job.getStudentList", jobCriteriaVo);
 	}
 	
 	

@@ -218,6 +218,28 @@
 			where interview_no = #{interview_no}
 		]]>
 	</delete>
+	
+	
+	<!-- 면접지원자 추가-->
+	<insert id="insertInterViewer" parameterType="com.bitacademy.vo.InterViewerVo">
+		<![CDATA[
+			INSERT INTO Interview (
+				User_no, 
+				Request_no, 
+				GisuName,
+				ApplyDate,
+				Result
+			)  
+			VALUES (
+				#{user_no},
+				#{request_no},
+				#{gisuName},
+				NOW(),
+				'0'
+			)
+		]]>
+	</insert>
+	
 
 
 	<!-- 회사정보 수정 -->
@@ -298,14 +320,33 @@
 					a.Applicant_no,
 			        c.Curriculum_no,
 			        c.GisuName,
-			        u.NameHan
+			        c.CurriName,
+			        u.NameHan,
+			        u.BirthDate,
+			        u.StudResNum,
+			        u.Gender
 			from Users u, ApplyInfo a, Curriculum c 
 			where u.User_no = a.User_no
 			and a.Curriculum_no = c.Curriculum_no
-		]]>	
-		<if test="sidx!=null and !sidx.equals('')">
-			order by ${sidx} ${sord}
+		]]>
+		<if test="comCondition == 'kisu'">
+			and c.GisuName like CONCAT('%', #{keyword}, '%')
 		</if>
+		<if test="comCondition == 'name'">
+			and u.NameHan like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="comCondition == 'curri'">
+			and c.CurriName like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="comCondition == 'birth'">
+			and u.BirthDate like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord}, NameHan asc
+		</if>
+		<![CDATA[
+			limit #{startNum}, #{rows}
+		]]>	
 	</select>
 	
 	

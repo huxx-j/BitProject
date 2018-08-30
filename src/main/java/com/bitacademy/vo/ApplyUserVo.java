@@ -28,14 +28,20 @@ public class ApplyUserVo {
 	private int cardPayAmount;
 	private int totalPay;
 	private String consultContent;
-	private String CurriState;
+	private String curriState;
+	
+	private int request_no;
+	
+
+	public ApplyUserVo() {
+	}
 	
 	public ApplyUserVo(int user_no, int curriculum_no, String cateName, String gisuName, String curriName,
-			String nameHan, String applyType, String birthDate, String studResNum, int testScore, int gender,String c_gender, String testResult,
-			String cellphone, String testLang, String applyDate, String testDate, String school, String major,
-			String deposit, String depositDate, int depositAmount, String cardPayDate, int cardPayAmount, int totalPay,
-			String consultContent, String curriState) {
-		
+			String nameHan, String applyType, String birthDate, String studResNum, int testScore, int gender,
+			String c_gender, String testResult, String cellphone, String testLang, String applyDate, String testDate,
+			String school, String major, String deposit, String depositDate, int depositAmount, String cardPayDate,
+			int cardPayAmount, int totalPay, String consultContent, String curriState, int request_no) {
+		super();
 		this.user_no = user_no;
 		this.curriculum_no = curriculum_no;
 		this.cateName = cateName;
@@ -62,11 +68,8 @@ public class ApplyUserVo {
 		this.cardPayAmount = cardPayAmount;
 		this.totalPay = totalPay;
 		this.consultContent = consultContent;
-		CurriState = curriState;
-	}
-
-	public ApplyUserVo() {
-		
+		this.curriState = curriState;
+		this.request_no = request_no;
 	}
 
 	public int getUser_no() {
@@ -284,11 +287,11 @@ public class ApplyUserVo {
 	}
 
 	public String getCurriState() {
-		return CurriState;
+		return curriState;
 	}
 
 	public void setCurriState(String curriState) {
-		CurriState = curriState;
+		this.curriState = curriState;
 	}
 
 	public String getStudResNum() {
@@ -297,6 +300,15 @@ public class ApplyUserVo {
 
 	public void setStudResNum(String studResNum) {
 		this.studResNum = studResNum;
+	}
+
+	
+	public int getRequest_no() {
+		return request_no;
+	}
+
+	public void setRequest_no(int request_no) {
+		this.request_no = request_no;
 	}
 
 	@Override
@@ -308,9 +320,8 @@ public class ApplyUserVo {
 				+ cellphone + ", testLang=" + testLang + ", applyDate=" + applyDate + ", testDate=" + testDate
 				+ ", school=" + school + ", major=" + major + ", deposit=" + deposit + ", depositDate=" + depositDate
 				+ ", depositAmount=" + depositAmount + ", cardPayDate=" + cardPayDate + ", cardPayAmount="
-				+ cardPayAmount + ", totalPay=" + totalPay + ", consultContent=" + consultContent + ", CurriState="
-				+ CurriState + "]";
+				+ cardPayAmount + ", totalPay=" + totalPay + ", consultContent=" + consultContent + ", curriState="
+				+ curriState + ", request_no=" + request_no + "]";
 	}
-
 
 }
