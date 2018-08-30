@@ -156,7 +156,7 @@
 													</div>
 												</div><!-- /.row -->
 											</div>
-											<!-- sub_title -->
+											<!-- /.sub-toolbox -->
 											
 										
 											<!-- sub_body -->
@@ -165,12 +165,12 @@
 												<div class="bordered scroll innerBox" style="height: 500px;">
 													<table class="table table-hover table-condensed no-border">
 														<colgroup>
-															<col width="16" />
-															<col width="58" />
-															<col width="43" />
+															<col width="18px" />
+															<col width="75px" />
+															<col width="43px" />
 															<col width="" />
-															<col width="33" />
-															<col width="34" />
+															<col width="33px" />
+															<col width="34px" />
 														</colgroup>				
 														<thead>
 															<tr>
@@ -277,31 +277,32 @@
 				<!-- 검색영역 -->
 				<div class="sub-box">
 					<div class="sub-body">
-						<table class="table table-condensed">
-							<colgroup>
-								<col width="80px" />
-								<col width="150px" />
-								<col width="250px" />
-								<col width="" />
-							</colgroup>
-					
-							<tbody>
-								<tr>
-									<th class="text-center">수료생검색</th>
-									<td>
-										<select class="form-control" name="studentCondition" id="studentCondition">
-											<option value="">선택</option> 
-											<option value="kisu">기수</option> 
-											<option value="name">이름</option>
-											<option value="curri">교육과정명</option>
-											<option value="birth">생년월일</option>
-										</select>
-									</td>
-									<td><input class="form-control" type="text" name="keyword" value="">
-									<td><button type="button" class="btn btn-primary btn-h25" id="btn_modal_search">검색</button></td>
-								</tr>
-							</tbody>
-						</table>
+						<form id="formStudentList" method="" action="">
+							<table class="table table-condensed">
+								<colgroup>
+									<col width="80px" />
+									<col width="150px" />
+									<col width="250px" />
+									<col width="" />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th class="text-center">수료생검색</th>
+										<td>
+											<select class="form-control" name="studentCondition" id="studentCondition">
+												<option value="">선택</option> 
+												<option value="kisu">기수</option> 
+												<option value="name">이름</option>
+												<option value="curri">교육과정명</option>
+												<option value="birth">생년월일</option>
+											</select>
+										</td>
+										<td><input class="form-control" type="text" name="keyword" value="">
+										<td><button type="button" class="btn btn-primary btn-h25" id="btn_modal_search">검색</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
 					</div><!-- /.sub-body -->
 					
 				</div><!-- /.sub-box 검색영역 끝-->
@@ -320,40 +321,6 @@
 						<!-- 페이징 -->
 						<div id="jqGridPagerModal"></div>
 						
-						<%-- <table class="table table-hover table-condensed">
-							<colgroup>
-								<col width="16" />
-								<col width="58" />
-								<col width="43" />
-								<col width="90" />
-								<col width="33" />
-								<col width="34" />
-							</colgroup>
-					
-							<thead>
-								<tr>
-									<th>&nbsp;</th>
-									<th>선택</th>
-									<th>과정</th>
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>성별</th>
-								</tr>
-							</thead>
-					
-							<tbody id=>
-								<c:forEach begin="0" end="15">
-								<tr>
-									<td>1</td>
-									<td><input type="checkbox"></td>
-									<td class="gisu"></td>
-									<td class="name"></td>
-									<td>911121</td>
-									<td>남</td>
-								</tr>
-								</c:forEach>
-							</tbody>	
-						</table> --%>
 					</div><!-- /.sub-body -->
 					
 				</div><!-- /.sub-box 하단영역 끝-->
@@ -366,7 +333,7 @@
 				<div class="row">
 					<div class="col-xs-4"></div>
 					<div class="col-xs-4 text-center">
-						<button type="button" class="btn btn-primary">선택</button>
+						<button type="button" class="btn btn-primary" id="btn_studentSelect">선택</button>
 					</div>
 					<div class="col-xs-4">
 						<button type="button" class="btn btn-default pull-right" data-dismiss="modal">취소</button>
@@ -393,6 +360,9 @@
 
 
 <script type="text/javascript">
+/************************************************/
+/* 메인영역 
+/************************************************/
 
 /* 화면 처음 로딩될때 */
 $(document).ready(function() {
@@ -401,6 +371,7 @@ $(document).ready(function() {
 	
 	/* 그리드실행 */
 	gridExec();
+	$("#jqGrid").setSelection(request_no,true)
 });
 
 
@@ -415,7 +386,6 @@ $("[name=comCondition]").on("click", function(){
 	} else{
 		$(".dateRange").hide();
 	}
-
 });
 
 
@@ -433,26 +403,60 @@ $("#btn_search").on("click", function(){
 			return;
 		}
 	} 
-	
 	/* 그리드실행 */
-	gridExec();
-	
+	gridExec();	
 });
 
 
 /* 면접자리스트 두번클릭 */
 $("#interViewerList").on("dblclick", "tr", function(){
 	$this = $(this);
+	var user_no = $this.data("user_no");
+
 	console.log($this.attr("class"));
-	if($this.attr("class") != "noData"){
-		trSelected($this);
-		console.log("in");
-		//프로필 창 로드	
+	
+	if($this.attr("class") != "noData"){ //지원자클릭시 노란색으로
+		/* trSelected($this); */
+		//프로필 창 로드
+		console.log("프로필용 유저번호" + user_no);
 	}
 });	
 
 
-/* 그리드 출력하기 */
+/* 면접자리스트 마우스오버 */
+$("#interViewerList").on("mouseenter", "tr",  function(){
+	$this = $(this);
+	$this.find(".td_btn_del_area").html("<span class='label label-danger'>X</span>");
+});
+
+/* 면접자리스트 마우스아웃 */
+$("#interViewerList").on("mouseleave","tr",  function(){
+	$this = $(this);
+	$this.find(".td_btn_del_area").empty();
+});
+
+/* 지원자리스트 삭제버튼 클릭 */
+$("#interViewerList").on("click", "span", function(){
+	$this = $(this);
+	var interview_no = $this.parent().data("interview_no");
+	
+	var rowId = $("#jqGrid").getGridParam("selrow");
+	var request_no = $("#jqGrid").getRowData(rowId).request_no; 
+	
+	//삭제실행
+	var delCnt = delInterViewer(interview_no);
+	
+	//삭제성공이면 리스트를 요청하여 출력한다.
+	if(delCnt > 0){
+		getInterViewerList(request_no);
+	}
+});
+
+/* ----------------------------- */
+/* 메인: 통신관련 함수           */
+/* ----------------------------- */
+ 
+/* 취업의뢰 리스트 출력, 한번클릭(지원자리스트출력), 두번클릭(프로필호출) */
 function gridExec() {
 	
 	var postData ={
@@ -501,30 +505,15 @@ function gridExec() {
 		shrinkToFit: false,
 		emptyrecords: '데이터가 없습니다.',  //데이터 없을 때
 
-
 		/* 그리드 한번클릭했을때 --> 면접지원자 리스트*/
 		onSelectRow : function(rowId, iRow, iCol, e) {
 	
 			var rowId = $("#jqGrid").getGridParam("selrow");
 			var request_no = $("#jqGrid").getRowData(rowId).request_no; 
-			console.log(request_no)
+			console.log(request_no);
 			
-	
-			$.ajax({
-	        	url : "${pageContext.request.contextPath}/jobrequest/getInterviewList",
-				type : "post",
-				data : {"request_no" : request_no},
-				dataType : "json",
-				success : function(interViewerList) {
-	           	 	console.log(interViewerList);
-	           	 	
-	           	 	interViewerListRender(interViewerList);
-	           	 	
-				},
-				error : function(request, status, error) {
-	            		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
-	            }
-			});
+			getInterViewerList(request_no);
+			
 		},
 		
 		/* 그리드 두번클릭했을때 (팝업호출)*/
@@ -551,36 +540,47 @@ function gridExec() {
 
 }
 
-/* 지원자리스트 마우스오버 */
-$("#interViewerList").on("mouseenter", "tr",  function(){
-	$this = $(this);
-	$this.find(".td_btn_del_area").html("<span class='label label-danger'>X</span>");
-});
 
-/* 지원자리스트 마우스아웃 */
-$("#interViewerList").on("mouseleave","tr",  function(){
-	$this = $(this);
-	$this.find(".td_btn_del_area").empty();
-});
-
-/* 지원자리스트 삭제버튼 클릭 */
-$("#interViewerList").on("click", "span", function(){
-	$this = $(this);
-	var interview_no = $this.parent().data("interview_no");
-	
+/* 면접자 삭제*/
+function delInterViewer(interview_no){
+	var resultValue;
 	var result = confirm('삭제하시겠습니까?'); 
-	if(result == true) { 
-		console.log(interview_no+"삭제");
-		$this.closest("tr").remove();
-		
-	} else { 
-		console.log(interview_no+"취소");		
+	if(result) { 
+		$.ajax({
+	    	url : "${pageContext.request.contextPath}/jobrequest/delInterViewer",
+			type : "post",
+			data : {"interview_no" : interview_no},
+			dataType : "text",
+			async : false, 
+			success : function(delCnt) {
+				resultValue = delCnt
+			},
+			error : function(request, status, error) {
+	        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+	        }
+		});
 	} 
-});
+	return resultValue;
+}
 
+/* 면접자 리스트 출력 */
+function getInterViewerList(request_no){
+	$.ajax({
+    	url : "${pageContext.request.contextPath}/jobrequest/getInterviewList",
+		type : "post",
+		data : {"request_no" : request_no},
+		dataType : "json",
+		success : function(interViewerList) {
+       	 	console.log(interViewerList);
+       	 	interViewerListRender(interViewerList);
+		},
+		error : function(request, status, error) {
+        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+        }
+	});
+}
 
-
-/* 면접학생리스트 */
+/* 면접학생리스트 랜더링 */
 function interViewerListRender(interViewerList) {
 	var str = "";
 	
@@ -588,12 +588,12 @@ function interViewerListRender(interViewerList) {
 		for (var i=0; i<interViewerList.length; i++) {
 			var no = i+1;
 			var interViewerVo = interViewerList[i];
-			str +=  "<tr class='mouse'>"+
-						"<td class='text-center'></td>" +
+			str +=  "<tr class='mouse' data-user_no="+ interViewerVo.user_no +">"+
+						"<td class='text-center'>" + no +"</td>" +
 						"<td>" + interViewerVo.gisuName + "</td>" +
 						"<td>" + interViewerVo.nameHan + "</td>" +
 						"<td>" + interViewerVo.applyDate + "</td>" +
-						"<td>" + interViewerVo.result + "</td>" +
+						"<td class='text-center'>" + interViewerVo.result + "</td>" +
 						"<td class='td_btn_del_area' data-interview_no="+interViewerVo.interview_no+"></td>"
 					"</tr>"	
 	    }  
@@ -609,61 +609,54 @@ function interViewerListRender(interViewerList) {
 
 
 /* 면접자 리스트 선택한 tr 배경색변경 */
-function trSelected($this){
+/* function trSelected($this){
 	console.log($this); 
 	$this.removeClass("trSelected");
 	$this.addClass("trSelected");
-}
+} */
 
-/* 면접자 삭제 */
-function delInterViewer(interview_no, $this){
-	var result = confirm('삭제하시겠습니까?'); 
-	if(result) { 
-		$.ajax({
-	    	url : "${pageContext.request.contextPath}/jobrequest/delInterViewer",
-			type : "post",
-			data : {"interview_no" : interview_no},
-			dataType : "text",
-			async : false, 
-			success : function(result) {
-				if(result > 0){
-					$this.parents("tr").remove();
-				}else {
-					alert("삭제실패(관리자에게 문의하세요)");
-				}
-			},
-			error : function(request, status, error) {
-	        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
-	        }
-		});
-		
-		
-	} 
-	
-	
-}
 
 /************************************************/
-/* 모달영역(지원자추가) /************************************/
+/* 모달영역(지원자추가) 
 /************************************************/ 
  
 /* 모달호출 */ 
 $("#btn_studentModal").on("click", function() {
-	modalGridExec();
-	$("#studentModal").modal();
+	var rowId = $("#jqGrid").getGridParam("selrow");
+	var request_no = $("#jqGrid").getRowData(rowId).request_no;
+	
+	if(request_no =="" || request_no ==null ){
+		alert("구인업체를 선택해 주세요");	
+	}else{
+		/* 폼클리어 */
+  		formClear("formStudentList");
+		modalGridExec();
+		$("#studentModal").modal();		
+	}
 }); 
- 
+
 
 /* 모달창 검색 */
 $("#btn_modal_search").on("click", function() {
-	console.log("aaaa");
 	modalGridExec();
 }); 
 
 
+$("input[name=keyword]").on("keydown", function (key) {
+    if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+    	modalGridExec();
+    }
+});
 
 
-/* 그리드 출력하기 */
+
+/* 선택버튼 클릭시 선택한 학생 리스트에 적용 */
+$("#btn_studentSelect").on("click", function() {
+	addInterViewerAndList();
+});
+
+
+/* 모달 그리드 출력하기 */
 function modalGridExec() {
 	
 	var postData ={
@@ -673,7 +666,7 @@ function modalGridExec() {
 		
 	console.log(postData);
 		
-	var cnames = [ '회원번호', '지원번호', '수업번호', '기수명', '수업명', '이름', '생년월일', '주민번호', '성별'];
+	var cnames = [ '회원번호', '지원번호', '수업번호', '기수명', '수업명', '이름', '생년월일', '성별'];
 	$("#jqGridModal").jqGrid({
 			url : "${pageContext.request.contextPath }/jobrequest/getStudentList",
 			mtype : "post",
@@ -681,30 +674,40 @@ function modalGridExec() {
 			datatype:"json",
 			
 			colNames : cnames,
-			colModel : [{name: 'user_no', index: 'user_no', width: 60/* , hidden: true */},
-						{name: 'applicant_no', index: 'applicant_no', width: 60/* , hidden: true */},
-						{name: 'curriculum_no', index: 'curriculum_no', width: 60/* , hidden: true */},
-						{name: 'gisuName', index: 'gisuName', width: 60, align: "center"},
-						{name: 'curriName', index: 'curriName' , width: 50, align: "center"},
-						{name: 'nameHan', index: 'nameHan', width: 80, align: "center"},
-						{name: 'birthDate', index: 'birthDate', width: 200, align: "left"},
-						{name: 'studResNum', index: 'studResNum', width: 70, align: "left"},
-						{name: 'gender', index: 'gender', width: 250, align: "left"}
-						],
+			colModel : [{name: 'user_no', index: 'user_no', width: 10, hidden: true},
+						{name: 'applicant_no', index: 'applicant_no', width: 10, hidden: true},
+						{name: 'curriculum_no', index: 'curriculum_no', width: 10, hidden: true},
+						{name: 'gisuName', index: 'gisuName', width: 100, align: "left"},
+						{name: 'curriName', index: 'curriName' , width: 250, align: "left"},
+						{name: 'nameHan', index: 'nameHan', width: 50, align: "center"},
+						{name: 'birthDate', index: 'birthDate', width: 80, align: "left"},
+						{name: 'gender', index: 'gender', width: 50, align: "left",
+								formatter: function( cellvalue , options ,rowObject ){
+							    	if(cellvalue == '1') return "남자";
+							    	else return "여자";
+								}
+						}
+				 	  ], 
 			rowheight : 20,
 			height : 443,
 			width : 563,
-			rowNum : 500,
-			rowList : [ 50, 100, 200, 300, 500 ],
+			rowNum : 100,
+			rowList : [ 100, 200, 300, 400, 500 ],
 			pager : '#jqGridPagerModal',
 			rownumbers : true,
 			loadtext : '로딩중',
 			sortname : 'nameHan',
 			sortorder:"asc", 
 			gridview:true,
-			/* shrinkToFit: false, */
-			emptyrecords: '데이터가 없습니다.'  //데이터 없을 때
+			shrinkToFit: false,
+			emptyrecords: '데이터가 없습니다.',  //데이터 없을 때
+			
+			/* 그리드 두번클릭했을때 선택한 학생 리스트에 적용*/
+			ondblClickRow : function(rowId, iRow, iCol, e,user_no) {
+				addInterViewerAndList();
+			}
 	});
+	
 	/* 그리드 파라미터값 재설정 */
 	$("#jqGridModal").setGridParam({
 	   	 datatype	: "json",
@@ -716,38 +719,63 @@ function modalGridExec() {
 }
 
 
+/* 모달에서 면접자 추가후 취업의뢰메인 리스트에 적용 */
+function addInterViewerAndList(){
+	var rowIdM = $("#jqGridModal").getGridParam("selrow");
+	var user_no = $("#jqGridModal").getRowData(rowIdM).user_no; 
+	var gisuName = $("#jqGridModal").getRowData(rowIdM).gisuName;
+	
+	var rowId = $("#jqGrid").getGridParam("selrow");
+	var request_no = $("#jqGrid").getRowData(rowId).request_no;
+	
+	interViewerVo ={
+		user_no: user_no,
+		request_no: request_no,
+		gisuName: gisuName
+	};
+	console.log("=========================");
+	console.log(interViewerVo);
+	if(user_no == "" || user_no == null){
+		alert("수료생을 선택해 주세요");		
+	}else{
+		var addCnt = insertInterViewer(interViewerVo);
+		
+		if(addCnt > 0){
+			getInterViewerList(request_no);
+			$("#studentModal").modal("hide");
+		}else{
+			alert("등록실패");
+		}	
+	}
+}
 
-/* 모달 그리드 */
-/* var cnames = [ 'j', '선택', '과정', '이름', '생년월일', '성별' ];
-$("#jqGrid").jqGrid(
-		{
-			url : "jqgridStartMain.do", 
-			datatype : "local",
-			colNames : cnames,
-			colModel : [{name : 'seq',index : 'seq',width : 110,align : "center"},
-						{name : 'gisu',index : 'gisu',width : 200},
-						{name : 'name',index : 'name',width : 200},
-						{name : 'birth',index : 'birth',width : 200},
-						{name : 'gender',index : 'gender',width : 200},
-						{name : 'result',index : 'result',width : 200}
-					   ],
 
-			rowheight : 20,
-			height : 450,
-			rowNum : 15,
-			rowList : [ 10, 20, 30 ],
-			pager : '#jqGridPager',
-			rownumbers : true,
-			ondblClickRow : function(rowId, iRow, iCol, e) {
-
-			if (iCol == 1) {
-				alert(rowId + " 째줄 입니다.");
-			}
+/* 면접자 추가하기 */
+function insertInterViewer(interViewerVo){
+	var resultValue;
+	$.ajax({
+    	url : "${pageContext.request.contextPath}/jobrequest/insertInterViewer",
+		type : "post",
+		data : interViewerVo,
+		dataType : "text",
+		async : false, 
+		success : function(addCnt) {
+			resultValue = addCnt;
 		},
+		error : function(request, status, error) {
+        		alert("code:" + request.status + "\n"+ "message:"+ request.responseText + "\n"+ "error:" + error);
+        }
+	});
+	return resultValue;
+}
 
-		viewrecords : true,
-		caption : "유저 정보"
-}); */
+
+/* 폼 클리어 */
+function formClear(formID){
+	console.log($(formID));
+	
+	$("#"+formID)[0].reset(); 
+}
 
 </script>
 </html>

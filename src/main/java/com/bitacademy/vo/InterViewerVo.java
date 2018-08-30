@@ -66,7 +66,13 @@ public class InterViewerVo {
 	}
 
 	public String getResult() {
-		return result;
+		String returnValue;
+		if( result.equals("1") ) {
+			returnValue = "합격";	
+		}else {
+			returnValue = "-";
+		}
+		return returnValue;
 	}
 
 	public void setResult(String result) {

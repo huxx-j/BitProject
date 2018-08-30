@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,11 +86,22 @@ public class JobController {
 	@ResponseBody
 	@RequestMapping(value = "/delInterViewer", method = RequestMethod.POST)
 	public int delInterViewer(@RequestParam("interview_no") int interview_no) {
+		System.out.println("+++++++++++++++++++++");
 		System.out.println(interview_no);
-		/*int result = jobService.delInterViewer(interview_no);*/
-		/*System.out.println(result);*/
-		return 342;
+		System.out.println("+++++++++++++++++++++");
+		int delCnt = jobService.delInterViewer(interview_no);
+		return delCnt;
 	}
+	
+	/*면접지원자추가*/
+	@ResponseBody
+	@RequestMapping(value = "/insertInterViewer", method = RequestMethod.POST)
+	public int insertInterViewer(@ModelAttribute InterViewerVo interViewerVo) {
+		System.out.println(interViewerVo.toString());
+		int addCnt = jobService.insertInterViewer(interViewerVo);
+		return addCnt; 
+	}
+	
 	
 	/*취업의뢰 수정*/
 	@RequestMapping(value = "/updateJobRequest", method = RequestMethod.POST)
@@ -113,10 +123,12 @@ public class JobController {
 		System.out.println("***********************");
 		System.out.println(jobCriteriaVo.toString());
 		System.out.println("=============================================");
-		List<ApplyUserVo> studentList = jobService.getStudentList();
+		List<ApplyUserVo> studentList = jobService.getStudentList(jobCriteriaVo);
 		System.out.println(studentList.toString());
 		return studentList; 
 	}
+	
+	
 	
 	
 	/*@RequestMapping("/jobRequestDetail")
