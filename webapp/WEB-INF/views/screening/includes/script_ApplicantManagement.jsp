@@ -35,23 +35,11 @@
               }
           });
   	});
-//   	console.log(applicant_no);
 
   }
-
-	//왜반영이안되는것이야??????????/
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//기수 제거
 	function gisuRemove(){
-// 	  	var applicant_no = 0;
 	  	$("input[name=gisuRemove]:checked").each(function(){
 	  		var applicant_no = $(this).attr("id");
 	       	$("#gisuGrantList").find("#tr"+applicant_no).remove();
@@ -129,9 +117,7 @@
 		});//each function
 		alert ("저장이 완료되었습니다");
 		location.reload();
-		
 	});//gisuGrantSaveBtn onClick function
-	
 	
 	//기수부여, 제거 전체선택
 	$("#gisuGrantCheckAll").change(function(){  //"select all" change 
@@ -149,6 +135,7 @@
 	        $("#gisuGrantCheckAll").prop('checked', true);
 	    }
 	});
+	
 	$("#gisuRemoveCheckAll").change(function(){  //"select all" change 
 	    $(".gisuRemoveCheckbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
 	});

@@ -35,7 +35,6 @@ public class CurriculumController {
 		// 패키지보기 모달창
 		model.addAttribute("packageCateList", curriService.packageCateList());
 		model.addAttribute("packageList", curriService.packageList());
-		System.out.println("curriMain");
 		// 업무구분 selectbox ajax
 		model.addAttribute("workType", curriService.getWorkType());
 		return "screening/mainCurri";
@@ -54,7 +53,6 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/updateCate")
 	public int updateCate(@RequestBody CurriculumCateVo curriculumCateVo) {
-		System.out.println("UPDATECATE" + curriculumCateVo.toString());
 		int result = curriService.updateCate(curriculumCateVo);
 		return result;
 	}
@@ -63,7 +61,6 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/deleteCate")
 	public int deleteCate(@RequestParam("curriculumCate_no") int curriculumCate_no) {
-		System.out.println("DELETECATE" + curriculumCate_no);
 		int result = curriService.deleteCate(curriculumCate_no);
 		return result;
 	}
@@ -106,7 +103,6 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/addCurri")
 	public int addCurri(@RequestBody CurriculumVo curriVo) {
-		System.out.println("addCurri" + curriVo.toString());
 		int result = curriService.addCurri(curriVo);
 		return result;
 	}
@@ -115,7 +111,6 @@ public class CurriculumController {
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	public int edit(@RequestBody CurriculumVo curriVo) {
-		System.out.println("EDIT curriVo" + curriVo.toString());
 		int result = curriService.edit(curriVo);
 		return result;
 	}

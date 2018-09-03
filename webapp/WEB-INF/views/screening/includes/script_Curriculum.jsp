@@ -283,20 +283,13 @@
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
         $("#callbackTrigger").bind("change", {}, setTrigger);
         $("#selectAll").bind("click", selectAll);
-//         fristStepDraw();
     });
-   
-    
-    
-    
-    
     
     <!--삭제 수정용(삭제 후 노드 정보 출력)-->
     function onRemove(e, treeId, treeNode) {
         console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
         deleteCate(treeNode.id);
     }
-
     
     ///////////////////////////////////////////////////////////////////////
 	

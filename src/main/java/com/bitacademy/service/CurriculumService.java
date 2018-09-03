@@ -39,13 +39,12 @@ public class CurriculumService {
 		// 두 테이블 update할 떄,
 		// 1. DAO 두개 성공해야 반영되도록 트랜젝션 해줘야함
 		// 2. or if문 써서 둘 다 성공해야 1넘기도록 설정
-		System.out.println("수정서비스와따");
-		int editCurriResult = curriDao.editCurri(curriVo);
+		curriDao.editCurri(curriVo);
 		int listSize = curriVo.getTestInfoList().size();
 		List<TestInfoVo> testInfoList = curriVo.getTestInfoList();
 		int curriculum_no = curriVo.getCurriculum_no();
-		int delResult = curriDao.deleteTestInfo(curriculum_no);
-
+		curriDao.deleteTestInfo(curriculum_no);
+/*
 		int insSuccessCnt = 0;
 		for (int j = 0; j <= listSize; j++) {
 			TestInfoVo testInfoVo = testInfoList.get(j);
@@ -58,6 +57,21 @@ public class CurriculumService {
 				insSuccessCnt += 1;
 			}
 		}
+		*/
+		
+		int insResult = 0;
+		int insSuccessCnt = 0;
+		for (int j = 0; j < listSize; j++) {
+			TestInfoVo testInfoVo = testInfoList.get(j);
+			testInfoVo.setCurriculum_no(curriculum_no);
+			insResult = curriDao.insertTestInfo(testInfoVo); 
+			// insert 성공건수 check
+			if (insResult > 0) {
+				insSuccessCnt = insSuccessCnt + 1;
+				// successCnt += 1;
+			}
+		}
+		
 		if (insSuccessCnt == listSize) {
 			return 1;
 		} else {
@@ -88,9 +102,6 @@ public class CurriculumService {
 		int curriculum_no = curriDao.addCurri(curriVo);
 		int listSize = curriVo.getTestInfoList().size();
 		int successCnt = 0;
-		System.out.println("listsize"+listSize);
-		
-		System.out.println("ADDCURRI 들어옴" + curriVo.toString());
 		
 		/////////////////////////////초기 ver/////////////////////////
 		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
@@ -103,8 +114,6 @@ public class CurriculumService {
 				successCnt = successCnt + 1;
 				// successCnt += 1;
 			}
-			
-			System.out.println("result"+result);
 		}
 		
 		////////////////////////////////////////////////////////////

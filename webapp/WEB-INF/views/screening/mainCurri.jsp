@@ -116,22 +116,15 @@
 
 										<!-- 3번탭 영역 시작 -->
 										<c:import url="/WEB-INF/views/screening/includes/tab_ApplicantManagement.jsp"></c:import>
-
 										<!-- /.3번탭 끝 -->
-										
 										
 										<!-- 4번탭 영역 시작 -->
 <%-- 										<c:import url="/WEB-INF/views/screening/includes/tab_AssignInstructor.jsp"></c:import> --%>
-										
 										<!-- /.4번탭 끝 -->
-										
 										
 										<!-- 5번탭 영역 시작 -->
 <%-- 										<c:import url="/WEB-INF/views/screening/includes/tab_AssignClassroom.jsp"></c:import> --%>
-										
 										<!-- /.5번탭 끝 -->
-
-
 										
 									</div><!-- /.tab-content -->
 									<!-- /.탭 내용 박스 끝 -->
@@ -139,17 +132,12 @@
 								<!-- 탭 박스 외곽 끝 -->
 							</div><!-- col-xs-9 -->
 							<!-- /.교육과정 정보 영역 끝 -->
-							
-							
 						</div><!-- /.row -->
 					</div><!-- /.box -->
 				</div>
-			
 			</div><!-- /.row -->
-		
 		</section>
 		<!-- /.content -->
-		
 		
 	</div><!-- content-wrapper -->
 
@@ -160,7 +148,7 @@
 <!-- ./wrapper -->
 </body>
 
-<!-- 자바스크립트영역 -->
+<!-- 자바스크립트영역 -->S
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
 
 <%-- <c:import url="/WEB-INF/views/includes/script.jsp"></c:import> --%>

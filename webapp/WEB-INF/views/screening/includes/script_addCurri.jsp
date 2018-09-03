@@ -409,37 +409,12 @@
 
 	//커리큘럼 추가(저장버튼)
 	$("#addCurriBtn").on("click", function(){
-		console.log("addCurri IN");
 		var curriculumCate_no = $("#curriculumCate_no option:selected").val();
 		var package_no = $("input[name=package_no]").val();
-// 		var packageName = $("input[name=packageName]").val();
-// 		var curriculum_no = $("input[name=curriculum_no]").val();
 		var curriName = $("input[name=curriName]").val();
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
-		
-		var testDateCnt = 3;
-		var testInfoList = []; //배열
-		var testInfoVo = {}; //객체 (new랑 같은 의미)
-		
-		var sucCnt = 0;
-		for(var i = 0; i < testDateCnt; i++){
-			if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
-				&& ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
-				
-				var testInfoVo = {	testDate : $("#testDate"+i).val(),
-									testTime : $("#testTime"+i).val()
-								 }; 
-				testInfoList[sucCnt] = testInfoVo;
-				console.log("성공");
-				console.log(testInfoVo);
-				sucCnt += 1;
-			}
-		}
-		console.log("성공LIST");
-		console.log(testInfoList);
-
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -447,8 +422,50 @@
 		var managerInfo = $("input[name=managerInfo]").val();
 		var state = $("input[type=radio]:checked").val();
 		var gisuName = $("input[name=gisuName]").val();
+		
+		/* 
+		// 입력 누락되었을 때 경고창 띄워주기
+		if(curriculumCate_no == null || curriculumCate_no == ""){
+			alert("업무 구분을 선택해주세요.");
+			return false;
+		}else if(package_no == null || package_no == ""){
+			alert("패키지를 선택해주세요.");
+			return false;
+		}else if(curriName == null || curriName == ""){
+			alert("교육과정명을 입력해주세요.");
+			return false;
+		}
+		 */
+		
+		var testDateCnt = 3;
+		var testInfoList = []; //배열
+		var testInfoVo = {}; //객체 (new랑 같은 의미)
+		var sucCnt = 0;
+		
+		for(var i = 0; i < testDateCnt; i++){
+			if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
+					|| ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
+				
+				if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
+						&& ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
+					
+					var testInfoVo = {	testDate : $("#testDate"+i).val(),
+										testTime : $("#testTime"+i).val()
+									 }; 
+					testInfoList[sucCnt] = testInfoVo;
+					sucCnt += 1;
+					
+				}else if(($("#testDate"+i).val() == null || $("#testDate"+i).val() == "")
+						|| ($("#testTime"+i).val() == null || $("#testTime"+i).val() == "")){
+					
+					alert("전형일시를 정확히 입력해주세요.");
+					return false;
+					
+				}
+			}
+		}
+		
 		curriculumVo = { 
-// 		 					cateName : $("#cateName option:selected").val(),
 							curriculumCate_no : $("#curriculumCate_no option:selected").val(),
 							package_no : $("input[name=package_no]").val(),
 							packageName : $("input[name=packageName]").val(),
@@ -466,8 +483,9 @@
 							gisuName : $("input[name=gisuName]").val(),
 							testInfoList : testInfoList
 		 				};
+		
 		jQuery.ajaxSettings.traditional = true;
-// 		alert("저장하시겠습니까?");
+		
 		var confirmSaveMsg = confirm("저장하시겠습니까?")
 		if(confirmSaveMsg){
 			$.ajax({
@@ -504,11 +522,7 @@
 		}else{
 			return;
 		}
-		
-
 	});//addCurriBtn onClick
-
-	
 
 	function updateCate(name, id, pId){
 		console.log(name+id+pId);

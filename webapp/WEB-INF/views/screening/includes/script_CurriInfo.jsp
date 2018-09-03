@@ -21,6 +21,9 @@
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
 		
+		
+		///////// 전형일 추가 초기 ver (이렇게 하면 안됨!)
+		/* 
 		var testDateCnt = $(".testTimeDiv").index($(".testTimeDiv").last());
 		var testInfoList = []; //배열
 		var testInfoVo = {}; //객체 (new랑 같은 의미)
@@ -37,6 +40,35 @@
 							 }; 
 			testInfoList[i] = testInfoVo;
 		}
+		 */
+		var testDateCnt = 3;
+		var testInfoList = []; //배열
+		var testInfoVo = {}; //객체 (new랑 같은 의미)
+		
+		var sucCnt = 0;
+		for(var i = 0; i < testDateCnt; i++){
+			if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
+					|| ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
+				
+				if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
+						&& ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
+					
+					var testInfoVo = {	testDate : $("#testDate"+i).val(),
+										testTime : $("#testTime"+i).val()
+									 }; 
+					testInfoList[sucCnt] = testInfoVo;
+					sucCnt += 1;
+					
+				}else if(($("#testDate"+i).val() == null || $("#testDate"+i).val() == "")
+						|| ($("#testTime"+i).val() == null || $("#testTime"+i).val() == "")){
+					
+					alert("전형일시를 정확히 입력해주세요.");
+					return false;
+					
+				}
+			}
+		}
+		
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
 		var price = $("input[name=price]").val();
@@ -114,6 +146,7 @@
 	        beforeClick: package
 	    }
 	};
+	
 	var zNodesModal= [
 	      <c:forEach items="${packageCateList}" var="vo">
 	        <c:if test="${vo.packageCate_no eq 10000}">
@@ -234,20 +267,6 @@
 	});
 			 */
 			 
-	//전형일 삭제버튼
-	/* 
- 	$("#testTimeTd").on("click", ".removeTestDateBtn", function(){
-		$(this).parent().parent().remove();
-	}); 
-	 */
-	
-
- 	$(document).ready(function () {
- 		$("#testTimeTd").on("click", ".input-datepicker", function(){
- 	 		$(this).datepicker(); 
- 		});
-  	});
-
 	
 	
 	$("#addCurriFormBtn").on("click", function(){
