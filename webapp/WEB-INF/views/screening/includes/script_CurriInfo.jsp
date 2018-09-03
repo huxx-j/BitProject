@@ -26,13 +26,15 @@
 		var testInfoVo = {}; //객체 (new랑 같은 의미)
 // 		var testDate = [];
 // 		var testTime = [];
+// 		for(i = 0; i < testDateCnt+1; i++){
+// 			testDate[i] = $("#testDate"+i).val();
+// 			testTime[i] = $("#testTime"+i).val();
+// 			testDate.push($("td ").eq(i).val());
+// }
 		for(i = 0; i < testDateCnt+1; i++){
 			var testInfoVo = {	testDate : $("#testDate"+i).val(),
 								testTime : $("#testTime"+i).val()
 							 }; 
-// 			testDate[i] = $("#testDate"+i).val();
-// 			testTime[i] = $("#testTime"+i).val();
-// 			testDate.push($("td ").eq(i).val());
 			testInfoList[i] = testInfoVo;
 		}
 		var time = $("input[name=time]").val();

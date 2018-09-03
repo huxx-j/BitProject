@@ -301,7 +301,7 @@
 	        dataType : "json",
 	//         async: false,
 	        success : function(curriAllVo) {
-	            $("#cateName").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
+	            $("#curriculumCate_no").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
 	            $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
 	            $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
 	            $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
@@ -418,15 +418,27 @@
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
-		var testDateCnt = $(".testTimeDiv").index($(".testTimeDiv").last());
+		
+		var testDateCnt = 3;
 		var testInfoList = []; //배열
 		var testInfoVo = {}; //객체 (new랑 같은 의미)
-		for(i = 0; i < testDateCnt+1; i++){
-			var testInfoVo = {	testDate : $("#testDate"+i).val(),
-								testTime : $("#testTime"+i).val()
-							 }; 
-			testInfoList[i] = testInfoVo;
+		
+		var sucCnt = 0;
+		for(var i = 0; i < testDateCnt; i++){
+			if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
+				&& ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
+				
+				var testInfoVo = {	testDate : $("#testDate"+i).val(),
+									testTime : $("#testTime"+i).val()
+								 }; 
+				testInfoList[sucCnt] = testInfoVo;
+				console.log("성공");
+				console.log(testInfoVo);
+				sucCnt += 1;
+			}
 		}
+		console.log("성공LIST");
+		console.log(testInfoList);
 
 		var time = $("input[name=time]").val();
 		var maxCnt = $("input[name=maxCnt]").val();
@@ -454,38 +466,45 @@
 							gisuName : $("input[name=gisuName]").val(),
 							testInfoList : testInfoList
 		 				};
-		alert("저장하시겠습니까?");
 		jQuery.ajaxSettings.traditional = true;
-		$.ajax({
-			url : "${pageContext.request.contextPath}/curri/addCurri",
-			type : "post",
-	        contentType: "application/json",
-			data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
-// 			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
-// 					curriName : curriName, curriNickname : curriNickname,
-// 					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
-// 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName, testInfoList : testInfoList},
- 		 	dataType : "json",
-			success : function(result){
-					if(result != 0){
-						alert("저장이 완료되었습니다.");
-   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-						treeObj.refresh();
-						location.reload();
-						var confirmMsg = confirm("계속 추가하시겠습니까?")
-						if(confirmMsg){
-							
+// 		alert("저장하시겠습니까?");
+		var confirmSaveMsg = confirm("저장하시겠습니까?")
+		if(confirmSaveMsg){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/curri/addCurri",
+				type : "post",
+		        contentType: "application/json",
+				data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
+//	 			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
+//	 					curriName : curriName, curriNickname : curriNickname,
+//	 					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
+//	 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName, testInfoList : testInfoList},
+	 		 	dataType : "json",
+				success : function(result){
+						if(result != 0){
+							alert("저장이 완료되었습니다.");
+	   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+							treeObj.refresh();
+							location.reload();
+							var confirmMsg = confirm("계속 추가하시겠습니까?")
+							if(confirmMsg){
+								
+							}else{
+								location.replace("${pageContext.request.contextPath}/curri/")
+							}
 						}else{
-							location.replace("${pageContext.request.contextPath}/curri/")
+							alert("다시 시도해주세요.");
 						}
-					}else{
-						alert("다시 시도해주세요.");
-					}
-			},
-			error : function(XHR, status, error){
- 				console.error(status + " : " + error);
- 			}
-		});//ajax
+				},
+				error : function(XHR, status, error){
+	 				console.error(status + " : " + error);
+	 			}
+			});//ajax
+			
+		}else{
+			return;
+		}
+		
 
 	});//addCurriBtn onClick
 
@@ -533,7 +552,6 @@
     	});//ajax
     }//function
     
-    
   //교육과정 카테고리 추가 버튼
   	$("#addCateBtn").on("click", function(){
   		$("#addCateModal").modal();
@@ -562,38 +580,13 @@
   		$("#addCateModal").modal("close");
   	});
   	
-  	
-  	
-  	
   	$("#emptyTbl").on("click", function(){
   		emptyTblFnc();
   	});
   	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
   	function emptyTblFnc(){
-//   		$('select').find('option:first').attr('selected', 'selected'),
-//         $("#cateName").val().prop("selected",false),
-// 		$("select").empty().data('options'),
-// 		$("select").prop('selectedIndex',0),
-// 		$("#cateName").val("option:eq(0)").prop("selected", true),
-
-		$("select").each(function(){
-			$(this).find('option:first').prop("selected", true);
-		}),
 		
-		
-  		$("#cateName").val(""),
+		$("#curriculumCate_no").prop('selectedIndex', '0'),
         $("input[name='curriculumCate_no']").val(""),
         $("input[name='package_no']").val(""),
         $("input[name='packageName']").val(""),
@@ -608,7 +601,7 @@
 		$("input[name='support']").val(""),
 		$("input[name='managerInfo']").val(""),
 		$("input[name='gisuName']").val(""),
-     	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
+     	$("input[name='state']").attr("checked", false), /* radio button 초기화 */
 		$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
 		$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 
@@ -616,9 +609,9 @@
 		$("#testDate0").val(""),
 		$("#testDate1").val(""),
 		$("#testDate2").val(""),
-		$("#testTime0").val("--:--"),
-		$("#testTime1").val(""),
-		$("#testTime2").val("")
-			
+		$("#testTime0").prop('selectedIndex', '0'),
+		$("#testTime1").prop('selectedIndex', '0'),
+		$("#testTime2").prop('selectedIndex', '0')
+
   	}
 </script>

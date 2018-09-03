@@ -88,21 +88,25 @@ public class CurriculumService {
 		int curriculum_no = curriDao.addCurri(curriVo);
 		int listSize = curriVo.getTestInfoList().size();
 		int successCnt = 0;
+		System.out.println("listsize"+listSize);
 		
 		System.out.println("ADDCURRI 들어옴" + curriVo.toString());
 		
 		/////////////////////////////초기 ver/////////////////////////
 		// 전형일 list 사이즈만큼 curriculum_no값 set한 후 전형일 insert
-//		for (int i = 0; i < listSize; i++) {
-//			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
-//			testInfoVo.setCurriculum_no(curriculum_no);
-//			int result = curriDao.addCurriTest(testInfoVo);
-//			// insert 성공건수 check
-//			if (result > 0) {
-//				successCnt = successCnt + 1;
-//				// successCnt += 1;
-//			}
-//		}
+		for (int i = 0; i < listSize; i++) {
+			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
+			testInfoVo.setCurriculum_no(curriculum_no);
+			int result = curriDao.addCurriTest(testInfoVo);
+			// insert 성공건수 check
+			if (result > 0) {
+				successCnt = successCnt + 1;
+				// successCnt += 1;
+			}
+			
+			System.out.println("result"+result);
+		}
+		
 		////////////////////////////////////////////////////////////
 		/*
 		/////////////////////////null값 처리 수정 ver////////////////////
@@ -124,32 +128,54 @@ public class CurriculumService {
 		}
 		/////////////////////////////////////////////////////////////
 		*/
+//		int result = 0;
+//		
+//		for (int i = 0; i < listSize; i++) {
+//			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
+//			testInfoVo.setCurriculum_no(curriculum_no);
+//			if(testInfoVo.getTestDate() != "" && testInfoVo.getTestTime() != "") {
+//				result = curriDao.addCurriTest(testInfoVo);
+//			}
+//			
+//			// insert 성공건수 check
+//			if (result > 0) {
+//				successCnt = successCnt + 1;
+//				// successCnt += 1;
+//			}
+//			System.out.println("testInfoVo"+testInfoVo.toString());
+//		}
+//		System.out.println("ADDCURRI"+result);
+//		
+//		
 		
-		for (int i = 0; i < listSize; i++) {
-			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(i);
-			testInfoVo.setCurriculum_no(curriculum_no);
-			int result = 0;
-			if(testInfoVo.getTestDate() != "" && testInfoVo.getTestTime() != "--:--") {
-				result = curriDao.addCurriTest(testInfoVo);
-			}
-			System.out.println("ADDCURRI"+result);
-			System.out.println("testInfoVo"+testInfoVo.toString());
-			// insert 성공건수 check
-			if (result > 0) {
-				successCnt = successCnt + 1;
-				// successCnt += 1;
-			}
-		}
-		///////////////////////20180829 수정필요
-		// insert 성공건수가 list사이즈와 같으면 성공!
-		/*
+		
+//		for(int j = 0; j < listSize; j++) {
+//			curriVo.getTestInfoList().remove(null);
+//			TestInfoVo testInfoVo = curriVo.getTestInfoList().get(j);
+//			System.out.println("testInfoVo NULL 제거!!"+testInfoVo.toString());
+//			if(testInfoVo.getTestDate() != "" && testInfoVo.getTestTime() != "") {
+//				listSize = curriVo.getTestInfoList().size();
+//				testInfoVo.setCurriculum_no(curriculum_no);
+//				result = curriDao.addCurriTest(testInfoVo);
+//				
+//				if (result > 0) {
+//					successCnt = successCnt + 1;
+//					// successCnt += 1;
+//				}
+//				
+//			}
+//			System.out.println("TESTINFRO.TOSTRING" + testInfoVo.toString());
+//		}
+//		System.out.println("새로운 LISTSIZE" + listSize);
+//		System.out.println("RESULT" + result);
+//		///////////////////////20180829 수정필요
+//		// insert 성공건수가 list사이즈와 같으면 성공!
+//		System.out.println("SUCCESS CNT" + successCnt);
 		if (successCnt == listSize) {
 			return 1;
 		} else {
 			return 0;
 		}
-		*/
-		return 1;
 	}
 	
 	// zTree 카테고리 탭 (목록 불러오기)

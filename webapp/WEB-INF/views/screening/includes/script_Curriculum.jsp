@@ -379,9 +379,9 @@
 				$("#testDate0").val(""),
 				$("#testDate1").val(""),
 				$("#testDate2").val(""),
-				$("#testTime0").val(""),
-				$("#testTime1").val(""),
-				$("#testTime2").val("")
+				$("#testTime0").prop('selectedIndex', '0'),
+				$("#testTime1").prop('selectedIndex', '0'),
+				$("#testTime2").prop('selectedIndex', '0')
 
 /* 
 				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),

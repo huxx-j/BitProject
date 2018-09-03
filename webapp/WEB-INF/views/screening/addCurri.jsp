@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
-
+<!-- eakld;f -->
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -120,7 +119,7 @@
 																					<td>
 																						<input type = "hidden" name = "curriculumCate_no"  style = "border:none;">
 <!-- 																						<select class = "form-control " id = "curriculumCate_no" name = "curriculumCate_no"> -->
-																						<select class = "form-control " id = "cateName" name = "cateName">
+																						<select class = "form-control " id = "curriculumCate_no" name = "cateName">
 																							<c:forEach items = "${workType }" var = "workType">
 																								<option id = "${workType.curriculumCate_no }"  value = "${workType.curriculumCate_no }">${workType.cateName }</option>
 																							</c:forEach>
@@ -202,7 +201,7 @@
 																							        </span>
 																							        <span>
 																							        	<select class="form-control w60 testTime" id = "testTime0">
-																											<option value = "--:--">--:--</option>
+																											<option value = "">--:--</option>
 																											<option value = "08:00">08:00</option>
 																											<option value = "09:00">09:00</option>
 																											<option value = "10:00">10:00</option>
@@ -234,7 +233,7 @@
 																							        </span>
 																							        <span>
 																							        	<select class="form-control w60 testTime" id = "testTime1">
-																											<option value = "--:--">--:--</option>
+																											<option value = "">--:--</option>
 																											<option value = "08:00">08:00</option>
 																											<option value = "09:00">09:00</option>
 																											<option value = "10:00">10:00</option>
@@ -267,7 +266,7 @@
 																							        </span>
 																							        <span>
 																							        	<select class="form-control w60 testTime" id = "testTime2">
-																											<option value = "--:--">--:--</option>
+																											<option value = "">--:--</option>
 																											<option value = "08:00">08:00</option>
 																											<option value = "09:00">09:00</option>
 																											<option value = "10:00">10:00</option>
