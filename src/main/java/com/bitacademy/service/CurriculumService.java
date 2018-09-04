@@ -58,7 +58,7 @@ public class CurriculumService {
 			}
 		}
 		*/
-		
+		System.out.println("리스트사이즈"+listSize);
 		int insResult = 0;
 		int insSuccessCnt = 0;
 		for (int j = 0; j < listSize; j++) {

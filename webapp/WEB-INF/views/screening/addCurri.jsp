@@ -195,7 +195,7 @@
 																						<td colspan="5" id = "testTimeTd">
 										<%-- 											       	<c:forEach begin="1" end="9"> --%>
 																						        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv0"> <!-- style = " margin-bottom:3px;" -->
-																									<span class="input-group border-inputcolor w140">
+																									<span class="input-group border-inputcolor w200">
 																								        <input type="text" class="  form-control border-none" id="testDate0" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 																								        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 																							        </span>
@@ -220,14 +220,17 @@
 																											<option value = "23:00">23:00</option>
 																										</select>
 																									</span>
+																									<!-- 
 																									<span>
 																										<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
 																										<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
 																									</span>
+																									 -->
 																						        </div>
 																						        
 																						        
-																						        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv1"><!--  style = " margin-bottom:3px;" -->															<span class="input-group border-inputcolor w140">
+																						        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv1"><!--  style = " margin-bottom:3px;" -->															
+																						        	<span class="input-group border-inputcolor w200">
 																								        <input type="text" class="  form-control border-none" id="testDate1" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 																								        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 																							        </span>
@@ -252,15 +255,17 @@
 																											<option value = "23:00">23:00</option>
 																										</select>
 																									</span>
+																									<!-- 
 																									<span>
 																										<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
 																										<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
 																									</span>
+																									 -->
 																						        </div>
 																						        
 																						        
 																						        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv2">
-																									<span class="input-group border-inputcolor w140">
+																									<span class="input-group border-inputcolor w200">
 																								        <input type="text" class="  form-control border-none" id="testDate2" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 																								        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 																							        </span>
@@ -285,10 +290,12 @@
 																											<option value = "23:00">23:00</option>
 																										</select>
 																									</span>
+																									<!-- 
 																									<span>
 																										<button class = "glyphicon glyphicon-plus border-none addTestDateBtn" style = "background-color : transparent; " id = "addTestDateBtn"></button>
 																										<button class = "glyphicon glyphicon-remove border-none removeTestDateBtn" style = "background-color : transparent; "></button>
 																									</span>
+																									 -->
 																						        </div>
 																						        
 																						        
@@ -384,6 +391,7 @@
 				</div><!-- /.sub-box -->
 			</div><!-- /.modal-body -->
 			<div class = "modal-footer">
+				<input type = "hidden" id = "package_no" class = "input-group input-group-sm" >
 				<button type = "button" class = "btn btn-default" id = "modalSelectBtn2" >선택</button>
 				<button type = "button" class = "btn btn-default " id = "modalCancelBtn2" data-dismiss = "modal">취소</button>
 			</div><!-- /.modal-footer -->
@@ -407,9 +415,9 @@
 					<tr>
 						<th>위치</th>
 						<td>
-							<select name = "curriCate" id = "curriculumCate_no" class = "form-control">
+							<select name = "curriCate" id = "curriculumCate_no2" class = "form-control">
 								<c:forEach items = "${workType }" var = "workType">
-									<option id = "${workType.curriculumCate_no }" name = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
+									<option id = "${workType.curriculumCate_no }" value = "${workType.curriculumCate_no }">${workType.cateName }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -417,7 +425,7 @@
 					<tr>
 						<th>카테고리명</th>
 						<td>
-							<input type = "text" class = "form-control" name = "cateName" value = "" id = "cateName">
+							<input type = "text" class = "form-control" name = "cateName2" value = "" id = "cateName">
 						</td>
 					</tr>	
 				</table>

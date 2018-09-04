@@ -17,6 +17,8 @@
 	<!-- 자신의 css사용시 --> 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" href="/assets/css/jquery.datepicker.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	<!-- 그리드 사용시 주석풀어 사용 -->
 	<%-- <c:import url="/WEB-INF/views/includes/jqgridscript.jsp"></c:import> --%>
 
@@ -142,13 +144,15 @@
 	</div><!-- content-wrapper -->
 
 	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+	
 	<div class="control-sidebar-bg"></div>
+	
 </div>
 
 <!-- ./wrapper -->
 </body>
 
-<!-- 자바스크립트영역 -->S
+<!-- 자바스크립트영역 -->
 <c:import url="/WEB-INF/views/includes/script.jsp"></c:import>
 
 <%-- <c:import url="/WEB-INF/views/includes/script.jsp"></c:import> --%>
@@ -159,9 +163,9 @@
 <script type="text/javascript">
 
 </script>
+
 	<c:import url="/WEB-INF/views/screening/includes/script_Curriculum.jsp"></c:import>
 	<c:import url="/WEB-INF/views/screening/includes/script_ApplicantManagement.jsp"></c:import>
 	<c:import url="/WEB-INF/views/screening/includes/script_CurriInfo.jsp"></c:import>
-
 
 </html>

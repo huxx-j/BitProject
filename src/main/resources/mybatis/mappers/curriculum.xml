@@ -59,11 +59,13 @@
  		]]>
  	
  	</update>
+ 	
 	<!-- 커리큘럼 수정 -->
     <update id = "editCurri" parameterType = "com.bitacademy.vo.CurriculumVo">
  		<![CDATA[
  			UPDATE 	Curriculum
  			SET		curriName = #{curriName}
+ 					, curriculumCate_no = #{curriculumCate_no}
  					, curriNickname = #{curriNickname}
  					, startDate = #{startDate}
  					, endDate = #{endDate}
@@ -165,7 +167,6 @@
 			SELECT 	curriculumCate_no, cateName, parentCode
 			FROM 	CurriculumCate
 			WHERE	delStatus = 0
-			;
 		]]>
 	</select>
 	
@@ -176,6 +177,7 @@
 			FROM 	CurriculumCate
 			WHERE	delStatus = 0
 			GROUP BY cateName
+			ORDER BY curriculumCate_no asc
 		]]>
 	</select>
 	

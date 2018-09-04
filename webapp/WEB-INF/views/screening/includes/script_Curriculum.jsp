@@ -83,12 +83,11 @@
         zTree.selectNode(treeNode);
         return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
     }
+    
     <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
     function beforeRename(treeId, treeNode, newName, isCancel) {
         className = (className === "dark" ? "":"dark");
         console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
-
-
         if (newName.length == 0) {
             setTimeout(function() {
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -338,15 +337,14 @@
     //교육과정 클릭 시 정보 뿌려줌
     function curriculum(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
-        console.log(curriculum_no);
         $.ajax({
             url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
             type : "POST",
-//             data : {"curriculum_no": curriculum_no}, pathVariable로 했으니까 data 안보내도 됨
             dataType : "json",
-//             async: false,
             success : function(curriAllVo) {
-                $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
+	            $("#curriculumCate_no").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
+
+//                 $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
                 $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
                 $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
                 $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
@@ -368,39 +366,23 @@
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
-				//전형일 초기화
+				// 전형일 초기화
 				$("#testDate0").val(""),
 				$("#testDate1").val(""),
 				$("#testDate2").val(""),
 				$("#testTime0").prop('selectedIndex', '0'),
 				$("#testTime1").prop('selectedIndex', '0'),
 				$("#testTime2").prop('selectedIndex', '0')
-
-/* 
-				$("#testDate0").val(curriAllVo.curriculumVo.testInfoList[0].testDate),
-				$("#testDate1").val(curriAllVo.curriculumVo.testInfoList[1].testDate),
-				$("#testDate2").val(curriAllVo.curriculumVo.testInfoList[2].testDate),
-				
-				$("#testTime0").val(curriAllVo.curriculumVo.testInfoList[0].testTime).prop("selected", true),
-				$("#testTime1").val(curriAllVo.curriculumVo.testInfoList[1].testTime).prop("selected", true),
-				$("#testTime2").val(curriAllVo.curriculumVo.testInfoList[2].testTime).prop("selected", true)
-				 */
 				 
-				 var listLen = curriAllVo.curriculumVo.testInfoList.length;
-				 console.log(curriAllVo.curriculumVo.testInfoList.length);
-				 for(var i = 0; i < listLen; i++){
-					 $("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
-					 $("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
-				 };
-				 
-				 
-// 				지원자 리스트 테이블 초기화
-//                 $("#renderApplicantList").find("tr:gt(0)").remove();
-//                 $("#renderApplicantList").remove(); //표 틀까지 다 지움
+				var listLen = curriAllVo.curriculumVo.testInfoList.length;
+				for(var i = 0; i < listLen; i++){
+					$("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+					$("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+				};
                 
-                //이전 리스트 삭제(비워줌)(html은 안해도 되지만 그래도 확실히 비우기 위해서)
+                // 이전 리스트 삭제(비워줌)
                 $("#renderApplicantList").empty();
-				var str = ""; //append 하려면 for문 안에 넣어야함.
+				var str = ""; 
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
 			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
@@ -409,12 +391,11 @@
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
 			 		str += "</tr>";
-// 			 		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
 				}
-					$("#renderApplicantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+					$("#renderApplicantList").html(str); 
 					
                 $("#gisuGrantList").empty();
-				var str = ""; //append 하려면 for문 안에 넣어야함.
+				var str = ""; 
 				for (var i = 0; i < curriAllVo.studentList.length; i++){
 			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
 			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
@@ -424,15 +405,11 @@
 			    	str += "	<td>" + curriAllVo.studentList[i].testResult +"</td>";
 			 		str += "</tr>";
 				}
-					$("#gisuGrantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+					$("#gisuGrantList").html(str); 
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
-       
     }
-    
-    
-    
   </script>

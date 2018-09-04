@@ -5,7 +5,6 @@
 	//화면 로딩 
 	$(document).ready(function(){
 	    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-	    console.log(treeObj);
 	});
 	
 	//교육과정 카테고리 탭
@@ -85,8 +84,6 @@
     function beforeRename(treeId, treeNode, newName, isCancel) {
         className = (className === "dark" ? "":"dark");
         console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
-
-
         if (newName.length == 0) {
             setTimeout(function() {
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -260,7 +257,6 @@
         console.log("[ "+getTime()+" onDrop ]; moveType:" + moveType + "/ID:" + treeNodes[0].id+" /pId:" + treeNodes[0].pId);
         updateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
         console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
-        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
 
     <!--드래그용 함수-->
@@ -290,16 +286,13 @@
         deleteCate(treeNode.id);
     }
 	
-	//교육과정 클릭 시 정보 뿌려줌
+	// 교육과정 클릭 시 정보 뿌려줌
 	function curriculum(treeId, treeNode, clickFlag) {
-	    var curriculum_no=treeNode.web;
-	    console.log(curriculum_no);
-	    $.ajax({
+		var curriculum_no=treeNode.web;
+		$.ajax({
 	        url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
 	        type : "POST",
-	//         data : {"curriculum_no": curriculum_no}, pathVariable로 했으니까 data 안보내도 됨
 	        dataType : "json",
-	//         async: false,
 	        success : function(curriAllVo) {
 	            $("#curriculumCate_no").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
 	            $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
@@ -332,24 +325,20 @@
 				$("#testTime2").val("")
 				
 				 var listLen = curriAllVo.curriculumVo.testInfoList.length;
-				 console.log(curriAllVo.curriculumVo.testInfoList.length);
 				 for(var i = 0; i < listLen; i++){
 					 $("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
 					 $("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
 				 };
-				
-// 				console.log($("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true));
 	        },
 	        error : function(XHR, status, error) {
 	            console.error(status + " : " + error);
 	        }
 	    });
-	   
 	}
 	
 	
 	////////////////////////////////////////////////////////////////////
-	//패키지 보기 모달창
+	// 패키지 보기 모달창
 	var settingModal2 = {
 	   data: {
 	       simpleData: {
@@ -360,6 +349,7 @@
 	       beforeClick: package2
 	   }
 	};
+	
 	var zNodesModal2= [
 		 <c:forEach items="${packageCateList}" var="vo">
 	        <c:if test="${vo.packageCate_no eq 10000}">
@@ -373,43 +363,46 @@
 	        {id:${vo.package_no},pId:${vo.packageCate_no},name:"${vo.packageName}",web:"${vo.package_no}",icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
 	        </c:forEach>
 	];
+	
 	$(document).ready(function(){
 	   $.fn.zTree.init($("#modalTree2"), settingModal2, zNodesModal2);
 	});
 	
 	function package2(treeId, treeNode, clickFlag) {
-		$("#modalSelectBtn2").on("click", function(){
-			var package_no=treeNode.web;
-		//    var locate=$("#locate").val();
-		//    var str ="";
-			console.log(package_no);
-			$.ajax({
-				url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
-				type : "POST",
-				//contentType : "application/json",
-				data : {"package_no": package_no},
-				dataType : "json",
-				success : function(packageVo) {
-      	
-					$("input[name='packageName']").val(packageVo.packageName),
-					$("input[name='package_no']").val(packageVo.package_no)
-					$("#packageViewModal2").modal("hide");
-				},
-				error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-				}
-			});
-		});
+		var package_no=treeNode.web;
+		$("#package_no").val(package_no);
 	}
+	
+	$("#modalSelectBtn2").on("click", function(){
+		var package_no = $("#package_no").val();
+		console.log(package_no);
+		$.ajax({
+			url : "${pageContext.request.contextPath }/curri/viewPackageAjax",
+			type : "POST",
+			data : {"package_no": package_no},
+			dataType : "json",
+			success : function(packageVo) {
+				console.log(packageVo.packageName);
+				$("input[name='packageName']").val(packageVo.packageName);
+				$("input[name='package_no']").val(packageVo.package_no);
+				$("#packageViewModal2").modal("hide");
+			},
+			error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+			}
+		});
+	});
 	
 	$("#modalCancelBtn2").on("click", function(){
 	   $("#packageViewModal2").modal("close"); // 모달창 감추기
 	});
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//커리큘럼 추가(저장버튼)
 	$("#addCurriBtn").on("click", function(){
 		var curriculumCate_no = $("#curriculumCate_no option:selected").val();
+		console.log(curriculumCate_no);
 		var package_no = $("input[name=package_no]").val();
 		var curriName = $("input[name=curriName]").val();
 		var curriNickname = $("input[name=curriNickname]").val();
@@ -422,51 +415,29 @@
 		var managerInfo = $("input[name=managerInfo]").val();
 		var state = $("input[type=radio]:checked").val();
 		var gisuName = $("input[name=gisuName]").val();
-		
-		/* 
-		// 입력 누락되었을 때 경고창 띄워주기
-		if(curriculumCate_no == null || curriculumCate_no == ""){
-			alert("업무 구분을 선택해주세요.");
-			return false;
-		}else if(package_no == null || package_no == ""){
-			alert("패키지를 선택해주세요.");
-			return false;
-		}else if(curriName == null || curriName == ""){
-			alert("교육과정명을 입력해주세요.");
-			return false;
-		}
-		 */
-		
 		var testDateCnt = 3;
 		var testInfoList = []; //배열
 		var testInfoVo = {}; //객체 (new랑 같은 의미)
 		var sucCnt = 0;
-		
 		for(var i = 0; i < testDateCnt; i++){
 			if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
 					|| ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
-				
 				if(($("#testDate"+i).val() != "" && $("#testDate"+i).val() != null) 
 						&& ($("#testTime"+i).val() != "" && $("#testTime"+i).val() != null)){
-					
 					var testInfoVo = {	testDate : $("#testDate"+i).val(),
 										testTime : $("#testTime"+i).val()
 									 }; 
 					testInfoList[sucCnt] = testInfoVo;
 					sucCnt += 1;
-					
 				}else if(($("#testDate"+i).val() == null || $("#testDate"+i).val() == "")
 						|| ($("#testTime"+i).val() == null || $("#testTime"+i).val() == "")){
-					
 					alert("전형일시를 정확히 입력해주세요.");
 					return false;
-					
 				}
 			}
 		}
 		
-		curriculumVo = { 
-							curriculumCate_no : $("#curriculumCate_no option:selected").val(),
+		curriculumVo = { 	curriculumCate_no : $("#curriculumCate_no option:selected").val(),
 							package_no : $("input[name=package_no]").val(),
 							packageName : $("input[name=packageName]").val(),
 							curriculum_no : $("input[name=curriculum_no]").val(),
@@ -485,27 +456,23 @@
 		 				};
 		
 		jQuery.ajaxSettings.traditional = true;
-		
-		var confirmSaveMsg = confirm("저장하시겠습니까?")
+		var confirmSaveMsg = confirm("저장하시겠습니까?");
 		if(confirmSaveMsg){
 			$.ajax({
 				url : "${pageContext.request.contextPath}/curri/addCurri",
 				type : "post",
 		        contentType: "application/json",
-				data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
-//	 			data : {curriculumCate_no : curriculumCate_no, package_no : package_no,
-//	 					curriName : curriName, curriNickname : curriNickname,
-//	 					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt, price : price,
-//	 					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName, testInfoList : testInfoList},
+				data : JSON.stringify(curriculumVo), 
 	 		 	dataType : "json",
 				success : function(result){
-						if(result != 0){
-							alert("저장이 완료되었습니다.");
-	   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-							treeObj.refresh();
-							location.reload();
-							var confirmMsg = confirm("계속 추가하시겠습니까?")
-							if(confirmMsg){
+					
+					if(result != 0){
+						alert("저장이 완료되었습니다.");
+		   				var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+						treeObj.refresh();
+						location.reload();
+						var confirmMsg = confirm("계속 추가하시겠습니까?")
+						if(confirmMsg){
 								
 							}else{
 								location.replace("${pageContext.request.contextPath}/curri/")
@@ -518,7 +485,6 @@
 	 				console.error(status + " : " + error);
 	 			}
 			});//ajax
-			
 		}else{
 			return;
 		}
@@ -546,8 +512,6 @@
 	}
 	
     function deleteCate(id){
-    	console.log(id);
-    	
     	$.ajax({
     		url : "${pageContext.request.contextPath}/curri/deleteCate",
     		type : "post",
@@ -562,21 +526,19 @@
     		error : function(XHR, status, error){
     			console.error(status + " : " + error);
     		}
-    		
-    	});//ajax
-    }//function
+    	});// ajax
+    }// function
     
-  //교육과정 카테고리 추가 버튼
+	// 교육과정 카테고리 추가 버튼
   	$("#addCateBtn").on("click", function(){
   		$("#addCateModal").modal();
   	});
-  	//카테고리 추가 버튼 (진행중)
+    
+  	// 카테고리 추가 버튼 (진행중)
   	$("#addCateSaveBtn").on("click", function(){
   	    event.preventDefault();
-  		var curriculumCate_no = $("#curriculumCate_no").val();
-  		var cateName = $("input[name=cateName]").val();
-  		console.log(curriculumCate_no, cateName);
-  		
+		var curriculumCate_no = $("#curriculumCate_no2 option:selected").val();
+  		var cateName = $("input[name=cateName2]").val();
   		$.ajax({
   			url : "${pageContext.request.contextPath}/curri/addCurriCate",
   			type : "post",
@@ -584,12 +546,10 @@
   			data : {"curriculumCate_no" : curriculumCate_no, "cateName" : cateName},
   			success : function(){
   				location.reload();
-  				
   			},
   			error : function(XHR, status, error){
   				console.error(status + " : " + error);
   			}
-  			
   		});
   		$("#addCateModal").modal("close");
   	});
@@ -599,9 +559,7 @@
   	});
   	
   	function emptyTblFnc(){
-		
 		$("#curriculumCate_no").prop('selectedIndex', '0'),
-        $("input[name='curriculumCate_no']").val(""),
         $("input[name='package_no']").val(""),
         $("input[name='packageName']").val(""),
         $("input[name='curriculum_no']").val(""),
@@ -626,6 +584,5 @@
 		$("#testTime0").prop('selectedIndex', '0'),
 		$("#testTime1").prop('selectedIndex', '0'),
 		$("#testTime2").prop('selectedIndex', '0')
-
   	}
 </script>

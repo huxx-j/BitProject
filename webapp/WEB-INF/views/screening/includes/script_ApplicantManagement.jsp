@@ -4,70 +4,59 @@
 <script type="text/javascript">
 
 	//기수부여
-  function gisuGrant(){
-//   	var applicant_no = 0;
-  	$("input[name=gisuGrant]:checked").each(function(){
-  		var applicant_no = $(this).attr("id");
-  		console.log("gisuGrant");
-  		console.log(applicant_no);
-  		
-       	$("#renderApplicantList").find("#tr"+applicant_no).remove();
-       	$.ajax({
-              url : "${pageContext.request.contextPath }/curri/gisuGrant",
-              type : "POST",
-              //contentType : "application/json",
-              data : {"applicant_no": applicant_no},
-              dataType : "json",
-              success : function(applicantVo) {
-              	var str = "";
-			     	str += "<tr id='tr" + applicantVo.applicant_no + "'>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
+	function gisuGrant(){
+		$("input[name=gisuGrant]:checked").each(function(){
+			var applicant_no = $(this).attr("id");
+			$("#renderApplicantList").find("#tr"+applicant_no).remove();
+	       	$.ajax({
+	            url : "${pageContext.request.contextPath }/curri/gisuGrant",
+	            type : "POST",
+	            data : {"applicant_no": applicant_no},
+	            dataType : "json",
+	            success : function(applicantVo) {
+	            	var str = "";
+				    str += "<tr id='tr" + applicantVo.applicant_no + "'>";
+				    str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
 					str += "	<td>" + applicantVo.nameHan + "</td>";    	
-			    	str += "	<td>" + applicantVo.studResNum +"</td>";
-			    	str += " 	<td>" + applicantVo.gender + "</td>";
-			    	str += "	<td>" + applicantVo.testResult +"</td>";
-			 		str += "</tr>";
-			 		$("#gisuGrantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
-//					$("#gisuGrantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
-              },
-              error : function(XHR, status, error) {
-                  console.error(status + " : " + error);
-              }
-          });
-  	});
-
-  }
+				    str += "	<td>" + applicantVo.studResNum +"</td>";
+				    str += " 	<td>" + applicantVo.gender + "</td>";
+				    str += "	<td>" + applicantVo.testResult +"</td>";
+				 	str += "</tr>";
+				 	$("#gisuGrantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
+				},
+	            error : function(XHR, status, error) {
+	                console.error(status + " : " + error);
+				}
+			});
+		});
+	}
 	
-	//기수 제거
+	// 기수 제거
 	function gisuRemove(){
 	  	$("input[name=gisuRemove]:checked").each(function(){
 	  		var applicant_no = $(this).attr("id");
 	       	$("#gisuGrantList").find("#tr"+applicant_no).remove();
-	
 	       	$.ajax({
 	              url : "${pageContext.request.contextPath }/curri/gisuRemove",
 	              type : "POST",
-	              //contentType : "application/json",
 	              data : {"applicant_no": applicant_no},
 	              dataType : "json",
 	              success : function(applicantVo) {
-	              	var str = "";
-				     	str += "<tr id = 'tr"+ applicantVo.applicant_no + "'>";
-				    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
-						str += "	<td>" + applicantVo.nameHan + "</td>";    	
-				    	str += "	<td>" + applicantVo.studResNum +"</td>";
-				    	str += " 	<td>" + applicantVo.gender + "</td>";
-				    	str += "	<td>" + applicantVo.testResult +"</td>";
-				 		str += "</tr>";
-				 		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
-	//					$("#gisuGrantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+	            	  var str = "";
+	            	  str += "<tr id = 'tr"+ applicantVo.applicant_no + "'>";
+	            	  str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox' id = '" + applicantVo.applicant_no + "' value = '" + applicantVo.nameHan +"'></label></td>";
+	            	  str += "	<td>" + applicantVo.nameHan + "</td>";    	
+	            	  str += "	<td>" + applicantVo.studResNum +"</td>";
+	            	  str += " 	<td>" + applicantVo.gender + "</td>";
+	            	  str += "	<td>" + applicantVo.testResult +"</td>";
+	            	  str += "</tr>";
+	            	  $("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
 	              },
 	              error : function(XHR, status, error) {
 	                  console.error(status + " : " + error);
 	              }
 	          });
 	  	});
-// 	  	console.log(applicant_no);
 	}
 
 	//기수부여 저장 버튼
@@ -83,8 +72,6 @@
 				dataType : "json",
 				success : function(result){
 					if(result != 0){
-// 						alert("저장이 완료되었습니다.");
-// 						location.reload();
 					}
 				},
 				error : function(XHR, status, error){
@@ -105,14 +92,11 @@
 				dataType : "json",
 				success : function(result){
 					if(result != 0){
-// 						alert("저장이 완료되었습니다.");
-// 						location.reload();
 					}
 				},
 				error : function(XHR, status, error){
 					console.error(status + ":" + error);
 				}
-				
 			});//ajax
 		});//each function
 		alert ("저장이 완료되었습니다");
