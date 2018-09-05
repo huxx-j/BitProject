@@ -104,7 +104,7 @@
                                     </tr>
                                 </table> <%--/.수업관리 테이블--%>
                             </div> <%--/.sub-body--%>
-                        </div class="sub-box">
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box-body">
