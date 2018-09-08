@@ -10,13 +10,7 @@
 	// 커리큘럼 수정 버튼
 	$("#editCurriBtn").on("click", function(){
 		var cateName = $("#cateName option:selected").val();
-// 		var curriculumCate_no = $("input[name=curriculumCate_no]").val();
-		
-		
-		
 		var curriculumCate_no = $("#curriculumCate_no option:selected").val();
-
-		console.log(curriculumCate_no);
 		var package_no = $("input[name=package_no]").val();
 		var packageName = $("input[name=packageName]").val();
 		var curriculum_no = $("input[name=curriculum_no]").val();
@@ -24,7 +18,17 @@
 		var curriNickname = $("input[name=curriNickname]").val();
 		var startDate = $("input[name=startDate]").val();
 		var endDate = $("input[name=endDate]").val();
-		
+		var time = $("input[name=time]").val();
+		var maxCnt = $("input[name=maxCnt]").val();
+		var price = $("input[name=price]").val();
+		var support = $("input[name=support]").val();
+		var managerInfo = $("input[name=managerInfo]").val();
+		var state = $("input[type=radio]:checked").val();
+		var gisuName = $("input[name=gisuName]").val();
+		if(curriName == null || curriName == ""){
+			alert("교육과정명을 입력해주세요.");
+			return false;
+		}
 		// 전형일 3개로 고정(임시)
 		var testDateCnt = 3;
 		var testInfoList = []; //배열
@@ -47,57 +51,100 @@
 				}
 			}
 		}
-		var time = $("input[name=time]").val();
-		var maxCnt = $("input[name=maxCnt]").val();
-		var price = $("input[name=price]").val();
-		var support = $("input[name=support]").val();
-		var managerInfo = $("input[name=managerInfo]").val();
-		var state = $("input[type=radio]:checked").val();
-		var gisuName = $("input[name=gisuName]").val();
-		curriculumVo = { 	/* cateName : $("#cateName option:selected").val(), */
-							curriculumCate_no : $("#curriculumCate_no option:selected").val(),
-							package_no : $("input[name=package_no]").val(),
-							packageName : $("input[name=packageName]").val(),
-							curriculum_no : $("input[name=curriculum_no]").val(),
-							curriName : $("input[name=curriName]").val(),
-							curriNickname : $("input[name=curriNickname]").val(),
-							startDate : $("input[name=startDate]").val(),
-							endDate : $("input[name=endDate]").val(),
-							time : $("input[name=time]").val(),
-							maxCnt : $("input[name=maxCnt]").val(),
-							price : $("input[name=price]").val(),
-							support : $("input[name=support]").val(),
-							managerInfo : $("input[name=managerInfo]").val(),
-							state : $("input[type=radio]:checked").val(),
-							gisuName : $("input[name=gisuName]").val(),
-							testInfoList : testInfoList
-		 				};
+		
+		//달력 날짜 형식 체크
+		/* 
+		var datePattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
+		if(datePattern.test(startDate) == false) {
+
+		    alert("'시작일'을 YYYY-MM-DD 형식으로 입력해주세요.");
+
+		} else if(datePattern.test(endDate) == false){
+
+		    alert("'시작일'을 YYYY-MM-DD 형식으로 입력해주세요.");
+
+		}else {
+			
+		}
+		
+		 */
+		var specialChar = /[`!@#$%^&*|\\\'\";\?]/gi;
+		if(specialChar.test(curriName) == true){
+			alert("'교육과정명'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(curriNickname) == true){
+			alert("'과목별명'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(price) == true){
+			alert("'교육비용'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(maxCnt) == true){
+			alert("'정원'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(time) == true){
+			alert("'강의시간'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(support) == true){
+			alert("'교육비지원'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(managerInfo) == true){
+			alert("'문의'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else if(specialChar.test(gisuName) == true){
+			alert("'기수'에 특수기호는 입력하실 수 없습니다.")
+			return false;
+		}else{
+			curriculumVo = { 	/* cateName : $("#cateName option:selected").val(), */
+								curriculumCate_no : $("#curriculumCate_no option:selected").val(),
+								package_no : $("input[name=package_no]").val(),
+								packageName : $("input[name=packageName]").val(),
+								curriculum_no : $("input[name=curriculum_no]").val(),
+								curriName : $("input[name=curriName]").val(),
+								curriNickname : $("input[name=curriNickname]").val(),
+								startDate : $("input[name=startDate]").val(),
+								endDate : $("input[name=endDate]").val(),
+								time : $("input[name=time]").val(),
+								maxCnt : $("input[name=maxCnt]").val(),
+								price : $("input[name=price]").val(),
+								support : $("input[name=support]").val(),
+								managerInfo : $("input[name=managerInfo]").val(),
+								state : $("input[type=radio]:checked").val(),
+								gisuName : $("input[name=gisuName]").val(),
+								testInfoList : testInfoList
+			 				};
+		}
 		
 		if(curriculum_no == null || curriculum_no ==""){
 			alert("수정할 교육과정을 선택해주세요.");
 			return false;
 		}
-		alert("수정하시겠습니까?");
-		$.ajax({
-			url : "${pageContext.request.contextPath}/curri/edit",
-			type : "post",
-	        contentType: "application/json",
-				data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
-				dataType : "json",
-				success : function(result){
-					if(result != 0){
-		 				alert("수정이 완료되었습니다.");
-   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-						treeObj.refresh();
-						location.reload();
-					}else{
-		 				alert("다시 시도해주세요.");
+		
+		var editConfirmMsg = confirm("수정하시겠습니까?");
+		if(editConfirmMsg){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/curri/edit",
+				type : "post",
+		        contentType: "application/json",
+					data : JSON.stringify(curriculumVo), //@RequestBody(ModelAttribute대신)
+					dataType : "json",
+					success : function(result){
+						if(result != 0){
+// 			 				alert("수정이 완료되었습니다.");
+	   					    var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+							treeObj.refresh();
+							location.reload();
+						}else{
+			 				alert("다시 시도해주세요.");
+						}
+					},
+					error : function(XHR, status, error){
+						console.error(status + " : " + error);
 					}
-				},
-				error : function(XHR, status, error){
-					console.error(status + " : " + error);
-				}
-		}); //ajax		
+			}); //ajax		
+		}else{
+			return false;
+		}
 	});// onClick function
 	
 	////////////////////////////////////////////////////////////////////
@@ -171,20 +218,25 @@
 		var cateName = $("input[name=cateName2]").val();
 		console.log(curriculumCate_no);
 		console.log(cateName);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/curri/addCurriCate",
-			type : "post",
-			dataType : "json",
-			data : {"curriculumCate_no" : curriculumCate_no, "cateName" : cateName},
-			success : function(){
-				location.reload();
-			},
-			error : function(XHR, status, error){
-				console.error(status + " : " + error);
-			}
-			
-		});
+		var specialChar = /[`!@#$%^&*|\\\'\";:\/?]/gi;
+		if(specialChar.test(cateName) == true){
+			alert("특수기호는 사용하실 수 없습니다.")
+			return false;
+		}else{
+			$.ajax({
+				url : "${pageContext.request.contextPath}/curri/addCurriCate",
+				type : "post",
+				dataType : "json",
+				data : {"curriculumCate_no" : curriculumCate_no, "cateName" : cateName},
+				success : function(){
+					location.reload();
+				},
+				error : function(XHR, status, error){
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
 		$("#addCateModal").modal("close");
 	});
 	

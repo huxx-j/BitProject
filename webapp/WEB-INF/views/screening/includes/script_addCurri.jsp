@@ -467,7 +467,7 @@
 				success : function(result){
 					
 					if(result != 0){
-						alert("저장이 완료되었습니다.");
+// 						alert("저장이 완료되었습니다.");
 		   				var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 						treeObj.refresh();
 						location.reload();

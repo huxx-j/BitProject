@@ -99,7 +99,7 @@
 												<td colspan="5" id = "testTimeTd">
 											        <div class="pull-left form-inline testTimeDiv w280" id = "testTimeDiv0"> <!-- style = " margin-bottom:3px;" -->
 														<span class="input-group border-inputcolor w200">
-													        <input type="text" class="form-control border-none " id="testDate0" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
+													        <input type="text"  class="form-control border-none" id="testDate0" data-select="datepicker" data-toggle="datepicker" placeholder="YYYY-MM-DD">
 													        <span class="input-group-btn"><button type="button" class="btn btn-date border-none" data-toggle="datepicker"><i class="fa fa-calendar"></i></button></span>
 												        </span>
 												        <span>
