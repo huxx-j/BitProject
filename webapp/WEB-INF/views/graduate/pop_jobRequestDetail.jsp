@@ -22,7 +22,7 @@
 		}
 		
 		.devInput{
-			width: 414px !important;
+			width: 406px !important;
 			float:right;
 		}
 		
@@ -42,9 +42,9 @@
 
 
 </head>
-<body class="hold-transition popup_page"  id="pop">
+<body class="hold-transition popup_page">
 
-<div class="wrapper">
+<div class="wrapper" id="pop_jobRequest">
 	
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
@@ -607,7 +607,7 @@
 							
 							<!-- 취업의뢰 저장 -->
 							<div class="sub-toolbox clearfix text-center">
-								<input type="submit" value="저장" class="btn btn-primary" id="btn_search">
+								<input type="submit" value="수정" class="btn btn-primary" id="btn_updateJobRequest">
 							</div>
 							
 							<div class="space"></div><div class="space"></div><div class="space"></div><div class="space"></div>

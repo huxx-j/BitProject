@@ -151,19 +151,19 @@ input[type=radio] {
 	font-weight: normal;
 	padding: 0px 10px 0px 0px !important;
 	font-size: 12px;
-	margin:2px 0px 1px 0px !important;
+	margin:3px 0px 1px 0px !important;
 }
 
 
 input[type=checkbox] {
-	margin: -3px 0px 0px -14px !important;
-	padding: 0px 10px 0px -14px !important;
+	margin: -3px 0px 0px 0px !important;
+	padding: 0px 10px 0px 0px !important;
   	vertical-align: middle;
   	font-size: 12px !important;
 }
 
 .checkbox-group{
-	margin:0px 0px 0px 15px !important;
+	margin:0px 0px 0px 0x !important;
 	padding: 0px 0px 0px 0px;
 	height: 25px !important;
 }
@@ -171,7 +171,7 @@ input[type=checkbox] {
 .checkbox{
 	font-weight: normal;
 	margin:4px 0px 0px 0px !important;
-	padding: 0px 0px 0px 0px !important;
+	padding: 0px 10px 0px 0px !important;
 	font-size: 12px;
 } 
 
@@ -382,6 +382,7 @@ input[type=checkbox] {
 .w80{width: 80px !important;}
 .w90{width: 90px !important;}
 .w100{width: 100px !important;}
+.w110{width: 110px !important;}
 .w120{width: 120px !important;}
 .w140{width: 140px !important;}
 .w160{width: 160px !important;}
@@ -415,6 +416,8 @@ input[type=checkbox] {
 	/* overflow:scroll; */
 	overflow-y:scroll;
 	white-space: nowrap;
+	
+	display: block;
 }
 
 .mouse{
@@ -426,14 +429,17 @@ input[type=checkbox] {
 	background: #d2d6de;
 }
 
-#pop .wrapper{
-	width: 1120px;
-}
-
-#pop .content-wrapper {
+.popup_page .content-wrapper {
 	margin-left: 0px;
 }
 
+#pop_jobRequest{
+	width: 1100px;
+}
+
+#pop_profile{
+	width: 1100px;
+}
 
 /* 모달관련 */
 

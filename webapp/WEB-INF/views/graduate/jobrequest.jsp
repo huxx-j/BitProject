@@ -371,7 +371,6 @@ $(document).ready(function() {
 	
 	/* 그리드실행 */
 	gridExec();
-	$("#jqGrid").setSelection(request_no,true)
 });
 
 
@@ -408,7 +407,7 @@ $("#btn_search").on("click", function(){
 });
 
 
-/* 면접자리스트 두번클릭 */
+/* 면접자리스트 두번클릭 -->프로필팝업 */
 $("#interViewerList").on("dblclick", "tr", function(){
 	$this = $(this);
 	var user_no = $this.data("user_no");
@@ -419,6 +418,8 @@ $("#interViewerList").on("dblclick", "tr", function(){
 		/* trSelected($this); */
 		//프로필 창 로드
 		console.log("프로필용 유저번호" + user_no);
+		var url = "${pageContext.request.contextPath}/profile/" ;
+		window.open(url, "_blank", "width=1120px, height=900px, scrollbars=yes"); 
 	}
 });	
 
@@ -435,7 +436,7 @@ $("#interViewerList").on("mouseleave","tr",  function(){
 	$this.find(".td_btn_del_area").empty();
 });
 
-/* 지원자리스트 삭제버튼 클릭 */
+/* 면접자리스트 삭제버튼 클릭 */
 $("#interViewerList").on("click", "span", function(){
 	$this = $(this);
 	var interview_no = $this.parent().data("interview_no");
@@ -451,6 +452,10 @@ $("#interViewerList").on("click", "span", function(){
 		getInterViewerList(request_no);
 	}
 });
+
+
+
+
 
 /* ----------------------------- */
 /* 메인: 통신관련 함수           */
