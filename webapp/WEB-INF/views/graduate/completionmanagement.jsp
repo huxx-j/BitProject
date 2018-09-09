@@ -466,8 +466,7 @@ $("#jqGrid").jqGrid({
         function renderApplied(list) {
             var str = "";
             str += "<tr data-careerno='" + list.userCareer_no+ "' data-userno='" + list.user_no + "' class='past'>";
-            str += "<td value='" + list.userCareer_no + "'>"
-                + list.userCareer_no + "</td>";
+            str += "<td value='" + list.userCareer_no + "'></td>";
             str += "<td value='" + list.userCareer_no + "'>"
                 + list.compName + "</td>";
             str += "<td value='" + list.userCareer_no + "'>"

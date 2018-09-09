@@ -113,11 +113,17 @@ public class UserCareerVo {
 	}
 
 	public String getState() {
-		return state;
+		
+		if(this.state == "1"){
+			return "재직중";
+		} else {
+			return "퇴사";
+		}
 	}
 
 	public void setState(String state) {
 		this.state = state;
+
 	}
 
 	public String getDepartment() {
