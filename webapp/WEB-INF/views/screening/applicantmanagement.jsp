@@ -231,9 +231,13 @@
 															</select>
 														</td>
 														<th>전형과목</th>
-														<td><select class="form-control"
-														name="testLang" id="testLang">
-		 													</select>
+														<td>
+															<select class="form-control" name="testLang" id="testLang">
+																<option>Java</option>
+																<option>C</option>
+																<option>C++</option>
+																<option>Python</option>
+			 												</select>
 		 												</td>
 													<tr>
 														<th>전형점수</th>
