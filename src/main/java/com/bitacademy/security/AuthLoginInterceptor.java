@@ -32,7 +32,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
                 // 인증 처리
                 HttpSession session = request.getSession( true );
                 session.setAttribute( "authUser", authVo );
-                response.sendRedirect(request.getContextPath()+"/"); //로그인이 되면 메인페이지로 보내줌
+                response.sendRedirect(request.getContextPath()+"/class/"); //로그인이 되면 메인페이지로 보내줌
 
                 return false;
             } else {
