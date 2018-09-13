@@ -30,42 +30,48 @@ public class ClassManagementService {
 
     //페이지 로딩할때 업무구분 불러오는 코드
     public List<String> getCateName() {
-        return curriculumDao.getCateName();
+        return classManagementDao.getCateName();
     }
 
-    public List<CurriculumVo> getCurri(String workType) {
-        return curriculumDao.getCurri(workType);
-    }
-
-    public Map<String, Object> getCurriInfo(int curriculum_no) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("vo", curriculumDao.getCurriInfo(curriculum_no));
-        map.put("gisu", gisuDao.getGisu(curriculum_no));
-        return map;
-    }
-
-    public List<LectureReportVo> getLetureReport(LectureReportVo lectureReportVo) {
-        return lectureReportDao.getLetureReport(lectureReportVo);
-    }
-
+    //페이지 로딩시 오늘 날짜를 불러오는 코드 (강의일자 디폴트)
     public String getDate() {
         return classManagementDao.getDate();
     }
+    //업무구분에 따라 커리큘럼 리스트 불러오는 코드
+    public List<CurriculumVo> getCurriList(String cateName, String radioStat) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cateName", cateName);
+        map.put("radioStat", radioStat);
+        return classManagementDao.getCurriList(map);
+    }
 
-    public int saveLectureReport(LectureReportVo lectureReportVo) {
+    //교육과정검색 조회버튼 눌렀을때 수업관리에 과정정보 불러오는 코드
+    public CurriculumVo getCurriInfo(int curriculum_no) {
+        return classManagementDao.getCurriInfo(curriculum_no);
+    }
+
+    //날짜와 커리큘럼에 따라 수업일지 불러오는 코드
+    public List<LectureReportVo> getLetureReportList(LectureReportVo lectureReportVo) {
+        return lectureReportDao.getLetureReportList(lectureReportVo);
+    }
+
+    //수업일지를 저장이나 업데이트 하는 코드
+    public int addLectureReport(LectureReportVo lectureReportVo) {
         String lectureReport_no = lectureReportVo.getClassDate().replace("-", "") + "-" + lectureReportVo.getCurriculum_no() + "-" + lectureReportVo.getPeriod();
         lectureReportVo.setLectureReport_no(lectureReport_no);
         if (!lectureReportVo.getSubject().equals("") || !lectureReportVo.getContent().equals("") || !lectureReportVo.getTeacher().equals("") || !lectureReportVo.getEtc().equals("")) {
-            return lectureReportDao.saveLetureReport(lectureReportVo);
+            return lectureReportDao.addLetureReport(lectureReportVo);
         } else {
             return 0;
         }
     }
 
-    public List<UsersVo> getMemberName(int curriNo) {
-        return projectDao.getMemberName(curriNo);
+    //팀원선택 모달에 팀원 리스트를 불러오는 코드
+    public List<UsersVo> getMemberNameList(int curriNo) {
+        return projectDao.getMemberNameList(curriNo);
     }
 
+    //커리큘럼에 따라 팀리스트를 불러오는 코드
     public List<ProjectVo> getTeamList(int currival) {
         List<ProjectVo> teamList;
         List<String> memberList;
@@ -80,6 +86,7 @@ public class ClassManagementService {
         return teamList;
     }
 
+    //프로젝트 상세정보를 불러오는 코드
     public ProjectVo getProjectDetail(int project_no) {
         List<String> memberList;
         List<String> memberNoList;
@@ -96,34 +103,33 @@ public class ClassManagementService {
         return projectVo;
     }
 
+    //이론평가탭 과정에 따라 과목리스트를 가져오는 코드
     public List<ScoreVo> getSubjectList(int curriNo) {
         return scoreDao.getSubjectList(curriNo);
     }
 
-    public List<ScoreVo> getSutudentInScore(ScoreVo scoreVo) {
+    //과목별 점수 리스트를 불러오는 코드
+    public List<ScoreVo> getStudentInScoreList(ScoreVo scoreVo) {
         List<Integer> list = scoreDao.chkSisNo(scoreVo.getSubInStep_no());
         if (list.isEmpty()) {
             scoreVo.setSubInStep_no(0);
-            List<ScoreVo> scoreVoList = scoreDao.getSutudentInScore(scoreVo);
+            List<ScoreVo> scoreVoList = scoreDao.getStudentInScoreList(scoreVo);
             for (ScoreVo aScoreVoList : scoreVoList) {
                 aScoreVoList.setFileName("등록된 파일이 없습니다.");
             }
             return scoreVoList;
         }
-//        List<ScoreVo> scoreList = scoreDao.getSutudentInScore(scoreVo);
-//        for (ScoreVo score : scoreList) {
-//
-//        }
-//        return scoreList;
-        return scoreDao.getSutudentInScore(scoreVo);
+        return scoreDao.getStudentInScoreList(scoreVo);
     }
 
-    public List<UserInfoVo> getUserInfo(int currino) {
-        return userInfoDao.getUserInfo(currino);
+    //학생관리 탭 학생정보를 불러오는 코드
+    public List<UserInfoVo> getUserInfoList(int currino) {
+        return userInfoDao.getUserInfoList(currino);
     }
 
+    //프로젝트 상세정보를 저장 업데이트 하는 코드 파일업로드도 포함
     @Transactional
-    public int saveProjectDetail(MultipartHttpServletRequest multipartFile) {
+    public int addProjectDetail(MultipartHttpServletRequest multipartFile) {
         FileUpload fileUpload = new FileUpload();
         ProjectVo projectVo = new ProjectVo();
         ProjectMemberVo projectMemberVo = new ProjectMemberVo();
@@ -162,11 +168,10 @@ public class ClassManagementService {
         if (file_no != 0) {
             projectVo.setFile_no(file_no);
         }
-
         String[] memberNo = multipartFile.getParameter("membersId").split(",");
 
         if (projectVo.getProject_no() == 0) {
-            projectDao.saveProjectDetail(projectVo);
+            projectDao.addProjectDetail(projectVo);
             projectMemberVo.setProject_no(projectVo.getProject_no());
             projectNo = projectVo.getProject_no();
         } else {
@@ -182,8 +187,9 @@ public class ClassManagementService {
         return projectNo;
     }
 
+    //이론평가 점수와 파일을 저장하는 코드
     @Transactional
-    public int saveScore(MultipartHttpServletRequest multipartFile) {
+    public int addScore(MultipartHttpServletRequest multipartFile) {
         ScoreVo scoreVo = new ScoreVo();
         FileUpload fileUpload = new FileUpload();
         int file_no;
@@ -191,7 +197,7 @@ public class ClassManagementService {
             String saveDir = directoryGenerator.DirectoryGenerator(multipartFile, "score");
             MultipartFile file = multipartFile.getFile("studTestFile");
             FileVo fileVo = fileUpload.saveScoreFile(file, saveDir);
-            file_no = scoreDao.saveScoreFile(fileVo);
+            file_no = scoreDao.addScoreFile(fileVo);
         } else {
             file_no = 0;
         }
@@ -214,14 +220,15 @@ public class ClassManagementService {
         scoreVo.setFile_no(file_no);
 
         if (scoreVo.getScore_no() == 0) {
-            return scoreDao.saveScore(scoreVo);
+            return scoreDao.addScore(scoreVo);
         } else {
             return scoreDao.updateScore(scoreVo);
         }
     }
 
+    //이론평가 시험지를 저장하는 코드
     @Transactional
-    public int saveTest(MultipartHttpServletRequest multipartFile) {
+    public int addTest(MultipartHttpServletRequest multipartFile) {
         SubInStepVo subInStepVo = new SubInStepVo();
         FileUpload fileUpload = new FileUpload();
         int file_no;
@@ -234,7 +241,7 @@ public class ClassManagementService {
                 fileVo.setFile_no(file_no);
                 return scoreDao.updateScoreFile(fileVo);
             } else {
-                file_no = scoreDao.saveScoreFile(fileVo);
+                file_no = scoreDao.addScoreFile(fileVo);
             }
         } else {
             file_no = 0;
@@ -244,12 +251,13 @@ public class ClassManagementService {
         subInStepVo.setSubInStep_no(testSisNo);
         subInStepVo.setFile_no(file_no);
         if (file_no!=0) {
-            return scoreDao.saveTest(subInStepVo);
+            return scoreDao.addTest(subInStepVo);
         } else {
             return 1;
         }
     }
 
+    //이론평가탭에 학생별 파일이 있는지 찾는 코드
     public FileVo getSisInfo(int sisNo) {
         List<FileVo> list = scoreDao.getSisInfo(sisNo);
         FileVo fileVo = new FileVo();
@@ -261,6 +269,11 @@ public class ClassManagementService {
             fileVo.setFileName("등록된 파일 : " + list.get(0).getFileName());
         }
         return fileVo;
+    }
+
+    //프로젝트 상세정보를 삭제하는 코드(실제 삭제는 안되고 state만 변경)
+    public int delProjectDetail(int pjtNo) {
+        return projectDao.delProjectDetail(pjtNo);
     }
 }
 

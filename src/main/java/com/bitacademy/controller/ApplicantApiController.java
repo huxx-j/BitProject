@@ -3,6 +3,8 @@ package com.bitacademy.controller;
 import com.bitacademy.service.ApplicantService;
 import com.bitacademy.vo.ApplyUserVo;
 import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.PagerResponseVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +18,49 @@ public class ApplicantApiController {
 	@Autowired
     ApplicantService applicantService;
 	
+	//선택된 업무구분과 관련된 수업이름 가져가기
 	@ResponseBody
-	@RequestMapping(value="/getcurri", method=RequestMethod.GET)
-	public List<CurriculumVo> getcurri(@RequestParam("cateName") String cateName) {
-		/*System.out.println("ajax-list :" + workType);*/
-		List<CurriculumVo> list = applicantService.getCurriList(cateName);
+	@RequestMapping(value="/getCurriList", method=RequestMethod.POST)
+	public List<CurriculumVo> getCurriList(@RequestParam("curriculumCate_no") String curriculumCate_no) {
+		System.out.println("ajax-list :" + curriculumCate_no);
+		List<CurriculumVo> list = applicantService.getCurriList(curriculumCate_no);
 		/*System.out.println(list.toString());*/
 		return list;
-	}//맨윗줄 업무구분관련된 수업이름 가져가기
+	}
 	
+	//선택된 업무구분과 radio조건반영된 관련된 수업이름 가져가기
 	@ResponseBody
-	@RequestMapping(value="/search",method=RequestMethod.GET)
-	public List<ApplyUserVo> search(@RequestParam int selectValue ) {
-		
-		/*System.out.println("dkdjfk321321");
-		System.out.println(selectValue);*/
-		
-		List<ApplyUserVo> applyUserlist = applicantService.search(selectValue);
-		
-		/*System.out.println(applyUserlist.toString());*/
-		return applyUserlist ;
-	}//조회하기 버튼 후 그리드영역 지원자 리스트 가져오기
+	@RequestMapping(value="/getCurriList_state", method=RequestMethod.POST)
+	public List<CurriculumVo> getCurriList_state(@RequestParam("curriculumCate_no") String curriculumCate_no,
+												@RequestParam("curriState") int curriState) {
+		System.out.println("ajax-list :" + curriculumCate_no+","+curriState);
+		List<CurriculumVo> list = applicantService.getCurriList_state(curriculumCate_no,curriState);
+		System.out.println(list.toString());
+		return list;
+	}
 	
+	//조회버튼 클릭 후 그리드영역 학생(수료생)리스트 가져가기
+	@ResponseBody
+	@RequestMapping(value = "/getStudentList", method = RequestMethod.GET)
+	public PagerResponseVo getStudentList(@RequestParam("curriculum_no") int curriculum_no, @RequestParam("page") int page, @RequestParam("rows") int rows, @RequestParam("sidx") String sidx, @RequestParam("sord") String sord){
+		//우리가 설정하지 않아도 jqgrid에서 자동으로 파라미터 4개를 보내줌
+		//파라미터 부분은 그대로 쓸것, Vo로 받아보려 시도 했으나 안됨
+		System.out.println("page : " + page + ", rows : " + rows + ", sidx : " + sidx + ",sord : " + sord);
+		return applicantService.getStudentList(curriculum_no, page, rows, sidx, sord); //service로 보냄
+	}
+	
+	/*@ResponseBody
+	@RequestMapping(value="/getStudentList",method=RequestMethod.GET)
+	public List<ApplyUserVo> getStudentList(@RequestParam int curriculum_no ) {
+		
+		System.out.println(curriculum_no);
+		
+		List<ApplyUserVo> applyUserlist = applicantService.getStudentList(curriculum_no);
+		
+		System.out.println(applyUserlist.toString());
+		return applyUserlist ;
+	}
+*/	
 	@ResponseBody
 	@RequestMapping(value="/getAppliedList",method=RequestMethod.GET)
 	public List<ApplyUserVo> getAppliedList(@RequestParam int user_no){

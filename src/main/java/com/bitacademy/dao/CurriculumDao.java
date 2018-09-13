@@ -1,87 +1,126 @@
 package com.bitacademy.dao;
 
-import com.bitacademy.vo.ApplicantVo;
-import com.bitacademy.vo.CurriculumCateVo;
-import com.bitacademy.vo.CurriculumVo;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.bitacademy.vo.ApplicantVo;
+import com.bitacademy.vo.CurriculumCateVo;
+import com.bitacademy.vo.CurriculumVo;
+import com.bitacademy.vo.TestInfoVo;
 
 @Repository
 public class CurriculumDao {
 
-    @Autowired
-    SqlSession sqlSession;
+	@Autowired
+	SqlSession sqlSession;
 
-    //성우
-    public List<String> getCateName() {
-        return sqlSession.selectList("curriculum.getCateName");
-    }
+	// 희준
+	// 교육과정 메인
+	public CurriculumVo viewCurriculum(String curriculum_no) {
+		return sqlSession.selectOne("curriculum.viewCurriculum", curriculum_no);
+	}
 
-    public List<CurriculumVo> getCurri(String workType) {
-        return sqlSession.selectList("curriculum.getCurri", workType);
-    }
+	public List<TestInfoVo> viewTestInfo(String curriculum_no) {
+		return sqlSession.selectList("curriculum.viewTestInfo", curriculum_no);
+	}
 
-    public CurriculumVo getCurriInfo(int curriculum_no) {
-        return sqlSession.selectOne("curriculum.getCurriInfo", curriculum_no);
-    }
+	// 커리큘럼카테고리 관련
+	public List<CurriculumVo> currilist() {
+		return sqlSession.selectList("curriculum.currilist");
+	}
 
+	// 커리큘럼 카테고리 관련
+	public List<CurriculumCateVo> curriCateList() {
+		return sqlSession.selectList("curriculum.curriCateList");
+	}
 
-    //희준
-    //교육과정 메인
-    public CurriculumVo viewCurriculum(String curriculum_no ){
+	// 교육과정 카테고리 추가
+	public int addCurriCate(CurriculumCateVo curriCateVo) {
+		return sqlSession.insert("curriculum.addCurriCate", curriCateVo);
+	}
 
-        return sqlSession.selectOne("curriculum.viewCurriculum",curriculum_no);
-    }
-    public List<CurriculumVo> currilist(){
-        return sqlSession.selectList("curriculum.currilist");
-    }
-    public List<CurriculumCateVo> curriCateList(){
+	// 교육과정 카테고리 수정
+	public int updateCate(CurriculumCateVo curriCateVo) {
+		return sqlSession.update("curriculum.updateCate", curriCateVo);
+	}
 
-        return sqlSession.selectList("curriculum.curriCateList");
-    }
-    
-    //교육과정 수정
-    public int editCurri(CurriculumVo curriVo) {
-    	System.out.println("수정 다오 와따");
-        return sqlSession.update("curriculum.editCurri", curriVo);
-    }
+	// 교육과정 카테고리 삭제
+	public int deleteCate(int curriculumCate_no) {
+		return sqlSession.delete("curriculum.deleteCate", curriculumCate_no);
+	}
 
-    public int editCurriCate(CurriculumVo curriVo) {
-    	return sqlSession.update("curriculum.editCurriCate", curriVo);
-    }
+	// 업무구분 select box ajax
+	public List<CurriculumCateVo> getWorkType() {
+		return sqlSession.selectList("curriculum.getWorkType");
+	}
 
-    public int editPackage(CurriculumVo curriVo) {
-    	return sqlSession.update("curriculum.editPackage", curriVo);
-    }
+	// 교육과정 수정
+	public int editCurri(CurriculumVo curriVo) {
+		System.out.println("수정 다오 와따");
+		return sqlSession.update("curriculum.editCurri", curriVo);
+	}
 
-    //교육과정 추가
-    public int addCurri(CurriculumVo curriVo) {
+	// 교육과정 수정(전형일 전체 삭제)
+	public int deleteTestInfo(int curriculum_no) {
+		return sqlSession.delete("curriculum.deleteTestInfo", curriculum_no);
+	}
 
-        return sqlSession.insert("curriculum.addCurri", curriVo);
-    }
-    
-    //전체지원자 리스트 조회
-    public List<ApplicantVo> viewApplicantList(String curriculum_no) {
-    	System.out.println(curriculum_no);
-    	return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
-    }
-//    public List<ApplicantVo> studentManagement(String curriculum_no){
-//        System.out.println("[curriDao] studentManagement");
-//        return sqlSession.selectList("curriculum.studentManagement", curriculum_no);
-//    }
+	// 교육과정 수정(전형일 전체 새로 저장)
+	public int insertTestInfo(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.insertTestInfo", testInfoVo);
+	}
 
-//	public List<CurriculumVo> viewCurriculum( ){
-//		System.out.println("[curriDao] viewCurriculum");
-//
-//		return sqlSession.selectList("curriculum.viewCurriculum");
-//	}
-//	public List<CurriculumVo> viewCurriculumInfo(int curriculum_no){
-//		System.out.println("[curriDao] viewCurriculum");
-//
-//		return sqlSession.selectList("curriculum.viewCurriculumInfo", curriculum_no);
-//	}
+	public int editCurriCate(CurriculumVo curriVo) {
+		return sqlSession.update("curriculum.editCurriCate", curriVo);
+	}
+
+	// 교육과정 추가
+	public int addCurri(CurriculumVo curriVo) {
+		sqlSession.insert("curriculum.addCurri", curriVo);
+		return curriVo.getCurriculum_no();
+	}
+
+	// 전형일추가
+	public int addCurriTest(TestInfoVo testInfoVo) {
+		return sqlSession.insert("curriculum.addCurriTest", testInfoVo);
+	}
+
+	// 전체지원자 리스트 조회
+	public List<ApplicantVo> viewApplicantList(String curriculum_no) {
+		return sqlSession.selectList("curriculum.viewApplicantList", curriculum_no);
+	}
+
+	// 수강생리스트 조회
+	public List<ApplicantVo> viewStudentList(String curriculum_no) {
+		return sqlSession.selectList("curriculum.viewStudentList", curriculum_no);
+	}
+
+	// 기수부여
+	public ApplicantVo gisuGrant(int applicant_no) {
+		return sqlSession.selectOne("curriculum.gisuGrant", applicant_no);
+	}
+
+	// 기수제거
+	public ApplicantVo gisuRemove(int applicant_no) {
+		return sqlSession.selectOne("curriculum.gisuRemove", applicant_no);
+	}
+
+	// 기수부여 저장버튼(Flag = 1)
+	public int gisuGrantSave(int applicant_no) {
+		return sqlSession.update("curriculum.gisuGrantSave", applicant_no);
+	}
+
+	// 기수부여 저장버튼(Flag = 0)
+	public int gisuRemoveSave(int applicant_no) {
+		return sqlSession.update("curriculum.gisuRemoveSave", applicant_no);
+	}
+
+	// 패키지보기 모달창
+	public CurriculumVo viewPackageAjax(String package_no) {
+		return sqlSession.selectOne("curriculum.viewPackageAjax", package_no);
+	}
 
 }

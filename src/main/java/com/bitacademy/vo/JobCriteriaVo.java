@@ -1,20 +1,21 @@
 package com.bitacademy.vo;
 
-public class JobSearchVo {
+public class JobCriteriaVo extends CriteriaVo {
 
 	private String comCondition;
 	private String startDate;
 	private String endDate;
+	private String keyword;
 
-	public JobSearchVo() {
-		super();
+	public JobCriteriaVo() {
 	}
 
-	public JobSearchVo(String comCondition, String startDate, String endDate) {
+	public JobCriteriaVo(String comCondition, String startDate, String endDate, String keyword) {
 		super();
 		this.comCondition = comCondition;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.keyword = keyword;
 	}
 
 	public String getComCondition() {
@@ -41,9 +42,20 @@ public class JobSearchVo {
 		this.endDate = endDate;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "JobSearchVo [comCondition=" + comCondition + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "JobCriteriaVo [comCondition=" + comCondition + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", keyword=" + keyword + ", getStartNum()=" + getStartNum() + ", getPage()=" + getPage()
+				+ ", getRows()=" + getRows() + ", getSidx()=" + getSidx() + ", getSord()=" + getSord() + ", getParam()="
+				+ getParam() + "]";
 	}
 
 }

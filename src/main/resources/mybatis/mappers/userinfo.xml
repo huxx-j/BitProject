@@ -3,21 +3,31 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userinfo">
-<!-- 성우 -->
-<select id="getUserInfo" parameterType="Int" resultType="UserInfoVo">
-    <![CDATA[
-    select u.User_no, u.NameHan,
-            substring(u.StudResNum,1,6) StudResNum,
-            (case u.Gender when 1 then '남' when 2 then '여' end) Gender,
-            u.Cellphone, us.School, us.Major, g.GisuName, a.TestResult, a.ApplyDate, a.TestDate, a.Deposit
-        from Users u, ApplyInfo a, Gisu g, UserScholarship us, Curriculum c
-        where u.User_no=a.User_no
-            and u.User_no=us.User_no
-            and a.Curriculum_no=c.Curriculum_no
-            and c.Curriculum_no=g.Curriculum_no
-            and c.Curriculum_no=#{curriculum_no}
-    ]]>
-</select>
+    <!-- 성우 -->
+    <!--유저정보 가져오는 쿼리-->
+    <select id="getUserInfoList" parameterType="Int" resultType="UserInfoVo">
+        <![CDATA[
+                select u.User_no, u.NameHan,
+                        substring(u.StudResNum,1,6) StudResNum,
+                        (case u.Gender when 1  then '남' when 3  then '남' when 5  then '남'
+                                        when 2 then '여' when 4 then '여' when 6 then '여' end) Gender,
+                        u.Cellphone,us1.StartDate, us1.School, us1.Major,
+                        c.GisuName, a.TestResult, a.ApplyDate, a.TestDate, a.Deposit
+                from Users u, ApplyInfo a, UserScholarship us1, Curriculum c,
+                     (select User_no, MAX(StartDate) as StartDate
+                              from UserScholarship
+                              group by User_no) as us2
+                where u.User_no=a.User_no
+                       and u.User_no=us1.User_no
+                       and a.Curriculum_no=c.Curriculum_no
+                       and us1.User_no=us2.User_no
+                       and us1.StartDate=us2.StartDate
+                       and a.State='비트생'
+                       and c.Curriculum_no=#{curriculum_no}
+                group by a.User_no
+                order by NameHan asc;
+        ]]>
+    </select>
     <!-- 성우 -->
 
 </mapper>

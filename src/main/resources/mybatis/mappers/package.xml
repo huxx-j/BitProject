@@ -9,10 +9,9 @@
         select
         PackageCate_no,
         CateName,
-        GroupCode,
-        ParentCode,
-        Depth
+        ParentCode
         from PackageCate
+        where DelStatus=0
         ]]>
     </select>
 
@@ -29,11 +28,12 @@
         Qualification,
         TotalTime
         from Package
+        where DelStatus=0
         ]]>
     </select>
 
     <!--패키지 NO값을 받아서 해당하는 패키지 정보를 받아오는 SQL문-->
-    <select id="selectonepack" parameterType="int" resultType="PackageVo">
+    <select id="selectonepack" parameterType="Int" resultType="PackageVo">
     <![CDATA[
         select
         Package_no,
@@ -49,6 +49,46 @@
         ]]>
     </select>
 
+    <!--패키지 NO를 토대로 단계를 불러오는 SQL문-->
+    <select id="getstep" parameterType="Int" resultType="StepInPackVo">
+        <![CDATA[
+        select
+        Step_no,
+        Package_no,
+        StepName,
+        Level
+        from StepInPack
+        where
+        Package_no=#{Package_no}
+        ]]>
+    </select>
+
+    <!--step_no값을 받아서 해당하는 단계안의 과목 받아오는 SQL문-->
+    <select id="sublist" parameterType="Int" resultType="SubInStepVo">
+    <![CDATA[
+        select
+        s.Step_no,
+        s.SubInStep_no,
+        s.Subject_no,
+        s.Content,
+        s.SubHour,
+        s.File_no,
+        (Select SubjectName
+        from Subject su
+        Where su.Subject_no=s.Subject_no) SubjectName
+        from SubInStep s
+        where Step_no =#{no}
+        ]]>
+    </select>
+    <update id="delPackage" parameterType="int">
+        <![CDATA[
+        UPDATE Package set
+        Delstatus =1
+        where
+        Package_no=#{no}
+        ]]>
+    </update>
+
     <!--패키지를 삽입하는 SQL문( 다음페이지에 이름과 총시간을 넘기기 위해 no값을 돌려받는다. )-->
     <insert id="insert" parameterType="PackageVo" >
     <selectKey keyProperty="Package_no" resultType="Int" order="AFTER">
@@ -59,23 +99,24 @@
     </selectKey>
         <![CDATA[
         insert into Package
-        (Package_no,
+        (
         PackageCate_no,
         UseStatus,
         PackageName,
         Goal,
         Content,
         Qualification,
-        TotalTime)
+        TotalTime,
+        DelStatus)
         values (
-        #{Package_no},
         #{PackageCate_no},
         #{UseStatus},
         #{PackageName},
         #{Goal},
         #{Content},
         #{Qualification},
-        #{TotalTime})
+        #{TotalTime},
+        0)
         ]]>
     </insert>
 
@@ -111,7 +152,7 @@
         Content,
         SubHour)
         values
-        ('16',
+        (#{subject_no},
         #{Step_no},
         #{Content},
         #{SubHour})
@@ -123,25 +164,113 @@
         <![CDATA[
         insert into PackageCate
         (ParentCode,
-        CateName)
+        CateName,
+        DelStatus)
         values
         (#{PackageCate_no},
-        #{CateName})
+        #{CateName},
+        0)
         ]]>
     </insert>
-
-    <!--패키지 NO를 토대로 단계를 불러오는 SQL문-->
-    <select id="getstep" parameterType="int">
+    <update id="delCate" parameterType="int">
         <![CDATA[
-        select * from StepInPack value ()
+        UPDATE PackageCate set
+        Delstatus =1
+        where
+        PackageCate_no=#{id}
         ]]>
-    </select>
-
+    </update>
+    <update id="delChildCate" parameterType="int">
+        <![CDATA[
+        UPDATE PackageCate set
+        Delstatus =1
+        where
+        ParentCode=#{pid}
+        ]]>
+    </update>
     <update id="CateUpdate" parameterType="PackageCateVo">
         <![CDATA[
         UPDATE PackageCate set
         CateName=#{CateName},
         ParentCode=#{ParentCode}
+        WHERE
+        PackageCate_no=#{packageCate_no}
+        ]]>
+    </update>
+
+    <update id="packageDel" parameterType="PackageVo">
+        <![CDATA[
+        UPDATE Package set
+        DelStatus=#{DelStatus}
+        WHERE
+        Package_no=#{Package_no}
+        ]]>
+    </update>
+
+    <update id="cateSetDelStatus" parameterType="PackageCateVo">
+    <![CDATA[
+        UPDATE PackageCate set
+        DelStatus=#{DelStatus}
+        WHERE
+        PackageCate_no=#{pacageCate_no}
+        ]]>
+    </update>
+    <select id="getPackCate" parameterType="int" resultType="PackageCateVo">
+        select
+        PackageCate_no,
+        CateName
+        from
+        PackageCate
+        where
+        PackageCate_no=#{no}
+    </select>
+    <!--<update id="updateSub" parameterType= "SubInStepVo">-->
+    <!--<![CDATA[-->
+    <!--UPDATE SubInStep set-->
+    <!--Subject_no=#{Subject_no},-->
+    <!--Content=#{Content},-->
+    <!--SubHour=#{SubHour}-->
+    <!--WHERE-->
+    <!--SubInStep_no = #{SubInStep_no}-->
+    <!--]]>-->
+    <!--</update>-->
+
+    <delete id="deleteSubInStep" parameterType="Int">
+        <![CDATA[
+        DELETE from
+        SubInStep
+        WHERE
+        Step_no = #{step_no}
+        ]]>
+    </delete>
+
+    <delete id="deleteStepInPack" parameterType="Int">
+        <![CDATA[
+        DELETE from
+        StepInPack
+        WHERE
+        Package_no = #{package_no}
+        ]]>
+    </delete>
+    <!--<update id="updateStep" parameterType="StepInPackVo">-->
+        <!--<![CDATA[-->
+        <!--UPDATE StepInPack set-->
+        <!--StepName=#{StepName}-->
+        <!--WHERE-->
+        <!--Step_no=#{Step_no}-->
+        <!--]]>-->
+    <!--</update>-->
+    <update id="updatePackage" parameterType="PackageVo">
+        <![CDATA[
+        UPDATE Package set
+        PackageCate_no=#{PackageCate_no},
+        PackageName=#{PackageName},
+        Goal=#{Goal},
+        Content=#{Content},
+        Qualification=#{Qualification},
+        TotalTime=#{TotalTime}
+        WHERE
+        Package_no=#{Package_no}
         ]]>
     </update>
 </mapper>

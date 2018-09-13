@@ -19,8 +19,8 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="${pageContext.request.contextPath }/subject/main"><i class="fa fa-circle-o"></i> 과목관리</a></li>
-	            	<li><a href="${pageContext.request.contextPath }/package/main"><i class="fa fa-circle-o"></i> 패키지관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath }/subject/"><i class="fa fa-circle-o"></i> 과목관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath }/package/"><i class="fa fa-circle-o"></i> 패키지관리</a></li>
 	          	</ul>
 	        </li>
         
@@ -32,7 +32,7 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="${pageContext.request.contextPath }/curri"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath }/curri/"><i class="fa fa-circle-o"></i> 교육과정관리</a></li>
 	            	<li><a href="${pageContext.request.contextPath }/applicant/"><i class="fa fa-circle-o"></i> 지원자관리</a></li>
 	          	</ul>
 	        </li>
@@ -45,7 +45,7 @@
 	            	</span>
 	          	</a>
 	          	<ul class="treeview-menu" style="display: block">
-	            	<li><a href="${pageContext.request.contextPath}/cm/"><i class="fa fa-circle-o"></i> 수업관리</a></li>
+	            	<li><a href="${pageContext.request.contextPath}/class/"><i class="fa fa-circle-o"></i> 수업관리</a></li>
 	          	</ul>
 	        </li>
         

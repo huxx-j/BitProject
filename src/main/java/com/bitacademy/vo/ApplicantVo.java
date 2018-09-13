@@ -24,13 +24,16 @@ public class ApplicantVo {
 	private String note;
 	private String curriName;
 	private String gender;
+	private int gisuFlag;
+	private String studResNum;
 	public ApplicantVo() {
 		super();
 	}
 	public ApplicantVo(int applicant_no, int user_no, int curriculum_no, String nameHan, String birthDate,
-                       String applyDay, String applyType, String testDay, String testLang, int testScore, String testResult,
-                       String comment, String deposit, int depositAmount, String cardPayDate, int cardPayAmount,
-                       String cardPayState, String depositDate, int totalPay, String note, String curriName, String gender) {
+			String applyDay, String applyType, String testDay, String testLang, int testScore, String testResult,
+			String comment, String deposit, int depositAmount, String cardPayDate, int cardPayAmount,
+			String cardPayState, String depositDate, int totalPay, String note, String curriName, String gender,
+			int gisuFlag, String studResNum) {
 		super();
 		this.applicant_no = applicant_no;
 		this.user_no = user_no;
@@ -54,6 +57,8 @@ public class ApplicantVo {
 		this.note = note;
 		this.curriName = curriName;
 		this.gender = gender;
+		this.gisuFlag = gisuFlag;
+		this.studResNum = studResNum;
 	}
 	public int getApplicant_no() {
 		return applicant_no;
@@ -187,6 +192,18 @@ public class ApplicantVo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public int getGisuFlag() {
+		return gisuFlag;
+	}
+	public void setGisuFlag(int gisuFlag) {
+		this.gisuFlag = gisuFlag;
+	}
+	public String getStudResNum() {
+		return studResNum;
+	}
+	public void setStudResNum(String studResNum) {
+		this.studResNum = studResNum;
+	}
 	@Override
 	public String toString() {
 		return "ApplicantVo [applicant_no=" + applicant_no + ", user_no=" + user_no + ", curriculum_no=" + curriculum_no
@@ -194,9 +211,11 @@ public class ApplicantVo {
 				+ applyType + ", testDay=" + testDay + ", testLang=" + testLang + ", testScore=" + testScore
 				+ ", testResult=" + testResult + ", comment=" + comment + ", deposit=" + deposit + ", depositAmount="
 				+ depositAmount + ", cardPayDate=" + cardPayDate + ", cardPayAmount=" + cardPayAmount
-				+ ", cardPayState=" + cardPayState + ", depositDate=" + depositDate + ", totalPay=" + totalPay + ", note="
-				+ note + ", curriName=" + curriName + ", gender=" + gender + "]";
+				+ ", cardPayState=" + cardPayState + ", depositDate=" + depositDate + ", totalPay=" + totalPay
+				+ ", note=" + note + ", curriName=" + curriName + ", gender=" + gender + ", gisuFlag=" + gisuFlag
+				+ ", studResNum=" + studResNum + "]";
 	}
+
 	
 	
 }

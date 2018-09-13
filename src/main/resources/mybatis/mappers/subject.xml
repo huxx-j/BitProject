@@ -4,41 +4,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subject">
 
-    <!--성우-->
-    <insert id="add" parameterType="SubjectVo" >
-        <![CDATA[
-        insert into Subject
-            values (#{Subject_no},#{SubjectCate_no},#{SubjectName},#{Outline});
-        ]]>
-    </insert>
-
-    <select id="getSubjectNoForDirGen" parameterType="Int" resultType="HashMap">
-        <![CDATA[
-        select g.GisuName, sis.Subject_no
-            from SubInStep sis
-            join StepInPack sip on sis.Step_no = sip.Step_no
-            join Package p on sip.Package_no = p.Package_no
-            join Curriculum c on p.Package_no = c.Package_no
-            join Gisu g on c.Curriculum_no = g.Curriculum_no
-            where sis.SubInStep_no=#{sisNo}
-        ]]>
-    </select>
-    <!--성우-->
-
     <!--진현-->
     <insert id="insert" parameterType="SubjectVo" >
         <![CDATA[
-        insert into Subject (SubjectCate_no,SubjectName,Outline) values (#{SubjectCate_no},#{SubjectName},#{Outline})
+        insert into Subject
+        (SubjectCate_no,
+        SubjectName,
+        Outline,
+        Delstatus
+        ) values
+        (#{SubjectCate_no},
+        #{SubjectName},
+        #{Outline},
+        0)
         ]]>
     </insert>
     <select id="listselect" resultType="SubjectCateVo">
         <![CDATA[
-        select SubjectCate_no,CateName,GroupCode,ParentCode,Depth,OrderCode from SubjectCate order by GroupCode,OrderCode
+        select SubjectCate_no,
+        CateName,
+        ParentCode
+        from
+        SubjectCate
+        where
+        Delstatus=0
         ]]>
     </select>
     <select id="subselect" resultType="SubjectVo">
         <![CDATA[
-        select Subject_no,SubjectCate_no,SubjectName,Outline from Subject
+        select Subject_no,
+        SubjectCate_no,
+        SubjectName,
+        Outline
+        from
+        Subject
+        where
+        Delstatus=0
         ]]>
     </select>
     <!--<select id="mdselect" resultType="MaxdepthVo">-->
@@ -48,16 +49,49 @@
     <!--</select>-->
     <select id="nselect" resultType="int">
         <![CDATA[
-       select SubjectCate_no from SubjectCate where SubjectCate_no NOT IN (select sc.SubjectCate_no from SubjectCate sc, SubjectCate sc2 where sc.SubjectCate_no=sc2.ParentCode group by sc.SubjectCate_no)
+       select SubjectCate_no
+       from SubjectCate
+       where
+       SubjectCate_no NOT IN
+       (select sc.SubjectCate_no
+       from SubjectCate sc,
+       SubjectCate sc2
+       where
+       sc.SubjectCate_no=sc2.ParentCode
+       group by sc.SubjectCate_no)
         ]]>
     </select>
+    <select id="getSubCate" parameterType="int" resultType="SubjectCateVo">
+        select
+        SubjectCate_no,
+        CateName
+        from
+        SubjectCate
+        where
+        SubjectCate_no=#{no}
+    </select>
     <select id="sub" parameterType="int" resultType="SubjectVo">
-        select Subject_no,SubjectCate_no,SubjectName,Outline from Subject where Subject_no=#{no}
+       select Subject_no,
+        SubjectCate_no,
+        SubjectName,
+        Outline,
+        (select CateName from SubjectCate sc, Subject s where sc.SubjectCate_no=s.SubjectCate_no and Subject_no=#{no}) CateName
+        from
+        Subject
+        where
+        Subject_no=#{no};
     </select>
 
     <insert id="addcate" parameterType="SubjectCateVo" >
         <![CDATA[
-        insert into SubjectCate (ParentCode,CateName) values (#{SubjectCate_no},#{CateName})
+        insert into
+         SubjectCate
+         (ParentCode,
+         CateName,
+         DelStatus)
+         values (#{SubjectCate_no},
+         #{CateName},
+         0)
         ]]>
     </insert>
     <update id="CateUpdate" parameterType="SubjectCateVo">
@@ -70,13 +104,68 @@
         ]]>
     </update>
 
-    <update id="SubjectUpdate" parameterType="SubjectCateVo">
+    <update id="UpdateSubjectPid" parameterType="SubjectCateVo">
         <![CDATA[
         UPDATE Subject set
         SubjectName=#{CateName},
         SubjectCate_no=#{ParentCode}
          where
          Subject_no=#{subjectCate_no}
+        ]]>
+    </update>
+
+    <update id="UpdateSubject" parameterType="SubjectVo">
+        <![CDATA[
+        UPDATE Subject set
+        SubjectName=#{SubjectName},
+        SubjectCate_no=#{ParentCode},
+        Outline =#{Outline}
+         where
+         Subject_no=#{subject_no}
+        ]]>
+    </update>
+    <update id="updateSubject" parameterType="SubjectVo">
+        <![CDATA[
+        UPDATE Subject set
+        SubjectName=#{SubjectName},
+        Outline =#{Outline}
+         where
+         Subject_no=#{subject_no}
+        ]]>
+    </update>
+    <update id="delSubject" parameterType="int">
+        <![CDATA[
+        UPDATE Subject set
+        Delstatus =1
+        where
+        Subject_no=#{no}
+        ]]>
+    </update>
+
+    <update id="delChildSubject" parameterType="int">
+        <![CDATA[
+        UPDATE Subject set
+        Delstatus =1
+        where
+        SubjectCate_no=#{pid}
+        ]]>
+    </update>
+
+    <update id="delCate" parameterType="int">
+        <![CDATA[
+        UPDATE SubjectCate set
+        Delstatus =1
+        where
+        SubjectCate_no=#{id}
+        ]]>
+    </update>
+
+    <update id="delChildCate" parameterType="int">
+        <![CDATA[
+        UPDATE SubjectCate set
+        Delstatus =1
+        where
+        ParentCode=#{pid}
         ]]>
     </update>
     <!--진현-->

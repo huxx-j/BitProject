@@ -3,6 +3,8 @@
 
 
 <script type="text/javascript">
+	var level=0;
+	var step=0;
 	//화면 로딩
     $(document).ready(function(){
         var treeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
@@ -12,55 +14,176 @@
 	//교육과정 카테고리 탭
     var setting = {
 		edit:{
-			drag:{
-				autoExpandTrigger:true,
-				prev:dropPrev,
-				inner:dropInner,
-				next:dropNext
+				drag:{
+						autoExpandTrigger : true,
+						prev : dropPrev,
+						inner : dropInner,
+						next : dropNext
 			},
-			enable:true
+			enable : true,
+			editNameSelectAll : true,
+            showRemoveBtn : showRemoveBtn, //showRemoveBtn
+            showRenameBtn : showRenameBtn  //showRenameBtn
 		},
         data: {
-            simpleData: {
-                enable: true,
-            }
-        },
+				simpleData: {
+				enable: true
+            	}
+       	},
         callback: {
-            beforeClick: package,  // 마우스 클릭 콜백함수 지정
-            beforeDrag: beforeDrag,
-            beforeDrop: beforeDrop,
-            beforeDragOpen: beforeDragOpen,
-            onDrag: onDrag,
-            onDrop: onDrop,
-            onExpand: onExpand
-        },
+		            beforeClick : curriculum,  // 마우스 클릭 콜백함수 지정
+		            beforeDrag : beforeDrag,
+		            beforeEditName : beforeEditName,
+		            beforeRemove : beforeRemove,
+		            beforeRename : beforeRename,
+		            onRename : onRename,
+		            onRemove : onRemove,
+		            beforeDragOpen : beforeDragOpen,
+		            onDrag : onDrag,
+		            onDrop : onDrop,
+		            onExpand : onExpand
+       },
     };
 
     var zNodes= [
-    	  <c:forEach items="${cateList}" var="vo">
-          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}"},
-          </c:forEach>
-          <c:forEach items="${list}" var="vo">
-          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}},
-          </c:forEach>
+		    	  <c:forEach items="${cateList}" var="vo">
+		    	  <c:if test="${vo.curriculumCate_no eq 10000}">
+		          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",open:true,icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+		          </c:if>
+		          <c:if test="${vo.curriculumCate_no ne 10000}">
+		          {id:${vo.curriculumCate_no} , pId:${vo.parentCode}, name:"${vo.cateName}",web:"${vo.curriculumCate_no}",icon:"${pageContext.request.contextPath}/assets/css/img/CloseCate.png",iconOpen: "${pageContext.request.contextPath}/assets/css/img/OpenCate.png"},
+		          </c:if>
+		          </c:forEach>
+		          <c:forEach items="${list}" var="vo">
+		          {id:${vo.curriculum_no},pId:${vo.curriculumCate_no},name:"${vo.curriName}",web:${vo.curriculum_no}, icon:"${pageContext.request.contextPath}/assets/css/img/item.png"},
+		          </c:forEach>
     ];
+
+    <!--삭제 수정용-->
+    function beforeEditName(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        setTimeout(function() {
+            if (confirm(" '" + treeNode.name + "'을(를) 수정 하시겠습니까?")) {
+                setTimeout(function() {
+                    zTree.editName(treeNode);
+                }, 0);
+            }
+        }, 0);
+        return false;
+    }
+
+    <!--삭제 수정용(삭제확인 메세지 출력 및 삭제 전 노드 정보 출력)-->
+    function beforeRemove(treeId, treeNode) {
+        className = (className === "dark" ? "":"dark");
+        console.log("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.selectNode(treeNode);
+        return confirm(" '" + treeNode.name + "'을(를) 삭제 하시겠습니까?");
+    }
     
+    <!--삭제 수정용(수정전 데이터 출력 밑 공백체크)-->
+    function beforeRename(treeId, treeNode, newName, isCancel) {
+        className = (className === "dark" ? "":"dark");
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId+(isCancel ? "</span>":""));
+        if (newName.length == 0) {
+            setTimeout(function() {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.cancelEditName();
+                alert("공백은 입력할수 없습니다.");
+            }, 0);
+            return false;
+        }
+        return true;
+    }
+    
+    <!--삭제 수정용(수정 후 데이터 출력)-->
+    function onRename(e, treeId, treeNode, isCancel) {
+        console.log((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + "이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId + (isCancel ? "</span>":""));
+        updateCate(treeNode.name,treeNode.id,treeNode.pId);
+    }
+    
+    <!--삭제 수정용(시작노드 삭제 아이콘 없애는 코드)-->
+    function showRemoveBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<=10000){ show=false;}
+        return show;
+    }
+    
+    <!--삭제 수정용(마지막 노드 수정 아이콘 없애는 코드-->
+    function showRenameBtn(treeId, treeNode) {
+        var show=true;
+        if(treeNode.id<10000){ show=false;}
+        return show;
+    }
+    
+    <!--삭제 수정용-->
+    function showLog(str) {
+        if (!log) log = $("#log");
+        log.append("<li class='"+className+"'>"+str+"</li>");
+        if(log.children("li").length > 8) {
+            log.get(0).removeChild(log.children("li")[0]);
+        }
+    }
+    
+    <!--삭제 수정용-->
+    function getTime() {
+        var now= new Date(),
+            h=now.getHours(),
+            m=now.getMinutes(),
+            s=now.getSeconds(),
+            ms=now.getMilliseconds();
+        return (h+":"+m+":"+s+ " " +ms);
+    }
+    
+    <!--삭제 수정용-->
+    var newCount = 1;
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_"+treeNode.tId);
+
+        if (btn) btn.bind("click", function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+            return false;
+        });
+    };
+    
+    <!--삭제 수정용-->
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_"+treeNode.tId).unbind().remove();
+    };
+    
+    <!--삭제 수정용-->
+    function selectAll() {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+    }
+    
+    <!--드래그용 함수-->
     function dropPrev(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
         if (pNode && pNode.dropInner === false) {
         return false;
-    }
-    else {
-        for (var i=0,l=curDragNodes.length; i<l; i++) {
-            var curPNode = curDragNodes[i].getParentNode();
-            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
-                return false;
-            }
-        }
-    }
+	    }
+	    else {
+	        for (var i=0,l=curDragNodes.length; i<l; i++) {
+	            var curPNode = curDragNodes[i].getParentNode();
+	            if (curPNode && curPNode !== targetNode.getParentNode() && curPNode.childOuter === false) {
+	                return false;
+	            }
+	        }
+	    }
         return true;
     }
-
+    
+    <!--드래그용 함수-->
     function dropInner(treeId, nodes, targetNode) {
         if (targetNode && targetNode.dropInner === false) {
             return false;
@@ -75,7 +198,8 @@
         }
         return true;
     }
-
+    
+    <!--드래그용 함수-->
     function dropNext(treeId, nodes, targetNode) {
         var pNode = targetNode.getParentNode();
         if (pNode && pNode.dropInner === false) {
@@ -92,7 +216,8 @@
     }
 
     var log, className = "dark", curDragNodes, autoExpandNode;
-
+    
+    <!--드래그용 함수-->
     function beforeDrag(treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
@@ -109,93 +234,117 @@
         return true;
     }
 
+    <!--드래그용 함수-->
     function beforeDragOpen(treeId, treeNode) {
         autoExpandNode = treeNode;
         return true;
     }
 
+    <!--드래그용 함수-->
     function beforeDrop(treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
         showLog("[ "+getTime()+" beforeDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
         showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"));
         return true;
     }
-
+    
+    <!--드래그용 함수(드래그 할때 해당 노드정보 출력)-->
     function onDrag(event, treeId, treeNodes) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length + " nodes." );
+        console.log("[ "+getTime()+" onDrag ]&nbsp;&nbsp;&nbsp;&nbsp; drag: " + treeNodes.length +  "이름:" + treeNodes + "/ID:" + treeNodes[0].id+"/pId:"+treeNodes.pId+" nodes." );
+        UpdateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
     }
-
+    
+    <!--드래그용 함수(드롭할때 해당 노드 정보 출력)-->
     function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
         className = (className === "dark" ? "":"dark");
-        showLog("[ "+getTime()+" onDrop ]&nbsp;&nbsp;&nbsp;&nbsp; moveType:" + moveType);
-        showLog("target: " + (targetNode ? targetNode.name : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        console.log("[ "+getTime()+" onDrop ]; moveType:" + moveType + "/ID:" + treeNodes[0].id+" /pId:" + treeNodes[0].pId);
+        updateCate(treeNodes[0].name,treeNodes[0].id,treeNodes[0].pId);
+        console.log("target: " + (targetNode ? targetNode.name +targetNode.id +targetNode.toString() : "root") + "  -- is "+ (isCopy==null? "cancel" : isCopy ? "copy" : "move"))
+        //UpdateCate(treeNode.name,treeNode.id,treeNode.pId);
     }
 
+    <!--드래그용 함수-->
     function onExpand(event, treeId, treeNode) {
         if (treeNode === autoExpandNode) {
             className = (className === "dark" ? "":"dark");
             showLog("[ "+getTime()+" onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
         }
     }
-
-    function showLog(str) {
-        if (!log) log = $("#log");
-        log.append("<li class='"+className+"'>"+str+"</li>");
-        if(log.children("li").length > 8) {
-            log.get(0).removeChild(log.children("li")[0]);
-        }
-    }
-
-    function getTime() {
-        var now= new Date(),
-            h=now.getHours(),
-            m=now.getMinutes(),
-            s=now.getSeconds(),
-            ms=now.getMilliseconds();
-        return (h+":"+m+":"+s+ " " +ms);
-    }
+    
+    <!--드래그용 함수-->
     function setTrigger() {
         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
         zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
     }
 
-	<!--이름수정, 삭제용-->
-    function setEdit() {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-            remove = $("#remove").attr("checked"),
-            rename = $("#rename").attr("checked"),
-            removeTitle = $.trim($("#removeTitle").get(0).value),
-            renameTitle = $.trim($("#renameTitle").get(0).value);
-        zTree.setting.edit.showRemoveBtn = remove;
-        zTree.setting.edit.showRenameBtn = rename;
-        zTree.setting.edit.removeTitle = removeTitle;
-        zTree.setting.edit.renameTitle = renameTitle;
-        console.log(['setting.edit.showRemoveBtn = ' + remove, 'setting.edit.showRenameBtn = ' + rename,
-            'setting.edit.removeTitle = "' + removeTitle +'"', 'setting.edit.renameTitle = "' + renameTitle + '"']);
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $("#callbackTrigger").bind("change", {}, setTrigger);
+        $("#selectAll").bind("click", selectAll);
+    });
+    
+    <!--삭제 수정용(삭제 후 노드 정보 출력)-->
+    function onRemove(e, treeId, treeNode) {
+        console.log("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp;이름:" + treeNode.name + "/ID:" + treeNode.id+"/pId:"+treeNode.pId);
+        deleteCate(treeNode.id);
     }
-
-    <!--이름수정, 삭제용-->
-    function showCode(str) {
-        var code = $("#code");
-        code.empty();
-        for (var i=0, l=str.length; i<l; i++) {
-            code.append("<li>"+str[i]+"</li>");
-        }
-    }
-
+    
+    ///////////////////////////////////////////////////////////////////////
+	
+	function updateCate(name, id, pId){
+		console.log(name+id+pId);
+		curriculumCateVo = {cateName : name, curriculumCate_no : id, parentCode : pId}
+		$.ajax({
+			url : "${pageContext.request.contextPath}/curri/updateCate",
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(curriculumCateVo),
+			dataType : "json",
+			success : function(result){
+				if(result == 1){
+					alert("수정이 완료되었습니다.");
+					location.reload();
+				}
+			},
+			error : function(XHR, status, error){
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+    function deleteCate(id){
+    	console.log(id);
+    	
+    	$.ajax({
+    		url : "${pageContext.request.contextPath}/curri/deleteCate",
+    		type : "post",
+    		data : {curriculumCate_no : id},
+    		dataType : "json",
+    		success : function(result){
+    			if(result == 1){
+    				alert("삭제가 완료되었습니다.");
+    				location.reload();
+    			}
+    		},
+    		error : function(XHR, status, error){
+    			console.error(status + " : " + error);
+    		}
+    		
+    	});//ajax
+    }//function
+	
     //교육과정 클릭 시 정보 뿌려줌
-    function package(treeId, treeNode, clickFlag) {
+    function curriculum(treeId, treeNode, clickFlag) {
         var curriculum_no=treeNode.web;
-        console.log(curriculum_no);
         $.ajax({
             url : "${pageContext.request.contextPath }/curri/"+curriculum_no,
             type : "POST",
-//             data : {"curriculum_no": curriculum_no}, pathVariable로 했으니까 data 안보내도 됨
             dataType : "json",
-//             async: false,
             success : function(curriAllVo) {
-                $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
+	            $("#curriculumCate_no").val(curriAllVo.curriculumVo.curriculumCate_no).prop("selected",true),
+
+//                 $("#cateName").val(curriAllVo.curriculumVo.cateName).prop("selected",true),
                 $("input[name='curriculumCate_no']").val(curriAllVo.curriculumVo.curriculumCate_no),
                 $("input[name='package_no']").val(curriAllVo.curriculumVo.package_no),
                 $("input[name='packageName']").val(curriAllVo.curriculumVo.packageName),
@@ -210,151 +359,57 @@
 				$("input[name='support']").val(curriAllVo.curriculumVo.support),
 				$("input[name='managerInfo']").val(curriAllVo.curriculumVo.managerInfo),
 				$("input[name='gisuName']").val(curriAllVo.curriculumVo.gisuName),
-				
             	$("input[name='state']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='state'][value="+curriAllVo.curriculumVo.state+"]").attr("checked",true),
-				
 				$("input[name='mainViewFlag']").attr("checked",false), /* radio button 초기화 */
 				$("input[name='mainViewFlag'][value="+curriAllVo.curriculumVo.mainViewFlag+"]").attr("checked",true),
-				
 				$("input[name='detailViewFlag']").attr("checked",false), /* radio button 초기화 */
-				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true)
+				$("input[name='detailViewFlag'][value="+curriAllVo.curriculumVo.detailViewFlag+"]").attr("checked",true),
 				
-// 				지원자 리스트 테이블 초기화
-//                 $("#renderApplicantList").find("tr:gt(0)").remove();
-//                 $("#renderApplicantList").remove(); //표 틀까지 다 지움
+				// 전형일 초기화
+				$("#testDate0").val(""),
+				$("#testDate1").val(""),
+				$("#testDate2").val(""),
+				$("#testTime0").prop('selectedIndex', '0'),
+				$("#testTime1").prop('selectedIndex', '0'),
+				$("#testTime2").prop('selectedIndex', '0')
+				 
+				var listLen = curriAllVo.curriculumVo.testInfoList.length;
+				for(var i = 0; i < listLen; i++){
+					$("#testDate"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testDate);
+					$("#testTime"+[i]).val(curriAllVo.curriculumVo.testInfoList[i].testTime).prop("selected", true);
+				};
                 
-                //이전 리스트 삭제(비워줌)(html은 안해도 되지만 그래도 확실히 비우기 위해서)
+                // 이전 리스트 삭제(비워줌)
                 $("#renderApplicantList").empty();
-				var str = ""; //append 하려면 for문 안에 넣어야함.
+				var str = ""; 
 				for (var i = 0; i < curriAllVo.applicantList.length; i++){
-					console.log(curriAllVo.applicantList);
-			     	str += "<tr>";
+			     	str += "<tr id = 'tr" + curriAllVo.applicantList[i].applicant_no + "'>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuGrant' class = 'gisuGrantCheckbox text-center' id = '" + curriAllVo.applicantList[i].applicant_no + "'></label></div></td>";
 					str += "	<td>" + curriAllVo.applicantList[i].nameHan + "</td>";    	
-			    	str += "	<td>" + curriAllVo.applicantList[i].birthDate +"</td>";
+			    	str += "	<td>" + curriAllVo.applicantList[i].studResNum +"</td>";
 			    	str += " 	<td>" + curriAllVo.applicantList[i].gender + "</td>";
 			    	str += "	<td>" + curriAllVo.applicantList[i].testResult +"</td>";
-			    	str += "	<td><label class = 'form-control-static'><input type = 'checkbox' name = 'gisuGrant' id = '" + curriAllVo.applicantList.applicant_no + "'></label></td>";
 			 		str += "</tr>";
-// 			 		$("#renderApplicantList").append(str); //앞에 초기화 한번 해주고 시작해야 함.(리스트 계속 밑으로 추가됨)
 				}
-					$("#renderApplicantList").html(str); //renderApplicantList 비우고 붙임 str이 목록 길이만큼이어야함.
+					$("#renderApplicantList").html(str); 
+					
+                $("#gisuGrantList").empty();
+				var str = ""; 
+				for (var i = 0; i < curriAllVo.studentList.length; i++){
+			     	str += "<tr id = 'tr" + curriAllVo.studentList[i].applicant_no + "'>";
+			    	str += "	<td><div class = 'checkbox-group form-inline'><label class = 'checkbox'><input type = 'checkbox' name = 'gisuRemove' class = 'gisuRemoveCheckbox text-center' id = '" + curriAllVo.studentList[i].applicant_no + "'></label></div></td>";
+					str += "	<td>" + curriAllVo.studentList[i].nameHan + "</td>";    	
+			    	str += "	<td>" + curriAllVo.studentList[i].studResNum +"</td>";
+			    	str += " 	<td>" + curriAllVo.studentList[i].gender + "</td>";
+			    	str += "	<td>" + curriAllVo.studentList[i].testResult +"</td>";
+			 		str += "</tr>";
+				}
+					$("#gisuGrantList").html(str); 
             },
             error : function(XHR, status, error) {
                 console.error(status + " : " + error);
             }
         });
-       
     }
-    
-    
-    
-    //커리큘럼 수정 버튼
-//     $("#editCurriBtn").unbind("click").bind("click", function(){
-	$("#editCurriBtn").on("click", function(){
-		console.log("editCurriBtn");
-// 		console.log(curriName);	
-		var cateName = $("#cateName option:selected").val();
-		var curriculumCate_no = $("input[name=curriculumCate_no]").val();
-		var package_no = $("input[name=package_no]").val();
-		var packageName = $("input[name=packageName]").val();
-		var curriculum_no = $("input[name=curriculum_no]").val();
-		var curriName = $("input[name=curriName]").val();
-		var curriNickname = $("input[name=curriNickname]").val();
-		var startDate = $("input[name=startDate]").val();
-		var endDate = $("input[name=endDate]").val();
-		var time = $("input[name=time]").val();
-		var maxCnt = $("input[name=maxCnt]").val();
-		var maxCnt = $("input[name=price]").val();
-		var support = $("input[name=support]").val();
-		var managerInfo = $("input[name=managerInfo]").val();
-		var state = $("input[type=radio]:checked").val();
-		var gisuName = $("input[name=gisuName]").val();
-		console.log("cateName="+cateName, "package_no="+package_no, "curriculumCate_no="+curriculumCate_no);
-/*  			 
-		curriVo = 	{ cateName : $("input[name='cateName']").val(),
-					 package_no : $("input[name='package_no']").val(),
-					 packageName : $("input[name='packageName']").val(),
-					 curriculum_no : $("input[name='curriculum_no']").val(),
-					 curriName : $("input[name='curriName']").val(),
-					 curriNickname : $("input[name='curriNickname']").val(),
-					 startDate : $("input[name='startDate']").val(),
-					 endDate : $("input[name='endDate']").val(),
-					 time : $("input[name='time']").val(),
-					 maxCnt : $("input[name='maxCnt']").val(),
-					 support : $("input[name='support']").val(),
-					 managerInfo : $("input[name='managerInfo']").val(),
-					 state : $("input[name='state']").val(),
-					 gisuName : $("input[name='gisuName']").val()};
-*/ 		
-		alert("수정하시겠습니까?");
-		$.ajax({
-			url : "${pageContext.request.contextPath}/curri/edit",
-			type : "post",
-//  			data : JSON.stringify(curriVo), //@RequestBody(ModelAttribute대신)
-		
- 			data : {cateName : cateName, curriculumCate_no : curriculumCate_no, package_no : package_no, packageName : packageName,
-					curriculum_no : curriculum_no, curriName : curriName, curriNickname : curriNickname,
-					startDate : startDate, endDate : endDate, time : time, maxCnt : maxCnt,
-					support : support, managerInfo : managerInfo, state : state, gisuName : gisuName},
-					
- 			dataType : "json",
- 			success : function(result){
-//	 				console.log("성공"+curriVo);
-					console.log(result);
-					if(result != 0){
-		 				alert("수정이 완료되었습니다");
-					}else{
-		 				alert("실패!");
-					}
- 			},
- 			error : function(XHR, status, error){
- 				console.error(status + " : " + error);
- 			}
-		}); //ajax		
-	});// onClick function
-   
-    
-    
-    
-    
-    
-
-    //달력1
-    $("#startDate").datepicker();
-    //달력2
-    $("#endDate").datepicker();
-
-    $.datepicker.setDefaults({
-        prevText : '이전 달',
-        nextText : '다음 달',
-        monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-            '8월', '9월', '10월', '11월', '12월' ], //월 이름
-        monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-            '7월', '8월', '9월', '10월', '11월', '12월' ], //
-        dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-        dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-        showMonthAfterYear : true,
-        yearSuffix : '년',
-        changeMonth : true,
-        changeYear : true,
-        dateFormat : "yy-mm-dd"
-    });
-  
-    function gisuGrant(){
-//     	str = "";
-    	id = "";
-    	$("input[name=gisuGrant]:checked").each(function(){
-//     		str += $(this).val() + ", ";
-    		id += $(this).attr("id") + ",";
-    	});
-    	id = id.slice(0, -1);
-    	console.log(id);
-    	
-    }
-    
-    
-  
-    
   </script>

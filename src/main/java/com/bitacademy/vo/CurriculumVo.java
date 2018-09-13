@@ -1,5 +1,8 @@
 package com.bitacademy.vo;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CurriculumVo {
 
 	private int curriculumCate_no;
@@ -20,13 +23,14 @@ public class CurriculumVo {
 	private String state;
 	private int mainViewFlag;
 	private int detailViewFlag;
+	private List<TestInfoVo> testInfoList;
 	public CurriculumVo() {
 		super();
 	}
 	public CurriculumVo(int curriculumCate_no, int package_no, String packageName, int curriculum_no, String cateName,
 			String curriName, String curriNickname, String startDate, String endDate, String time, int maxCnt,
 			String price, String support, String gisuName, String managerInfo, String state, int mainViewFlag,
-			int detailViewFlag) {
+			int detailViewFlag, List<TestInfoVo> testInfoList) {
 		super();
 		this.curriculumCate_no = curriculumCate_no;
 		this.package_no = package_no;
@@ -46,6 +50,7 @@ public class CurriculumVo {
 		this.state = state;
 		this.mainViewFlag = mainViewFlag;
 		this.detailViewFlag = detailViewFlag;
+		this.testInfoList = testInfoList;
 	}
 	public int getCurriculumCate_no() {
 		return curriculumCate_no;
@@ -155,6 +160,12 @@ public class CurriculumVo {
 	public void setDetailViewFlag(int detailViewFlag) {
 		this.detailViewFlag = detailViewFlag;
 	}
+	public List<TestInfoVo> getTestInfoList() {
+		return testInfoList;
+	}
+	public void setTestInfoList(List<TestInfoVo> testInfoList) {
+		this.testInfoList = testInfoList;
+	}
 	@Override
 	public String toString() {
 		return "CurriculumVo [curriculumCate_no=" + curriculumCate_no + ", package_no=" + package_no + ", packageName="
@@ -162,10 +173,11 @@ public class CurriculumVo {
 				+ curriName + ", curriNickname=" + curriNickname + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", time=" + time + ", maxCnt=" + maxCnt + ", price=" + price + ", support=" + support + ", gisuName="
 				+ gisuName + ", managerInfo=" + managerInfo + ", state=" + state + ", mainViewFlag=" + mainViewFlag
-				+ ", detailViewFlag=" + detailViewFlag + "]";
+				+ ", detailViewFlag=" + detailViewFlag + ", testInfoList=" + testInfoList + "]";
 	}
 
-
-
+	
+	
+	
 	
 }

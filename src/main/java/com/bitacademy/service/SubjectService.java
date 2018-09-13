@@ -1,6 +1,7 @@
 package com.bitacademy.service;
 
 import com.bitacademy.dao.SubjectDao;
+import com.bitacademy.vo.PackageCateVo;
 import com.bitacademy.vo.SubjectCateVo;
 import com.bitacademy.vo.SubjectVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ public class SubjectService {
 
 
     public void add(SubjectVo subjectVo){
-        System.out.println(subjectVo.toString());
-        subjectDao.insert(subjectVo);
+        System.out.println(subjectVo);
+        if(subjectVo.getSubject_no()==0) {
+            subjectDao.insert(subjectVo);
+        }
+        else{
+            subjectDao.UpdateSubject(subjectVo);
+        }
     }
 
 
@@ -27,12 +33,10 @@ public class SubjectService {
 
     public void UpdateCate(SubjectCateVo subjectCateVo) {
         if(subjectCateVo.getSubjectCate_no()>1000) {
-            System.out.println(subjectCateVo.toString()+"ser");
             subjectDao.UpdateCate(subjectCateVo);
         }
         else if(subjectCateVo.getSubjectCate_no()<=1000){
-            System.out.println(subjectCateVo.toString()+"ser");
-            subjectDao.UpdateSubject(subjectCateVo);
+            subjectDao.UpdateSubjectPid(subjectCateVo);
         }
 
         //subjectDao.UpdateCate(subjectCateVo);
@@ -54,4 +58,23 @@ public class SubjectService {
     public void addcate(SubjectCateVo subjectCateVo) {
         subjectDao.addcate(subjectCateVo);
     }
+
+    public void delSubject(int no) {
+        subjectDao.delSubject(no);
+    }
+
+    public void delCate(int id) {
+        subjectDao.delCate(id);
+        subjectDao.delChildCate(id);
+        subjectDao.delChildSubject(id);
+    }
+
+    public SubjectCateVo getSubCate(int no) {
+        return subjectDao.getSubCate(no);
+    }
+
+    public void updateSubject(SubjectVo subjectVo) {
+        subjectDao.updateSubject(subjectVo);
+    }
+
 }

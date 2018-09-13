@@ -4,22 +4,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="class">
 
+    <!--업무구분에 카테코리 이름을 불러오는 쿼리-->
     <select id="getCateName" resultType="String">
         <![CDATA[
-        SELECT WorkType
-            from Curriculum
-            group by WorkType
+--         SELECT CateName from CurriculumCate group by CateName
+            select CateName from CurriculumCate where DelStatus = 0
         ]]>
     </select>
 
-    <select id="getCurri" parameterType="String" resultType="String">
+    <!--업무구분에 따라 커리큘럼 리스트를 불러오는 쿼리-->
+    <select id="getCurriList" parameterType="Map" resultType="CurriculumVo">
+        <if test="radioStat=='ongoing'">
+            <![CDATA[
+                 select Curriculum_no, CurriName
+                        from Curriculum c, CurriculumCate cc
+                        where c.CurriculumCate_no=cc.CurriculumCate_no
+                        and c.StartDate<=current_date
+                        and current_date<=c.EndDate
+                        and cc.CateName=#{cateName}
+            ]]>
+        </if>
+        <if test="radioStat=='all'">
+            <![CDATA[
+                 select Curriculum_no, CurriName
+                        from Curriculum c, CurriculumCate cc
+                        where c.CurriculumCate_no=cc.CurriculumCate_no
+                        and cc.CateName=#{cateName}
+        ]]>
+        </if>
+    </select>
+
+    <!--교육과정검색에 조회버튼을 누르면 커리큘럼 정보는 불러오는 쿼리-->
+    <select id="getCurriInfo" parameterType="Int" resultType="CurriculumVo">
         <![CDATA[
-        select CurriName
-            from Curriculum
-            where WorkType=#{workType}
+        select CurriName, StartDate, EndDate, GisuName from Curriculum where Curriculum_no=#{curriculum_no};
         ]]>
     </select>
 
+    <!--디비의 현재 날짜를 가져오는 쿼리-->
     <select id="getDate" resultType="String">
         <![CDATA[
         select current_date
@@ -27,5 +49,22 @@
         ]]>
     </select>
 
+    <!--파일이 저장되는 디렉토리 이름을 가져가는 쿼리-->
+    <select id="getSubjectNoForDirGen" parameterType="Map" resultType="HashMap">
+        <![CDATA[
+        select c.GisuName, sis.Subject_no
+                from SubInStep sis, StepInPack sip, Package p, Curriculum c
+                where sis.Step_no = sip.Step_no
+                      and sip.Package_no = p.Package_no
+                      and p.Package_no = c.Package_no
+                      and sis.SubInStep_no=#{sisNo}
+                      and c.Curriculum_no=#{curriNo}
+        ]]>
+    </select>
 
+    <select id="getGisu" parameterType="Int" resultType="String">
+        <![CDATA[
+                select GisuName from Curriculum where Curriculum_no=#{curriNo}
+        ]]>
+    </select>
 </mapper>

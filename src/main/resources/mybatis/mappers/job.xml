@@ -4,19 +4,460 @@
 
 	<!-- 검색 -->
 	<!--/*기업정보 리스트 가져오기*/-->
-	<select id="comSelectList" resultType="com.bitacademy.vo.JobSearchVo">
-	<![CDATA[
-			select * from JobRequest join Company using(Commpany_no)
-	]]>
+	<select id="getJobRequestList" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			select 
+					c.Company_no,
+					c.CompName,
+					c.IsStock,
+					c.Address,
+					c.Tel,
+					c.File_no,
+					c.Business,
+					c.Capital,
+					c.YearSell,
+					c.StaffCnt,
+					c.HomePage,
+					c.PostCode,
+					c.Introduction,
+					c.Welfare,
+					c.CompResNum,
+					c.OpenDate,
+					c.UpdateDate,
+				
+					j.Request_no,
+					j.HireCnt,
+					j.HireCnt_M,
+					j.HireCnt_F,
+					j.WorkPlace,
+					j.MajorBiz,
+					j.Field,
+					j.UseLang,
+					j.UseOS,
+					j.UseDB,
+					j.UseETC,
+					j.Requirement,
+					j.Major,
+					j.YearIncome,
+					j.SalaryCode,
+					j.Procedures,
+					j.ReqDocument,
+					j.ReqDetail,
+					j.Department,
+					j.MgrName,
+					j.Position,
+					j.Email,
+					j.Fax,
+					j.Telephone,
+					j.Cellphone,
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate,
+					j.IsShow,
+					j.Employment,
+					j.Career,
+					j.CareerYear,
+					j.ContractType,
+					j.InternTerm,
+					j.EmployPosition,
+					j.Advantage,
+					j.IsLicensePartnership,
+					j.Memo
+			from JobRequest j, Company c 
+			where j.Company_no = c.Company_no
+		]]>	
+		
+		<if test="comCondition == 'isShow'">
+			and j.isShow = '1'
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<if test="comCondition == 'receiptDate'">
+			and j.receiptDate between #{startDate} and #{endDate}
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<!-- <if test="sidx==null or sidx.equals('')">
+			order by ReceiptDate desc
+		</if> -->
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord} , request_no desc
+		</if>
+		<![CDATA[
+			limit #{startNum}, #{rows}
+		]]>	
+	
 	</select>
-
-	<!-- 지원자 리스트 조회 -->
-	<select id="selectList2" parameterType="Map" resultType="com.bitacademy.vo.GisuVo">
-	<![CDATA[
-			select Users.NameHan nameHan, Gisu.GisuName gisuName
-			from Users join ApplyInfo using(User_no) join Curriculum using (Curriculum_no) join Gisu using (Curriculum_no)
-			where Users.NameHan=#{name} and Gisu.GisuName=#{gisu}
-	]]>
+	
+	<!-- 취업의뢰 전체 카운트 -->
+	<select id="getJobRequestTotalCnt" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="Int">
+		<![CDATA[
+			select count(*)
+			from JobRequest j, Company c 
+			where j.Company_no = c.Company_no
+		]]>	
+		
+		<if test="comCondition == 'isShow'">
+			and j.isShow = '1'
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		<if test="comCondition == 'receiptDate'">
+			and j.receiptDate between #{startDate} and #{endDate}
+		</if>
+		<if test="comCondition == 'employment'">
+			and j.employment = '1'
+		</if>
+		
 	</select>
+		
+	
+	<!-- 면접 지원자 리스트 조회 -->
+	<select id="getInterviewList" parameterType="Int" resultType="com.bitacademy.vo.InterViewerVo">
+		<![CDATA[
+			select  i.Request_no, 
+					i.User_no, 
+					i.Interview_no, 
+					u.NameHan, 
+					DATE_FORMAT(i.ApplyDate, '%Y-%m-%d %H:%i') ApplyDate,
+					i.Result,
+					i.GisuName
+			from Interview i, Users u
+			where i.User_no = u.User_no
+			and i.Request_no = #{request_no}
+			order by NameHan asc
+		]]>
+	</select>
+	
+	
+	
+	<!-- 두번 클릭 (팝업)-->
+	<!-- 취업의뢰기업 상세정보 가져오기(회사정보+취업의뢰정보) -->
+	<select id="getJobRequest" parameterType="Int" resultType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			select 
+					c.Company_no,
+					c.CompName,
+					c.IsStock,
+					c.Address,
+					c.Tel,
+					c.File_no,
+					c.Business,
+					c.Capital,
+					c.YearSell,
+					c.StaffCnt,
+					c.HomePage,
+					c.PostCode,
+					c.Introduction,
+					c.Welfare,
+					c.CompResNum,
+					c.OpenDate,
+					c.UpdateDate,
+				
+					j.Request_no,
+					j.HireCnt,
+					j.HireCnt_M,
+					j.HireCnt_F,
+					j.WorkPlace,
+					j.MajorBiz,
+					j.Field,
+					j.UseLang,
+					j.UseOS,
+					j.UseDB,
+					j.UseETC,
+					j.Requirement,
+					j.Major,
+					j.YearIncome,
+					j.SalaryCode,
+					j.Procedures,
+					j.ReqDocument,
+					j.ReqDetail,
+					j.Department,
+					j.MgrName,
+					j.Position,
+					j.Email,
+					j.Fax,
+					j.Telephone,
+					j.Cellphone,
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate,
+					j.IsShow,
+					j.Employment,
+					j.Career,
+					j.CareerYear,
+					j.ContractType,
+					j.InternTerm,
+					j.EmployPosition,
+					j.Advantage,
+					j.IsLicensePartnership,
+					j.Memo
+			from JobRequest j, Company c 
+			where j.Company_no = c.Company_no
+			and j.Request_no = #{request_no}
+		]]>
+	</select>
+	
+	
+	<!-- 특정기업 취업의뢰 리스트 (팝업)-->
+	<select id="getJobReqList" parameterType="Int" resultType="com.bitacademy.vo.JobReqVo">
+		<![CDATA[
+			select  j.Request_no,
+					j.Company_no,
+					DATE_FORMAT(j.ReceiptDate, '%Y-%m-%d %H:%i') ReceiptDate
+			from JobRequest j
+			where j.Company_no = #{company_no}
+			order by j.ReceiptDate desc
+		]]>
+	</select>
+	
+	
+	<!-- 면접지원자 삭제-->
+	<delete id="delInterViewer" parameterType="Int">
+		<![CDATA[
+			delete from Interview
+			where interview_no = #{interview_no}
+		]]>
+	</delete>
+	
+	
+	<!-- 면접지원자 추가-->
+	<insert id="insertInterViewer" parameterType="com.bitacademy.vo.InterViewerVo">
+		<![CDATA[
+			INSERT INTO Interview (
+				User_no, 
+				Request_no, 
+				GisuName,
+				ApplyDate,
+				Result
+			)  
+			VALUES (
+				#{user_no},
+				#{request_no},
+				#{gisuName},
+				NOW(),
+				'0'
+			)
+		]]>
+	</insert>
+	
 
+
+	<!-- 회사정보 수정 -->
+	<!-- File_no = #{file_no}, -->
+	<update id="updateCompany" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE Company
+			SET 
+				CompName = #{compName},
+				isStock = #{isStock},
+				Address = #{address},
+				Tel = #{tel},
+				
+				Business = #{business},
+				Capital = #{capital},
+				YearSell = #{yearSell},
+				StaffCnt = #{staffCnt},
+				HomePage = #{homePage},
+				PostCode = #{postCode},
+				Introduction = #{introduction},
+				Welfare = #{welfare},
+				CompResNum = #{compResNum},
+				OpenDate = #{openDate},
+				UpdateDate = #{updateDate}
+			WHERE Company_no = #{company_no} 
+		]]>
+	</update>
+
+	
+	<!-- 취업의뢰 수정 -->
+	<update id="updateJobRequest" parameterType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			UPDATE JobRequest
+			SET 
+				HireCnt = #{hireCnt},
+				HireCnt_M = #{hireCnt_M},
+				Hirecnt_F = #{hireCnt_F},
+				WorkPlace = #{workPlace},
+				MajorBiz = #{majorBiz},
+				Field = #{field},
+				UseLang = #{useLang},
+				UseOS = #{useOS},
+				UseDB = #{useDB},
+				UseETC = #{useETC},
+				Requirement = #{requirement},
+				Major = #{major},
+				YearIncome = #{yearIncome},
+				SalaryCode = #{salaryCode},
+				Procedures = #{procedures},
+				ReqDocument = #{reqDocument},
+				ReqDetail = #{reqDetail},
+				Department = #{department},
+				Position = #{position},
+				MgrName = #{mgrName},
+				Telephone = #{telephone},
+				Email = #{email},
+				CellPhone = #{cellphone},
+				Fax = #{fax},
+				IsShow = #{isShow},
+				Employment = #{employment},
+				Career = #{career},
+				CareerYear = #{careerYear},
+				ContractType = #{contractType},
+				InternTerm = #{internTerm},
+				EmployPosition = #{employPosition},
+				Advantage = #{advantage},
+				IsLicensePartnership = #{isLicensePartnership},
+				Memo = #{memo}
+			WHERE Company_no = #{company_no} 
+			and Request_no =  #{request_no}
+		]]>
+	</update>
+	
+	<!-- 졸업생(수료생) 리스트 가져오기-->
+	<select id="getStudentList" parameterType="com.bitacademy.vo.JobCriteriaVo" resultType="com.bitacademy.vo.ApplyUserVo">
+		<![CDATA[
+			select 	u.User_no, 
+					a.Applicant_no,
+			        c.Curriculum_no,
+			        c.GisuName,
+			        c.CurriName,
+			        u.NameHan,
+			        u.BirthDate,
+			        u.StudResNum,
+			        u.Gender
+			from Users u, ApplyInfo a, Curriculum c 
+			where u.User_no = a.User_no
+			and a.Curriculum_no = c.Curriculum_no
+		]]>
+		<if test="comCondition == 'kisu'">
+			and c.GisuName like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="comCondition == 'name'">
+			and u.NameHan like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="comCondition == 'curri'">
+			and c.CurriName like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="comCondition == 'birth'">
+			and u.BirthDate like CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="sidx!=null and !sidx.equals('')">
+			order by ${sidx} ${sord}, NameHan asc
+		</if>
+		<![CDATA[
+			limit #{startNum}, #{rows}
+		]]>	
+	</select>
+	
+	
+	<!-- 취업의뢰기업 상세정보 가져오기(회사정보) -->
+	<!-- <select id="getCompany" parameterType="Int" resultType="com.bitacademy.vo.JobRequestVo">
+		<![CDATA[
+			SELECT  c.Company_no,
+					c.CompName,
+					c.IsStock,
+					c.Address,
+					c.Tel,
+					c.File_no,
+					c.Business,
+					c.Capital,
+					c.YearSell,
+					c.StaffCnt,
+					c.HomePage,
+					c.PostCode,
+					c.Introduction,
+					c.Welfare,
+					c.CompResNum,
+					c.OpenDate,
+					c.UpdateDate
+			FROM Company c
+			where c.Company_no = #{company_no}
+			
+		]]>
+	</select> -->
+	
+	
+	
+	
+	
+	 <!-- 취업의뢰정보-->	
+	 <!--
+	<select id="getJobRequest" parameterType="Int" resultType="com.bitacademy.vo.JobRequest">
+		<![CDATA[
+			select  j.Request_no,
+					j.HireCnt,
+					j.HireCnt_M,
+					j.HireCnt_F,
+					j.WorkPlace,
+					j.MajorBiz,
+					j.Field,
+					j.UseLang,
+					j.UseOS,
+					j.UseDB,
+					j.UseETC,
+					j.Requirement,
+					j.Major,
+					j.YearIncome,
+					j.SalaryCode,
+					j.Procedures,
+					j.ReqDocument,
+					j.ReqDetail,
+					j.Department,
+					j.MgrName,
+					j.Position,
+					j.Email,
+					j.Fax,
+					j.Telephone,
+					j.Cellphone,
+					j.ReceiptDate,
+					j.IsShow,
+					j.Employment,
+					j.Career,
+					j.CareerYear,
+					j.ContractType,
+					j.EmployPosition,
+					j.Advantage,
+					j.IsLicensePartnership,
+					j.Memo
+			from JobRequest j
+			where j.Request_no = #{request_no}
+		]]>
+	</select>
+	 -->
+	
+	
+	
+	
+	<!-- 취업의뢰리스트 한번클릭했을때  -->
+	<!-- <select id="getJobRequest" parameterType="Int" resultType="com.bitacademy.vo.getJobRequestVo">
+		<![CDATA[
+			select  j.Field,
+					j.ReceiptDate,
+					j.Post,
+					j.Recruitment,
+					j.ContractType,
+					j.WorkPlace,
+					j.MajorBiz,
+					j.UseOS,
+					j.UseDB,
+					j.UseLang,
+					j.UserETC,
+					j.EmployPosition,
+					j.Major,
+					j.Advantage,
+					j.Procedures,
+					j.ReqDocument,
+					j.ReqDetail,
+					j.MrgName,
+					j.Department,
+					j.Position,
+					j.Telephone,
+					j.CellPhone,
+					j.Fax,
+					j.Email
+			from JobRequest 
+			where j.Request_no = #{request_no}
+			
+		]]> -->
+	<!-- </select> -->
 </mapper>

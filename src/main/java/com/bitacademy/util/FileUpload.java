@@ -67,7 +67,6 @@ public class FileUpload {
     public FileVo saveScoreFile(MultipartFile file, String saveDir) {
         FileVo fileVo = new FileVo();
 
-//        String saveDir = "D:\\bit_file\\KUKA18-BD01\\score\\23";
         String orgName = file.getOriginalFilename();
         String saveName = orgName;
         String filePath = saveDir + "\\" + saveName;

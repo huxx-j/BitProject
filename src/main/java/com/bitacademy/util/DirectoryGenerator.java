@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 @Repository
@@ -18,21 +19,29 @@ public class DirectoryGenerator {
         String saveDir;
         if(param.equals("project")) {
             int pjtCurriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("detailCurriNo"));
-            String gisu = sqlSession.selectOne("gisu.getGisu", pjtCurriNo);
+            String gisu = sqlSession.selectOne("class.getGisu", pjtCurriNo);
             saveDir = "D:\\bit_file\\"+gisu+"\\project";
             makeDir(saveDir);
             return saveDir;
         } else if (param.equals("score")) {
+            Map<String, Integer> iMap = new HashMap<>();
             int scoreSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("iSisNo"));
-            Map<String, Object> map = sqlSession.selectOne("subject.getSubjectNoForDirGen",scoreSisNo);
+            int curriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("iCurriNo"));
+            iMap.put("sisNo",scoreSisNo);
+            iMap.put("curriNo",curriNo);
+            Map<String, Object> map = sqlSession.selectOne("class.getSubjectNoForDirGen", iMap);
             String gisu = String.valueOf(map.get("GisuName"));
             String subNo = String.valueOf(map.get("Subject_no"));
             saveDir = "D:\\bit_file\\"+gisu+"\\score\\"+subNo;
             makeDir(saveDir);
             return saveDir;
         } else {
+            Map<String, Integer> testMap = new HashMap<>();
             int testSisNo = Integer.parseInt(multipartHttpServletRequest.getParameter("testSisNo"));
-            Map<String, Object> map = sqlSession.selectOne("subject.getSubjectNoForDirGen",testSisNo);
+            int curriNo = Integer.parseInt(multipartHttpServletRequest.getParameter("testCurriNo"));
+            testMap.put("sisNo", testSisNo);
+            testMap.put("curriNo", curriNo);
+            Map<String, Object> map = sqlSession.selectOne("class.getSubjectNoForDirGen",testMap);
             String gisu = String.valueOf(map.get("GisuName"));
             String subNo = String.valueOf(map.get("Subject_no"));
             saveDir = "D:\\bit_file\\"+gisu+"\\score\\"+subNo;
